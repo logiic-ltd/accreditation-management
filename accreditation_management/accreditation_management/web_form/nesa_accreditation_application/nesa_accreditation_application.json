@@ -20,7 +20,7 @@
  "list_columns": [],
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2024-09-25 12:33:46.446998",
+ "modified": "2024-09-27 13:05:47.763437",
  "modified_by": "Administrator",
  "module": "Accreditation Management",
  "name": "nesa-accreditation-application",
@@ -115,7 +115,7 @@
   {
    "allow_read_on_all_link_options": 0,
    "fieldname": "student_estimate",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "hidden": 0,
    "label": "Estimated number of students",
    "max_length": 0,
