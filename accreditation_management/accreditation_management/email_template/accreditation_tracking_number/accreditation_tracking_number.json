@@ -1,0 +1,13 @@
+{
+ "creation": "2024-10-02 15:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Email Template",
+ "idx": 0,
+ "modified": "2024-10-02 15:00:00.000000",
+ "modified_by": "Administrator",
+ "name": "accreditation_tracking_number",
+ "owner": "Administrator",
+ "response": "Thank you for your application. Your tracking number is {{ tracking_number }}.",
+ "subject": "NESA Accreditation Application Tracking Number",
+ "use_html": 1
+}
