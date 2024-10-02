@@ -6,6 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_uhll",
+  "tracking_number",
+  "status",
   "school_code",
   "school_name",
   "mission",
@@ -27,6 +29,20 @@
   {
    "fieldname": "section_break_uhll",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tracking_number",
+   "fieldtype": "Data",
+   "label": "Tracking Number",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Submitted\nUnder Review\nApproved\nRejected",
+   "default": "Submitted"
   },
   {
    "fieldname": "school_code",

@@ -1,0 +1,45 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="container">
+    <h1>Application Status Tracker</h1>
+    <form id="statusForm">
+        <div class="form-group">
+            <label for="trackingNumber">Tracking Number:</label>
+            <input type="text" class="form-control" id="trackingNumber" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Check Status</button>
+    </form>
+    <div id="statusResult" class="mt-4" style="display: none;">
+        <h3>Application Status: <span id="applicationStatus"></span></h3>
+        <p>School Name: <span id="schoolName"></span></p>
+        <p>Submission Date: <span id="submissionDate"></span></p>
+    </div>
+</div>
+
+<script>
+frappe.ready(function() {
+    $('#statusForm').on('submit', function(e) {
+        e.preventDefault();
+        var trackingNumber = $('#trackingNumber').val();
+        
+        frappe.call({
+            method: 'accreditation_management.www.application_status.get_application_status',
+            args: {
+                tracking_number: trackingNumber
+            },
+            callback: function(r) {
+                if (r.message) {
+                    $('#applicationStatus').text(r.message.status);
+                    $('#schoolName').text(r.message.school_name);
+                    $('#submissionDate').text(r.message.creation);
+                    $('#statusResult').show();
+                } else {
+                    frappe.msgprint('No application found with this tracking number.');
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
