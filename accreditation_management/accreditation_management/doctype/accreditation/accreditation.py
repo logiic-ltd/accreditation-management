@@ -4,6 +4,7 @@
 import frappe
 from frappe.model.document import Document
 from frappe.utils import validate_email_address, validate_phone_number
+from frappe import _
 import random
 import string
 
@@ -36,7 +37,7 @@ class Accreditation(Document):
         if self.school_email:
             frappe.sendmail(
                 recipients=[self.school_email],
-                subject="NESA Accreditation Application Tracking Number",
+                subject=_("NESA Accreditation Application Tracking Number"),
                 template="accreditation_tracking_number",
                 args={
                     "school_name": self.school_name,
