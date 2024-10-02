@@ -21,38 +21,22 @@
         background-color: #2c3e50;
     }
     .hero-section {
-        background-image: url('https://source.unsplash.com/1600x900/?education,school');
-        background-size: cover;
-        background-position: center;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        position: relative;
-    }
-    .hero-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: #054d6f;
+        padding: 4rem 0;
+        color: #ffffff;
     }
     .hero-content {
-        position: relative;
-        z-index: 1;
-        color: #ffffff;
         text-align: center;
         max-width: 800px;
         margin: 0 auto;
-        padding: 2rem;
     }
     .hero-title {
-        font-size: 3.5rem;
+        font-size: 2.5rem;
         font-weight: 700;
         margin-bottom: 1rem;
     }
     .hero-subtitle {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         margin-bottom: 2rem;
     }
     .btn-primary {
@@ -115,11 +99,10 @@
 {% block page_content %}
 
 <section class="hero-section">
-    <div class="hero-overlay"></div>
     <div class="hero-content">
         <h1 class="hero-title">NESA Accreditation Portal</h1>
-        <p class="hero-subtitle">Elevate your educational institution's standing through our comprehensive accreditation process</p>
-        <a href="/accreditation-application/new" class="btn btn-primary btn-lg">Start Your Application</a>
+        <p class="hero-subtitle">Elevate your institution through comprehensive accreditation</p>
+        <a href="/accreditation-application/new" class="btn btn-light btn-lg">Start Your Application</a>
     </div>
 </section>
 
