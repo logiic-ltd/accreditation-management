@@ -87,9 +87,7 @@ website_route_rules = [
 # Email
 # ----------
 
-email_templates = {
-    "accreditation_tracking_number": "accreditation_management/accreditation_management/email_template/accreditation_tracking_number/accreditation_tracking_number.html"
-}
+# email_templates = {}
 
 # Installation
 # ------------

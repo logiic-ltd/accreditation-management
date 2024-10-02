@@ -35,13 +35,21 @@ class Accreditation(Document):
 
     def send_tracking_number_email(self):
         if self.school_email:
+            subject = _("NESA Accreditation Application Tracking Number")
+            message = _("""Dear {0},
+
+Thank you for submitting your NESA Accreditation Application.
+
+Your application tracking number is: {1}
+
+Please keep this number for future reference. You can use this tracking number to check the status of your application.
+
+Best regards,
+NESA Accreditation Team""").format(self.school_name, self.tracking_number)
+
             frappe.sendmail(
                 recipients=[self.school_email],
-                subject=_("NESA Accreditation Application Tracking Number"),
-                template="accreditation_tracking_number",
-                args={
-                    "school_name": self.school_name,
-                    "tracking_number": self.tracking_number
-                },
+                subject=subject,
+                message=message,
                 header=[_("Accreditation Application"), "green"]
             )
