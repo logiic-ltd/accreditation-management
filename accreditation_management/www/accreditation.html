@@ -85,7 +85,7 @@
     <script>
         frappe.ready(function() {
             // Add custom menu items
-            $('.navbar-nav').append(`
+            var customMenu = `
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Services
@@ -96,7 +96,10 @@
                         <a class="dropdown-item" href="#">Pay for Transport Ticket</a>
                     </div>
                 </li>
-            `);
+            `;
+            
+            // Insert the custom menu before the user menu (usually the last item)
+            $('.navbar-nav .dropdown-menu').last().closest('li').before(customMenu);
         });
     </script>
 {% endblock %}
