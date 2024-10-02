@@ -38,7 +38,7 @@ class Accreditation(Document):
             frappe.sendmail(
                 recipients=[self.school_email],
                 subject=_("NESA Accreditation Application Tracking Number"),
-                template="accreditation_tracking_number",
+                template="accreditation_management/accreditation_tracking_number",
                 args={
                     "school_name": self.school_name,
                     "tracking_number": self.tracking_number

@@ -84,6 +84,13 @@ website_route_rules = [
 # 	"filters": "accreditation_management.utils.jinja_filters"
 # }
 
+# Email
+# ----------
+
+email_templates = {
+    "accreditation_tracking_number": "accreditation_management/email_templates/accreditation_tracking_number.html"
+}
+
 # Installation
 # ------------
 
