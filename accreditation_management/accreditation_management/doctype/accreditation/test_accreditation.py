@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestAccreditationApplication(FrappeTestCase):
+class TestAccreditation(FrappeTestCase):
 	pass

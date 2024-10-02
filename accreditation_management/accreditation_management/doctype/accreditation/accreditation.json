@@ -1,0 +1,138 @@
+{
+ "actions": [],
+ "autoname": "autoincrement",
+ "creation": "2024-10-02 13:42:16.140710",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_uhll",
+  "school_code",
+  "school_name",
+  "mission",
+  "objective",
+  "curriculum",
+  "establishment_year",
+  "school_email",
+  "school_telephone",
+  "owner_name",
+  "owner_email",
+  "owner_telephone",
+  "village",
+  "cell",
+  "sector",
+  "district",
+  "province"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_uhll",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "school_code",
+   "fieldtype": "Data",
+   "label": "School Code"
+  },
+  {
+   "fieldname": "school_name",
+   "fieldtype": "Data",
+   "label": "School Name"
+  },
+  {
+   "fieldname": "mission",
+   "fieldtype": "Small Text",
+   "label": "Mission"
+  },
+  {
+   "fieldname": "objective",
+   "fieldtype": "Small Text",
+   "label": "Objective"
+  },
+  {
+   "fieldname": "curriculum",
+   "fieldtype": "Select",
+   "label": "Curriculum",
+   "options": "National\nInternational"
+  },
+  {
+   "fieldname": "establishment_year",
+   "fieldtype": "Data",
+   "label": "Year of Establishment"
+  },
+  {
+   "fieldname": "school_email",
+   "fieldtype": "Data",
+   "label": "School Email"
+  },
+  {
+   "fieldname": "school_telephone",
+   "fieldtype": "Data",
+   "label": "School Telephone"
+  },
+  {
+   "fieldname": "owner_name",
+   "fieldtype": "Data",
+   "label": "Owner Name"
+  },
+  {
+   "fieldname": "owner_telephone",
+   "fieldtype": "Data",
+   "label": "Owner Telephone"
+  },
+  {
+   "fieldname": "village",
+   "fieldtype": "Data",
+   "label": "Village"
+  },
+  {
+   "fieldname": "cell",
+   "fieldtype": "Data",
+   "label": "Cell"
+  },
+  {
+   "fieldname": "sector",
+   "fieldtype": "Data",
+   "label": "Sector"
+  },
+  {
+   "fieldname": "district",
+   "fieldtype": "Data",
+   "label": "District"
+  },
+  {
+   "fieldname": "province",
+   "fieldtype": "Data",
+   "label": "Province"
+  },
+  {
+   "fieldname": "owner_email",
+   "fieldtype": "Data",
+   "label": "Owner Email"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-10-02 13:52:18.472300",
+ "modified_by": "Administrator",
+ "module": "Accreditation Management",
+ "name": "Accreditation",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
