@@ -1,24 +1,98 @@
 {% extends "templates/web.html" %}
 
+{% block style %}
+<style>
+    .navbar {
+        background-color: #2c3e50;
+    }
+    .navbar-brand, .nav-link {
+        color: #ecf0f1 !important;
+    }
+    .dropdown-menu {
+        background-color: #34495e;
+    }
+    .dropdown-item {
+        color: #ecf0f1;
+    }
+    .dropdown-item:hover {
+        background-color: #2c3e50;
+    }
+    .jumbotron {
+        background-color: #3498db;
+        color: #ecf0f1;
+    }
+    .btn-primary {
+        background-color: #2ecc71;
+        border-color: #27ae60;
+    }
+    .btn-secondary {
+        background-color: #e74c3c;
+        border-color: #c0392b;
+    }
+</style>
+{% endblock %}
+
 {% block page_content %}
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">NESA Portal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Services
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="servicesDropdown">
+                        <a class="dropdown-item" href="/accreditation-application/new">Accreditation Application</a>
+                        <a class="dropdown-item" href="#">School Transport Schedule</a>
+                        <a class="dropdown-item" href="#">Pay for Transport Ticket</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="jumbotron">
     <div class="container">
-        <h1>NESA Accreditation Portal</h1>
-        <p>Enhance your educational institution's standing through accreditation.</p>
+        <h1 class="display-4">NESA Accreditation Portal</h1>
+        <p class="lead">Enhance your educational institution's standing through accreditation.</p>
+        <hr class="my-4">
         <p>Our accreditation process ensures that your institution meets the highest standards of educational quality and integrity.</p>
-        <p><a class="btn btn-primary btn-lg" href="/accreditation-application/new" role="button">Start General Application</a></p>
-        <p><a class="btn btn-secondary" href="/nesa-accreditation-application/new" role="button">Start NESA-Specific Application</a></p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/accreditation-application/new" role="button">Start General Application</a>
+            <a class="btn btn-secondary btn-lg" href="/nesa-accreditation-application/new" role="button">Start NESA-Specific Application</a>
+        </p>
     </div>
 </div>
-<div class="container mt-4">
-    <h2>About Accreditation</h2>
-    <p>Accreditation is a voluntary process that provides assurance about the quality of education offered by institutions. It helps maintain standards and supports continuous improvement.</p>
-    <h3>Benefits of Accreditation:</h3>
-    <ul>
-        <li>Enhanced reputation and credibility</li>
-        <li>Improved quality of education</li>
-        <li>Access to funding and resources</li>
-        <li>Recognition of qualifications</li>
-    </ul>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>About Accreditation</h2>
+            <p>Accreditation is a voluntary process that provides assurance about the quality of education offered by institutions. It helps maintain standards and supports continuous improvement.</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Benefits of Accreditation:</h3>
+            <ul class="list-group">
+                <li class="list-group-item">Enhanced reputation and credibility</li>
+                <li class="list-group-item">Improved quality of education</li>
+                <li class="list-group-item">Access to funding and resources</li>
+                <li class="list-group-item">Recognition of qualifications</li>
+            </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}
