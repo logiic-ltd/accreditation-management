@@ -28,3 +28,28 @@ class Accreditation(Document):
             frappe.throw("Owner Email is invalid")
         if self.school_telephone and not validate_phone_number(self.school_telephone):
             frappe.throw("School Telephone is invalid")
+
+    def after_insert(self):
+        self.send_tracking_number_email()
+
+    def send_tracking_number_email(self):
+        if self.school_email:
+            subject = "NESA Accreditation Application Tracking Number"
+            message = f"""
+            Dear {self.school_name},
+
+            Thank you for submitting your accreditation application to NESA.
+
+            Your application tracking number is: {self.tracking_number}
+
+            Please keep this number for future reference. You can use it to check the status of your application.
+
+            Best regards,
+            NESA Accreditation Team
+            """
+            
+            frappe.sendmail(
+                recipients=[self.school_email],
+                subject=subject,
+                message=message
+            )
