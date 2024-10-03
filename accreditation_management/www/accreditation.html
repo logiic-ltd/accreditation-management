@@ -77,30 +77,22 @@
         color: #3498db;
         margin-bottom: 1rem;
     }
+    .feature-card-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+    .feature-card-link:hover {
+        text-decoration: none;
+        color: inherit;
+    }
 </style>
 {% endblock %}
 
 {% block header %}
     {{ super() }}
     <script>
-        frappe.ready(function() {
-            // Add custom menu items
-            var customMenu = `
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Services
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="servicesDropdown">
-                        <a class="dropdown-item" href="/accreditation-application/new">Accreditation Application</a>
-                        <a class="dropdown-item" href="#">School Transport Schedule</a>
-                        <a class="dropdown-item" href="#">Pay for Transport Ticket</a>
-                    </div>
-                </li>
-            `;
-            
-            // Insert the custom menu before the user menu (usually the last item)
-            $('.navbar-nav .dropdown-menu').last().closest('li').before(customMenu);
-        });
+        // Custom JavaScript can be added here if needed
     </script>
 {% endblock %}
 
@@ -118,25 +110,31 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4">
-                <div class="feature-card">
-                    <i class="feature-icon fas fa-award"></i>
-                    <h3>Quality Assurance</h3>
-                    <p>Our accreditation process ensures that your institution meets the highest standards of educational quality and integrity.</p>
-                </div>
+                <a href="/accreditation-application/new" class="feature-card-link">
+                    <div class="feature-card">
+                        <i class="feature-icon fas fa-award"></i>
+                        <h3>Accreditation Application</h3>
+                        <p>Start your journey towards educational excellence by applying for NESA accreditation.</p>
+                    </div>
+                </a>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="feature-card">
-                    <i class="feature-icon fas fa-chart-line"></i>
-                    <h3>Continuous Improvement</h3>
-                    <p>Accreditation supports ongoing enhancement of your educational programs and institutional effectiveness.</p>
-                </div>
+                <a href="/application-status" class="feature-card-link">
+                    <div class="feature-card">
+                        <i class="feature-icon fas fa-chart-line"></i>
+                        <h3>Application Status</h3>
+                        <p>Track the progress of your accreditation application and stay informed.</p>
+                    </div>
+                </a>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="feature-card">
-                    <i class="feature-icon fas fa-globe"></i>
-                    <h3>Global Recognition</h3>
-                    <p>Gain international recognition for your qualifications and enhance your institution's reputation worldwide.</p>
-                </div>
+                <a href="#" class="feature-card-link">
+                    <div class="feature-card">
+                        <i class="feature-icon fas fa-globe"></i>
+                        <h3>Resources</h3>
+                        <p>Access valuable resources and guidelines to support your accreditation journey.</p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
