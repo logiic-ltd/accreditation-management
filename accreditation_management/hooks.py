@@ -74,6 +74,18 @@ app_license = "mit"
 website_route_rules = [
     {"from_route": "/application-status", "to_route": "application_status"},
     {"from_route": "/verify-certificate", "to_route": "verify_certificate"},
+    {"from_route": "/nesa-accreditation-application", "to_route": "Web Form/NESA Accreditation Application"},
+]
+
+# Web Forms
+web_forms = [
+    {
+        "doctype": "Web Form",
+        "module": "Accreditation Management",
+        "name": "nesa-accreditation-application",
+        "title": "NESA Accreditation Application",
+        "route": "nesa-accreditation-application",
+    }
 ]
 
 # Workflows
