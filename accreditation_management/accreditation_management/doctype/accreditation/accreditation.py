@@ -35,7 +35,7 @@ class Accreditation(Document):
     def update_status_history(self):
         if self.is_new() or self.has_value_changed('workflow_state'):
             self.append('status_history', {
-                'status': self.workflow_state,
+                'status': self.workflow_state or "Draft",
                 'date': frappe.utils.now(),
                 'user': frappe.session.user
             })
