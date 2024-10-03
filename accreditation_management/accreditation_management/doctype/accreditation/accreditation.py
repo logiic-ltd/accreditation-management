@@ -11,6 +11,7 @@ import string
 class Accreditation(Document):
     def before_insert(self):
         self.generate_tracking_number()
+        self.workflow_state = "Draft"
 
     def generate_tracking_number(self):
         # Generate a random 8-character alphanumeric string
