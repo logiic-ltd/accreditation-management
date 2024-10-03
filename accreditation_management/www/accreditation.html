@@ -67,6 +67,16 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         height: 100%;
         transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+    .feature-card-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .feature-card-content p {
+        flex-grow: 1;
     }
     .feature-card:hover {
         transform: translateY(-5px);
@@ -112,27 +122,33 @@
             <div class="col-md-4 mb-4">
                 <a href="/accreditation-application/new" class="feature-card-link">
                     <div class="feature-card">
-                        <i class="feature-icon fas fa-award"></i>
-                        <h3>Accreditation Application</h3>
-                        <p>Start your journey towards educational excellence by applying for NESA accreditation.</p>
+                        <div class="feature-card-content">
+                            <i class="feature-icon fas fa-award"></i>
+                            <h3>Accreditation Application</h3>
+                            <p>Start your journey towards educational excellence by applying for NESA accreditation.</p>
+                        </div>
                     </div>
                 </a>
             </div>
             <div class="col-md-4 mb-4">
                 <a href="/application-status" class="feature-card-link">
                     <div class="feature-card">
-                        <i class="feature-icon fas fa-chart-line"></i>
-                        <h3>Application Status</h3>
-                        <p>Track the progress of your accreditation application and stay informed.</p>
+                        <div class="feature-card-content">
+                            <i class="feature-icon fas fa-chart-line"></i>
+                            <h3>Application Status</h3>
+                            <p>Track the progress of your accreditation application and stay informed.</p>
+                        </div>
                     </div>
                 </a>
             </div>
             <div class="col-md-4 mb-4">
                 <a href="#" class="feature-card-link">
                     <div class="feature-card">
-                        <i class="feature-icon fas fa-globe"></i>
-                        <h3>Resources</h3>
-                        <p>Access valuable resources and guidelines to support your accreditation journey.</p>
+                        <div class="feature-card-content">
+                            <i class="feature-icon fas fa-globe"></i>
+                            <h3>Resources</h3>
+                            <p>Access valuable resources and guidelines to support your accreditation journey.</p>
+                        </div>
                     </div>
                 </a>
             </div>
