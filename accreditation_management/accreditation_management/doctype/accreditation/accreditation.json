@@ -45,6 +45,13 @@
    "default": "Submitted"
   },
   {
+   "fieldname": "state",
+   "fieldtype": "Select",
+   "label": "State",
+   "options": "Draft\nSubmitted\nUnder Review\nApproved\nRejected",
+   "default": "Draft"
+  },
+  {
    "fieldname": "status_history",
    "fieldtype": "Table",
    "label": "Status History",

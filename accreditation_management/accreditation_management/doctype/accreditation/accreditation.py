@@ -31,6 +31,7 @@ class Accreditation(Document):
             frappe.throw("School Telephone is invalid")
         
         self.update_status_history()
+        self.update_state()
 
     def update_status_history(self):
         if self.is_new() or self.has_value_changed('status'):
@@ -39,6 +40,16 @@ class Accreditation(Document):
                 'date': frappe.utils.now(),
                 'user': frappe.session.user
             })
+
+    def update_state(self):
+        if self.is_new():
+            self.state = "Draft"
+        elif self.state == "Draft" and self.status == "Submitted":
+            self.state = "Submitted"
+        elif self.state == "Submitted" and self.status == "Under Review":
+            self.state = "Under Review"
+        elif self.state == "Under Review" and self.status in ["Approved", "Rejected"]:
+            self.state = self.status
 
     def after_insert(self):
         self.send_tracking_number_email()
@@ -63,3 +74,34 @@ NESA Accreditation Team""").format(self.school_name, self.tracking_number)
                 message=message,
                 header=[_("Accreditation Application"), "green"]
             )
+
+    def on_submit(self):
+        if self.state == "Draft":
+            self.state = "Submitted"
+            self.status = "Submitted"
+            self.update_status_history()
+
+    def on_update_after_submit(self):
+        self.update_state()
+        self.update_status_history()
+
+    @frappe.whitelist()
+    def start_review(self):
+        if self.state == "Submitted":
+            self.state = "Under Review"
+            self.status = "Under Review"
+            self.save()
+
+    @frappe.whitelist()
+    def approve(self):
+        if self.state == "Under Review":
+            self.state = "Approved"
+            self.status = "Approved"
+            self.save()
+
+    @frappe.whitelist()
+    def reject(self):
+        if self.state == "Under Review":
+            self.state = "Rejected"
+            self.status = "Rejected"
+            self.save()
