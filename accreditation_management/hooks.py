@@ -79,7 +79,10 @@ website_route_rules = [
 workflows = [
     {
         "workflow_name": "Accreditation Workflow",
-        "doctype": "Accreditation"
+        "doctype": "Accreditation",
+        "is_active": 1,
+        "override_status": 1,
+        "create_if_not_exists": 1
     }
 ]
 
