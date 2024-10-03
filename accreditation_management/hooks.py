@@ -113,6 +113,11 @@ workflows = [
     }
 ]
 
+# DocType Class
+override_doctype_class = {
+    "Accreditation": "accreditation_management.accreditation_management.doctype.accreditation.accreditation.Accreditation"
+}
+
 # Jinja
 # ----------
 
