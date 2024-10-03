@@ -64,6 +64,12 @@ class Accreditation(Document):
             self.workflow_state = "Rejected"
             self.save()
 
+    @frappe.whitelist()
+    def resubmit(self):
+        if self.workflow_state == "Rejected":
+            self.workflow_state = "Submitted"
+            self.save()
+
     def after_insert(self):
         self.send_tracking_number_email()
 

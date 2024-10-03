@@ -17,17 +17,17 @@
   {
    "state": "Under Review",
    "doc_status": 1,
-   "allow_edit": "All"
+   "allow_edit": "Accreditation Reviewer"
   },
   {
    "state": "Approved",
    "doc_status": 1,
-   "allow_edit": "All"
+   "allow_edit": "Accreditation Approver"
   },
   {
    "state": "Rejected",
    "doc_status": 1,
-   "allow_edit": "All"
+   "allow_edit": "Accreditation Approver"
   }
  ],
  "transitions": [
@@ -54,6 +54,12 @@
    "action": "Reject",
    "next_state": "Rejected",
    "allowed": "Accreditation Approver"
+  },
+  {
+   "state": "Rejected",
+   "action": "Resubmit",
+   "next_state": "Submitted",
+   "allowed": "All"
   }
  ]
 }
