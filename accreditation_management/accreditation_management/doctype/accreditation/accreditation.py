@@ -29,6 +29,16 @@ class Accreditation(Document):
             frappe.throw("Owner Email is invalid")
         if self.school_telephone and not validate_phone_number(self.school_telephone):
             frappe.throw("School Telephone is invalid")
+        
+        self.update_status_history()
+
+    def update_status_history(self):
+        if self.is_new() or self.has_value_changed('status'):
+            self.append('status_history', {
+                'status': self.status,
+                'date': frappe.utils.now(),
+                'user': frappe.session.user
+            })
 
     def after_insert(self):
         self.send_tracking_number_email()
