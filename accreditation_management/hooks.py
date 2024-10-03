@@ -83,7 +83,21 @@ workflows = [
         "doctype": "Accreditation",
         "is_active": 1,
         "override_status": 1,
-        "create_if_not_exists": 1
+        "create_if_not_exists": 1,
+        "states": [
+            {"state": "Draft", "doc_status": 0, "allow_edit": "All"},
+            {"state": "Submitted", "doc_status": 1, "allow_edit": "All"},
+            {"state": "Under Review", "doc_status": 1, "allow_edit": "Accreditation Reviewer"},
+            {"state": "Approved", "doc_status": 1, "allow_edit": "Accreditation Approver"},
+            {"state": "Rejected", "doc_status": 1, "allow_edit": "Accreditation Approver"}
+        ],
+        "transitions": [
+            {"state": "Draft", "action": "Submit", "next_state": "Submitted", "allowed": "All"},
+            {"state": "Submitted", "action": "Start Review", "next_state": "Under Review", "allowed": "Accreditation Reviewer"},
+            {"state": "Under Review", "action": "Approve", "next_state": "Approved", "allowed": "Accreditation Approver"},
+            {"state": "Under Review", "action": "Reject", "next_state": "Rejected", "allowed": "Accreditation Approver"},
+            {"state": "Rejected", "action": "Resubmit", "next_state": "Submitted", "allowed": "All"}
+        ]
     }
 ]
 

@@ -41,34 +41,22 @@ class Accreditation(Document):
                 'user': frappe.session.user
             })
 
+    def on_update(self):
+        self.update_status_history()
+
     def on_submit(self):
-        if self.workflow_state == "Draft":
-            self.workflow_state = "Submitted"
-            self.update_status_history()
+        self.update_status_history()
 
-    @frappe.whitelist()
-    def start_review(self):
-        if self.workflow_state == "Submitted":
-            self.workflow_state = "Under Review"
-            self.save()
+    def on_cancel(self):
+        self.update_status_history()
 
-    @frappe.whitelist()
-    def approve(self):
-        if self.workflow_state == "Under Review":
-            self.workflow_state = "Approved"
-            self.save()
-
-    @frappe.whitelist()
-    def reject(self):
-        if self.workflow_state == "Under Review":
-            self.workflow_state = "Rejected"
-            self.save()
-
-    @frappe.whitelist()
-    def resubmit(self):
-        if self.workflow_state == "Rejected":
-            self.workflow_state = "Submitted"
-            self.save()
+    def update_status_history(self):
+        if self.has_value_changed('workflow_state'):
+            self.append('status_history', {
+                'status': self.workflow_state,
+                'date': frappe.utils.now(),
+                'user': frappe.session.user
+            })
 
     def after_insert(self):
         self.send_tracking_number_email()
