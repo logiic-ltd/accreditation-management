@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accreditation Certificate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .certificate {
+            border: 2px solid #000;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        h1 {
+            color: #1a5f7a;
+        }
+        .qr-code {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <h1>Certificate of Accreditation</h1>
+        <p>This is to certify that</p>
+        <h2>{{ school_name }}</h2>
+        <p>has been granted accreditation by the National Education Standards Authority (NESA)</p>
+        <p>Tracking Number: {{ tracking_number }}</p>
+        <p>Issue Date: {{ issue_date }}</p>
+        <div class="qr-code">
+            <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+        </div>
+        <p>Scan the QR code to verify the authenticity of this certificate</p>
+    </div>
+</body>
+</html>

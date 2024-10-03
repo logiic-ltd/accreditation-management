@@ -1,0 +1,40 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="container">
+    <h1>Verify Accreditation Certificate</h1>
+    <div id="verificationResult">
+        <p>Verifying certificate...</p>
+    </div>
+</div>
+
+<script>
+frappe.ready(function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const trackingNumber = urlParams.get('tracking_number');
+
+    if (trackingNumber) {
+        frappe.call({
+            method: 'accreditation_management.www.verify_certificate.verify_certificate',
+            args: {
+                tracking_number: trackingNumber
+            },
+            callback: function(r) {
+                if (r.message) {
+                    $('#verificationResult').html(`
+                        <h3>Certificate Verified</h3>
+                        <p>School Name: ${r.message.school_name}</p>
+                        <p>Accreditation Status: ${r.message.status}</p>
+                        <p>Issue Date: ${r.message.issue_date}</p>
+                    `);
+                } else {
+                    $('#verificationResult').html('<p>Invalid or expired certificate.</p>');
+                }
+            }
+        });
+    } else {
+        $('#verificationResult').html('<p>No tracking number provided.</p>');
+    }
+});
+</script>
+{% endblock %}

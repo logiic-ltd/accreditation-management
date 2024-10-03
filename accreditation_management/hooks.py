@@ -73,6 +73,7 @@ app_license = "mit"
 # Website Route Rules
 website_route_rules = [
     {"from_route": "/application-status", "to_route": "application_status"},
+    {"from_route": "/verify-certificate", "to_route": "verify_certificate"},
 ]
 
 # Workflows
