@@ -45,6 +45,12 @@
    "default": "Submitted"
   },
   {
+   "fieldname": "status_history",
+   "fieldtype": "Table",
+   "label": "Status History",
+   "options": "Accreditation Status History"
+  },
+  {
    "fieldname": "school_code",
    "fieldtype": "Data",
    "label": "School Code"
