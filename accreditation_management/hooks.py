@@ -75,6 +75,14 @@ website_route_rules = [
     {"from_route": "/application-status", "to_route": "application_status"},
 ]
 
+# Workflows
+workflows = [
+    {
+        "workflow_name": "Accreditation Workflow",
+        "doctype": "Accreditation"
+    }
+]
+
 # Jinja
 # ----------
 

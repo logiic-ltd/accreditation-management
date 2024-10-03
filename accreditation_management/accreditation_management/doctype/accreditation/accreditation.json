@@ -38,18 +38,15 @@
    "unique": 1
   },
   {
-   "fieldname": "status",
+   "fieldname": "workflow_state",
    "fieldtype": "Select",
-   "label": "Status",
-   "options": "Submitted\nUnder Review\nApproved\nRejected",
-   "default": "Submitted"
-  },
-  {
-   "fieldname": "state",
-   "fieldtype": "Select",
-   "label": "State",
+   "label": "Workflow State",
    "options": "Draft\nSubmitted\nUnder Review\nApproved\nRejected",
-   "default": "Draft"
+   "default": "Draft",
+   "allow_on_submit": 1,
+   "in_standard_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1
   },
   {
    "fieldname": "status_history",
