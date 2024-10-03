@@ -32,10 +32,14 @@
         <p>has been granted accreditation by the National Education Standards Authority (NESA)</p>
         <p>Tracking Number: {{ tracking_number }}</p>
         <p>Issue Date: {{ issue_date }}</p>
+        {% if qr_code %}
         <div class="qr-code">
             <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
         </div>
         <p>Scan the QR code to verify the authenticity of this certificate</p>
+        {% else %}
+        <p>Visit our website to verify the authenticity of this certificate using the tracking number</p>
+        {% endif %}
     </div>
 </body>
 </html>
