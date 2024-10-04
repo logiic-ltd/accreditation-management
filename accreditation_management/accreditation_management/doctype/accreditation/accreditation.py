@@ -17,12 +17,15 @@ class Accreditation(Document):
         try:
             workflow = frappe.get_doc('Workflow', {'document_type': self.doctype, 'is_active': 1})
             if workflow and workflow.states:
-                self.workflow_state = workflow.states[0].state
+                self.workflow_state = workflow.states[0].state if workflow.states else "Draft"
             else:
                 self.workflow_state = "Draft"
         except Exception as e:
             frappe.log_error(f"Error setting workflow state: {str(e)}")
             self.workflow_state = "Draft"
+        finally:
+            if not self.workflow_state:
+                self.workflow_state = "Draft"
 
     def generate_tracking_number(self):
         # Generate a unique 8-character alphanumeric tracking number
