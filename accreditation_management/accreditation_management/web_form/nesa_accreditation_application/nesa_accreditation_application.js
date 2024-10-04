@@ -33,12 +33,15 @@ frappe.ready(function() {
         e.preventDefault();
         
         var form_data = new FormData(this);
+        var json_data = {};
+        form_data.forEach((value, key) => {json_data[key] = value});
 
         frappe.call({
             method: 'frappe.website.doctype.web_form.web_form.accept',
+            type: 'POST',
             args: {
                 web_form: '{{ name }}',
-                data: form_data
+                data: json_data
             },
             freeze: true,
             callback: function(data) {

@@ -11,7 +11,14 @@ import string
 class Accreditation(Document):
     def before_insert(self):
         self.generate_tracking_number()
-        self.workflow_state = "Draft"  # Initial state of the workflow
+        self.set_workflow_state()
+
+    def set_workflow_state(self):
+        workflow = frappe.get_doc('Workflow', {'document_type': self.doctype, 'is_active': 1})
+        if workflow:
+            self.workflow_state = workflow.states[0].state
+        else:
+            self.workflow_state = "Draft"
 
     def generate_tracking_number(self):
         # Generate a unique 8-character alphanumeric tracking number
@@ -43,10 +50,11 @@ class Accreditation(Document):
     def on_update(self):
         # Update status history on any update
         self.update_status_history()
-        if self.workflow_state == "Approved" and not self.certificate_generated:
-            self.generate_certificate()
-        elif self.workflow_state != "Approved" and self.certificate_generated:
-            self.revoke_certificate()
+        if self.has_value_changed('workflow_state'):
+            if self.workflow_state == "Approved" and not self.certificate_generated:
+                self.generate_certificate()
+            elif self.workflow_state != "Approved" and self.certificate_generated:
+                self.revoke_certificate()
 
     def revoke_certificate(self):
         # Delete the existing certificate file
