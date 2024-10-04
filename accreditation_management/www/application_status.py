@@ -28,10 +28,21 @@ def download_certificate(tracking_number):
     if application and application.workflow_state == "Approved":
         if application.certificate_generated:
             # Get the existing certificate file
-            file = frappe.get_doc("File", {"attached_to_doctype": "Accreditation", "attached_to_name": application.name})
-            frappe.local.response.filename = file.file_name
-            frappe.local.response.filecontent = file.get_content()
-            frappe.local.response.type = "download"
+            files = frappe.get_all("File", 
+                filters={
+                    "attached_to_doctype": "Accreditation", 
+                    "attached_to_name": application.name,
+                    "file_name": ("like", "%_Accreditation_Certificate.pdf")
+                },
+                fields=["name", "file_name"]
+            )
+            if files:
+                file = frappe.get_doc("File", files[0].name)
+                frappe.local.response.filename = file.file_name
+                frappe.local.response.filecontent = file.get_content()
+                frappe.local.response.type = "download"
+            else:
+                frappe.throw(_("Certificate file not found. Please contact support."))
         else:
             frappe.throw(_("Certificate not yet generated for this application."))
     else:
@@ -53,7 +64,7 @@ def generate_certificate_html(application):
         
         buffered = BytesIO()
         qr_img.save(buffered, format="PNG")
-        qr_base64 = frappe.safe_decode(frappe.utils.cstr(frappe.utils.cstr(buffered.getvalue()).encode("base64")))
+        qr_base64 = frappe.safe_decode(frappe.utils.base64.b64encode(buffered.getvalue()))
         context["qr_code"] = qr_base64
     
     return frappe.render_template("templates/certificate_template.html", context)

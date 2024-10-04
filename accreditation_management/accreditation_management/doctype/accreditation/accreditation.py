@@ -45,6 +45,22 @@ class Accreditation(Document):
         self.update_status_history()
         if self.workflow_state == "Approved" and not self.certificate_generated:
             self.generate_certificate()
+        elif self.workflow_state != "Approved" and self.certificate_generated:
+            self.revoke_certificate()
+
+    def revoke_certificate(self):
+        # Delete the existing certificate file
+        files = frappe.get_all("File", filters={
+            "attached_to_doctype": self.doctype,
+            "attached_to_name": self.name,
+            "file_name": ("like", "%_Accreditation_Certificate.pdf")
+        })
+        for file in files:
+            frappe.delete_doc("File", file.name)
+        
+        self.certificate_generated = False
+        self.save()
+        frappe.msgprint(_("Certificate has been revoked."))
 
     def on_submit(self):
         # Update status history when the document is submitted
@@ -68,12 +84,15 @@ class Accreditation(Document):
             "file_name": file_name,
             "attached_to_doctype": self.doctype,
             "attached_to_name": self.name,
-            "content": pdf
+            "content": pdf,
+            "is_private": 1  # Make the file private
         })
         _file.save()
         
         self.certificate_generated = True
         self.save()
+
+        frappe.msgprint(_("Certificate generated successfully."))
 
     def after_insert(self):
         # Send tracking number email after the document is inserted
