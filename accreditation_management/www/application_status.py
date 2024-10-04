@@ -26,11 +26,16 @@ def get_application_status(tracking_number):
 def download_certificate(tracking_number):
     application = frappe.get_doc("Accreditation", {"tracking_number": tracking_number})
     if application and application.workflow_state == "Approved":
-        certificate_html = generate_certificate_html(application)
-        pdf = get_pdf(certificate_html)
-        frappe.local.response.filename = f"{application.school_name}_Accreditation_Certificate.pdf"
-        frappe.local.response.filecontent = pdf
-        frappe.local.response.type = "download"
+        if application.certificate_generated:
+            # Get the existing certificate file
+            file = frappe.get_doc("File", {"attached_to_doctype": "Accreditation", "attached_to_name": application.name})
+            frappe.local.response.filename = file.file_name
+            frappe.local.response.filecontent = file.get_content()
+            frappe.local.response.type = "download"
+        else:
+            frappe.throw(_("Certificate not yet generated for this application."))
+    else:
+        frappe.throw(_("Certificate not available for this application."))
 
 def generate_certificate_html(application):
     context = {

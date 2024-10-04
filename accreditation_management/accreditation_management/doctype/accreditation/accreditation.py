@@ -43,6 +43,8 @@ class Accreditation(Document):
     def on_update(self):
         # Update status history on any update
         self.update_status_history()
+        if self.workflow_state == "Approved" and not self.certificate_generated:
+            self.generate_certificate()
 
     def on_submit(self):
         # Update status history when the document is submitted
@@ -51,6 +53,27 @@ class Accreditation(Document):
     def on_cancel(self):
         # Update status history when the document is cancelled
         self.update_status_history()
+
+    def generate_certificate(self):
+        from accreditation_management.www.application_status import generate_certificate_html
+        from frappe.utils.pdf import get_pdf
+        
+        certificate_html = generate_certificate_html(self)
+        pdf = get_pdf(certificate_html)
+        
+        # Save the PDF as an attachment
+        file_name = f"{self.school_name}_Accreditation_Certificate.pdf"
+        _file = frappe.get_doc({
+            "doctype": "File",
+            "file_name": file_name,
+            "attached_to_doctype": self.doctype,
+            "attached_to_name": self.name,
+            "content": pdf
+        })
+        _file.save()
+        
+        self.certificate_generated = True
+        self.save()
 
     def after_insert(self):
         # Send tracking number email after the document is inserted

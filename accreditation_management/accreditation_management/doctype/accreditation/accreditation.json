@@ -135,6 +135,12 @@
    "fieldname": "owner_email",
    "fieldtype": "Data",
    "label": "Owner Email"
+  },
+  {
+   "fieldname": "certificate_generated",
+   "fieldtype": "Check",
+   "label": "Certificate Generated",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
