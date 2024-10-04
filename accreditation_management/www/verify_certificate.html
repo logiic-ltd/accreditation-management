@@ -3,17 +3,21 @@
 {% block page_content %}
 <div class="container">
     <h1>Verify Accreditation Certificate</h1>
-    <div id="verificationResult">
-        <p>Verifying certificate...</p>
+    <form id="verificationForm">
+        <div class="form-group">
+            <label for="trackingNumber">Certificate Tracking Number:</label>
+            <input type="text" class="form-control" id="trackingNumber" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Verify Certificate</button>
+    </form>
+    <div id="verificationResult" class="mt-4">
+        <p>Enter a tracking number to verify a certificate.</p>
     </div>
 </div>
 
 <script>
 frappe.ready(function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const trackingNumber = urlParams.get('tracking_number');
-
-    if (trackingNumber) {
+    function verifyTrackingNumber(trackingNumber) {
         frappe.call({
             method: 'accreditation_management.www.verify_certificate.verify_certificate',
             args: {
@@ -32,9 +36,21 @@ frappe.ready(function() {
                 }
             }
         });
-    } else {
-        $('#verificationResult').html('<p>No tracking number provided.</p>');
     }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const trackingNumber = urlParams.get('tracking_number');
+
+    if (trackingNumber) {
+        $('#trackingNumber').val(trackingNumber);
+        verifyTrackingNumber(trackingNumber);
+    }
+
+    $('#verificationForm').on('submit', function(e) {
+        e.preventDefault();
+        const trackingNumber = $('#trackingNumber').val();
+        verifyTrackingNumber(trackingNumber);
+    });
 });
 </script>
 {% endblock %}
