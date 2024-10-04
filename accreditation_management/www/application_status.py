@@ -26,25 +26,27 @@ def get_application_status(tracking_number):
 def download_certificate(tracking_number):
     application = frappe.get_doc("Accreditation", {"tracking_number": tracking_number})
     if application and application.workflow_state == "Approved":
-        if application.certificate_generated:
-            # Get the existing certificate file
-            files = frappe.get_all("File", 
-                filters={
-                    "attached_to_doctype": "Accreditation", 
-                    "attached_to_name": application.name,
-                    "file_name": ("like", "%_Accreditation_Certificate.pdf")
-                },
-                fields=["name", "file_name"]
-            )
-            if files:
-                file = frappe.get_doc("File", files[0].name)
-                frappe.local.response.filename = file.file_name
-                frappe.local.response.filecontent = file.get_content()
-                frappe.local.response.type = "download"
-            else:
-                frappe.throw(_("Certificate file not found. Please contact support."))
+        if not application.certificate_generated:
+            # Generate the certificate if it hasn't been generated yet
+            application.generate_certificate()
+            application.reload()
+
+        # Get the existing certificate file
+        files = frappe.get_all("File", 
+            filters={
+                "attached_to_doctype": "Accreditation", 
+                "attached_to_name": application.name,
+                "file_name": ("like", "%_Accreditation_Certificate.pdf")
+            },
+            fields=["name", "file_name"]
+        )
+        if files:
+            file = frappe.get_doc("File", files[0].name)
+            frappe.local.response.filename = file.file_name
+            frappe.local.response.filecontent = file.get_content()
+            frappe.local.response.type = "download"
         else:
-            frappe.throw(_("Certificate not yet generated for this application."))
+            frappe.throw(_("Certificate file not found. Please contact support."))
     else:
         frappe.throw(_("Certificate not available for this application."))
 

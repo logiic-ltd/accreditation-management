@@ -135,8 +135,8 @@ class Accreditation(Document):
         })
         _file.save()
         
-        self.certificate_generated = True
-        self.save()
+        self.db_set('certificate_generated', True, update_modified=False)
+        frappe.db.commit()
 
         frappe.msgprint(_("Certificate generated successfully."))
 
