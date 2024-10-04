@@ -23,7 +23,8 @@
   "cell",
   "sector",
   "district",
-  "province"
+  "province",
+  "certificate_generated"
  ],
  "fields": [
   {
