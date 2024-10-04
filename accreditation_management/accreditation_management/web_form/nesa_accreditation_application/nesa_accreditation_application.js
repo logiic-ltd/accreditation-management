@@ -32,15 +32,16 @@ frappe.ready(function() {
     $('#nesaAccreditationForm').on('submit', function(e) {
         e.preventDefault();
         
-        var form_data = new FormData(this);
         var json_data = {};
-        form_data.forEach((value, key) => {json_data[key] = value});
+        $(this).serializeArray().forEach(function(item) {
+            json_data[item.name] = item.value;
+        });
 
         frappe.call({
             method: 'frappe.website.doctype.web_form.web_form.accept',
             type: 'POST',
             args: {
-                web_form: '{{ name }}',
+                web_form: 'nesa-accreditation-application',
                 data: json_data
             },
             freeze: true,
