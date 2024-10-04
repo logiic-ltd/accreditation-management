@@ -88,6 +88,34 @@ class Accreditation(Document):
         # Update status history when the document is cancelled
         self.update_status_history()
 
+    @frappe.whitelist()
+    def start_review(self):
+        if self.workflow_state == "Submitted":
+            self.workflow_state = "Under Review"
+            self.save()
+            frappe.msgprint(_("Application review started."))
+
+    @frappe.whitelist()
+    def approve(self):
+        if self.workflow_state == "Under Review":
+            self.workflow_state = "Approved"
+            self.save()
+            frappe.msgprint(_("Application approved."))
+
+    @frappe.whitelist()
+    def reject(self):
+        if self.workflow_state == "Under Review":
+            self.workflow_state = "Rejected"
+            self.save()
+            frappe.msgprint(_("Application rejected."))
+
+    @frappe.whitelist()
+    def resubmit(self):
+        if self.workflow_state == "Rejected":
+            self.workflow_state = "Submitted"
+            self.save()
+            frappe.msgprint(_("Application resubmitted."))
+
     def generate_certificate(self):
         from accreditation_management.www.application_status import generate_certificate_html
         from frappe.utils.pdf import get_pdf

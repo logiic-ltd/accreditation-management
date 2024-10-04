@@ -1,5 +1,31 @@
 {
- "actions": [],
+ "actions": [
+  {
+   "action": "Submit",
+   "action_type": "Submit",
+   "group": "Action"
+  },
+  {
+   "action": "Start Review",
+   "action_type": "Server Action",
+   "group": "Action"
+  },
+  {
+   "action": "Approve",
+   "action_type": "Server Action",
+   "group": "Action"
+  },
+  {
+   "action": "Reject",
+   "action_type": "Server Action",
+   "group": "Action"
+  },
+  {
+   "action": "Resubmit",
+   "action_type": "Server Action",
+   "group": "Action"
+  }
+ ],
  "autoname": "autoincrement",
  "creation": "2024-10-02 13:42:16.140710",
  "doctype": "DocType",
