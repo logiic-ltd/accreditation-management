@@ -4,10 +4,14 @@
 <div class="nesa-accreditation-form">
     <h1>{{ title }}</h1>
     <div class="form-progress">
-        <div class="progress-bar" id="progressBar"></div>
-        <div class="progress-step active" data-step="1">Basic Info</div>
-        <div class="progress-step" data-step="2">Details</div>
-        <div class="progress-step" data-step="3">Documents</div>
+        <div class="progress-bar">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+        <div class="progress-steps">
+            <div class="progress-step active" data-step="1">Basic Info</div>
+            <div class="progress-step" data-step="2">Details</div>
+            <div class="progress-step" data-step="3">Documents</div>
+        </div>
     </div>
     <form role="form" id="nesaAccreditationForm">
         <div class="form-step" id="step1">
@@ -24,7 +28,9 @@
                 <label for="objective">Objective</label>
                 <textarea class="form-control" name="objective" rows="3" required></textarea>
             </div>
-            <button type="button" class="btn btn-primary next-step">Next</button>
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary next-step">Next</button>
+            </div>
         </div>
         <div class="form-step" id="step2" style="display: none;">
             <h2>School Details</h2>
@@ -40,8 +46,10 @@
                 <label for="student_estimate">Estimated number of students</label>
                 <input type="number" class="form-control" name="student_estimate" required>
             </div>
-            <button type="button" class="btn btn-secondary prev-step">Previous</button>
-            <button type="button" class="btn btn-primary next-step">Next</button>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary prev-step">Previous</button>
+                <button type="button" class="btn btn-primary next-step">Next</button>
+            </div>
         </div>
         <div class="form-step" id="step3" style="display: none;">
             <h2>Required Documents</h2>
@@ -57,8 +65,10 @@
                 <label for="annual_budget">Annual budget</label>
                 <input type="file" class="form-control-file" name="annual_budget" required>
             </div>
-            <button type="button" class="btn btn-secondary prev-step">Previous</button>
-            <button type="submit" class="btn btn-success">Submit Application</button>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary prev-step">Previous</button>
+                <button type="submit" class="btn btn-success">Submit Application</button>
+            </div>
         </div>
     </form>
 </div>
@@ -66,54 +76,145 @@
 
 {% block style %}
 <style>
+    :root {
+        --primary-color: #0f62fe;
+        --secondary-color: #393939;
+        --background-color: #f4f4f4;
+        --text-color: #161616;
+        --border-color: #8d8d8d;
+    }
+
+    body {
+        font-family: 'IBM Plex Sans', sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+    }
+
     .nesa-accreditation-form {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 960px;
+        margin: 40px auto;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
+
+    h1, h2 {
+        color: var(--secondary-color);
+        margin-bottom: 24px;
+    }
+
     .form-progress {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 30px;
-        position: relative;
+        margin-bottom: 40px;
     }
+
     .progress-bar {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
         height: 4px;
-        background-color: #007bff;
+        background-color: #e0e0e0;
+        margin-bottom: 16px;
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        background-color: var(--primary-color);
         width: 0;
         transition: width 0.3s ease-in-out;
     }
+
+    .progress-steps {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .progress-step {
         position: relative;
-        background-color: #fff;
-        border: 2px solid #007bff;
+        font-weight: 600;
+        color: var(--secondary-color);
+    }
+
+    .progress-step::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 12px;
+        height: 12px;
+        background-color: #e0e0e0;
         border-radius: 50%;
-        height: 30px;
-        width: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        z-index: 1;
     }
-    .progress-step::after {
-        content: attr(data-step);
+
+    .progress-step.active::before {
+        background-color: var(--primary-color);
     }
-    .progress-step.active {
-        background-color: #007bff;
-        color: #fff;
-    }
+
     .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 24px;
     }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.1);
+    }
+
+    .form-actions {
+        margin-top: 32px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
     .btn {
-        margin-right: 10px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: #ffffff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0353e9;
+    }
+
+    .btn-secondary {
+        background-color: #ffffff;
+        color: var(--secondary-color);
+        border: 1px solid var(--secondary-color);
+        margin-right: 16px;
+    }
+
+    .btn-secondary:hover {
+        background-color: #e5e5e5;
+    }
+
+    .btn-success {
+        background-color: #24a148;
+        color: #ffffff;
+    }
+
+    .btn-success:hover {
+        background-color: #1e8a3e;
     }
 </style>
 {% endblock %}
