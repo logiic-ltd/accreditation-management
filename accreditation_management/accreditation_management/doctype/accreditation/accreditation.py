@@ -10,12 +10,16 @@ import string
 
 class Accreditation(Document):
     def before_insert(self):
-        self.generate_tracking_number()
-        self.set_workflow_state()
+        try:
+            self.generate_tracking_number()
+            self.set_workflow_state()
+        except Exception as e:
+            frappe.log_error(f"Error in before_insert of Accreditation: {str(e)}")
+            self.workflow_state = "Draft"  # Set a default state if an error occurs
 
     def set_workflow_state(self):
         workflow = frappe.get_doc('Workflow', {'document_type': self.doctype, 'is_active': 1})
-        if workflow:
+        if workflow and workflow.states:
             self.workflow_state = workflow.states[0].state
         else:
             self.workflow_state = "Draft"
