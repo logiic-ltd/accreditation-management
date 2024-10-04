@@ -26,6 +26,7 @@ class Accreditation(Document):
         finally:
             if not self.workflow_state:
                 self.workflow_state = "Draft"
+        self.status = self.workflow_state
 
     def generate_tracking_number(self):
         # Generate a unique 8-character alphanumeric tracking number
@@ -48,8 +49,9 @@ class Accreditation(Document):
     def update_status_history(self):
         # Record status changes in the status history
         if self.is_new() or self.has_value_changed('workflow_state'):
+            self.status = self.workflow_state
             self.append('status_history', {
-                'status': self.workflow_state or "Draft",
+                'status': self.status,
                 'date': frappe.utils.now(),
                 'user': frappe.session.user
             })
@@ -58,9 +60,10 @@ class Accreditation(Document):
         # Update status history on any update
         self.update_status_history()
         if self.has_value_changed('workflow_state'):
-            if self.workflow_state == "Approved" and not self.certificate_generated:
+            self.status = self.workflow_state
+            if self.status == "Approved" and not self.certificate_generated:
                 self.generate_certificate()
-            elif self.workflow_state != "Approved" and self.certificate_generated:
+            elif self.status != "Approved" and self.certificate_generated:
                 self.revoke_certificate()
 
     def revoke_certificate(self):
