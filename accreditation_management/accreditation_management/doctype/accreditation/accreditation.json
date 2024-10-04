@@ -8,6 +8,7 @@
   "section_break_uhll",
   "tracking_number",
   "status",
+  "workflow_state",
   "school_code",
   "school_name",
   "mission",
