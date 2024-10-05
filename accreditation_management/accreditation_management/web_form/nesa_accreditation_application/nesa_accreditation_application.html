@@ -2,7 +2,7 @@
 
 {% block page_content %}
 <div class="nesa-accreditation-form">
-    <h1>{{ title }}</h1>
+    <h1 class="page-title">{{ title }}</h1>
     <div class="form-progress">
         <div class="progress-bar">
             <div class="progress-bar-fill" id="progressBar"></div>
@@ -15,7 +15,7 @@
     </div>
     <form role="form" id="nesaAccreditationForm">
         <div class="form-step" id="step1">
-            <h2>Basic Information</h2>
+            <h2 class="section-title">Basic Information</h2>
             <div class="form-group">
                 <label for="school_name">School Name</label>
                 <input type="text" class="form-control" name="school_name" required>
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="form-step" id="step2" style="display: none;">
-            <h2>School Details</h2>
+            <h2 class="section-title">School Details</h2>
             <div class="form-group">
                 <label for="curriculum">Curriculum</label>
                 <select class="form-control" name="curriculum" required>
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="form-step" id="step3" style="display: none;">
-            <h2>Required Documents</h2>
+            <h2 class="section-title">Required Documents</h2>
             <div class="form-group">
                 <label for="full_time_teachers">List of full time teachers / trainers</label>
                 <input type="file" class="form-control-file" name="full_time_teachers" required>
@@ -76,17 +76,20 @@
 
 {% block style %}
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
     :root {
-        --primary-color: #0f62fe;
-        --secondary-color: #393939;
-        --background-color: #f4f4f4;
+        --primary-color: #078ece;
+        --secondary-color: #054d6f;
+        --accent-color: #24a148;
         --text-color: #161616;
-        --border-color: #8d8d8d;
+        --light-bg: #eee;
+        --white: #ffffff;
     }
 
     body {
         font-family: 'IBM Plex Sans', sans-serif;
-        background-color: var(--background-color);
+        background-color: var(--light-bg);
         color: var(--text-color);
     }
 
@@ -94,13 +97,23 @@
         max-width: 960px;
         margin: 40px auto;
         padding: 40px;
-        background-color: #ffffff;
-        border-radius: 4px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        background-color: var(--white);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    h1, h2 {
+    .page-title {
         color: var(--secondary-color);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+
+    .section-title {
+        color: var(--secondary-color);
+        font-size: 1.8rem;
+        font-weight: 600;
         margin-bottom: 24px;
     }
 
@@ -110,8 +123,10 @@
 
     .progress-bar {
         height: 4px;
-        background-color: #e0e0e0;
+        background-color: var(--light-bg);
         margin-bottom: 16px;
+        border-radius: 2px;
+        overflow: hidden;
     }
 
     .progress-bar-fill {
@@ -140,7 +155,7 @@
         transform: translateX(-50%);
         width: 12px;
         height: 12px;
-        background-color: #e0e0e0;
+        background-color: var(--light-bg);
         border-radius: 50%;
     }
 
@@ -156,20 +171,30 @@
         display: block;
         margin-bottom: 8px;
         font-weight: 600;
+        color: var(--secondary-color);
     }
 
     .form-control {
         width: 100%;
         padding: 12px;
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--secondary-color);
         border-radius: 4px;
         font-size: 16px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .form-control:focus {
         outline: none;
         border-color: var(--primary-color);
-        box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.1);
+        box-shadow: 0 0 0 3px rgba(7, 142, 206, 0.2);
+    }
+
+    .form-control-file {
+        padding: 8px 12px;
+        background-color: var(--white);
+        border: 1px solid var(--secondary-color);
+        border-radius: 4px;
+        font-size: 14px;
     }
 
     .form-actions {
@@ -185,32 +210,36 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
     }
 
     .btn-primary {
         background-color: var(--primary-color);
-        color: #ffffff;
+        color: var(--white);
     }
 
     .btn-primary:hover {
-        background-color: #0353e9;
+        background-color: #0670a3;
     }
 
     .btn-secondary {
-        background-color: #ffffff;
+        background-color: var(--white);
         color: var(--secondary-color);
         border: 1px solid var(--secondary-color);
         margin-right: 16px;
     }
 
     .btn-secondary:hover {
-        background-color: #e5e5e5;
+        background-color: var(--light-bg);
     }
 
     .btn-success {
-        background-color: #24a148;
-        color: #ffffff;
+        background-color: var(--accent-color);
+        color: var(--white);
     }
 
     .btn-success:hover {
@@ -255,8 +284,11 @@
         $('#nesaAccreditationForm').on('submit', function(e) {
             e.preventDefault();
             // Here you would typically send the form data to the server
-            // For now, we'll just show an alert
-            alert('Form submitted successfully!');
+            frappe.msgprint({
+                title: __('Application Submitted'),
+                indicator: 'green',
+                message: __('Your application has been submitted successfully. We will review it and get back to you soon.')
+            });
         });
 
         // Initialize the form
