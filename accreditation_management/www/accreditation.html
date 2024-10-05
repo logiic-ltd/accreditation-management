@@ -1,5 +1,4 @@
 {% extends "templates/web.html" %}
-{% from "templates/includes/navbar/navbar_items.html" import navbar_items %}
 
 {% block style %}
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -20,20 +19,48 @@
         background-color: var(--light-bg);
     }
 
-    .navbar {
-        background-color: var(--secondary-color) !important;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar-light .navbar-brand, .navbar-light .navbar-nav .nav-link {
-        color: #ffffff !important;
-    }
-
     .hero-section {
         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        padding: 6rem 0;
+        padding: 2rem 0 6rem;
         position: relative;
         overflow: hidden;
+    }
+
+    .hero-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        margin-bottom: 3rem;
+    }
+
+    .hero-nav-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    .hero-nav-menu {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero-nav-item {
+        margin-left: 1.5rem;
+    }
+
+    .hero-nav-link {
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: opacity 0.3s ease;
+    }
+
+    .hero-nav-link:hover {
+        opacity: 0.8;
     }
 
     .hero-content {
@@ -207,10 +234,21 @@
 
 {% block page_content %}
 <section class="hero-section">
-    <div class="hero-content">
-        <h1 class="hero-title">NESA Accreditation Portal</h1>
-        <p class="hero-subtitle">Elevate your institution through comprehensive accreditation</p>
-        <a href="/accreditation-application/new" class="btn btn-hero btn-lg">Start Your Application</a>
+    <div class="container">
+        <nav class="hero-nav">
+            <a href="/" class="hero-nav-logo">NESA</a>
+            <ul class="hero-nav-menu">
+                <li class="hero-nav-item"><a href="/" class="hero-nav-link">Home</a></li>
+                <li class="hero-nav-item"><a href="/accreditation-application/new" class="hero-nav-link">Apply</a></li>
+                <li class="hero-nav-item"><a href="/application-status" class="hero-nav-link">Check Status</a></li>
+                <li class="hero-nav-item"><a href="/verify-certificate" class="hero-nav-link">Verify Certificate</a></li>
+            </ul>
+        </nav>
+        <div class="hero-content">
+            <h1 class="hero-title">NESA Accreditation Portal</h1>
+            <p class="hero-subtitle">Elevate your institution through comprehensive accreditation</p>
+            <a href="/accreditation-application/new" class="btn btn-hero btn-lg">Start Your Application</a>
+        </div>
     </div>
 </section>
 
