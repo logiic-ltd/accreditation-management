@@ -1,7 +1,13 @@
-{% extends "templates/web.html" %}
+{% extends "templates/base_template.html" %}
 
-{% block no_header %}
-<!-- This block prevents the default Frappe header from being rendered -->
+{% block head %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 {% endblock %}
 
 {% block style %}
@@ -225,7 +231,7 @@
 </style>
 {% endblock %}
 
-{% block page_content %}
+{% block content %}
 <header class="site-header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
