@@ -186,23 +186,22 @@ frappe.ready(function() {
             return;
         }
     
-        var formData = new FormData(this);
-
-        $.ajax({
-            url: '/api/method/accreditation_management.www.accreditation_application.submit_application',
+        frappe.call({
+            method: 'frappe.www.accreditation-application.new',
             type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(r) {
-                if (r.message) {
+            args: {
+                doc: frappe.web_form.get_values()
+            },
+            freeze: true,
+            callback: function(r) {
+                if(!r.exc) {
                     frappe.msgprint({
                         title: __('Application Submitted'),
                         indicator: 'green',
-                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
+                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message.name)
                     });
                     setTimeout(function() {
-                        window.location.href = '/application-status?tracking_number=' + r.message;
+                        window.location.href = '/application-status?tracking_number=' + r.message.name;
                     }, 3000);
                 } else {
                     frappe.msgprint({
@@ -211,13 +210,6 @@ frappe.ready(function() {
                         message: __('There was an error submitting your application. Please try again.')
                     });
                 }
-            },
-            error: function() {
-                frappe.msgprint({
-                    title: __('Submission Failed'),
-                    indicator: 'red',
-                    message: __('There was an error submitting your application. Please try again.')
-                });
             }
         });
     });
