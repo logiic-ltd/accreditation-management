@@ -97,7 +97,7 @@
                 <div class="form-group">
                     <label for="curriculum">Curriculum</label>
                     <select class="form-control" id="curriculum" name="curriculum" required>
-                        <option value="">Select Curriculum</option>
+                        <option value="" disabled selected>Select Curriculum</option>
                         <option value="National">National</option>
                         <option value="International">International</option>
                     </select>
@@ -178,7 +178,14 @@ frappe.ready(function() {
 
     $('#accreditationForm').on('submit', function(e) {
         e.preventDefault();
-        
+    
+        // Validate form
+        if (!this.checkValidity()) {
+            e.stopPropagation();
+            $(this).addClass('was-validated');
+            return;
+        }
+    
         var formData = {};
         $(this).serializeArray().forEach(function(item) {
             formData[item.name] = item.value;
@@ -209,6 +216,11 @@ frappe.ready(function() {
                 }
             }
         });
+    });
+
+    // Add this at the end of the script section
+    $(document).ready(function() {
+        $('#accreditationForm').attr('novalidate', true);
     });
 
     // Initialize the form
