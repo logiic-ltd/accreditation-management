@@ -51,7 +51,8 @@
   "sector",
   "district",
   "province",
-  "certificate_generated"
+  "certificate_generated",
+  "status_history"
  ],
  "fields": [
   {

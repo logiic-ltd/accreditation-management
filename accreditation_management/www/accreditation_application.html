@@ -140,6 +140,18 @@
                     <label for="province">Province</label>
                     <input type="text" class="form-control" id="province" name="province" required>
                 </div>
+                <div class="form-group">
+                    <label for="ownerName">Owner Name</label>
+                    <input type="text" class="form-control" id="ownerName" name="owner_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="ownerEmail">Owner Email</label>
+                    <input type="email" class="form-control" id="ownerEmail" name="owner_email" required>
+                </div>
+                <div class="form-group">
+                    <label for="ownerTelephone">Owner Telephone</label>
+                    <input type="tel" class="form-control" id="ownerTelephone" name="owner_telephone" required>
+                </div>
                 <button type="button" class="btn btn-secondary prev-section">Previous</button>
                 <button type="submit" class="btn btn-success">Submit Application</button>
             </div>
@@ -187,10 +199,10 @@ frappe.ready(function() {
         }
     
         frappe.call({
-            method: 'frappe.www.accreditation-application.new',
+            method: 'accreditation_management.www.accreditation_application.submit_application',
             type: 'POST',
             args: {
-                doc: frappe.web_form.get_values()
+                form_data: JSON.stringify($(this).serializeArray())
             },
             freeze: true,
             callback: function(r) {
@@ -198,10 +210,10 @@ frappe.ready(function() {
                     frappe.msgprint({
                         title: __('Application Submitted'),
                         indicator: 'green',
-                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message.name)
+                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
                     });
                     setTimeout(function() {
-                        window.location.href = '/application-status?tracking_number=' + r.message.name;
+                        window.location.href = '/application-status?tracking_number=' + r.message;
                     }, 3000);
                 } else {
                     frappe.msgprint({
