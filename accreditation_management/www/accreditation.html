@@ -3,16 +3,18 @@
 {% block style %}
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
     :root {
-        --primary-color: #3498db;
-        --secondary-color: #2c3e50;
-        --accent-color: #e74c3c;
-        --text-color: #333333;
-        --light-bg: #f8f9fa;
+        --primary-color: #0f62fe;
+        --secondary-color: #393939;
+        --accent-color: #24a148;
+        --text-color: #161616;
+        --light-bg: #f4f4f4;
     }
 
     body {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'IBM Plex Sans', sans-serif;
         color: var(--text-color);
         background-color: var(--light-bg);
     }
@@ -27,7 +29,7 @@
     }
 
     .hero-section {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        background: linear-gradient(135deg, var(--primary-color), #0043ce);
         padding: 6rem 0;
         position: relative;
         overflow: hidden;
@@ -65,7 +67,7 @@
     }
 
     .btn-hero:hover {
-        background-color: #c0392b;
+        background-color: #1e8a3e;
         transform: translateY(-2px);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
@@ -84,9 +86,9 @@
 
     .feature-card {
         background-color: #ffffff;
-        border-radius: 12px;
+        border-radius: 4px;
         padding: 2rem;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         height: 100%;
         transition: all 0.3s ease;
         display: flex;
@@ -94,13 +96,13 @@
     }
 
     .feature-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .feature-icon-wrapper {
-        width: 80px;
-        height: 80px;
+        width: 48px;
+        height: 48px;
         background-color: var(--primary-color);
         border-radius: 50%;
         display: flex;
@@ -110,12 +112,13 @@
     }
 
     .feature-icon {
-        font-size: 2.5rem;
-        color: #ffffff;
+        width: 24px;
+        height: 24px;
+        fill: #ffffff;
     }
 
     .feature-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 600;
         margin-bottom: 1rem;
         color: var(--secondary-color);
@@ -123,13 +126,10 @@
     }
 
     .feature-description {
-        text-align: center;
-    }
-
-    .feature-description {
         font-size: 1rem;
-        color: #666666;
+        color: #525252;
         flex-grow: 1;
+        text-align: center;
     }
 
     .about-section {
@@ -146,7 +146,7 @@
 
     .about-description {
         font-size: 1.1rem;
-        color: #555555;
+        color: #525252;
         margin-bottom: 2rem;
     }
 
@@ -162,10 +162,11 @@
         align-items: center;
     }
 
-    .benefits-list li i {
+    .benefits-list li svg {
         color: var(--accent-color);
         margin-right: 1rem;
-        font-size: 1.2rem;
+        width: 20px;
+        height: 20px;
     }
 
     @media (max-width: 768px) {
@@ -204,7 +205,10 @@
             <div class="col-md-4 mb-4">
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
-                        <i class="feature-icon fas fa-file-alt"></i>
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                            <path d="M25.7 9.3l-7-7C18.5 2.1 18.3 2 18 2H8c-1.1 0-2 .9-2 2v24c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V10c0-.3-.1-.5-.3-.7zM18 4.4l5.6 5.6H18V4.4zM24 28H8V4h8v6c0 1.1.9 2 2 2h6v16z"/>
+                            <path d="M10 22h12v2H10zm0-4h12v2H10zm0-4h12v2H10z"/>
+                        </svg>
                     </div>
                     <h3 class="feature-title">Accreditation Application</h3>
                     <p class="feature-description">Begin your journey towards educational excellence by applying for NESA accreditation. Our streamlined process ensures a smooth experience.</p>
@@ -214,7 +218,10 @@
             <div class="col-md-4 mb-4">
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
-                        <i class="feature-icon fas fa-tasks"></i>
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                            <path d="M26 4H6a2 2 0 00-2 2v20a2 2 0 002 2h20a2 2 0 002-2V6a2 2 0 00-2-2zm0 22H6V6h20v20z"/>
+                            <path d="M14 21.5l-5-5 1.41-1.41L14 18.67l7.59-7.59L23 12.5l-9 9z"/>
+                        </svg>
                     </div>
                     <h3 class="feature-title">Application Status</h3>
                     <p class="feature-description">Stay informed about your accreditation progress. Track your application status in real-time and receive timely updates.</p>
@@ -224,7 +231,10 @@
             <div class="col-md-4 mb-4">
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
-                        <i class="feature-icon fas fa-certificate"></i>
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                            <path d="M26 4H6a2 2 0 00-2 2v20a2 2 0 002 2h20a2 2 0 002-2V6a2 2 0 00-2-2zm0 22H6V6h20v20z"/>
+                            <path d="M14 21.5l-5-5 1.41-1.41L14 18.67l7.59-7.59L23 12.5l-9 9z"/>
+                        </svg>
                     </div>
                     <h3 class="feature-title">Verify Certificate</h3>
                     <p class="feature-description">Ensure the authenticity of accreditation certificates. Our verification system provides quick and reliable results.</p>
@@ -246,11 +256,41 @@
             <div class="col-lg-6">
                 <h3 class="mb-4">Benefits of Accreditation:</h3>
                 <ul class="benefits-list">
-                    <li><i class="fas fa-check-circle"></i>Enhanced reputation and credibility</li>
-                    <li><i class="fas fa-check-circle"></i>Improved quality of education</li>
-                    <li><i class="fas fa-check-circle"></i>Access to funding and resources</li>
-                    <li><i class="fas fa-check-circle"></i>Recognition of qualifications</li>
-                    <li><i class="fas fa-check-circle"></i>Continuous improvement culture</li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32">
+                            <path d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"/>
+                            <path d="M14 21.5l-5-5 1.41-1.41L14 18.67l7.59-7.59L23 12.5l-9 9z"/>
+                        </svg>
+                        Enhanced reputation and credibility
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32">
+                            <path d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"/>
+                            <path d="M14 21.5l-5-5 1.41-1.41L14 18.67l7.59-7.59L23 12.5l-9 9z"/>
+                        </svg>
+                        Improved quality of education
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32">
+                            <path d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"/>
+                            <path d="M14 21.5l-5-5 1.41-1.41L14 18.67l7.59-7.59L23 12.5l-9 9z"/>
+                        </svg>
+                        Access to funding and resources
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32">
+                            <path d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"/>
+                            <path d="M14 21.5l-5-5 1.41-1.41L14 18.67l7.59-7.59L23 12.5l-9 9z"/>
+                        </svg>
+                        Recognition of qualifications
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32">
+                            <path d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"/>
+                            <path d="M14 21.5l-5-5 1.41-1.41L14 18.67l7.59-7.59L23 12.5l-9 9z"/>
+                        </svg>
+                        Continuous improvement culture
+                    </li>
                 </ul>
             </div>
         </div>
