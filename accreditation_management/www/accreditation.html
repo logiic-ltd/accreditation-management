@@ -19,40 +19,37 @@
         background-color: var(--light-bg);
     }
 
+    .site-header {
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    .navbar-brand {
+        font-weight: 700;
+        color: var(--primary-color);
+        font-size: 1.5rem;
+    }
+
+    .navbar-nav .nav-link {
+        color: var(--secondary-color);
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: var(--primary-color);
+    }
+
     .hero-section {
         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        padding: 2rem 0 6rem;
+        padding: 8rem 0 6rem;
         position: relative;
         overflow: hidden;
-    }
-
-    .hero-nav {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .hero-nav-menu {
-        display: flex;
-        justify-content: center;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    .hero-nav-item {
-        margin: 0 1rem;
-    }
-
-    .hero-nav-link {
-        color: #ffffff;
-        text-decoration: none;
-        font-weight: 600;
-        transition: opacity 0.3s ease;
-        font-size: 1.1rem;
-    }
-
-    .hero-nav-link:hover {
-        opacity: 0.8;
     }
 
     .hero-content {
@@ -61,7 +58,6 @@
         text-align: center;
         max-width: 800px;
         margin: 0 auto;
-        padding: 4rem 0;
     }
 
     .hero-title {
@@ -226,19 +222,30 @@
 {% endblock %}
 
 {% block page_content %}
+<header class="site-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="/">NESA</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/accreditation-application/new">Apply</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/application-status">Check Status</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/verify-certificate">Verify Certificate</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
 <section class="hero-section">
     <div class="container">
         <div class="hero-content">
             <h1 class="hero-title">NESA Accreditation Portal</h1>
             <p class="hero-subtitle">Elevate your institution through comprehensive accreditation</p>
-            <nav class="hero-nav">
-                <ul class="hero-nav-menu">
-                    <li class="hero-nav-item"><a href="/" class="hero-nav-link">Home</a></li>
-                    <li class="hero-nav-item"><a href="/accreditation-application/new" class="hero-nav-link">Apply</a></li>
-                    <li class="hero-nav-item"><a href="/application-status" class="hero-nav-link">Check Status</a></li>
-                    <li class="hero-nav-item"><a href="/verify-certificate" class="hero-nav-link">Verify Certificate</a></li>
-                </ul>
-            </nav>
             <a href="/accreditation-application/new" class="btn btn-hero btn-lg">Start Your Application</a>
         </div>
     </div>
