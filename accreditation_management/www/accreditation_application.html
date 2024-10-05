@@ -1,0 +1,214 @@
+{% extends "templates/web.html" %}
+
+{% block style %}
+<style>
+    .site-header {
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+    .navbar-brand {
+        font-weight: 700;
+        color: #078ece;
+        font-size: 1.5rem;
+    }
+    .navbar-nav .nav-link {
+        color: #054d6f;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+    .navbar-nav .nav-link:hover {
+        color: #078ece;
+    }
+    .content-wrapper {
+        padding-top: 80px;
+    }
+    .form-section {
+        display: none;
+    }
+    .form-section.active {
+        display: block;
+    }
+    .progress-bar {
+        height: 5px;
+        background-color: #e0e0e0;
+        margin-bottom: 20px;
+    }
+    .progress-bar-fill {
+        height: 100%;
+        background-color: #078ece;
+        width: 0;
+        transition: width 0.3s ease-in-out;
+    }
+</style>
+{% endblock %}
+
+{% block page_content %}
+<header class="site-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="/">NESA</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/accreditation-application">Apply</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/application-status">Check Status</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/verify-certificate">Verify Certificate</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="content-wrapper">
+    <div class="container">
+        <h1 class="mb-4">NESA Accreditation Application</h1>
+        <div class="progress-bar">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+        <form id="accreditationForm">
+            <div class="form-section active" id="section1">
+                <h2>Basic Information</h2>
+                <div class="form-group">
+                    <label for="schoolName">School Name</label>
+                    <input type="text" class="form-control" id="schoolName" name="school_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="mission">Mission</label>
+                    <textarea class="form-control" id="mission" name="mission" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="objective">Objective</label>
+                    <textarea class="form-control" id="objective" name="objective" rows="3" required></textarea>
+                </div>
+                <button type="button" class="btn btn-primary next-section">Next</button>
+            </div>
+
+            <div class="form-section" id="section2">
+                <h2>School Details</h2>
+                <div class="form-group">
+                    <label for="curriculum">Curriculum</label>
+                    <select class="form-control" id="curriculum" name="curriculum" required>
+                        <option value="">Select Curriculum</option>
+                        <option value="National">National</option>
+                        <option value="International">International</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="establishmentYear">Year of Establishment</label>
+                    <input type="number" class="form-control" id="establishmentYear" name="establishment_year" required>
+                </div>
+                <div class="form-group">
+                    <label for="schoolEmail">School Email</label>
+                    <input type="email" class="form-control" id="schoolEmail" name="school_email" required>
+                </div>
+                <div class="form-group">
+                    <label for="schoolTelephone">School Telephone</label>
+                    <input type="tel" class="form-control" id="schoolTelephone" name="school_telephone" required>
+                </div>
+                <button type="button" class="btn btn-secondary prev-section">Previous</button>
+                <button type="button" class="btn btn-primary next-section">Next</button>
+            </div>
+
+            <div class="form-section" id="section3">
+                <h2>Location</h2>
+                <div class="form-group">
+                    <label for="village">Village</label>
+                    <input type="text" class="form-control" id="village" name="village" required>
+                </div>
+                <div class="form-group">
+                    <label for="cell">Cell</label>
+                    <input type="text" class="form-control" id="cell" name="cell" required>
+                </div>
+                <div class="form-group">
+                    <label for="sector">Sector</label>
+                    <input type="text" class="form-control" id="sector" name="sector" required>
+                </div>
+                <div class="form-group">
+                    <label for="district">District</label>
+                    <input type="text" class="form-control" id="district" name="district" required>
+                </div>
+                <div class="form-group">
+                    <label for="province">Province</label>
+                    <input type="text" class="form-control" id="province" name="province" required>
+                </div>
+                <button type="button" class="btn btn-secondary prev-section">Previous</button>
+                <button type="submit" class="btn btn-success">Submit Application</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+frappe.ready(function() {
+    let currentSection = 1;
+    const totalSections = 3;
+
+    function updateProgressBar() {
+        const progress = ((currentSection - 1) / (totalSections - 1)) * 100;
+        $('#progressBar').css('width', `${progress}%`);
+    }
+
+    function showSection(sectionNumber) {
+        $('.form-section').removeClass('active');
+        $(`#section${sectionNumber}`).addClass('active');
+        currentSection = sectionNumber;
+        updateProgressBar();
+    }
+
+    $('.next-section').click(function() {
+        if (currentSection < totalSections) {
+            showSection(currentSection + 1);
+        }
+    });
+
+    $('.prev-section').click(function() {
+        if (currentSection > 1) {
+            showSection(currentSection - 1);
+        }
+    });
+
+    $('#accreditationForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        var formData = $(this).serialize();
+
+        frappe.call({
+            method: 'accreditation_management.www.accreditation_application.submit_application',
+            args: {
+                form_data: formData
+            },
+            callback: function(r) {
+                if (r.message) {
+                    frappe.msgprint({
+                        title: __('Application Submitted'),
+                        indicator: 'green',
+                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
+                    });
+                    setTimeout(function() {
+                        window.location.href = '/application-status?tracking_number=' + r.message;
+                    }, 3000);
+                } else {
+                    frappe.msgprint({
+                        title: __('Submission Failed'),
+                        indicator: 'red',
+                        message: __('There was an error submitting your application. Please try again.')
+                    });
+                }
+            }
+        });
+    });
+
+    // Initialize the form
+    showSection(1);
+});
+</script>
+{% endblock %}
