@@ -30,4 +30,4 @@ def submit_application(form_data):
         return doc.tracking_number
     except Exception as e:
         frappe.log_error(f"Error submitting accreditation application: {str(e)}")
-        return None
+        frappe.throw(_("An error occurred while submitting the application. Please try again."))

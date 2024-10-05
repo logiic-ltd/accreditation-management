@@ -179,12 +179,16 @@ frappe.ready(function() {
     $('#accreditationForm').on('submit', function(e) {
         e.preventDefault();
         
-        var formData = $(this).serialize();
+        var formData = {};
+        $(this).serializeArray().forEach(function(item) {
+            formData[item.name] = item.value;
+        });
 
         frappe.call({
             method: 'accreditation_management.www.accreditation_application.submit_application',
+            type: 'POST',
             args: {
-                form_data: formData
+                form_data: JSON.stringify(formData)
             },
             callback: function(r) {
                 if (r.message) {
