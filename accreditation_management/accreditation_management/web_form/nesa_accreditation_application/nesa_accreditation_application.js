@@ -47,14 +47,24 @@ frappe.ready(function() {
             freeze: true,
             callback: function(data) {
                 if(!data.exc) {
-                    frappe.msgprint({
-                        title: __('Application Submitted'),
-                        indicator: 'green',
-                        message: __('Your NESA Accreditation Application has been submitted successfully. We will review it and get back to you soon.')
+                    frappe.call({
+                        method: 'accreditation_management.accreditation_management.doctype.accreditation.accreditation.create_accreditation',
+                        args: {
+                            data: json_data
+                        },
+                        callback: function(r) {
+                            if (!r.exc) {
+                                frappe.msgprint({
+                                    title: __('Application Submitted'),
+                                    indicator: 'green',
+                                    message: __('Your NESA Accreditation Application has been submitted successfully. Your tracking number is: ' + r.message.tracking_number)
+                                });
+                                setTimeout(function() {
+                                    window.location.href = '/application-status?tracking_number=' + r.message.tracking_number;
+                                }, 3000);
+                            }
+                        }
                     });
-                    setTimeout(function() {
-                        window.location.href = '/';
-                    }, 2000);
                 }
             }
         });

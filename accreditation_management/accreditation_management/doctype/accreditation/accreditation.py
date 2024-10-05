@@ -7,6 +7,7 @@ from frappe.utils import validate_email_address, validate_phone_number
 from frappe import _
 import random
 import string
+import json
 
 class Accreditation(Document):
     def before_insert(self):
@@ -165,3 +166,33 @@ NESA Accreditation Team""").format(self.school_name, self.tracking_number)
                 message=message,
                 header=[_("Accreditation Application"), "green"]
             )
+
+@frappe.whitelist(allow_guest=True)
+def create_accreditation(data):
+    try:
+        data = json.loads(data)
+        doc = frappe.get_doc({
+            "doctype": "Accreditation",
+            "school_name": next((item['value'] for item in data if item['name'] == 'school_name'), None),
+            "mission": next((item['value'] for item in data if item['name'] == 'mission'), None),
+            "objective": next((item['value'] for item in data if item['name'] == 'objective'), None),
+            "curriculum": next((item['value'] for item in data if item['name'] == 'curriculum'), None),
+            "establishment_year": next((item['value'] for item in data if item['name'] == 'establishment_year'), None),
+            "school_email": next((item['value'] for item in data if item['name'] == 'school_email'), None),
+            "school_telephone": next((item['value'] for item in data if item['name'] == 'school_telephone'), None),
+            "village": next((item['value'] for item in data if item['name'] == 'village'), None),
+            "cell": next((item['value'] for item in data if item['name'] == 'cell'), None),
+            "sector": next((item['value'] for item in data if item['name'] == 'sector'), None),
+            "district": next((item['value'] for item in data if item['name'] == 'district'), None),
+            "province": next((item['value'] for item in data if item['name'] == 'province'), None),
+            "owner_name": next((item['value'] for item in data if item['name'] == 'owner_name'), None),
+            "owner_email": next((item['value'] for item in data if item['name'] == 'owner_email'), None),
+            "owner_telephone": next((item['value'] for item in data if item['name'] == 'owner_telephone'), None)
+        })
+        
+        doc.insert(ignore_permissions=True)
+        
+        return {"tracking_number": doc.tracking_number}
+    except Exception as e:
+        frappe.log_error(f"Error creating accreditation: {str(e)}")
+        frappe.throw(_("An error occurred while submitting the application. Please try again."))
