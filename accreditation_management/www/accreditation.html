@@ -1,184 +1,235 @@
 {% extends "templates/web.html" %}
 
 {% block style %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
+    :root {
+        --primary-color: #3498db;
+        --secondary-color: #2c3e50;
+        --accent-color: #e74c3c;
+        --text-color: #333333;
+        --light-bg: #f8f9fa;
+    }
+
     body {
-        background-color: #f8f9fa;
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-bg);
     }
+
     .navbar {
-        background-color: #2c3e50 !important;
+        background-color: var(--secondary-color) !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     .navbar-light .navbar-brand, .navbar-light .navbar-nav .nav-link {
-        color: #ecf0f1 !important;
+        color: #ffffff !important;
     }
-    .dropdown-menu {
-        background-color: #34495e;
-    }
-    .dropdown-item {
-        color: #ecf0f1;
-    }
-    .dropdown-item:hover {
-        background-color: #2c3e50;
-    }
+
     .hero-section {
-        background: linear-gradient(135deg, #3498db, #2980b9);
-        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E"),
-            linear-gradient(135deg, #3498db, #2980b9);
-        background-size: 100px 100px, cover;
-        background-position: center center;
-        padding: 4rem 0;
-        color: #ffffff; /* White text */
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        padding: 6rem 0;
+        position: relative;
+        overflow: hidden;
     }
+
     .hero-content {
+        position: relative;
+        z-index: 2;
         text-align: center;
         max-width: 800px;
         margin: 0 auto;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 3.5rem;
         font-weight: 700;
         margin-bottom: 1rem;
+        color: #ffffff;
     }
+
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         margin-bottom: 2rem;
+        color: rgba(255, 255, 255, 0.9);
     }
-    .btn-primary {
-        background-color: #3498db;
-        border-color: #2980b9;
+
+    .btn-hero {
+        background-color: var(--accent-color);
+        color: #ffffff;
+        border: none;
         padding: 0.75rem 2rem;
         font-size: 1.2rem;
+        font-weight: 600;
         transition: all 0.3s ease;
     }
-    .btn-primary:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
+
+    .btn-hero:hover {
+        background-color: #c0392b;
         transform: translateY(-2px);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
     .features-section {
-        padding: 4rem 0;
+        padding: 6rem 0;
     }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        color: var(--secondary-color);
+    }
+
     .feature-card {
         background-color: #ffffff;
-        border-radius: 8px;
+        border-radius: 12px;
         padding: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        height: 300px; /* Set a fixed height */
-        width: 100%; /* Ensure full width within the column */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        height: 100%;
         transition: all 0.3s ease;
         display: flex;
         flex-direction: column;
     }
-    .feature-card-content {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between; /* Distribute content evenly */
-    }
-    .feature-card-content p {
-        flex-grow: 1;
-        overflow: hidden; /* Hide overflow text */
-        text-overflow: ellipsis; /* Add ellipsis for overflowing text */
-        display: -webkit-box;
-        -webkit-line-clamp: 3; /* Limit to 3 lines */
-        -webkit-box-orient: vertical;
-    }
+
     .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
+
     .feature-icon {
-        font-size: 2.5rem;
-        color: #3498db;
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .feature-title {
+        font-size: 1.5rem;
+        font-weight: 600;
         margin-bottom: 1rem;
+        color: var(--secondary-color);
     }
-    .feature-card-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
+
+    .feature-description {
+        font-size: 1rem;
+        color: #666666;
+        flex-grow: 1;
     }
-    .feature-card-link:hover {
-        text-decoration: none;
-        color: inherit;
+
+    .about-section {
+        background-color: #ffffff;
+        padding: 6rem 0;
+    }
+
+    .about-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--secondary-color);
+    }
+
+    .about-description {
+        font-size: 1.1rem;
+        color: #555555;
+        margin-bottom: 2rem;
+    }
+
+    .benefits-list {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .benefits-list li {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .benefits-list li i {
+        color: var(--accent-color);
+        margin-right: 1rem;
+        font-size: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .about-title {
+            font-size: 2rem;
+        }
     }
 </style>
 {% endblock %}
 
-{% block header %}
-    {{ super() }}
-    <script>
-        // Custom JavaScript can be added here if needed
-    </script>
-{% endblock %}
-
 {% block page_content %}
-
 <section class="hero-section">
     <div class="hero-content">
         <h1 class="hero-title">NESA Accreditation Portal</h1>
         <p class="hero-subtitle">Elevate your institution through comprehensive accreditation</p>
-        <a href="/accreditation-application/new" class="btn btn-light btn-lg">Start Your Application</a>
+        <a href="/accreditation-application/new" class="btn btn-hero btn-lg">Start Your Application</a>
     </div>
 </section>
 
 <section class="features-section">
     <div class="container">
-        <div class="row justify-content-center">
+        <h2 class="section-title">Our Services</h2>
+        <div class="row">
             <div class="col-md-4 mb-4">
-                <a href="/accreditation-application/new" class="feature-card-link">
-                    <div class="feature-card">
-                        <div class="feature-card-content">
-                            <i class="feature-icon fas fa-award"></i>
-                            <h3>Accreditation Application</h3>
-                            <p>Start your journey towards educational excellence by applying for NESA accreditation.</p>
-                        </div>
-                    </div>
-                </a>
+                <div class="feature-card">
+                    <i class="feature-icon fas fa-file-alt"></i>
+                    <h3 class="feature-title">Accreditation Application</h3>
+                    <p class="feature-description">Begin your journey towards educational excellence by applying for NESA accreditation. Our streamlined process ensures a smooth experience.</p>
+                    <a href="/accreditation-application/new" class="btn btn-primary mt-3">Apply Now</a>
+                </div>
             </div>
             <div class="col-md-4 mb-4">
-                <a href="/application-status" class="feature-card-link">
-                    <div class="feature-card">
-                        <div class="feature-card-content">
-                            <i class="feature-icon fas fa-chart-line"></i>
-                            <h3>Application Status</h3>
-                            <p>Track the progress of your accreditation application and stay informed.</p>
-                        </div>
-                    </div>
-                </a>
+                <div class="feature-card">
+                    <i class="feature-icon fas fa-tasks"></i>
+                    <h3 class="feature-title">Application Status</h3>
+                    <p class="feature-description">Stay informed about your accreditation progress. Track your application status in real-time and receive timely updates.</p>
+                    <a href="/application-status" class="btn btn-primary mt-3">Check Status</a>
+                </div>
             </div>
             <div class="col-md-4 mb-4">
-                <a href="/verify-certificate" class="feature-card-link">
-                    <div class="feature-card">
-                        <div class="feature-card-content">
-                            <i class="feature-icon fas fa-certificate"></i>
-                            <h3>Verify Certificate</h3>
-                            <p>Verify the authenticity of an accreditation certificate.</p>
-                        </div>
-                    </div>
-                </a>
+                <div class="feature-card">
+                    <i class="feature-icon fas fa-certificate"></i>
+                    <h3 class="feature-title">Verify Certificate</h3>
+                    <p class="feature-description">Ensure the authenticity of accreditation certificates. Our verification system provides quick and reliable results.</p>
+                    <a href="/verify-certificate" class="btn btn-primary mt-3">Verify Now</a>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="about-section py-5 bg-light">
+<section class="about-section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h2>About Accreditation</h2>
-                <p>Accreditation is a voluntary process that provides assurance about the quality of education offered by institutions. It helps maintain standards and supports continuous improvement, benefiting both the institution and its students.</p>
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="about-title">About Accreditation</h2>
+                <p class="about-description">Accreditation is a voluntary, peer-review process that ensures educational institutions meet rigorous standards of quality and continuous improvement. It provides assurance to students, parents, and the public that an institution offers a high-quality education.</p>
+                <a href="#" class="btn btn-primary">Learn More</a>
             </div>
-            <div class="col-md-6">
-                <h3>Benefits of Accreditation:</h3>
-                <ul class="list-group">
-                    <li class="list-group-item"><i class="fas fa-check text-success mr-2"></i>Enhanced reputation and credibility</li>
-                    <li class="list-group-item"><i class="fas fa-check text-success mr-2"></i>Improved quality of education</li>
-                    <li class="list-group-item"><i class="fas fa-check text-success mr-2"></i>Access to funding and resources</li>
-                    <li class="list-group-item"><i class="fas fa-check text-success mr-2"></i>Recognition of qualifications</li>
+            <div class="col-lg-6">
+                <h3 class="mb-4">Benefits of Accreditation:</h3>
+                <ul class="benefits-list">
+                    <li><i class="fas fa-check-circle"></i>Enhanced reputation and credibility</li>
+                    <li><i class="fas fa-check-circle"></i>Improved quality of education</li>
+                    <li><i class="fas fa-check-circle"></i>Access to funding and resources</li>
+                    <li><i class="fas fa-check-circle"></i>Recognition of qualifications</li>
+                    <li><i class="fas fa-check-circle"></i>Continuous improvement culture</li>
                 </ul>
             </div>
         </div>
