@@ -98,10 +98,20 @@
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
+    .feature-icon-wrapper {
+        width: 80px;
+        height: 80px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 1.5rem;
+    }
+
     .feature-icon {
-        font-size: 3rem;
-        color: var(--primary-color);
-        margin-bottom: 1.5rem;
+        font-size: 2.5rem;
+        color: #ffffff;
     }
 
     .feature-title {
@@ -109,6 +119,11 @@
         font-weight: 600;
         margin-bottom: 1rem;
         color: var(--secondary-color);
+        text-align: center;
+    }
+
+    .feature-description {
+        text-align: center;
     }
 
     .feature-description {
@@ -188,7 +203,9 @@
         <div class="row">
             <div class="col-md-4 mb-4">
                 <div class="feature-card">
-                    <i class="feature-icon fas fa-file-alt"></i>
+                    <div class="feature-icon-wrapper">
+                        <i class="feature-icon fas fa-file-alt"></i>
+                    </div>
                     <h3 class="feature-title">Accreditation Application</h3>
                     <p class="feature-description">Begin your journey towards educational excellence by applying for NESA accreditation. Our streamlined process ensures a smooth experience.</p>
                     <a href="/accreditation-application/new" class="btn btn-primary mt-3">Apply Now</a>
@@ -196,7 +213,9 @@
             </div>
             <div class="col-md-4 mb-4">
                 <div class="feature-card">
-                    <i class="feature-icon fas fa-tasks"></i>
+                    <div class="feature-icon-wrapper">
+                        <i class="feature-icon fas fa-tasks"></i>
+                    </div>
                     <h3 class="feature-title">Application Status</h3>
                     <p class="feature-description">Stay informed about your accreditation progress. Track your application status in real-time and receive timely updates.</p>
                     <a href="/application-status" class="btn btn-primary mt-3">Check Status</a>
@@ -204,7 +223,9 @@
             </div>
             <div class="col-md-4 mb-4">
                 <div class="feature-card">
-                    <i class="feature-icon fas fa-certificate"></i>
+                    <div class="feature-icon-wrapper">
+                        <i class="feature-icon fas fa-certificate"></i>
+                    </div>
                     <h3 class="feature-title">Verify Certificate</h3>
                     <p class="feature-description">Ensure the authenticity of accreditation certificates. Our verification system provides quick and reliable results.</p>
                     <a href="/verify-certificate" class="btn btn-primary mt-3">Verify Now</a>
