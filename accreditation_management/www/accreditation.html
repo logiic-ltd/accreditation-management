@@ -6,11 +6,11 @@
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
 
     :root {
-        --primary-color: #0f62fe;
-        --secondary-color: #393939;
+        --primary-color: #078ece;
+        --secondary-color: #054d6f;
         --accent-color: #24a148;
         --text-color: #161616;
-        --light-bg: #f4f4f4;
+        --light-bg: #eee;
     }
 
     body {
@@ -29,7 +29,7 @@
     }
 
     .hero-section {
-        background: linear-gradient(135deg, var(--primary-color), #0043ce);
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         padding: 6rem 0;
         position: relative;
         overflow: hidden;
@@ -53,12 +53,12 @@
     .hero-subtitle {
         font-size: 1.5rem;
         margin-bottom: 2rem;
-        color: rgba(255, 255, 255, 0.9);
+        color: #ffffff;
     }
 
     .btn-hero {
-        background-color: var(--accent-color);
-        color: #ffffff;
+        background-color: #ffffff;
+        color: var(--primary-color);
         border: none;
         padding: 0.75rem 2rem;
         font-size: 1.2rem;
@@ -67,13 +67,15 @@
     }
 
     .btn-hero:hover {
-        background-color: #1e8a3e;
+        background-color: var(--light-bg);
+        color: var(--secondary-color);
         transform: translateY(-2px);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .features-section {
         padding: 6rem 0;
+        background-color: #ffffff;
     }
 
     .section-title {
@@ -85,7 +87,7 @@
     }
 
     .feature-card {
-        background-color: #ffffff;
+        background-color: var(--light-bg);
         border-radius: 4px;
         padding: 2rem;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -127,13 +129,13 @@
 
     .feature-description {
         font-size: 1rem;
-        color: #525252;
+        color: var(--text-color);
         flex-grow: 1;
         text-align: center;
     }
 
     .about-section {
-        background-color: #ffffff;
+        background-color: var(--light-bg);
         padding: 6rem 0;
     }
 
@@ -146,7 +148,7 @@
 
     .about-description {
         font-size: 1.1rem;
-        color: #525252;
+        color: var(--text-color);
         margin-bottom: 2rem;
     }
 
@@ -160,13 +162,26 @@
         margin-bottom: 1rem;
         display: flex;
         align-items: center;
+        color: var(--text-color);
     }
 
     .benefits-list li svg {
-        color: var(--accent-color);
+        color: var(--primary-color);
         margin-right: 1rem;
         width: 20px;
         height: 20px;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #ffffff;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: #ffffff;
     }
 
     @media (max-width: 768px) {
