@@ -27,29 +27,20 @@
     }
 
     .hero-nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 0;
-        margin-bottom: 3rem;
-    }
-
-    .hero-nav-logo {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #ffffff;
-        text-decoration: none;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
 
     .hero-nav-menu {
         display: flex;
+        justify-content: center;
         list-style-type: none;
         margin: 0;
         padding: 0;
     }
 
     .hero-nav-item {
-        margin-left: 1.5rem;
+        margin: 0 1rem;
     }
 
     .hero-nav-link {
@@ -57,6 +48,7 @@
         text-decoration: none;
         font-weight: 600;
         transition: opacity 0.3s ease;
+        font-size: 1.1rem;
     }
 
     .hero-nav-link:hover {
@@ -69,6 +61,7 @@
         text-align: center;
         max-width: 800px;
         margin: 0 auto;
+        padding: 4rem 0;
     }
 
     .hero-title {
@@ -235,18 +228,17 @@
 {% block page_content %}
 <section class="hero-section">
     <div class="container">
-        <nav class="hero-nav">
-            <a href="/" class="hero-nav-logo">NESA</a>
-            <ul class="hero-nav-menu">
-                <li class="hero-nav-item"><a href="/" class="hero-nav-link">Home</a></li>
-                <li class="hero-nav-item"><a href="/accreditation-application/new" class="hero-nav-link">Apply</a></li>
-                <li class="hero-nav-item"><a href="/application-status" class="hero-nav-link">Check Status</a></li>
-                <li class="hero-nav-item"><a href="/verify-certificate" class="hero-nav-link">Verify Certificate</a></li>
-            </ul>
-        </nav>
         <div class="hero-content">
             <h1 class="hero-title">NESA Accreditation Portal</h1>
             <p class="hero-subtitle">Elevate your institution through comprehensive accreditation</p>
+            <nav class="hero-nav">
+                <ul class="hero-nav-menu">
+                    <li class="hero-nav-item"><a href="/" class="hero-nav-link">Home</a></li>
+                    <li class="hero-nav-item"><a href="/accreditation-application/new" class="hero-nav-link">Apply</a></li>
+                    <li class="hero-nav-item"><a href="/application-status" class="hero-nav-link">Check Status</a></li>
+                    <li class="hero-nav-item"><a href="/verify-certificate" class="hero-nav-link">Verify Certificate</a></li>
+                </ul>
+            </nav>
             <a href="/accreditation-application/new" class="btn btn-hero btn-lg">Start Your Application</a>
         </div>
     </div>
