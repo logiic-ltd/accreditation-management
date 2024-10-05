@@ -186,18 +186,15 @@ frappe.ready(function() {
             return;
         }
     
-        var formData = {};
-        $(this).serializeArray().forEach(function(item) {
-            formData[item.name] = item.value;
-        });
+        var formData = new FormData(this);
 
-        frappe.call({
-            method: 'accreditation_management.www.accreditation_application.submit_application',
+        $.ajax({
+            url: '/api/method/accreditation_management.www.accreditation_application.submit_application',
             type: 'POST',
-            args: {
-                form_data: JSON.stringify(formData)
-            },
-            callback: function(r) {
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(r) {
                 if (r.message) {
                     frappe.msgprint({
                         title: __('Application Submitted'),
@@ -214,6 +211,13 @@ frappe.ready(function() {
                         message: __('There was an error submitting your application. Please try again.')
                     });
                 }
+            },
+            error: function() {
+                frappe.msgprint({
+                    title: __('Submission Failed'),
+                    indicator: 'red',
+                    message: __('There was an error submitting your application. Please try again.')
+                });
             }
         });
     });
