@@ -205,11 +205,15 @@ frappe.ready(function() {
             return;
         }
     
+        var formData = {};
+        $(this).serializeArray().forEach(function(item) {
+            formData[item.name] = item.value;
+        });
+    
         frappe.call({
-            method: 'accreditation_management.accreditation_management.doctype.accreditation.accreditation.create_accreditation',
-            type: 'POST',
+            method: 'accreditation_management.www.accreditation_application.create_accreditation',
             args: {
-                data: JSON.stringify($(this).serializeArray())
+                data: formData
             },
             freeze: true,
             callback: function(r) {
