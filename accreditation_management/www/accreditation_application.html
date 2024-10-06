@@ -89,7 +89,10 @@
                     <label for="objective">Objective</label>
                     <textarea class="form-control" id="objective" name="objective" rows="3" required></textarea>
                 </div>
-                <button type="button" class="btn btn-primary next-section">Next</button>
+                <div class="form-navigation">
+                    <div></div> <!-- Empty div for spacing -->
+                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
+                </div>
             </div>
 
             <div class="form-section" id="section2">
@@ -114,8 +117,10 @@
                     <label for="schoolTelephone">School Telephone</label>
                     <input type="tel" class="form-control" id="schoolTelephone" name="school_telephone" required>
                 </div>
-                <button type="button" class="btn btn-secondary prev-section">Previous</button>
-                <button type="button" class="btn btn-primary next-section">Next</button>
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
+                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
+                </div>
             </div>
 
             <div class="form-section" id="section3">
@@ -152,8 +157,10 @@
                     <label for="ownerTelephone">Owner Telephone</label>
                     <input type="tel" class="form-control" id="ownerTelephone" name="owner_telephone" required>
                 </div>
-                <button type="button" class="btn btn-secondary prev-section">Previous</button>
-                <button type="submit" class="btn btn-success">Submit Application</button>
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
+                    <button type="submit" class="btn btn-nav btn-submit">Submit Application</button>
+                </div>
             </div>
         </form>
     </div>
