@@ -11,10 +11,12 @@ import json
 
 class Accreditation(Document):
     def before_insert(self):
+        frappe.logger().info(f"Before insert for {self.name}")
         self.generate_tracking_number()
         self.set_workflow_state()
 
     def set_workflow_state(self):
+        frappe.logger().info(f"Setting workflow state for {self.name}")
         try:
             workflow = frappe.get_doc('Workflow', {'document_type': self.doctype, 'is_active': 1})
             if workflow and workflow.states:
@@ -22,19 +24,22 @@ class Accreditation(Document):
             else:
                 self.workflow_state = "Draft"
         except Exception as e:
-            frappe.log_error(f"Error setting workflow state: {str(e)}")
+            frappe.logger().error(f"Error setting workflow state: {str(e)}")
             self.workflow_state = "Draft"
         finally:
             if not self.workflow_state:
                 self.workflow_state = "Draft"
         self.status = self.workflow_state
+        frappe.logger().info(f"Set workflow state to {self.workflow_state}")
 
     def generate_tracking_number(self):
+        frappe.logger().info(f"Generating tracking number for {self.name}")
         # Generate a unique 8-character alphanumeric tracking number
         tracking_number = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
         while frappe.db.exists("Accreditation", {"tracking_number": tracking_number}):
             tracking_number = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
         self.tracking_number = tracking_number
+        frappe.logger().info(f"Generated tracking number: {self.tracking_number}")
 
     def validate(self):
         # Validate email addresses and phone numbers
