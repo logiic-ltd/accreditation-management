@@ -197,34 +197,35 @@ frappe.ready(function() {
 
     $('#accreditationForm').on('submit', function(e) {
         e.preventDefault();
-    
+
         // Validate form
         if (!this.checkValidity()) {
             e.stopPropagation();
             $(this).addClass('was-validated');
             return;
         }
-    
+
         var formData = {};
         $(this).serializeArray().forEach(function(item) {
             formData[item.name] = item.value;
         });
-    
+
+        // Stringify form data before sending to the server
         frappe.call({
-            method: 'accreditation_management.www.accreditation_application.create_accreditation',
+            method: 'accreditation_management.www.accreditation_application.submit_application',
             args: {
-                data: formData
+                form_data: JSON.stringify(formData) // Ensure data is passed as a JSON string
             },
             freeze: true,
             callback: function(r) {
-                if(!r.exc) {
+                if (!r.exc) {
                     frappe.msgprint({
                         title: __('Application Submitted'),
                         indicator: 'green',
-                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message.tracking_number)
+                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
                     });
                     setTimeout(function() {
-                        window.location.href = '/application-status?tracking_number=' + r.message.tracking_number;
+                        window.location.href = '/application-status?tracking_number=' + r.message;
                     }, 3000);
                 } else {
                     frappe.msgprint({
