@@ -57,7 +57,7 @@ app_license = "mit"
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
+home_page = "accreditation"
 
 # website user home page (by Role)
 # role_home_page = {
@@ -72,6 +72,7 @@ app_license = "mit"
 
 # Website Route Rules
 website_route_rules = [
+    {"from_route": "/", "to_route": "accreditation"},
     {"from_route": "/application-status", "to_route": "application_status"},
     {"from_route": "/verify-certificate", "to_route": "verify_certificate"},
     {"from_route": "/nesa-accreditation-application", "to_route": "Web Form/NESA Accreditation Application"},
