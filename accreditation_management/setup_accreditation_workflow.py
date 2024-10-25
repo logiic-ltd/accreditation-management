@@ -1,4 +1,5 @@
 import frappe
+import json
 from frappe.model.document import Document
 from frappe.model.workflow import Workflow
 
@@ -9,38 +10,12 @@ def setup_accreditation_workflow():
             print("Accreditation Workflow already exists.")
             return
 
+        # Load the workflow configuration from JSON file
+        with open('accreditation_management/accreditation_workflow.json', 'r') as file:
+            workflow_config = json.load(file)
+
         workflow = frappe.new_doc("Workflow")
-        workflow.workflow_name = "Accreditation Workflow"
-        workflow.document_type = "Accreditation"
-        workflow.workflow_state_field = "workflow_state"
-        workflow.is_active = 1
-
-        # Define states
-        states = [
-            {"state": "Draft", "doc_status": 0, "allow_edit": "All"},
-            {"state": "Submitted", "doc_status": 1, "allow_edit": "All"},
-            {"state": "Under Review", "doc_status": 1, "allow_edit": "Accreditation Reviewer"},
-            {"state": "Approved", "doc_status": 1, "allow_edit": "Accreditation Approver"},
-            {"state": "Rejected", "doc_status": 1, "allow_edit": "Accreditation Approver"},
-            {"state": "Revoked", "doc_status": 2, "allow_edit": "Accreditation Approver"}
-        ]
-
-        for state in states:
-            workflow.append("states", state)
-
-        # Define transitions
-        transitions = [
-            {"state": "Draft", "action": "Submit", "next_state": "Submitted", "allowed": "All"},
-            {"state": "Submitted", "action": "Start Review", "next_state": "Under Review", "allowed": "Accreditation Reviewer"},
-            {"state": "Under Review", "action": "Approve", "next_state": "Approved", "allowed": "Accreditation Approver"},
-            {"state": "Under Review", "action": "Reject", "next_state": "Rejected", "allowed": "Accreditation Approver"},
-            {"state": "Rejected", "action": "Resubmit", "next_state": "Submitted", "allowed": "All"},
-            {"state": "Approved", "action": "Revoke", "next_state": "Revoked", "allowed": "Accreditation Approver"},
-            {"state": "Revoked", "action": "Reactivate", "next_state": "Under Review", "allowed": "Accreditation Approver"}
-        ]
-
-        for transition in transitions:
-            workflow.append("transitions", transition)
+        workflow.update(workflow_config)
 
         # Save the workflow
         workflow.insert(ignore_permissions=True)
