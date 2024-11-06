@@ -46,7 +46,7 @@
     }
 
     .content-wrapper {
-        padding-top: 10px;
+        padding-top: 80px;
         padding-bottom: 50px;
     }
 
@@ -181,18 +181,34 @@
         </div>
         <form id="accreditationForm">
             <div class="form-section active" id="section1">
-                <h2>Basic Information</h2>
+                <h2>1. Basic School Information</h2>
                 <div class="form-group">
                     <label for="schoolName">School Name</label>
                     <input type="text" class="form-control" id="schoolName" name="school_name" required>
                 </div>
                 <div class="form-group">
-                    <label for="mission">Mission</label>
-                    <textarea class="form-control" id="mission" name="mission" rows="3" required></textarea>
+                    <label for="schoolCode">School Code</label>
+                    <input type="text" class="form-control" id="schoolCode" name="school_code" required>
                 </div>
                 <div class="form-group">
-                    <label for="objective">Objective</label>
-                    <textarea class="form-control" id="objective" name="objective" rows="3" required></textarea>
+                    <label for="status">Status</label>
+                    <input type="text" class="form-control" id="status" name="status" required>
+                </div>
+                <div class="form-group">
+                    <label for="schoolOwner">School Owner</label>
+                    <input type="text" class="form-control" id="schoolOwner" name="school_owner" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact</label>
+                    <input type="text" class="form-control" id="contact" name="contact" required>
+                </div>
+                <div class="form-group">
+                    <label for="accommodationStatus">Accommodation Status</label>
+                    <input type="text" class="form-control" id="accommodationStatus" name="accommodation_status" required>
+                </div>
+                <div class="form-group">
+                    <label for="establishmentYear">Year of Establishment</label>
+                    <input type="number" class="form-control" id="establishmentYear" name="establishment_year" required>
                 </div>
                 <div class="form-navigation">
                     <div></div> <!-- Empty div for spacing -->
@@ -201,35 +217,7 @@
             </div>
 
             <div class="form-section" id="section2">
-                <h2>School Details</h2>
-                <div class="form-group">
-                    <label for="curriculum">Curriculum</label>
-                    <select class="form-control" id="curriculum" name="curriculum" required>
-                        <option value="" disabled selected>Select Curriculum</option>
-                        <option value="National">National</option>
-                        <option value="International">International</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="establishmentYear">Year of Establishment</label>
-                    <input type="number" class="form-control" id="establishmentYear" name="establishment_year" required>
-                </div>
-                <div class="form-group">
-                    <label for="schoolEmail">School Email</label>
-                    <input type="email" class="form-control" id="schoolEmail" name="school_email" required>
-                </div>
-                <div class="form-group">
-                    <label for="schoolTelephone">School Telephone</label>
-                    <input type="tel" class="form-control" id="schoolTelephone" name="school_telephone" required>
-                </div>
-                <div class="form-navigation">
-                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
-                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
-                </div>
-            </div>
-
-            <div class="form-section" id="section3">
-                <h2>Location</h2>
+                <h2>2. Location Details</h2>
                 <div class="form-group">
                     <label for="village">Village</label>
                     <input type="text" class="form-control" id="village" name="village" required>
@@ -250,17 +238,198 @@
                     <label for="province">Province</label>
                     <input type="text" class="form-control" id="province" name="province" required>
                 </div>
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
+                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
+                </div>
+            </div>
+
+            <div class="form-section" id="section3">
+                <h2>3. Head Teacher Information</h2>
                 <div class="form-group">
-                    <label for="ownerName">Owner Name</label>
-                    <input type="text" class="form-control" id="ownerName" name="owner_name" required>
+                    <label for="htName">HT/Name</label>
+                    <input type="text" class="form-control" id="htName" name="ht_name" required>
                 </div>
                 <div class="form-group">
-                    <label for="ownerEmail">Owner Email</label>
-                    <input type="email" class="form-control" id="ownerEmail" name="owner_email" required>
+                    <label for="htQualification">Qualification of Head Teacher</label>
+                    <input type="text" class="form-control" id="htQualification" name="ht_qualification" required>
                 </div>
                 <div class="form-group">
-                    <label for="ownerTelephone">Owner Telephone</label>
-                    <input type="tel" class="form-control" id="ownerTelephone" name="owner_telephone" required>
+                    <label for="htTelephone">Telephone</label>
+                    <input type="tel" class="form-control" id="htTelephone" name="ht_telephone" required>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
+                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
+                </div>
+            </div>
+
+            <div class="form-section" id="section4">
+                <h2>4. Student Information</h2>
+                <div class="form-group">
+                    <label for="totalStudents">Total Number of Students</label>
+                    <input type="number" class="form-control" id="totalStudents" name="total_students" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalGirls">Number of Girls</label>
+                    <input type="number" class="form-control" id="totalGirls" name="total_girls" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalBoys">Number of Boys</label>
+                    <input type="number" class="form-control" id="totalBoys" name="total_boys" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentsRequestedLevel">Number of Students for the Requested Level/Trade/Combination</label>
+                    <input type="number" class="form-control" id="studentsRequestedLevel" name="students_requested_level" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentsSEN">Students with Special Education Needs (SEN)</label>
+                    <input type="number" class="form-control" id="studentsSEN" name="students_sen" required>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
+                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
+                </div>
+            </div>
+
+            <div class="form-section" id="section5">
+                <h2>5. Staff Information</h2>
+                <h3>Teaching Staff</h3>
+                <div class="form-group">
+                    <label for="totalTeachers">Number of All Teachers</label>
+                    <input type="number" class="form-control" id="totalTeachers" name="total_teachers" required>
+                </div>
+                <div class="form-group">
+                    <label for="maleTeachers">Number of Male Teachers</label>
+                    <input type="number" class="form-control" id="maleTeachers" name="male_teachers" required>
+                </div>
+                <div class="form-group">
+                    <label for="femaleTeachers">Number of Female Teachers</label>
+                    <input type="number" class="form-control" id="femaleTeachers" name="female_teachers" required>
+                </div>
+                <div class="form-group">
+                    <label for="assistantTeachers">Number of Assistant Teachers or Caregivers</label>
+                    <input type="number" class="form-control" id="assistantTeachers" name="assistant_teachers" required>
+                </div>
+                <div class="form-group">
+                    <label for="maleAssistantTeachers">Number of Male Assistant Teachers</label>
+                    <input type="number" class="form-control" id="maleAssistantTeachers" name="male_assistant_teachers" required>
+                </div>
+                <div class="form-group">
+                    <label for="femaleAssistantTeachers">Number of Female Assistant Teachers</label>
+                    <input type="number" class="form-control" id="femaleAssistantTeachers" name="female_assistant_teachers" required>
+                </div>
+
+                <h3>Administrative Staff</h3>
+                <div class="form-group">
+                    <label for="totalAdminStaff">Total Number of Administrative Staff</label>
+                    <input type="number" class="form-control" id="totalAdminStaff" name="total_admin_staff" required>
+                </div>
+                <div class="form-group">
+                    <label for="headteacher">Headteacher</label>
+                    <input type="number" class="form-control" id="headteacher" name="headteacher" required>
+                </div>
+                <div class="form-group">
+                    <label for="deputyHeadteacher">Deputy Headteacher</label>
+                    <input type="number" class="form-control" id="deputyHeadteacher" name="deputy_headteacher" required>
+                </div>
+                <div class="form-group">
+                    <label for="secretary">Secretary</label>
+                    <input type="number" class="form-control" id="secretary" name="secretary" required>
+                </div>
+                <div class="form-group">
+                    <label for="librarian">Librarian</label>
+                    <input type="number" class="form-control" id="librarian" name="librarian" required>
+                </div>
+                <div class="form-group">
+                    <label for="accountant">Accountant</label>
+                    <input type="number" class="form-control" id="accountant" name="accountant" required>
+                </div>
+                <div class="form-group">
+                    <label for="otherAdminStaff">Other Staff (Specify)</label>
+                    <input type="text" class="form-control" id="otherAdminStaff" name="other_admin_staff">
+                </div>
+
+                <h3>Supporting Staff</h3>
+                <div class="form-group">
+                    <label for="totalSupportingStaff">Total Number of Supporting Staff</label>
+                    <input type="number" class="form-control" id="totalSupportingStaff" name="total_supporting_staff" required>
+                </div>
+                <div class="form-group">
+                    <label for="cleaners">Cleaners</label>
+                    <input type="number" class="form-control" id="cleaners" name="cleaners" required>
+                </div>
+                <div class="form-group">
+                    <label for="cleaningCompany">Cleaning Company (if applicable)</label>
+                    <input type="text" class="form-control" id="cleaningCompany" name="cleaning_company">
+                </div>
+                <div class="form-group">
+                    <label for="watchmen">Watchmen</label>
+                    <input type="number" class="form-control" id="watchmen" name="watchmen" required>
+                </div>
+                <div class="form-group">
+                    <label for="schoolCooks">School Cooks</label>
+                    <input type="number" class="form-control" id="schoolCooks" name="school_cooks" required>
+                </div>
+                <div class="form-group">
+                    <label for="storekeeper">Storekeeper</label>
+                    <input type="number" class="form-control" id="storekeeper" name="storekeeper" required>
+                </div>
+                <div class="form-group">
+                    <label for="drivers">Drivers</label>
+                    <input type="number" class="form-control" id="drivers" name="drivers" required>
+                </div>
+                <div class="form-group">
+                    <label for="otherSupportingStaff">Other Supporting Staff (Specify)</label>
+                    <input type="text" class="form-control" id="otherSupportingStaff" name="other_supporting_staff">
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
+                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
+                </div>
+            </div>
+
+            <div class="form-section" id="section6">
+                <h2>6. School Infrastructure</h2>
+                <div class="form-group">
+                    <label for="totalClassrooms">Number of All Classrooms</label>
+                    <input type="number" class="form-control" id="totalClassrooms" name="total_classrooms" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalLatrines">Number of All Latrines/Toilets</label>
+                    <input type="number" class="form-control" id="totalLatrines" name="total_latrines" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalKitchens">Number of Kitchens</label>
+                    <input type="number" class="form-control" id="totalKitchens" name="total_kitchens" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalDiningHalls">Number of Dining Halls</label>
+                    <input type="number" class="form-control" id="totalDiningHalls" name="total_dining_halls" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalLibraries">Number of Libraries</label>
+                    <input type="number" class="form-control" id="totalLibraries" name="total_libraries" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalSmartClassrooms">Number of Smart Classrooms</label>
+                    <input type="number" class="form-control" id="totalSmartClassrooms" name="total_smart_classrooms" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalComputerLabs">Number of Computer Laboratories</label>
+                    <input type="number" class="form-control" id="totalComputerLabs" name="total_computer_labs" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalAdminOffices">Number of Administrative Staff Offices</label>
+                    <input type="number" class="form-control" id="totalAdminOffices" name="total_admin_offices" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalMultipurposeHalls">Number of Multipurpose Halls</label>
+                    <input type="number" class="form-control" id="totalMultipurposeHalls" name="total_multipurpose_halls" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalStaffRooms">Number of Academic Staff Rooms</label>
+                    <input type="number" class="form-control" id="totalStaffRooms" name="total_staff_rooms" required>
                 </div>
                 <div class="form-navigation">
                     <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
@@ -274,7 +443,7 @@
 <script>
 frappe.ready(function() {
     let currentSection = 1;
-    const totalSections = 3;
+    const totalSections = 6;
 
     function updateProgressBar() {
         const progress = ((currentSection - 1) / (totalSections - 1)) * 100;
