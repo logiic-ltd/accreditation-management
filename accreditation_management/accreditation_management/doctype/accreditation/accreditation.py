@@ -84,32 +84,42 @@ class Accreditation(Document):
         self.update_status_history()
 
     @frappe.whitelist()
-    def start_review(self):
-        if self.workflow_state == "Submitted":
-            self.workflow_state = "Under Review"
-            self.save()
-            frappe.msgprint(_("Application review started."))
+    def request_inspection(self):
+        if self.workflow_state == "Under Specialist Review":
+            # Create an Inspection document
+            inspection = frappe.get_doc({
+                "doctype": "Inspection",
+                "accreditation": self.name,
+                "school_name": self.school_name,
+                # Add other relevant fields
+            })
+            inspection.insert(ignore_permissions=True)
+            
+            self.db_set('workflow_state', 'Inspection Requested')
+            frappe.msgprint(_("Inspection requested."))
 
     @frappe.whitelist()
-    def approve(self):
-        if self.workflow_state == "Under Review":
-            self.workflow_state = "Approved"
-            self.save()
-            frappe.msgprint(_("Application approved."))
+    def complete_inspection(self):
+        if self.workflow_state == "Inspection Requested":
+            # Check if the Inspection document is completed
+            inspection = frappe.get_doc("Inspection", {"accreditation": self.name})
+            if inspection.workflow_state == "Approved by DG":
+                self.db_set('workflow_state', 'Under Specialist Review')
+                frappe.msgprint(_("Inspection completed. Application is now under specialist review."))
+            else:
+                frappe.throw(_("The inspection has not been completed and approved yet."))
 
-    @frappe.whitelist()
-    def reject(self):
-        if self.workflow_state == "Under Review":
-            self.workflow_state = "Rejected"
-            self.save()
-            frappe.msgprint(_("Application rejected."))
+    def on_update(self):
+        super(Accreditation, self).on_update()
+        self.update_status_history()
 
-    @frappe.whitelist()
-    def resubmit(self):
-        if self.workflow_state == "Rejected":
-            self.workflow_state = "Submitted"
-            self.save()
-            frappe.msgprint(_("Application resubmitted."))
+    def update_status_history(self):
+        if self.has_value_changed('workflow_state'):
+            self.append('status_history', {
+                'status': self.workflow_state,
+                'date': frappe.utils.now(),
+                'user': frappe.session.user
+            })
 
     def generate_certificate(self):
         from accreditation_management.www.application_status import generate_certificate_html
