@@ -68,9 +68,9 @@
   },
   {
    "fieldname": "workflow_state",
-   "fieldtype": "Link",
+   "fieldtype": "Select",
    "label": "Workflow State",
-   "options": "Workflow State",
+   "options": "Draft\nSubmitted\nUnder Review\nApproved\nRejected",
    "default": "Draft",
    "allow_on_submit": 1,
    "in_standard_filter": 1,
