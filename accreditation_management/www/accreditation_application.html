@@ -486,9 +486,9 @@ frappe.ready(function() {
 
         // Stringify form data before sending to the server
         frappe.call({
-            method: 'accreditation_management.www.accreditation_application.submit_application',
+            method: 'accreditation_management.accreditation_management.doctype.accreditation.accreditation.create_accreditation',
             args: {
-                form_data: JSON.stringify(formData) // Ensure data is passed as a JSON string
+                data: JSON.stringify(formData) // Ensure data is passed as a JSON string
             },
             freeze: true,
             callback: function(r) {
@@ -496,10 +496,10 @@ frappe.ready(function() {
                     frappe.msgprint({
                         title: __('Application Submitted'),
                         indicator: 'green',
-                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
+                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message.tracking_number)
                     });
                     setTimeout(function() {
-                        window.location.href = '/application-status?tracking_number=' + r.message;
+                        window.location.href = '/application-status?tracking_number=' + r.message.tracking_number;
                     }, 3000);
                 } else {
                     frappe.msgprint({
