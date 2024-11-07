@@ -18,7 +18,6 @@ class Accreditation(Document):
     def set_initial_state(self):
         frappe.logger().info(f"Setting initial state for {self.name}")
         self.workflow_state = "Draft"
-        self.status = "Draft"
         frappe.logger().info(f"Set initial state to {self.workflow_state}")
 
     def generate_tracking_number(self):
@@ -44,9 +43,8 @@ class Accreditation(Document):
     def update_status_history(self):
         # Record status changes in the status history
         if self.is_new() or self.has_value_changed('workflow_state'):
-            self.status = self.workflow_state
             self.append('status_history', {
-                'status': self.status,
+                'status': self.workflow_state,
                 'date': frappe.utils.now(),
                 'user': frappe.session.user
             })
@@ -55,10 +53,9 @@ class Accreditation(Document):
         # Update status history on any update
         self.update_status_history()
         if self.has_value_changed('workflow_state'):
-            self.status = self.workflow_state
-            if self.status == "Approved" and not self.certificate_generated:
+            if self.workflow_state == "Approved" and not self.certificate_generated:
                 self.generate_certificate()
-            elif self.status != "Approved" and self.certificate_generated:
+            elif self.workflow_state != "Approved" and self.certificate_generated:
                 self.revoke_certificate()
 
     def revoke_certificate(self):
