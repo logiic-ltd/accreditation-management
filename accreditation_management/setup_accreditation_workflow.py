@@ -1,7 +1,7 @@
 import frappe
 import json
 from frappe.model.document import Document
-from frappe.model.workflow import Workflow
+from frappe.workflow.doctype.workflow.workflow import Workflow
 
 def setup_accreditation_workflow():
     try:
