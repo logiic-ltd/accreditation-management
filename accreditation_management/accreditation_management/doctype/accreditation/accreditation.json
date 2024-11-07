@@ -10,20 +10,55 @@
   "workflow_state",
   "school_code",
   "school_name",
-  "mission",
-  "objective",
-  "curriculum",
+  "status",
+  "school_owner",
+  "contact",
+  "accommodation_status",
   "establishment_year",
-  "school_email",
-  "school_telephone",
-  "owner_name",
-  "owner_email",
-  "owner_telephone",
   "village",
   "cell",
   "sector",
   "district",
   "province",
+  "ht_name",
+  "ht_qualification",
+  "ht_telephone",
+  "total_students",
+  "total_girls",
+  "total_boys",
+  "students_requested_level",
+  "students_sen",
+  "total_teachers",
+  "male_teachers",
+  "female_teachers",
+  "assistant_teachers",
+  "male_assistant_teachers",
+  "female_assistant_teachers",
+  "total_admin_staff",
+  "headteacher",
+  "deputy_headteacher",
+  "secretary",
+  "librarian",
+  "accountant",
+  "other_admin_staff",
+  "total_supporting_staff",
+  "cleaners",
+  "cleaning_company",
+  "watchmen",
+  "school_cooks",
+  "storekeeper",
+  "drivers",
+  "other_supporting_staff",
+  "total_classrooms",
+  "total_latrines",
+  "total_kitchens",
+  "total_dining_halls",
+  "total_libraries",
+  "total_smart_classrooms",
+  "total_computer_labs",
+  "total_admin_offices",
+  "total_multipurpose_halls",
+  "total_staff_rooms",
   "certificate_generated",
   "status_history"
  ],
@@ -68,45 +103,29 @@
    "label": "School Name"
   },
   {
-   "fieldname": "mission",
-   "fieldtype": "Small Text",
-   "label": "Mission"
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
   },
   {
-   "fieldname": "objective",
-   "fieldtype": "Small Text",
-   "label": "Objective"
+   "fieldname": "school_owner",
+   "fieldtype": "Data",
+   "label": "School Owner"
   },
   {
-   "fieldname": "curriculum",
-   "fieldtype": "Select",
-   "label": "Curriculum",
-   "options": "National\nInternational"
+   "fieldname": "contact",
+   "fieldtype": "Data",
+   "label": "Contact"
+  },
+  {
+   "fieldname": "accommodation_status",
+   "fieldtype": "Data",
+   "label": "Accommodation Status"
   },
   {
    "fieldname": "establishment_year",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Year of Establishment"
-  },
-  {
-   "fieldname": "school_email",
-   "fieldtype": "Data",
-   "label": "School Email"
-  },
-  {
-   "fieldname": "school_telephone",
-   "fieldtype": "Data",
-   "label": "School Telephone"
-  },
-  {
-   "fieldname": "owner_name",
-   "fieldtype": "Data",
-   "label": "Owner Name"
-  },
-  {
-   "fieldname": "owner_telephone",
-   "fieldtype": "Data",
-   "label": "Owner Telephone"
   },
   {
    "fieldname": "village",
@@ -134,9 +153,199 @@
    "label": "Province"
   },
   {
-   "fieldname": "owner_email",
+   "fieldname": "ht_name",
    "fieldtype": "Data",
-   "label": "Owner Email"
+   "label": "HT/Name"
+  },
+  {
+   "fieldname": "ht_qualification",
+   "fieldtype": "Data",
+   "label": "Qualification of Head Teacher"
+  },
+  {
+   "fieldname": "ht_telephone",
+   "fieldtype": "Data",
+   "label": "Telephone"
+  },
+  {
+   "fieldname": "total_students",
+   "fieldtype": "Int",
+   "label": "Total Number of Students"
+  },
+  {
+   "fieldname": "total_girls",
+   "fieldtype": "Int",
+   "label": "Number of Girls"
+  },
+  {
+   "fieldname": "total_boys",
+   "fieldtype": "Int",
+   "label": "Number of Boys"
+  },
+  {
+   "fieldname": "students_requested_level",
+   "fieldtype": "Int",
+   "label": "Number of Students for the Requested Level/Trade/Combination"
+  },
+  {
+   "fieldname": "students_sen",
+   "fieldtype": "Int",
+   "label": "Students with Special Education Needs (SEN)"
+  },
+  {
+   "fieldname": "total_teachers",
+   "fieldtype": "Int",
+   "label": "Number of All Teachers"
+  },
+  {
+   "fieldname": "male_teachers",
+   "fieldtype": "Int",
+   "label": "Number of Male Teachers"
+  },
+  {
+   "fieldname": "female_teachers",
+   "fieldtype": "Int",
+   "label": "Number of Female Teachers"
+  },
+  {
+   "fieldname": "assistant_teachers",
+   "fieldtype": "Int",
+   "label": "Number of Assistant Teachers or Caregivers"
+  },
+  {
+   "fieldname": "male_assistant_teachers",
+   "fieldtype": "Int",
+   "label": "Number of Male Assistant Teachers"
+  },
+  {
+   "fieldname": "female_assistant_teachers",
+   "fieldtype": "Int",
+   "label": "Number of Female Assistant Teachers"
+  },
+  {
+   "fieldname": "total_admin_staff",
+   "fieldtype": "Int",
+   "label": "Total Number of Administrative Staff"
+  },
+  {
+   "fieldname": "headteacher",
+   "fieldtype": "Int",
+   "label": "Headteacher"
+  },
+  {
+   "fieldname": "deputy_headteacher",
+   "fieldtype": "Int",
+   "label": "Deputy Headteacher"
+  },
+  {
+   "fieldname": "secretary",
+   "fieldtype": "Int",
+   "label": "Secretary"
+  },
+  {
+   "fieldname": "librarian",
+   "fieldtype": "Int",
+   "label": "Librarian"
+  },
+  {
+   "fieldname": "accountant",
+   "fieldtype": "Int",
+   "label": "Accountant"
+  },
+  {
+   "fieldname": "other_admin_staff",
+   "fieldtype": "Data",
+   "label": "Other Staff (Specify)"
+  },
+  {
+   "fieldname": "total_supporting_staff",
+   "fieldtype": "Int",
+   "label": "Total Number of Supporting Staff"
+  },
+  {
+   "fieldname": "cleaners",
+   "fieldtype": "Int",
+   "label": "Cleaners"
+  },
+  {
+   "fieldname": "cleaning_company",
+   "fieldtype": "Data",
+   "label": "Cleaning Company"
+  },
+  {
+   "fieldname": "watchmen",
+   "fieldtype": "Int",
+   "label": "Watchmen"
+  },
+  {
+   "fieldname": "school_cooks",
+   "fieldtype": "Int",
+   "label": "School Cooks"
+  },
+  {
+   "fieldname": "storekeeper",
+   "fieldtype": "Int",
+   "label": "Storekeeper"
+  },
+  {
+   "fieldname": "drivers",
+   "fieldtype": "Int",
+   "label": "Drivers"
+  },
+  {
+   "fieldname": "other_supporting_staff",
+   "fieldtype": "Data",
+   "label": "Other Supporting Staff (Specify)"
+  },
+  {
+   "fieldname": "total_classrooms",
+   "fieldtype": "Int",
+   "label": "Number of All Classrooms"
+  },
+  {
+   "fieldname": "total_latrines",
+   "fieldtype": "Int",
+   "label": "Number of All Latrines/Toilets"
+  },
+  {
+   "fieldname": "total_kitchens",
+   "fieldtype": "Int",
+   "label": "Number of Kitchens"
+  },
+  {
+   "fieldname": "total_dining_halls",
+   "fieldtype": "Int",
+   "label": "Number of Dining Halls"
+  },
+  {
+   "fieldname": "total_libraries",
+   "fieldtype": "Int",
+   "label": "Number of Libraries"
+  },
+  {
+   "fieldname": "total_smart_classrooms",
+   "fieldtype": "Int",
+   "label": "Number of Smart Classrooms"
+  },
+  {
+   "fieldname": "total_computer_labs",
+   "fieldtype": "Int",
+   "label": "Number of Computer Laboratories"
+  },
+  {
+   "fieldname": "total_admin_offices",
+   "fieldtype": "Int",
+   "label": "Number of Administrative Staff Offices"
+  },
+  {
+   "fieldname": "total_multipurpose_halls",
+   "fieldtype": "Int",
+   "label": "Number of Multipurpose Halls"
+  },
+  {
+   "fieldname": "total_staff_rooms",
+   "fieldtype": "Int",
+   "label": "Number of Academic Staff Rooms"
   },
   {
    "fieldname": "certificate_generated",
