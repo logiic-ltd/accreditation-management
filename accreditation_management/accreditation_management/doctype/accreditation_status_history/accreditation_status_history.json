@@ -18,7 +18,7 @@
     "fieldtype": "Select",
     "in_list_view": 1,
     "label": "Status",
-    "options": "Draft\nSubmitted\nUnder Review\nApproved\nRejected",
+    "options": "Initial Draft\nPending Specialist Review\nUnder Specialist Review\nInspection Requested\nPending HoD Review\nUnder HoD Review\nPending DG Approval\nApproved by DG\nRejected by DG\nRejected by Specialist",
     "reqd": 1
    },
    {
