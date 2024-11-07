@@ -1,5 +1,6 @@
 import frappe
 import json
+import os
 
 def setup_accreditation_workflow():
     try:
@@ -8,8 +9,11 @@ def setup_accreditation_workflow():
             print("Accreditation Workflow already exists.")
             return
 
+        # Determine the path to the JSON file
+        json_file_path = os.path.join(os.path.dirname(__file__), 'accreditation_workflow.json')
+
         # Load the workflow configuration from JSON file
-        with open('accreditation_management/accreditation_workflow.json', 'r') as file:
+        with open(json_file_path, 'r') as file:
             workflow_config = json.load(file)
 
         # Create a new Workflow document
