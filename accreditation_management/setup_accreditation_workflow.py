@@ -1,7 +1,5 @@
 import frappe
 import json
-from frappe.model.document import Document
-from frappe.workflow.doctype.workflow.workflow import Workflow
 
 def setup_accreditation_workflow():
     try:
@@ -14,10 +12,18 @@ def setup_accreditation_workflow():
         with open('accreditation_management/accreditation_workflow.json', 'r') as file:
             workflow_config = json.load(file)
 
-        workflow = frappe.new_doc("Workflow")
-        workflow.update(workflow_config)
+        # Create a new Workflow document
+        workflow = frappe.get_doc({
+            "doctype": "Workflow",
+            "workflow_name": workflow_config["workflow_name"],
+            "document_type": workflow_config["document_type"],
+            "workflow_state_field": workflow_config["workflow_state_field"],
+            "is_active": workflow_config["is_active"],
+            "states": workflow_config["states"],
+            "transitions": workflow_config["transitions"]
+        })
 
-        # Save the workflow
+        # Insert the workflow into the database
         workflow.insert(ignore_permissions=True)
         frappe.db.commit()
 
