@@ -16,7 +16,7 @@ class Accreditation(Document):
 
     def set_initial_state(self):
         frappe.logger().info(f"Setting initial state for {self.name}")
-        self.workflow_state = "Draft"
+        self.workflow_state = "Initial Draft"
         frappe.logger().info(f"Set initial state to {self.workflow_state}")
 
     def generate_tracking_number(self):
