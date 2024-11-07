@@ -176,7 +176,6 @@ def create_accreditation(data):
             "doctype": "Accreditation",
             "school_name": data.get('school_name'),
             "school_code": data.get('school_code'),
-            "status": data.get('status'),
             "school_owner": data.get('school_owner'),
             "contact": data.get('contact'),
             "accommodation_status": data.get('accommodation_status'),
@@ -230,6 +229,12 @@ def create_accreditation(data):
         doc.insert(ignore_permissions=True)
         
         return {"tracking_number": doc.tracking_number}
+    except json.JSONDecodeError:
+        frappe.log_error("Invalid JSON data received")
+        frappe.throw(_("Invalid data format. Please try again."))
+    except frappe.ValidationError as e:
+        frappe.log_error(f"Validation error: {str(e)}")
+        frappe.throw(_(f"Validation error: {str(e)}"))
     except Exception as e:
         frappe.log_error(f"Error creating accreditation: {str(e)}")
-        frappe.throw(_("An error occurred while submitting the application. Please try again."))
+        frappe.throw(_("An unexpected error occurred while submitting the application. Please try again or contact support."))
