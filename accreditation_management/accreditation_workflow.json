@@ -5,78 +5,128 @@
     "is_active": 1,
     "states": [
         {
-            "state": "Draft",
+            "state": "Initial Draft",
             "doc_status": 0,
-            "allow_edit": "All"
+            "allow_edit": "Applicant"
         },
         {
-            "state": "Submitted",
+            "state": "Pending Specialist Review",
+            "doc_status": 0,
+            "allow_edit": "Accreditation Specialist"
+        },
+        {
+            "state": "Under Specialist Review",
+            "doc_status": 0,
+            "allow_edit": "Accreditation Specialist"
+        },
+        {
+            "state": "Inspection Requested",
+            "doc_status": 0,
+            "allow_edit": "Accreditation Specialist"
+        },
+        {
+            "state": "Pending HoD Review",
+            "doc_status": 0,
+            "allow_edit": "Head of Department"
+        },
+        {
+            "state": "Under HoD Review",
+            "doc_status": 0,
+            "allow_edit": "Head of Department"
+        },
+        {
+            "state": "Pending DG Approval",
+            "doc_status": 0,
+            "allow_edit": "Director General"
+        },
+        {
+            "state": "Approved by DG",
             "doc_status": 1,
-            "allow_edit": "All"
+            "allow_edit": "Director General"
         },
         {
-            "state": "Under Review",
+            "state": "Rejected by DG",
             "doc_status": 1,
-            "allow_edit": "Accreditation Reviewer"
+            "allow_edit": "Director General"
         },
         {
-            "state": "Approved",
+            "state": "Rejected by Specialist",
             "doc_status": 1,
-            "allow_edit": "Accreditation Approver"
-        },
-        {
-            "state": "Rejected",
-            "doc_status": 1,
-            "allow_edit": "Accreditation Approver"
-        },
-        {
-            "state": "Revoked",
-            "doc_status": 2,
-            "allow_edit": "Accreditation Approver"
+            "allow_edit": "Accreditation Specialist"
         }
     ],
     "transitions": [
         {
-            "state": "Draft",
-            "action": "Submit",
-            "next_state": "Submitted",
-            "allowed": "All"
+            "state": "Initial Draft",
+            "action": "Submit Application",
+            "next_state": "Pending Specialist Review",
+            "allowed": "Applicant"
         },
         {
-            "state": "Submitted",
+            "state": "Pending Specialist Review",
             "action": "Start Review",
-            "next_state": "Under Review",
-            "allowed": "Accreditation Reviewer"
+            "next_state": "Under Specialist Review",
+            "allowed": "Accreditation Specialist"
         },
         {
-            "state": "Under Review",
+            "state": "Under Specialist Review",
+            "action": "Request Inspection",
+            "next_state": "Inspection Requested",
+            "allowed": "Accreditation Specialist"
+        },
+        {
+            "state": "Under Specialist Review",
+            "action": "Reject Application",
+            "next_state": "Rejected by Specialist",
+            "allowed": "Accreditation Specialist"
+        },
+        {
+            "state": "Inspection Requested",
+            "action": "Complete Inspection",
+            "next_state": "Under Specialist Review",
+            "allowed": "Accreditation Specialist"
+        },
+        {
+            "state": "Under Specialist Review",
+            "action": "Send for HoD Review",
+            "next_state": "Pending HoD Review",
+            "allowed": "Accreditation Specialist"
+        },
+        {
+            "state": "Pending HoD Review",
+            "action": "Start HoD Review",
+            "next_state": "Under HoD Review",
+            "allowed": "Head of Department"
+        },
+        {
+            "state": "Under HoD Review",
+            "action": "Return to Specialist",
+            "next_state": "Under Specialist Review",
+            "allowed": "Head of Department"
+        },
+        {
+            "state": "Under HoD Review",
+            "action": "Send for DG Approval",
+            "next_state": "Pending DG Approval",
+            "allowed": "Head of Department"
+        },
+        {
+            "state": "Pending DG Approval",
             "action": "Approve",
-            "next_state": "Approved",
-            "allowed": "Accreditation Approver"
+            "next_state": "Approved by DG",
+            "allowed": "Director General"
         },
         {
-            "state": "Under Review",
+            "state": "Pending DG Approval",
             "action": "Reject",
-            "next_state": "Rejected",
-            "allowed": "Accreditation Approver"
+            "next_state": "Rejected by DG",
+            "allowed": "Director General"
         },
         {
-            "state": "Rejected",
-            "action": "Resubmit",
-            "next_state": "Submitted",
-            "allowed": "All"
-        },
-        {
-            "state": "Approved",
-            "action": "Revoke",
-            "next_state": "Revoked",
-            "allowed": "Accreditation Approver"
-        },
-        {
-            "state": "Revoked",
-            "action": "Reactivate",
-            "next_state": "Under Review",
-            "allowed": "Accreditation Approver"
+            "state": "Pending DG Approval",
+            "action": "Return to HoD",
+            "next_state": "Under HoD Review",
+            "allowed": "Director General"
         }
     ]
 }
