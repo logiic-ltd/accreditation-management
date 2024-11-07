@@ -3,7 +3,6 @@
 
 import frappe
 from frappe.model.document import Document
-from frappe.utils import validate_email_address, validate_phone_number
 from frappe import _
 import random
 import string
@@ -22,7 +21,6 @@ class Accreditation(Document):
 
     def generate_tracking_number(self):
         frappe.logger().info(f"Generating tracking number for {self.name}")
-        # Generate a unique 8-character alphanumeric tracking number
         tracking_number = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
         while frappe.db.exists("Accreditation", {"tracking_number": tracking_number}):
             tracking_number = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
@@ -30,18 +28,9 @@ class Accreditation(Document):
         frappe.logger().info(f"Generated tracking number: {self.tracking_number}")
 
     def validate(self):
-        # Validate email addresses and phone numbers
-        if self.school_email and not validate_email_address(self.school_email):
-            frappe.throw("School Email is invalid")
-        if self.owner_email and not validate_email_address(self.owner_email):
-            frappe.throw("Owner Email is invalid")
-        if self.school_telephone and not validate_phone_number(self.school_telephone):
-            frappe.throw("School Telephone is invalid")
-        
         self.update_status_history()
 
     def update_status_history(self):
-        # Record status changes in the status history
         if self.is_new() or self.has_value_changed('workflow_state'):
             self.append('status_history', {
                 'status': self.workflow_state,
@@ -50,7 +39,6 @@ class Accreditation(Document):
             })
 
     def on_update(self):
-        # Update status history on any update
         self.update_status_history()
         if self.has_value_changed('workflow_state'):
             if self.workflow_state == "Approved" and not self.certificate_generated:
@@ -59,7 +47,6 @@ class Accreditation(Document):
                 self.revoke_certificate()
 
     def revoke_certificate(self):
-        # Delete the existing certificate file
         files = frappe.get_all("File", filters={
             "attached_to_doctype": self.doctype,
             "attached_to_name": self.name,
@@ -73,22 +60,18 @@ class Accreditation(Document):
         frappe.msgprint(_("Certificate has been revoked."))
 
     def on_submit(self):
-        # Update status history when the document is submitted
         self.update_status_history()
 
     def on_cancel(self):
-        # Update status history when the document is cancelled
         self.update_status_history()
 
     @frappe.whitelist()
     def request_inspection(self):
         if self.workflow_state == "Under Specialist Review":
-            # Create an Inspection document
             inspection = frappe.get_doc({
                 "doctype": "Inspection",
                 "accreditation": self.name,
                 "school_name": self.school_name,
-                # Add other relevant fields
             })
             inspection.insert(ignore_permissions=True)
             
@@ -98,25 +81,12 @@ class Accreditation(Document):
     @frappe.whitelist()
     def complete_inspection(self):
         if self.workflow_state == "Inspection Requested":
-            # Check if the Inspection document is completed
             inspection = frappe.get_doc("Inspection", {"accreditation": self.name})
             if inspection.workflow_state == "Approved by DG":
                 self.db_set('workflow_state', 'Under Specialist Review')
                 frappe.msgprint(_("Inspection completed. Application is now under specialist review."))
             else:
                 frappe.throw(_("The inspection has not been completed and approved yet."))
-
-    def on_update(self):
-        super(Accreditation, self).on_update()
-        self.update_status_history()
-
-    def update_status_history(self):
-        if self.has_value_changed('workflow_state'):
-            self.append('status_history', {
-                'status': self.workflow_state,
-                'date': frappe.utils.now(),
-                'user': frappe.session.user
-            })
 
     def generate_certificate(self):
         from accreditation_management.www.application_status import generate_certificate_html
@@ -125,7 +95,6 @@ class Accreditation(Document):
         certificate_html = generate_certificate_html(self)
         pdf = get_pdf(certificate_html)
         
-        # Save the PDF as an attachment
         file_name = f"{self.school_name}_Accreditation_Certificate.pdf"
         _file = frappe.get_doc({
             "doctype": "File",
@@ -133,7 +102,7 @@ class Accreditation(Document):
             "attached_to_doctype": self.doctype,
             "attached_to_name": self.name,
             "content": pdf,
-            "is_private": 1  # Make the file private
+            "is_private": 1
         })
         _file.save()
         
@@ -143,12 +112,10 @@ class Accreditation(Document):
         frappe.msgprint(_("Certificate generated successfully."))
 
     def after_insert(self):
-        # Send tracking number email after the document is inserted
         self.send_tracking_number_email()
 
     def send_tracking_number_email(self):
-        # Send an email with the tracking number to the school
-        if self.school_email:
+        if self.contact:
             subject = _("NESA Accreditation Application Tracking Number")
             message = _("""Dear {0},
 
@@ -162,7 +129,7 @@ Best regards,
 NESA Accreditation Team""").format(self.school_name, self.tracking_number)
 
             frappe.sendmail(
-                recipients=[self.school_email],
+                recipients=[self.contact],
                 subject=subject,
                 message=message,
                 header=[_("Accreditation Application"), "green"]
@@ -176,6 +143,7 @@ def create_accreditation(data):
             "doctype": "Accreditation",
             "school_name": data.get('school_name'),
             "school_code": data.get('school_code'),
+            "status": data.get('status'),
             "school_owner": data.get('school_owner'),
             "contact": data.get('contact'),
             "accommodation_status": data.get('accommodation_status'),
