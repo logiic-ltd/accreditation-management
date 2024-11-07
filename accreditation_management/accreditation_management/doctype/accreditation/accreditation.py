@@ -112,7 +112,10 @@ class Accreditation(Document):
         frappe.msgprint(_("Certificate generated successfully."))
 
     def after_insert(self):
-        self.send_tracking_number_email()
+        try:
+            self.send_tracking_number_email()
+        except Exception as e:
+            frappe.log_error(f"Failed to send tracking number email: {str(e)}", "Accreditation Email Error")
 
     def send_tracking_number_email(self):
         if self.contact:
@@ -128,12 +131,15 @@ Please keep this number for future reference. You can use this tracking number t
 Best regards,
 NESA Accreditation Team""").format(self.school_name, self.tracking_number)
 
-            frappe.sendmail(
-                recipients=[self.contact],
-                subject=subject,
-                message=message,
-                header=[_("Accreditation Application"), "green"]
-            )
+            try:
+                frappe.sendmail(
+                    recipients=[self.contact],
+                    subject=subject,
+                    message=message,
+                    header=[_("Accreditation Application"), "green"]
+                )
+            except frappe.OutgoingEmailError:
+                frappe.log_error("Failed to send tracking number email due to missing email account configuration", "Accreditation Email Error")
 
 @frappe.whitelist(allow_guest=True)
 def create_accreditation(data):
@@ -196,7 +202,7 @@ def create_accreditation(data):
         
         doc.insert(ignore_permissions=True)
         
-        return {"tracking_number": doc.tracking_number}
+        return {"tracking_number": doc.tracking_number, "message": _("Application submitted successfully. Please note your tracking number.")}
     except json.JSONDecodeError:
         frappe.log_error("Invalid JSON data received")
         frappe.throw(_("Invalid data format. Please try again."))
@@ -205,4 +211,7 @@ def create_accreditation(data):
         frappe.throw(_(f"Validation error: {str(e)}"))
     except Exception as e:
         frappe.log_error(f"Error creating accreditation: {str(e)}")
-        frappe.throw(_("An unexpected error occurred while submitting the application. Please try again or contact support."))
+        if "OutgoingEmailError" in str(e):
+            return {"tracking_number": doc.tracking_number, "message": _("Application submitted successfully, but we couldn't send you an email confirmation. Please note your tracking number: {0}").format(doc.tracking_number)}
+        else:
+            frappe.throw(_("An unexpected error occurred while submitting the application. Please try again or contact support."))
