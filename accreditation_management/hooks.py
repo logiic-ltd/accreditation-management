@@ -138,7 +138,7 @@ override_doctype_class = {
 # ------------
 
 # before_install = "accreditation_management.install.before_install"
-# after_install = "accreditation_management.install.after_install"
+after_install = "accreditation_management.setup_accreditation_workflow.setup_accreditation_workflow"
 
 # Uninstallation
 # ------------
