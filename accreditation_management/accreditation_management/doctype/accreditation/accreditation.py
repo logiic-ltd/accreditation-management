@@ -4,7 +4,7 @@
 import frappe
 from frappe.model.document import Document
 from frappe.utils import validate_email_address, validate_phone_number
-from frappe import _
+from frappe import _, OutgoingEmailError
 import random
 import string
 import json
@@ -151,10 +151,11 @@ class Accreditation(Document):
         self.send_tracking_number_email()
 
     def send_tracking_number_email(self):
-        # Send an email with the tracking number to the school
-        if self.school_email:
-            subject = _("NESA Accreditation Application Tracking Number")
-            message = _("""Dear {0},
+        try:
+            # Send an email with the tracking number to the school
+            if self.school_email:
+                subject = _("NESA Accreditation Application Tracking Number")
+                message = _("""Dear {0},
 
 Thank you for submitting your NESA Accreditation Application.
 
@@ -165,12 +166,14 @@ Please keep this number for future reference. You can use this tracking number t
 Best regards,
 NESA Accreditation Team""").format(self.school_name, self.tracking_number)
 
-            frappe.sendmail(
-                recipients=[self.school_email],
-                subject=subject,
-                message=message,
-                header=[_("Accreditation Application"), "green"]
-            )
+                frappe.sendmail(
+                    recipients=[self.school_email],
+                    subject=subject,
+                    message=message,
+                    header=[_("Accreditation Application"), "green"]
+                )
+        except OutgoingEmailError:
+            frappe.logger().warning("Email account not configured. Unable to send tracking number email.")
 
 @frappe.whitelist(allow_guest=True)
 def create_accreditation(data):
