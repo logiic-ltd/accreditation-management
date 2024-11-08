@@ -77,52 +77,53 @@ frappe.ready(function() {
             },
             callback: function(r) {
                 if (r.message) {
-                if (r.message.error) {
-                    $('#verificationResult').html(`<div class="alert alert-warning">${r.message.error}</div>`);
-                } else {
-                    $('#verificationResult').html(`
-                        <h3 class="mb-3">Certificate Verified</h3>
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr>
-                                    <th scope="row">School Name</th>
-                                    <td>${r.message.school_name}</td>
-                                </tr>
-                                <tr class="table-success">
-                                    <th scope="row">Accreditation Status</th>
-                                    <td>${r.message.status}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Issue Date</th>
-                                    <td>${r.message.issue_date}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Tracking Number</th>
-                                    <td>${trackingNumber}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Curriculum</th>
-                                    <td>${r.message.curriculum}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Year of Establishment</th>
-                                    <td>${r.message.establishment_year}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">School Email</th>
-                                    <td>${r.message.school_email}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">School Telephone</th>
-                                    <td>${r.message.school_telephone}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Location</th>
-                                    <td>${r.message.village}, ${r.message.cell}, ${r.message.sector}, ${r.message.district}, ${r.message.province}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    `);
+                    if (r.message.error) {
+                        $('#verificationResult').html(`<div class="alert alert-warning">${r.message.error}</div>`);
+                    } else {
+                        $('#verificationResult').html(`
+                            <h3 class="mb-3">Certificate Verified</h3>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">School Name</th>
+                                        <td>${r.message.school_name}</td>
+                                    </tr>
+                                    <tr class="table-success">
+                                        <th scope="row">Accreditation Status</th>
+                                        <td>${r.message.status}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Issue Date</th>
+                                        <td>${r.message.issue_date}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Tracking Number</th>
+                                        <td>${trackingNumber}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Curriculum</th>
+                                        <td>${r.message.curriculum}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Year of Establishment</th>
+                                        <td>${r.message.establishment_year}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">School Email</th>
+                                        <td>${r.message.school_email}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">School Telephone</th>
+                                        <td>${r.message.school_telephone}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Location</th>
+                                        <td>${r.message.village}, ${r.message.cell}, ${r.message.sector}, ${r.message.district}, ${r.message.province}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        `);
+                    }
                 }
             }
         });
