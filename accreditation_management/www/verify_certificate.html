@@ -77,7 +77,9 @@ frappe.ready(function() {
             },
             callback: function(r) {
                 if (r.message) {
-                    const statusClass = r.message.status === 'Approved' ? 'table-success' : 'table-warning';
+                if (r.message.error) {
+                    $('#verificationResult').html(`<div class="alert alert-warning">${r.message.error}</div>`);
+                } else {
                     $('#verificationResult').html(`
                         <h3 class="mb-3">Certificate Verified</h3>
                         <table class="table table-bordered">
@@ -86,7 +88,7 @@ frappe.ready(function() {
                                     <th scope="row">School Name</th>
                                     <td>${r.message.school_name}</td>
                                 </tr>
-                                <tr class="${statusClass}">
+                                <tr class="table-success">
                                     <th scope="row">Accreditation Status</th>
                                     <td>${r.message.status}</td>
                                 </tr>
@@ -121,8 +123,6 @@ frappe.ready(function() {
                             </tbody>
                         </table>
                     `);
-                } else {
-                    $('#verificationResult').html('<div class="alert alert-danger">Invalid or expired certificate.</div>');
                 }
             }
         });
