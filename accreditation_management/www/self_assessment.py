@@ -5,19 +5,12 @@ from accreditation_management.config.api_config import SCHOOL_SEARCH_ENDPOINT
 
 @frappe.whitelist(allow_guest=True)
 def search_schools(search_term):
+    url = f"{SCHOOL_SEARCH_ENDPOINT}?name={search_term}&page=0&size=20&sort=schoolName,asc"
     try:
-        response = requests.get(SCHOOL_SEARCH_ENDPOINT, params={"name": search_term})
+        response = requests.get(url)
         response.raise_for_status()
         schools = response.json().get('content', [])
-        return [
-            {
-                "name": school.get("schoolName"),
-                "code": school.get("schoolCode"),
-                "address": f"{school.get('village', '')}, {school.get('cell', '')}, {school.get('sector', '')}, {school.get('district', '')}, {school.get('province', '')}",
-                "owner": school.get("schoolOwner")
-            }
-            for school in schools
-        ]
+        return schools
     except requests.RequestException as e:
         frappe.log_error(f"Error searching schools: {str(e)}")
         return []
