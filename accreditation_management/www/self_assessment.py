@@ -7,9 +7,12 @@ from accreditation_management.config.api_config import SCHOOL_SEARCH_ENDPOINT
 def search_schools(search_term, page=0, size=20, sort="schoolName,asc"):
     url = f"{SCHOOL_SEARCH_ENDPOINT}?name={search_term}&page={page}&size={size}&sort={sort}"
     try:
+        frappe.logger().info(f"Searching schools with URL: {url}")
         response = requests.get(url)
         response.raise_for_status()
-        return response.json()
+        result = response.json()
+        frappe.logger().info(f"Search result: {result}")
+        return result
     except requests.RequestException as e:
         frappe.log_error(f"Error searching schools: {str(e)}")
         return {"content": [], "totalElements": 0, "totalPages": 0}

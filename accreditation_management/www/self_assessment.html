@@ -53,6 +53,7 @@ frappe.ready(function() {
                         sort: 'schoolName,asc'
                     },
                     callback: function(r) {
+                        console.log("API Response:", r); // Add this line for debugging
                         if (r.message && r.message.content && r.message.content.length > 0) {
                             let results = r.message.content;
                             let html = results.map(item => `
