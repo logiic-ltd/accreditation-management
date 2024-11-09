@@ -12,7 +12,15 @@ def search_schools(search_term, page=0, size=20, sort="schoolName,asc"):
         response.raise_for_status()
         result = response.json()
         frappe.logger().info(f"Search result: {result}")
-        return result
+        
+        # Check if the result is a list of schools or a single school
+        if isinstance(result, list):
+            return {"content": result, "totalElements": len(result), "totalPages": 1}
+        elif isinstance(result, dict) and "schoolName" in result:
+            return {"content": [result], "totalElements": 1, "totalPages": 1}
+        else:
+            frappe.logger().error(f"Unexpected API response format: {result}")
+            return {"content": [], "totalElements": 0, "totalPages": 0}
     except requests.RequestException as e:
         frappe.log_error(f"Error searching schools: {str(e)}")
         return {"content": [], "totalElements": 0, "totalPages": 0}
