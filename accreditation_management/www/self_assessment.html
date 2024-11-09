@@ -46,6 +46,7 @@ frappe.ready(function() {
             searchTimeout = setTimeout(() => {
                 frappe.call({
                     method: 'accreditation_management.www.self_assessment.search_schools',
+                    type: 'GET',
                     args: { 
                         search_term: search_term,
                         page: 0,
