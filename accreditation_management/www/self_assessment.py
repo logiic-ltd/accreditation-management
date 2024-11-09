@@ -5,13 +5,19 @@ from accreditation_management.config.api_config import SCHOOL_SEARCH_ENDPOINT
 
 @frappe.whitelist(allow_guest=True)
 def search_schools(search_term, page=0, size=20, sort="schoolName,asc"):
+    if not search_term:
+        frappe.logger().info("Search term is empty, returning empty result")
+        return {"content": [], "totalElements": 0, "totalPages": 0}
+
     url = f"{SCHOOL_SEARCH_ENDPOINT}?name={search_term}&page={page}&size={size}&sort={sort}"
     try:
-        frappe.logger().info(f"Searching schools with URL: {url}")
+        frappe.logger().info(f"Constructed API URL: {url}")
+        frappe.logger().info(f"Attempting to call API with URL: {url}")
         response = requests.get(url)
+        frappe.logger().info(f"API response status code: {response.status_code}")
         response.raise_for_status()
         result = response.json()
-        frappe.logger().info(f"Search result: {result}")
+        frappe.logger().info(f"API response content: {result}")
         
         # Check if the result is a list of schools or a single school
         if isinstance(result, list):
