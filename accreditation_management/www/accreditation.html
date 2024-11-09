@@ -35,7 +35,7 @@
 
     .hero-section {
         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        padding: 8rem 0 6rem;
+        padding: 2rem 0 6rem;
         position: relative;
         overflow: hidden;
         width: 100vw;
@@ -45,12 +45,24 @@
         margin-right: -50vw;
     }
 
+    .hero-top {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 3;
+    }
+
+    .login-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
     .hero-content {
         position: relative;
         z-index: 2;
         text-align: center;
         max-width: 800px;
-        margin: 0 auto;
+        margin: 4rem auto 0;
         padding: 0 20px;
     }
 
@@ -286,12 +298,14 @@
 {% block page_content %}
 <section class="hero-section">
     <div class="container">
+        <div class="hero-top">
+            <a href="/login" class="btn btn-outline-light btn-sm login-btn">Login</a>
+        </div>
         <div class="hero-content">
             <h1 class="hero-title">NESA Accreditation Portal</h1>
             <p class="hero-subtitle">Elevate your institution through comprehensive accreditation</p>
             <div class="hero-buttons">
-                <a href="/accreditation-application/new" class="btn btn-hero btn-lg mr-3">Start Your Application</a>
-                <a href="/login" class="btn btn-outline-light btn-lg">Login</a>
+                <a href="/accreditation-application/new" class="btn btn-hero btn-lg">Start Your Application</a>
             </div>
         </div>
     </div>
