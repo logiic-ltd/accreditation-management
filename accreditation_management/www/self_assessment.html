@@ -6,9 +6,9 @@
     
     <div id="school-search">
         <h2>Find Your School</h2>
-        <p>Search for your school or enter details for a new school.</p>
+        <p>Search for your school by name or school code.</p>
         <div class="input-group mb-3">
-            <input type="text" id="school-search-input" class="form-control" placeholder="Enter school name">
+            <input type="text" id="school-search-input" class="form-control" placeholder="Enter school name or code">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button" id="search-button">Search</button>
             </div>
@@ -20,30 +20,12 @@
         <ul id="school-list" class="list-group">
             <!-- School results will be populated here -->
         </ul>
-        <button id="new-school-button" class="btn btn-secondary mt-3">My school is not listed</button>
     </div>
 
-    <div id="new-school-form" style="display: none;">
-        <h3>New School Information</h3>
-        <form id="new-school-form">
-            <div class="form-group">
-                <label for="school-name">School Name</label>
-                <input type="text" class="form-control" id="school-name" required>
-            </div>
-            <div class="form-group">
-                <label for="school-address">School Address</label>
-                <input type="text" class="form-control" id="school-address" required>
-            </div>
-            <div class="form-group">
-                <label for="school-contact">Contact Person</label>
-                <input type="text" class="form-control" id="school-contact" required>
-            </div>
-            <div class="form-group">
-                <label for="school-email">Email</label>
-                <input type="email" class="form-control" id="school-email" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Start Self-Assessment</button>
-        </form>
+    <div id="selected-school" style="display: none;">
+        <h3>Selected School</h3>
+        <div id="selected-school-info"></div>
+        <button id="start-assessment-button" class="btn btn-primary mt-3">Start Self-Assessment</button>
     </div>
 </div>
 
@@ -56,22 +38,6 @@ frappe.ready(function() {
         if (searchTerm) {
             searchSchools(searchTerm);
         }
-    });
-
-    $('#new-school-button').click(function() {
-        $('#school-results').hide();
-        $('#new-school-form').show();
-    });
-
-    $('#new-school-form').submit(function(e) {
-        e.preventDefault();
-        const newSchool = {
-            name: $('#school-name').val(),
-            address: $('#school-address').val(),
-            contact: $('#school-contact').val(),
-            email: $('#school-email').val()
-        };
-        startSelfAssessment(newSchool);
     });
 
     function searchSchools(term) {
@@ -91,15 +57,34 @@ frappe.ready(function() {
         schoolList.empty();
         schools.forEach(function(school) {
             const li = $('<li class="list-group-item"></li>');
-            li.text(school.name);
+            li.html(`<strong>${school.name}</strong> (Code: ${school.code})<br>${school.address}`);
             li.click(function() {
                 selectedSchool = school;
-                startSelfAssessment(selectedSchool);
+                displaySelectedSchool(school);
             });
             schoolList.append(li);
         });
         $('#school-results').show();
+        $('#selected-school').hide();
     }
+
+    function displaySelectedSchool(school) {
+        const schoolInfo = $('#selected-school-info');
+        schoolInfo.html(`
+            <p><strong>School Name:</strong> ${school.name}</p>
+            <p><strong>School Code:</strong> ${school.code}</p>
+            <p><strong>Address:</strong> ${school.address}</p>
+            <p><strong>Owner:</strong> ${school.owner}</p>
+        `);
+        $('#school-results').hide();
+        $('#selected-school').show();
+    }
+
+    $('#start-assessment-button').click(function() {
+        if (selectedSchool) {
+            startSelfAssessment(selectedSchool);
+        }
+    });
 
     function startSelfAssessment(school) {
         frappe.call({
