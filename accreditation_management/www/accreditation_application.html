@@ -1,6 +1,7 @@
 {% extends "templates/web.html" %}
 
 {% block style %}
+<link href="/assets/accreditation_management/css/custom_navbar.css" rel="stylesheet">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
@@ -19,34 +20,7 @@
         color: var(--text-color);
     }
 
-    .site-header {
-        background-color: var(--white);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-    }
-
-    .navbar-brand {
-        font-weight: 700;
-        color: var(--primary-color);
-        font-size: 1.5rem;
-    }
-
-    .navbar-nav .nav-link {
-        color: var(--secondary-color);
-        font-weight: 600;
-        transition: color 0.3s ease;
-    }
-
-    .navbar-nav .nav-link:hover {
-        color: var(--primary-color);
-    }
-
     .content-wrapper {
-        padding-top: 10px;
         padding-bottom: 50px;
     }
 
