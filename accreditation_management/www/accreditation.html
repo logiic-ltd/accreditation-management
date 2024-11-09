@@ -84,6 +84,35 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-outline-light {
+        color: #ffffff;
+        border-color: #ffffff;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-light:hover {
+        background-color: #ffffff;
+        color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .hero-buttons {
+            flex-direction: column;
+        }
+
+        .hero-buttons .btn {
+            margin-bottom: 1rem;
+        }
+    }
+
     .features-section {
         padding: 6rem 0;
         background-color: #ffffff;
@@ -260,7 +289,10 @@
         <div class="hero-content">
             <h1 class="hero-title">NESA Accreditation Portal</h1>
             <p class="hero-subtitle">Elevate your institution through comprehensive accreditation</p>
-            <a href="/accreditation-application/new" class="btn btn-hero btn-lg">Start Your Application</a>
+            <div class="hero-buttons">
+                <a href="/accreditation-application/new" class="btn btn-hero btn-lg mr-3">Start Your Application</a>
+                <a href="/login" class="btn btn-outline-light btn-lg">Login</a>
+            </div>
         </div>
     </div>
 </section>
