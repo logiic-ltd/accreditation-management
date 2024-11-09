@@ -76,6 +76,7 @@ website_route_rules = [
     {"from_route": "/verify-certificate", "to_route": "verify_certificate"},
     {"from_route": "/nesa-accreditation-application", "to_route": "Web Form/NESA Accreditation Application"},
     {"from_route": "/accreditation-application", "to_route": "accreditation_application"},
+    {"from_route": "/self-assessment", "to_route": "self_assessment"},
 ]
 
 # Web Forms

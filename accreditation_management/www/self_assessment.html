@@ -1,0 +1,117 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="container mt-5">
+    <h1 class="mb-4">School Self-Assessment</h1>
+    
+    <div id="school-search">
+        <h2>Find Your School</h2>
+        <p>Search for your school or enter details for a new school.</p>
+        <div class="input-group mb-3">
+            <input type="text" id="school-search-input" class="form-control" placeholder="Enter school name">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="search-button">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="school-results" style="display: none;">
+        <h3>Search Results</h3>
+        <ul id="school-list" class="list-group">
+            <!-- School results will be populated here -->
+        </ul>
+        <button id="new-school-button" class="btn btn-secondary mt-3">My school is not listed</button>
+    </div>
+
+    <div id="new-school-form" style="display: none;">
+        <h3>New School Information</h3>
+        <form id="new-school-form">
+            <div class="form-group">
+                <label for="school-name">School Name</label>
+                <input type="text" class="form-control" id="school-name" required>
+            </div>
+            <div class="form-group">
+                <label for="school-address">School Address</label>
+                <input type="text" class="form-control" id="school-address" required>
+            </div>
+            <div class="form-group">
+                <label for="school-contact">Contact Person</label>
+                <input type="text" class="form-control" id="school-contact" required>
+            </div>
+            <div class="form-group">
+                <label for="school-email">Email</label>
+                <input type="email" class="form-control" id="school-email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Start Self-Assessment</button>
+        </form>
+    </div>
+</div>
+
+<script>
+frappe.ready(function() {
+    let selectedSchool = null;
+
+    $('#search-button').click(function() {
+        const searchTerm = $('#school-search-input').val();
+        if (searchTerm) {
+            searchSchools(searchTerm);
+        }
+    });
+
+    $('#new-school-button').click(function() {
+        $('#school-results').hide();
+        $('#new-school-form').show();
+    });
+
+    $('#new-school-form').submit(function(e) {
+        e.preventDefault();
+        const newSchool = {
+            name: $('#school-name').val(),
+            address: $('#school-address').val(),
+            contact: $('#school-contact').val(),
+            email: $('#school-email').val()
+        };
+        startSelfAssessment(newSchool);
+    });
+
+    function searchSchools(term) {
+        frappe.call({
+            method: 'accreditation_management.www.self_assessment.search_schools',
+            args: { search_term: term },
+            callback: function(r) {
+                if (r.message) {
+                    displaySchoolResults(r.message);
+                }
+            }
+        });
+    }
+
+    function displaySchoolResults(schools) {
+        const schoolList = $('#school-list');
+        schoolList.empty();
+        schools.forEach(function(school) {
+            const li = $('<li class="list-group-item"></li>');
+            li.text(school.name);
+            li.click(function() {
+                selectedSchool = school;
+                startSelfAssessment(selectedSchool);
+            });
+            schoolList.append(li);
+        });
+        $('#school-results').show();
+    }
+
+    function startSelfAssessment(school) {
+        frappe.call({
+            method: 'accreditation_management.www.self_assessment.start_self_assessment',
+            args: { school: school },
+            callback: function(r) {
+                if (r.message) {
+                    window.location.href = r.message;
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}
