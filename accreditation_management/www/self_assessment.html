@@ -46,10 +46,15 @@ frappe.ready(function() {
             searchTimeout = setTimeout(() => {
                 frappe.call({
                     method: 'accreditation_management.www.self_assessment.search_schools',
-                    args: { search_term: search_term },
+                    args: { 
+                        search_term: search_term,
+                        page: 0,
+                        size: 20,
+                        sort: 'schoolName,asc'
+                    },
                     callback: function(r) {
-                        if (r.message && r.message.length > 0) {
-                            let results = r.message;
+                        if (r.message && r.message.content && r.message.content.length > 0) {
+                            let results = r.message.content;
                             let html = results.map(item => `
                                 <div class="school-item" style="cursor: pointer; padding: 5px; border-bottom: 1px solid #ccc;">
                                     <strong>${frappe.utils.escape_html(item.schoolName)}</strong>

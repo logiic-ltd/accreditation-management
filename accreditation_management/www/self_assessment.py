@@ -4,16 +4,15 @@ import requests
 from accreditation_management.config.api_config import SCHOOL_SEARCH_ENDPOINT
 
 @frappe.whitelist(allow_guest=True)
-def search_schools(search_term):
-    url = f"{SCHOOL_SEARCH_ENDPOINT}?name={search_term}&page=0&size=20&sort=schoolName,asc"
+def search_schools(search_term, page=0, size=20, sort="schoolName,asc"):
+    url = f"{SCHOOL_SEARCH_ENDPOINT}?name={search_term}&page={page}&size={size}&sort={sort}"
     try:
         response = requests.get(url)
         response.raise_for_status()
-        schools = response.json().get('content', [])
-        return schools
+        return response.json()
     except requests.RequestException as e:
         frappe.log_error(f"Error searching schools: {str(e)}")
-        return []
+        return {"content": [], "totalElements": 0, "totalPages": 0}
 
 @frappe.whitelist(allow_guest=True)
 def start_self_assessment(school):
