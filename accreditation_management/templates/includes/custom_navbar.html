@@ -17,3 +17,12 @@
         </nav>
     </div>
 </header>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Hide the default Frappe navbar
+        const defaultNavbar = document.querySelector('.navbar-default');
+        if (defaultNavbar) {
+            defaultNavbar.style.display = 'none';
+        }
+    });
+</script>
