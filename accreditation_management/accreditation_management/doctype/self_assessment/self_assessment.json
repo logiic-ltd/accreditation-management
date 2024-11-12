@@ -1,0 +1,418 @@
+{
+ "autoname": "autoincrement",
+ "creation": "2024-11-12 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "school_name",
+  "submission_date",
+  "indicator_1",
+  "indicator_2",
+  "indicator_3",
+  "indicator_4",
+  "indicator_5",
+  "indicator_6",
+  "indicator_7",
+  "indicator_8",
+  "indicator_9",
+  "indicator_10",
+  "indicator_11",
+  "indicator_12",
+  "indicator_13",
+  "indicator_14",
+  "indicator_15",
+  "indicator_16",
+  "indicator_17",
+  "indicator_18",
+  "indicator_19",
+  "indicator_20",
+  "indicator_21",
+  "indicator_22",
+  "indicator_23",
+  "indicator_24",
+  "indicator_25",
+  "indicator_26",
+  "indicator_27",
+  "indicator_28",
+  "indicator_29",
+  "indicator_30",
+  "indicator_31",
+  "indicator_32",
+  "indicator_33",
+  "indicator_34",
+  "indicator_35",
+  "indicator_36",
+  "indicator_37",
+  "indicator_38",
+  "indicator_39",
+  "indicator_40",
+  "indicator_41",
+  "indicator_42",
+  "indicator_43",
+  "indicator_44",
+  "indicator_45",
+  "indicator_46",
+  "indicator_47",
+  "indicator_48",
+  "indicator_49",
+  "indicator_50",
+  "indicator_51",
+  "indicator_52",
+  "indicator_53"
+ ],
+ "fields": [
+  {
+   "fieldname": "school_name",
+   "fieldtype": "Data",
+   "label": "School Name"
+  },
+  {
+   "fieldname": "submission_date",
+   "fieldtype": "Date",
+   "label": "Submission Date"
+  },
+  {
+   "fieldname": "indicator_1",
+   "fieldtype": "Select",
+   "label": "Indicator 1",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_2",
+   "fieldtype": "Select",
+   "label": "Indicator 2",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_3",
+   "fieldtype": "Select",
+   "label": "Indicator 3",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_4",
+   "fieldtype": "Select",
+   "label": "Indicator 4",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_5",
+   "fieldtype": "Select",
+   "label": "Indicator 5",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_6",
+   "fieldtype": "Select",
+   "label": "Indicator 6",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_7",
+   "fieldtype": "Select",
+   "label": "Indicator 7",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_8",
+   "fieldtype": "Select",
+   "label": "Indicator 8",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_9",
+   "fieldtype": "Select",
+   "label": "Indicator 9",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_10",
+   "fieldtype": "Select",
+   "label": "Indicator 10",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_11",
+   "fieldtype": "Select",
+   "label": "Indicator 11",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_12",
+   "fieldtype": "Select",
+   "label": "Indicator 12",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_13",
+   "fieldtype": "Select",
+   "label": "Indicator 13",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_14",
+   "fieldtype": "Select",
+   "label": "Indicator 14",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_15",
+   "fieldtype": "Select",
+   "label": "Indicator 15",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_16",
+   "fieldtype": "Select",
+   "label": "Indicator 16",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_17",
+   "fieldtype": "Select",
+   "label": "Indicator 17",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_18",
+   "fieldtype": "Select",
+   "label": "Indicator 18",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_19",
+   "fieldtype": "Select",
+   "label": "Indicator 19",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_20",
+   "fieldtype": "Select",
+   "label": "Indicator 20",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_21",
+   "fieldtype": "Select",
+   "label": "Indicator 21",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_22",
+   "fieldtype": "Select",
+   "label": "Indicator 22",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_23",
+   "fieldtype": "Select",
+   "label": "Indicator 23",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_24",
+   "fieldtype": "Select",
+   "label": "Indicator 24",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_25",
+   "fieldtype": "Select",
+   "label": "Indicator 25",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_26",
+   "fieldtype": "Select",
+   "label": "Indicator 26",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_27",
+   "fieldtype": "Select",
+   "label": "Indicator 27",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_28",
+   "fieldtype": "Select",
+   "label": "Indicator 28",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_29",
+   "fieldtype": "Select",
+   "label": "Indicator 29",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_30",
+   "fieldtype": "Select",
+   "label": "Indicator 30",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_31",
+   "fieldtype": "Select",
+   "label": "Indicator 31",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_32",
+   "fieldtype": "Select",
+   "label": "Indicator 32",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_33",
+   "fieldtype": "Select",
+   "label": "Indicator 33",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_34",
+   "fieldtype": "Select",
+   "label": "Indicator 34",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_35",
+   "fieldtype": "Select",
+   "label": "Indicator 35",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_36",
+   "fieldtype": "Select",
+   "label": "Indicator 36",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_37",
+   "fieldtype": "Select",
+   "label": "Indicator 37",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_38",
+   "fieldtype": "Select",
+   "label": "Indicator 38",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_39",
+   "fieldtype": "Select",
+   "label": "Indicator 39",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_40",
+   "fieldtype": "Select",
+   "label": "Indicator 40",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_41",
+   "fieldtype": "Select",
+   "label": "Indicator 41",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_42",
+   "fieldtype": "Select",
+   "label": "Indicator 42",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_43",
+   "fieldtype": "Select",
+   "label": "Indicator 43",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_44",
+   "fieldtype": "Select",
+   "label": "Indicator 44",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_45",
+   "fieldtype": "Select",
+   "label": "Indicator 45",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_46",
+   "fieldtype": "Select",
+   "label": "Indicator 46",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_47",
+   "fieldtype": "Select",
+   "label": "Indicator 47",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_48",
+   "fieldtype": "Select",
+   "label": "Indicator 48",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_49",
+   "fieldtype": "Select",
+   "label": "Indicator 49",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_50",
+   "fieldtype": "Select",
+   "label": "Indicator 50",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_51",
+   "fieldtype": "Select",
+   "label": "Indicator 51",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_52",
+   "fieldtype": "Select",
+   "label": "Indicator 52",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  },
+  {
+   "fieldname": "indicator_53",
+   "fieldtype": "Select",
+   "label": "Indicator 53",
+   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-12 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Accreditation Management",
+ "name": "Self Assessment",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

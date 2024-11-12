@@ -53,3 +53,27 @@ def start_self_assessment(school):
     assessment.insert(ignore_permissions=True)
 
     return f"/self-assessment/{assessment.name}"
+import frappe
+import json
+from frappe import _
+
+@frappe.whitelist(allow_guest=True)
+def submit_self_assessment(form_data):
+    try:
+        # Parse the form data
+        data = json.loads(form_data)
+        
+        # Create a new Self Assessment document
+        doc = frappe.get_doc({
+            "doctype": "Self Assessment",
+            "school_name": data.get("school_name"),
+            "submission_date": data.get("submission_date"),
+            **{f"indicator_{i}": data.get(f"indicator_{i}") for i in range(1, 54)}
+        })
+        
+        doc.insert(ignore_permissions=True)
+        
+        return {"message": _("Self-assessment form submitted successfully.")}
+    except Exception as e:
+        frappe.log_error(f"Error submitting self-assessment: {str(e)}")
+        frappe.throw(_("An error occurred while submitting the form. Please try again."))

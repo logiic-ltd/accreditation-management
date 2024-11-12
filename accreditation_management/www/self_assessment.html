@@ -126,3 +126,71 @@ frappe.ready(function() {
 });
 </script>
 {% endblock %}
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="content-wrapper">
+    <div class="container">
+        <h1 class="mb-4">Self Assessment Form</h1>
+        <form id="selfAssessmentForm">
+            <div class="form-group">
+                <label for="schoolName">School Name</label>
+                <input type="text" class="form-control" id="schoolName" name="school_name" required>
+            </div>
+            <div class="form-group">
+                <label for="submissionDate">Submission Date</label>
+                <input type="date" class="form-control" id="submissionDate" name="submission_date" required>
+            </div>
+            {% for i in range(1, 54) %}
+            <div class="form-group">
+                <label for="indicator{{ i }}">Indicator {{ i }}</label>
+                <select class="form-control" id="indicator{{ i }}" name="indicator_{{ i }}">
+                    <option value="0">0 (0%)</option>
+                    <option value="1">1 (25%)</option>
+                    <option value="2">2 (50%)</option>
+                    <option value="3">3 (75%)</option>
+                    <option value="4">4 (100%)</option>
+                </select>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+frappe.ready(function() {
+    $('#selfAssessmentForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var formData = {};
+        $(this).serializeArray().forEach(function(item) {
+            formData[item.name] = item.value;
+        });
+
+        frappe.call({
+            method: 'accreditation_management.www.self_assessment.submit_self_assessment',
+            args: {
+                form_data: JSON.stringify(formData)
+            },
+            freeze: true,
+            callback: function(r) {
+                if (!r.exc) {
+                    frappe.msgprint({
+                        title: __('Form Submitted'),
+                        indicator: 'green',
+                        message: __('Your self-assessment form has been submitted successfully.')
+                    });
+                } else {
+                    frappe.msgprint({
+                        title: __('Submission Failed'),
+                        indicator: 'red',
+                        message: __('There was an error submitting your form. Please try again.')
+                    });
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

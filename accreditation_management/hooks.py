@@ -75,7 +75,7 @@ website_route_rules = [
     {"from_route": "/application-status", "to_route": "application_status"},
     {"from_route": "/verify-certificate", "to_route": "verify_certificate"},
     {"from_route": "/accreditation-application", "to_route": "accreditation_application"},
-    {"from_route": "/self-assessment", "to_route": "self_assessment"},
+    {"from_route": "/self-assessment", "to_route": "self_assessment.html"},
     {"from_route": "/school-identification", "to_route": "school_identification.html"},
 ]
 
