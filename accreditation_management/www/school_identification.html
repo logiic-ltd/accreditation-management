@@ -1,0 +1,61 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="content-wrapper">
+    <div class="container">
+        <h1 class="mb-4">School Identification Form</h1>
+        <form id="schoolIdentificationForm">
+            <div class="form-group">
+                <label for="schoolName">School Name</label>
+                <input type="text" class="form-control" id="schoolName" name="school_name" required>
+            </div>
+            <div class="form-group">
+                <label for="schoolCode">School Code</label>
+                <input type="text" class="form-control" id="schoolCode" name="school_code">
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <input type="text" class="form-control" id="status" name="status" required>
+            </div>
+            <!-- Add more fields as needed based on the CSV data -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+frappe.ready(function() {
+    $('#schoolIdentificationForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var formData = {};
+        $(this).serializeArray().forEach(function(item) {
+            formData[item.name] = item.value;
+        });
+
+        frappe.call({
+            method: 'accreditation_management.www.school_identification.submit_school_identification',
+            args: {
+                form_data: JSON.stringify(formData)
+            },
+            freeze: true,
+            callback: function(r) {
+                if (!r.exc) {
+                    frappe.msgprint({
+                        title: __('Form Submitted'),
+                        indicator: 'green',
+                        message: __('Your school identification form has been submitted successfully.')
+                    });
+                } else {
+                    frappe.msgprint({
+                        title: __('Submission Failed'),
+                        indicator: 'red',
+                        message: __('There was an error submitting your form. Please try again.')
+                    });
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
