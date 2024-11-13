@@ -385,46 +385,46 @@
           "4: 76-100% building have External Lighting"
         ]
       }
-    },
-    "Teaching and learning Resources": {
-      "Equipment, Tools and Materials": {
-        "indicator_40": {
-          "label": "Availability of materials, Tools and Equipment (teaching aids,charts, teacher's guides, laboratory materials, TVET tools and equipment for TVET schools,….), (to Upload a list of STEL for TVET or laboratory materials for science combinations)",
-          "options": [
-            "0: No Tools and Equipment or science laboratory materials are available",
-            "1: The Available Tools and Equipment or materials correspond to up to 25% of the required.",
-            "2: The school has up to 50% of the required Tools and Equipment or science laboratory materials",
-            "3: The school has up to 75% of the required Tools and Equipment or science laboratory materials",
-            "4: The school has up to 76 to 100% of the required Tools and Equipment or science laboratory materials"
-          ]
-        },
-        "indicator_41": {
-          "label": "Availibility of approved curriculum for the implemented program",
-          "options": [
-            "0: The school has no approved national curriculum or has no licence for international curriculum",
-            "4: The school has an approved national curriculum or has licence for international curriculum"
-          ]
-        },
-        "indicator_42": {
-          "label": "Availability of students Textbooks and other reading materials",
-          "options": [
-            "0: No Reading Material, such as book and/or e-resource",
-            "1: Available Reading Materials, such as books and/or e-resources, to be used by approximately 1%-25% of students on average for every trade",
-            "2: Available Reading Materials, such as books and/or e-resources, to be used by approximately 26%-50% of students on average for every trade",
-            "3: Available Reading Materials, such as books and/or e-resources, to be used by approximately 51%-75% of students on average for every trade",
-            "4: Available Reading Materials, such as books and/or e-resources, to be used by approximately 76%-100% of students on average for every trade"
-          ]
-        },
-        "indicator_43": {
-          "label": "Availability Of A Projector In Each level",
-          "options": [
-            "0: The school has no projector",
-            "1: Approximately 1-25% of projectors are available in each level",
-            "2: Approximately 26-50% of projectors are available in each level",
-            "3: Approximately 51-75% of projectors are available in each level",
-            "4: Approximately 76-100% of projectors are available in each level"
-          ]
-        }
+    }
+  },
+  "Teaching and learning Resources": {
+    "Equipment, Tools and Materials": {
+      "indicator_40": {
+        "label": "Availability of materials, Tools and Equipment (teaching aids,charts, teacher's guides, laboratory materials, TVET tools and equipment for TVET schools,….), (to Upload a list of STEL for TVET or laboratory materials for science combinations)",
+        "options": [
+          "0: No Tools and Equipment or science laboratory materials are available",
+          "1: The Available Tools and Equipment or materials correspond to up to 25% of the required.",
+          "2: The school has up to 50% of the required Tools and Equipment or science laboratory materials",
+          "3: The school has up to 75% of the required Tools and Equipment or science laboratory materials",
+          "4: The school has up to 76 to 100% of the required Tools and Equipment or science laboratory materials"
+        ]
+      },
+      "indicator_41": {
+        "label": "Availibility of approved curriculum for the implemented program",
+        "options": [
+          "0: The school has no approved national curriculum or has no licence for international curriculum",
+          "4: The school has an approved national curriculum or has licence for international curriculum"
+        ]
+      },
+      "indicator_42": {
+        "label": "Availability of students Textbooks and other reading materials",
+        "options": [
+          "0: No Reading Material, such as book and/or e-resource",
+          "1: Available Reading Materials, such as books and/or e-resources, to be used by approximately 1%-25% of students on average for every trade",
+          "2: Available Reading Materials, such as books and/or e-resources, to be used by approximately 26%-50% of students on average for every trade",
+          "3: Available Reading Materials, such as books and/or e-resources, to be used by approximately 51%-75% of students on average for every trade",
+          "4: Available Reading Materials, such as books and/or e-resources, to be used by approximately 76%-100% of students on average for every trade"
+        ]
+      },
+      "indicator_43": {
+        "label": "Availability Of A Projector In Each level",
+        "options": [
+          "0: The school has no projector",
+          "1: Approximately 1-25% of projectors are available in each level",
+          "2: Approximately 26-50% of projectors are available in each level",
+          "3: Approximately 51-75% of projectors are available in each level",
+          "4: Approximately 76-100% of projectors are available in each level"
+        ]
       }
     },
     "Furniture": {
