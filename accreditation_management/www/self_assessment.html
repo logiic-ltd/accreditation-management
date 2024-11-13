@@ -107,27 +107,28 @@
     </div>
 </div>
 <script>                                                                                                                                      
-    frappe.ready(function() {
-        let currentSection = 0;
-        const sections = document.querySelectorAll('.form-section');
+    let currentSection = 0;
+    const sections = document.querySelectorAll('.form-section');
+
+    function showSection(n) {
+        sections[n].style.display = 'block';
+        document.getElementById('prevBtn').style.display = n === 0 ? 'none' : 'inline';
+        document.getElementById('nextBtn').style.display = n === (sections.length - 1) ? 'none' : 'inline';
+        document.getElementById('submitBtn').style.display = n === (sections.length - 1) ? 'inline' : 'none';
+    }
+
+    function nextPrev(n) {
+        sections[currentSection].style.display = 'none';
+        currentSection += n;
+        if (currentSection >= sections.length) {
+            document.getElementById('selfAssessmentForm').submit();
+            return false;
+        }
         showSection(currentSection);
+    }
 
-        function showSection(n) {
-            sections[n].style.display = 'block';
-            document.getElementById('prevBtn').style.display = n === 0 ? 'none' : 'inline';
-            document.getElementById('nextBtn').style.display = n === (sections.length - 1) ? 'none' : 'inline';
-            document.getElementById('submitBtn').style.display = n === (sections.length - 1) ? 'inline' : 'none';
-        }
-
-        function nextPrev(n) {
-            sections[currentSection].style.display = 'none';
-            currentSection += n;
-            if (currentSection >= sections.length) {
-                document.getElementById('selfAssessmentForm').submit();
-                return false;
-            }
-            showSection(currentSection);
-        }
+    frappe.ready(function() {
+        showSection(currentSection);
 
         // Load the indicator options from the JSON configuration file
         frappe.call({
