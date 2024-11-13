@@ -63,6 +63,9 @@ def get_indicator_options():
         with open(frappe.get_app_path('accreditation_management', 'config', 'indicator_options.json'), 'r') as file:
             data = json.load(file)
         return data
+    except Exception as e:
+        frappe.log_error(f"Error loading indicator options: {str(e)}")
+        frappe.throw(_("An error occurred while loading indicator options."))
 def get_provisional_ranking(score):
     if score >= 80:
         return "Outstanding"
