@@ -1,0 +1,75 @@
+{
+  "A. Land ownership, legal, School leadership and management documents": {
+    "Planning": {
+      "indicator_1": {
+        "label": "Availability Of Strategic Plan With Vision, Mission, Organisational Structure and Budget Proposal In Strategic Plan",
+        "options": [
+          "0: The school has No Strategic Plan",
+          "1: The Strategic plan is available with no vision and mission",
+          "2: The strategic plan includes clear vision and mission",
+          "3: The available strategic plan includes clear vision, mission, and organizational structure",
+          "4: The school has a strategic plan that includes clear vision, mission, organizational structure, and budget proposal in strategic plan"
+        ]
+      },
+      "indicator_2": {
+        "label": "Availability of the school's annual action plan",
+        "options": [
+          "0: There is no school's annual action plan",
+          "2: The school has an action plan",
+          "4: The school has an annual action plan with reasonable teaching and learning activities"
+        ]
+      },
+      "indicator_3": {
+        "label": "Availability of the school Annual budget Plan",
+        "options": [
+          "0: There is no the school Annual budget Plan",
+          "2: The school has an budget plan",
+          "4: The school has an Annual budget Plan with focus on teaching and learning"
+        ]
+      }
+    },
+    "Registration": {
+      "indicator_4": {
+        "label": "Availability Of official registration Documents (RGB or RDB, to be uploaded)",
+        "options": [
+          "0: The school has no registration certificate in RGB or RDB",
+          "4: The school has registration certificate in RGB/ RDB"
+        ]
+      }
+    },
+    "land ownership or rent contract": {
+      "indicator_5": {
+        "label": "Availability the school owner's land title or rent contract (to be uploaded)",
+        "options": [
+          "0: The school owner has no rent contract or land title",
+          "1: The school is operating in the facilities which are rented and the contract term is valid for 1 year or has a land title having 25% or less of required area",
+          "2: The school is operating in the facilities which are rented and the contract term is valid for 2 to 3 years or has a land title having 26 to 50% of required area",
+          "3: The school is operating in the facilities which are rented and the contract term is valid for 4 years or has a land title having 51 to 75% of required area",
+          "4: The school is operating in the facilities which are rented and the contract term is valid for 5 years or has a land title having 76 to 100% of required area"
+        ]
+      }
+    }
+  },
+  "school infrastructures": {
+    "Classrooms": {
+      "indicator_6": {
+        "label": "Availability Of At Least One Classroom By Each Level (3 for preprimary, 3 for combinations, TVET trades L3-5 and OL, 6 for primary, 1 for L1 or L2 TVET trades",
+        "options": [
+          "0: The school has no classrooms for the applied level/ trade/combinations",
+          "2: The school has 50% and above (not all) of classrooms for the applied level/ trade/combinations",
+          "4: The school has all required classrooms for the applied level/trade/combination"
+        ]
+      },
+      "indicator_7": {
+        "label": "Each Classroom Has 2 Doors and Sufficient Windows",
+        "options": [
+          "0: No classroom Available for the applied level/ trade/combinations",
+          "1: Approximately 1-25% Classrooms have 2 doors and windows with an area ranging from 1-10% of floor area",
+          "2: Approximately 26-50% Classrooms have 2 doors and windows with an area ranging from 11-15% of floor area",
+          "3: Approximately 51-75% Classroom have 2 doors and windows with an area ranging from 16-20% of floor area",
+          "4: Approximately 76-100% Classrooms have 2 doors and windows with an area ranging from 21-25% of floor area"
+        ]
+      }
+    }
+  }
+}
