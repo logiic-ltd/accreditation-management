@@ -1,5 +1,76 @@
 {% extends "templates/web.html" %}
 
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
+    :root {
+        --primary-color: #078ece;
+        --secondary-color: #054d6f;
+        --accent-color: #24a148;
+        --text-color: #161616;
+        --light-bg: #eee;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100%;
+        font-family: 'IBM Plex Sans', sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-bg);
+    }
+
+    .content-wrapper {
+        padding: 2rem 0;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+        border-radius: 0.25rem;
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        width: 100%;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #ffffff;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: #ffffff;
+    }
+
+    #provisionalResults {
+        background-color: #ffffff;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    #indicators h3, #indicators h4 {
+        color: var(--secondary-color);
+    }
+
+    .indicator-score {
+        font-size: 0.9rem;
+        color: var(--accent-color);
+    }
+</style>
+{% endblock %}
+
 {% block page_content %}
 <div class="content-wrapper">
     <div class="container">
@@ -21,134 +92,136 @@
                 <p id="provisionalDecision">Provisional Decision: N/A</p>
                 <p id="provisionalYears">Provisional Accreditation Years: N/A</p>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            <div class="navigation-buttons mt-3">
+                <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
         </form>
     </div>
 </div>
-
-<script>
-frappe.ready(function() {
-    // Load the indicator options from the JSON configuration file
-    frappe.call({
-        method: 'accreditation_management.www.self_assessment.get_indicator_options',
-        callback: function(r) {
-            if (r.message) {
-                const indicators = r.message;
-                const indicatorsContainer = document.getElementById('indicators');
-                for (const [area, criteria] of Object.entries(indicators)) {
-                    const areaDiv = document.createElement('div');
-                    areaDiv.innerHTML = `<h3>${area}</h3>`;
-                    indicatorsContainer.appendChild(areaDiv);
-                    for (const [criterion, indicatorData] of Object.entries(criteria)) {
-                        const criterionDiv = document.createElement('div');
-                        criterionDiv.innerHTML = `<h4>${criterion}</h4>`;
-                        areaDiv.appendChild(criterionDiv);
-                        for (const [indicatorKey, indicator] of Object.entries(indicatorData)) {
-                            const formGroup = document.createElement('div');
-                            formGroup.className = 'form-group';
-                            formGroup.innerHTML = `
-                                <label for="${indicatorKey}">${indicator.label}</label>
-                                <select class="form-control" id="${indicatorKey}" name="${indicatorKey}">
-                                    ${indicator.options.map(option => {
-                                        const [value, text] = option.split(': ');
-                                        return `<option value="${value}">${text}</option>`;
-                                    }).join('')}
-                                </select>
-                            `;
-                            formGroup.querySelector('select').addEventListener('change', calculateProvisionalResults);
-                            criterionDiv.appendChild(formGroup);
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    function calculateProvisionalResults() {
-        const formData = new FormData(document.getElementById('selfAssessmentForm'));
-        const areaScores = {};
-        let overallScore = 0;
-
-        // Calculate scores for each area
-        for (const [area, criteria] of Object.entries(indicators)) {
-            let areaTotal = 0;
-            let criteriaCount = 0;
-            for (const criterion of Object.keys(criteria)) {
-                let criterionTotal = 0;
-                let indicatorCount = 0;
-                for (const indicatorKey of Object.keys(criteria[criterion])) {
-                    const value = parseInt(formData.get(indicatorKey)) || 0;
-                    criterionTotal += value;
-                    indicatorCount++;
-                }
-                const criterionScore = (criterionTotal / (indicatorCount * 4)) * 100;
-                areaTotal += criterionScore;
-                criteriaCount++;
-            }
-            const areaScore = (areaTotal / criteriaCount) * (parseFloat(area.split('%')[0]) / 100);
-            areaScores[area] = areaScore;
-            overallScore += areaScore;
-        }
-
-        // Update provisional results
-        document.getElementById('overallScore').textContent = `Overall Score: ${overallScore.toFixed(2)}%`;
-        document.getElementById('provisionalRanking').textContent = `Provisional Ranking: ${getProvisionalRanking(overallScore)}`;
-        document.getElementById('provisionalDecision').textContent = `Provisional Decision: ${getProvisionalDecision(overallScore)}`;
-        document.getElementById('provisionalYears').textContent = `Provisional Accreditation Years: ${getProvisionalYears(overallScore)}`;
-    }
-
-    function getProvisionalRanking(score) {
-        if (score >= 80) return "Outstanding";
-        if (score >= 70) return "Good";
-        if (score >= 50) return "Satisfactory";
-        return "Unsatisfactory";
-    }
-
-    function getProvisionalDecision(score) {
-        if (score >= 80) return "Accreditation Granted";
-        if (score >= 70) return "Accreditation Granted";
-        if (score >= 50) return "Accreditation Granted";
-        return "Accreditation Not Granted";
-    }
-
-    function getProvisionalYears(score) {
-        if (score >= 80) return 3;
-        if (score >= 70) return 2;
-        if (score >= 50) return 1;
-        return 0;
-    }
-
-    $('#selfAssessmentForm').on('submit', function(e) {
-        e.preventDefault();
-
-        var formData = {};
-        $(this).serializeArray().forEach(function(item) {
-            formData[item.name] = item.value;
-        });
-
-        frappe.call({
-            method: 'accreditation_management.www.self_assessment.submit_self_assessment',
-            args: {
-                form_data: JSON.stringify(formData)
-            },
-            freeze: true,
-            callback: function(r) {
-                if (!r.exc) {
-                    frappe.msgprint({
-                        title: __('Form Submitted'),
-                        indicator: 'green',
-                        message: __('Your self-assessment form has been submitted successfully.')
-                    });
-                } else {
-                    frappe.msgprint({
-                        title: __('Submission Failed'),
-                        indicator: 'red',
-                        message: __('There was an error submitting your form. Please try again.')
-                    });
-                }
-            }
-        });
-    });
-});
-</script>
+<script>                                                                                                                                      
+    frappe.ready(function() {                                                                                                                     
+        // Load the indicator options from the JSON configuration file                                                                            
+        frappe.call({                                                                                                                             
+            method: 'accreditation_management.www.self_assessment.get_indicator_options',                                                         
+            callback: function(r) {                                                                                                               
+                if (r.message) {                                                                                                                  
+                    const indicators = r.message;                                                                                                 
+                    const indicatorsContainer = document.getElementById('indicators');                                                            
+                    for (const [area, criteria] of Object.entries(indicators)) {                                                                  
+                        const areaDiv = document.createElement('div');                                                                            
+                        areaDiv.innerHTML = `<h3>${area}</h3>`;                                                                                   
+                        indicatorsContainer.appendChild(areaDiv);                                                                                 
+                        for (const [criterion, indicatorData] of Object.entries(criteria)) {                                                      
+                            const criterionDiv = document.createElement('div');                                                                   
+                            criterionDiv.innerHTML = `<h4>${criterion}</h4>`;                                                                     
+                            areaDiv.appendChild(criterionDiv);                                                                                    
+                            for (const [indicatorKey, indicator] of Object.entries(indicatorData)) {                                              
+                                const formGroup = document.createElement('div');                                                                  
+                                formGroup.className = 'form-group';                                                                               
+                                formGroup.innerHTML = `                                                                                           
+                                    <label for="${indicatorKey}">${indicator.label}</label>                                                       
+                                    <select class="form-control" id="${indicatorKey}" name="${indicatorKey}">                                     
+                                        ${indicator.options.map(option => {                                                                       
+                                            const [value, text] = option.split(': ');                                                             
+                                            return `<option value="${value}">${text}</option>`;                                                   
+                                        }).join('')}                                                                                              
+                                    </select>                                                                                                     
+                                `;                                                                                                                
+                                formGroup.querySelector('select').addEventListener('change', calculateProvisionalResults);                        
+                                criterionDiv.appendChild(formGroup);                                                                              
+                            }                                                                                                                     
+                        }                                                                                                                         
+                    }                                                                                                                             
+                }                                                                                                                                 
+            }                                                                                                                                     
+        });                                                                                                                                       
+                                                                                                                                                  
+        function calculateProvisionalResults() {                                                                                                  
+            const formData = new FormData(document.getElementById('selfAssessmentForm'));                                                         
+            const areaScores = {};                                                                                                                
+            let overallScore = 0;                                                                                                                 
+                                                                                                                                                  
+            // Calculate scores for each area                                                                                                     
+            for (const [area, criteria] of Object.entries(indicators)) {                                                                          
+                let areaTotal = 0;                                                                                                                
+                let criteriaCount = 0;                                                                                                            
+                for (const criterion of Object.keys(criteria)) {                                                                                  
+                    let criterionTotal = 0;                                                                                                       
+                    let indicatorCount = 0;                                                                                                       
+                    for (const indicatorKey of Object.keys(criteria[criterion])) {                                                                
+                        const value = parseInt(formData.get(indicatorKey)) || 0;                                                                  
+                        criterionTotal += value;                                                                                                  
+                        indicatorCount++;                                                                                                         
+                    }                                                                                                                             
+                    const criterionScore = (criterionTotal / (indicatorCount * 4)) * 100;                                                         
+                    areaTotal += criterionScore;                                                                                                  
+                    criteriaCount++;                                                                                                              
+                }                                                                                                                                 
+                const areaScore = (areaTotal / criteriaCount) * (parseFloat(area.split('%')[0]) / 100);                                           
+                areaScores[area] = areaScore;                                                                                                     
+                overallScore += areaScore;                                                                                                        
+            }                                                                                                                                     
+                                                                                                                                                  
+            // Update provisional results                                                                                                         
+            document.getElementById('overallScore').textContent = `Overall Score: ${overallScore.toFixed(2)}%`;                                   
+            document.getElementById('provisionalRanking').textContent = `Provisional Ranking: ${getProvisionalRanking(overallScore)}`;            
+            document.getElementById('provisionalDecision').textContent = `Provisional Decision: ${getProvisionalDecision(overallScore)}`;         
+            document.getElementById('provisionalYears').textContent = `Provisional Accreditation Years: ${getProvisionalYears(overallScore)}`;    
+        }                                                                                                                                         
+                                                                                                                                                  
+        function getProvisionalRanking(score) {                                                                                                   
+            if (score >= 80) return "Outstanding";                                                                                                
+            if (score >= 70) return "Good";                                                                                                       
+            if (score >= 50) return "Satisfactory";                                                                                               
+            return "Unsatisfactory";                                                                                                              
+        }                                                                                                                                         
+                                                                                                                                                  
+        function getProvisionalDecision(score) {                                                                                                  
+            if (score >= 80) return "Accreditation Granted";                                                                                      
+            if (score >= 70) return "Accreditation Granted";                                                                                      
+            if (score >= 50) return "Accreditation Granted";                                                                                      
+            return "Accreditation Not Granted";                                                                                                   
+        }                                                                                                                                         
+                                                                                                                                                  
+        function getProvisionalYears(score) {                                                                                                     
+            if (score >= 80) return 3;                                                                                                            
+            if (score >= 70) return 2;                                                                                                            
+            if (score >= 50) return 1;                                                                                                            
+            return 0;                                                                                                                             
+        }                                                                                                                                         
+                                                                                                                                                  
+        $('#selfAssessmentForm').on('submit', function(e) {                                                                                       
+            e.preventDefault();                                                                                                                   
+                                                                                                                                                  
+            var formData = {};                                                                                                                    
+            $(this).serializeArray().forEach(function(item) {                                                                                     
+                formData[item.name] = item.value;                                                                                                 
+            });                                                                                                                                   
+                                                                                                                                                  
+            frappe.call({                                                                                                                         
+                method: 'accreditation_management.www.self_assessment.submit_self_assessment',                                                    
+                args: {                                                                                                                           
+                    form_data: JSON.stringify(formData)                                                                                           
+                },                                                                                                                                
+                freeze: true,                                                                                                                     
+                callback: function(r) {                                                                                                           
+                    if (!r.exc) {                                                                                                                 
+                        frappe.msgprint({                                                                                                         
+                            title: __('Form Submitted'),                                                                                          
+                            indicator: 'green',                                                                                                   
+                            message: __('Your self-assessment form has been submitted successfully.')                                             
+                        });                                                                                                                       
+                    } else {                                                                                                                      
+                        frappe.msgprint({                                                                                                         
+                            title: __('Submission Failed'),                                                                                       
+                            indicator: 'red',                                                                                                     
+                            message: __('There was an error submitting your form. Please try again.')                                             
+                        });                                                                                                                       
+                    }                                                                                                                             
+                }                                                                                                                                 
+            });                                                                                                                                   
+        });                                                                                                                                       
+    });                                                                                                                                           
+    </script> 
 {% endblock %}
