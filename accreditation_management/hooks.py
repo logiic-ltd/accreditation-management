@@ -72,6 +72,7 @@ home_page = "accreditation"
 
 # Website Route Rules
 website_route_rules = [
+    {"from_route": "/files/indicator_options.json", "to_route": "accreditation_management/config/indicator_options.json"},
     {"from_route": "/application-status", "to_route": "application_status"},
     {"from_route": "/verify-certificate", "to_route": "verify_certificate"},
     {"from_route": "/accreditation-application", "to_route": "accreditation_application"},
