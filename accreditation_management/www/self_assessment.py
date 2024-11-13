@@ -60,7 +60,7 @@ from frappe import _
 @frappe.whitelist(allow_guest=True)
 def get_indicator_options():
     try:
-        with open(frappe.get_site_path('accreditation_management', 'config', 'indicator_options.json'), 'r') as file:
+        with open(frappe.get_app_path('accreditation_management', 'config', 'indicator_options.json'), 'r') as file:
             data = json.load(file)
         return data
     except Exception as e:
