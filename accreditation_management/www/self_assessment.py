@@ -64,6 +64,7 @@ def get_indicator_options():
             data = json.load(file)
         return data
     except Exception as e:
+        frappe.log_error(f"Error calculating provisional results: {str(e)}")
         frappe.log_error(f"Error loading indicator options: {str(e)}")
         frappe.throw(_("An error occurred while loading indicator options."))
 
@@ -73,12 +74,37 @@ def submit_self_assessment(form_data):
         # Parse the form data
         data = json.loads(form_data)
         
-        # Create a new Self Assessment document
+        # Calculate provisional results
+        provisional_area_scores = {}
+        overall_score = 0
+
+        for area, criteria in data.items():
+            area_total = 0
+            criteria_count = 0
+            for criterion, indicators in criteria.items():
+                criterion_total = sum(int(data.get(indicator, 0)) for indicator in indicators)
+                criterion_score = (criterion_total / (len(indicators) * 4)) * 100
+                area_total += criterion_score
+                criteria_count += 1
+            area_score = (area_total / criteria_count) * (float(area.split('%')[0]) / 100)
+            provisional_area_scores[area] = area_score
+            overall_score += area_score
+
+        provisional_ranking = get_provisional_ranking(overall_score)
+        provisional_decision = get_provisional_decision(overall_score)
+        provisional_years = get_provisional_years(overall_score)
+
+        # Create a new Self Assessment document with provisional results
         doc = frappe.get_doc({
             "doctype": "Self Assessment",
             "school_name": data.get("school_name"),
             "submission_date": data.get("submission_date"),
-            **{f"indicator_{i}": data.get(f"indicator_{i}") for i in range(1, 54)}
+            **{f"indicator_{i}": data.get(f"indicator_{i}") for i in range(1, 54)},
+            "provisional_area_scores": provisional_area_scores,
+            "overall_score": overall_score,
+            "provisional_ranking": provisional_ranking,
+            "provisional_accreditation_decision": provisional_decision,
+            "provisional_accreditation_years": provisional_years
         })
         
         doc.insert(ignore_permissions=True)

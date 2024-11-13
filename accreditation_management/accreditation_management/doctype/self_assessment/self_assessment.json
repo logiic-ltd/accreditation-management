@@ -62,6 +62,31 @@
  ],
  "fields": [
   {
+   "fieldname": "provisional_area_scores",
+   "fieldtype": "JSON",
+   "label": "Provisional Area Scores"
+  },
+  {
+   "fieldname": "overall_score",
+   "fieldtype": "Float",
+   "label": "Overall Score"
+  },
+  {
+   "fieldname": "provisional_ranking",
+   "fieldtype": "Data",
+   "label": "Provisional Ranking"
+  },
+  {
+   "fieldname": "provisional_accreditation_decision",
+   "fieldtype": "Data",
+   "label": "Provisional Accreditation Decision"
+  },
+  {
+   "fieldname": "provisional_accreditation_years",
+   "fieldtype": "Int",
+   "label": "Provisional Accreditation Years"
+  },
+  {
    "fieldname": "school_name",
    "fieldtype": "Data",
    "label": "School Name"

@@ -14,7 +14,14 @@
                 <input type="date" class="form-control" id="submissionDate" name="submission_date" required>
             </div>
             <div id="indicators"></div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div id="provisionalResults" class="mt-4">
+                <h3>Provisional Results</h3>
+                <p id="overallScore">Overall Score: 0%</p>
+                <p id="provisionalRanking">Provisional Ranking: N/A</p>
+                <p id="provisionalDecision">Provisional Decision: N/A</p>
+                <p id="provisionalYears">Provisional Accreditation Years: N/A</p>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
     </div>
 </div>
@@ -48,6 +55,7 @@ frappe.ready(function() {
                                     }).join('')}
                                 </select>
                             `;
+                            formGroup.querySelector('select').addEventListener('change', calculateProvisionalResults);
                             criterionDiv.appendChild(formGroup);
                         }
                     }
@@ -55,6 +63,60 @@ frappe.ready(function() {
             }
         }
     });
+
+    function calculateProvisionalResults() {
+        const formData = new FormData(document.getElementById('selfAssessmentForm'));
+        const areaScores = {};
+        let overallScore = 0;
+
+        // Calculate scores for each area
+        for (const [area, criteria] of Object.entries(indicators)) {
+            let areaTotal = 0;
+            let criteriaCount = 0;
+            for (const criterion of Object.keys(criteria)) {
+                let criterionTotal = 0;
+                let indicatorCount = 0;
+                for (const indicatorKey of Object.keys(criteria[criterion])) {
+                    const value = parseInt(formData.get(indicatorKey)) || 0;
+                    criterionTotal += value;
+                    indicatorCount++;
+                }
+                const criterionScore = (criterionTotal / (indicatorCount * 4)) * 100;
+                areaTotal += criterionScore;
+                criteriaCount++;
+            }
+            const areaScore = (areaTotal / criteriaCount) * (parseFloat(area.split('%')[0]) / 100);
+            areaScores[area] = areaScore;
+            overallScore += areaScore;
+        }
+
+        // Update provisional results
+        document.getElementById('overallScore').textContent = `Overall Score: ${overallScore.toFixed(2)}%`;
+        document.getElementById('provisionalRanking').textContent = `Provisional Ranking: ${getProvisionalRanking(overallScore)}`;
+        document.getElementById('provisionalDecision').textContent = `Provisional Decision: ${getProvisionalDecision(overallScore)}`;
+        document.getElementById('provisionalYears').textContent = `Provisional Accreditation Years: ${getProvisionalYears(overallScore)}`;
+    }
+
+    function getProvisionalRanking(score) {
+        if (score >= 80) return "Outstanding";
+        if (score >= 70) return "Good";
+        if (score >= 50) return "Satisfactory";
+        return "Unsatisfactory";
+    }
+
+    function getProvisionalDecision(score) {
+        if (score >= 80) return "Accreditation Granted";
+        if (score >= 70) return "Accreditation Granted";
+        if (score >= 50) return "Accreditation Granted";
+        return "Accreditation Not Granted";
+    }
+
+    function getProvisionalYears(score) {
+        if (score >= 80) return 3;
+        if (score >= 70) return 2;
+        if (score >= 50) return 1;
+        return 0;
+    }
 
     $('#selfAssessmentForm').on('submit', function(e) {
         e.preventDefault();
