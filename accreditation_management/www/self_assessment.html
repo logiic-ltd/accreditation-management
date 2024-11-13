@@ -13,10 +13,9 @@
                 <label for="submissionDate">Submission Date</label>
                 <input type="date" class="form-control" id="submissionDate" name="submission_date" required>
             </div>
-            {% for i in range(1, 54) %}
             <div class="form-group">
-                <label for="indicator{{ i }}">Indicator {{ i }}</label>
-                <select class="form-control" id="indicator{{ i }}" name="indicator_{{ i }}">
+                <label for="indicator1">Indicator 1</label>
+                <select class="form-control" id="indicator1" name="indicator_1">
                     <option value="0">The school has No Strategic Plan</option>
                     <option value="1">The Strategic plan is available with no vision and mission</option>
                     <option value="2">The strategic plan includes clear vision and mission</option>
@@ -24,7 +23,15 @@
                     <option value="4">The school has a strategic plan that includes clear vision, mission, organizational structure, and budget proposal in strategic plan</option>
                 </select>
             </div>
-            {% endfor %}
+            <div class="form-group">
+                <label for="indicator2">Indicator 2</label>
+                <select class="form-control" id="indicator2" name="indicator_2">
+                    <option value="0">There is no school's annual action plan</option>
+                    <option value="2">The school has an action plan</option>
+                    <option value="4">The school has an annual action plan with reasonable teaching and learning activities</option>
+                </select>
+            </div>
+            <!-- Repeat similar blocks for each indicator with their specific options -->
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
