@@ -75,7 +75,7 @@
    "fieldname": "indicator_1",
    "fieldtype": "Select",
    "label": "Indicator 1",
-   "options": "0 (0%)\n1 (25%)\n2 (50%)\n3 (75%)\n4 (100%)"
+   "options": "0: The school has No Strategic Plan\n1: The Strategic plan is available with no vision and mission\n2: The strategic plan includes clear vision and mission\n3: The available strategic plan includes clear vision, mission, and organizational structure\n4: The school has a strategic plan that includes clear vision, mission, organizational structure, and budget proposal in strategic plan"
   },
   {
    "fieldname": "indicator_2",
