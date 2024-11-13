@@ -58,6 +58,16 @@ import json
 from frappe import _
 
 @frappe.whitelist(allow_guest=True)
+def get_indicator_options():
+    try:
+        with open(frappe.get_site_path('accreditation_management', 'config', 'indicator_options.json'), 'r') as file:
+            data = json.load(file)
+        return data
+    except Exception as e:
+        frappe.log_error(f"Error loading indicator options: {str(e)}")
+        frappe.throw(_("An error occurred while loading indicator options."))
+
+@frappe.whitelist(allow_guest=True)
 def submit_self_assessment(form_data):
     try:
         # Parse the form data

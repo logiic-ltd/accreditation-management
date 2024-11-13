@@ -23,14 +23,10 @@
 frappe.ready(function() {
     // Load the indicator options from the JSON configuration file
     frappe.call({
-        method: 'frappe.client.get',
-        args: {
-            doctype: 'File',
-            name: 'accreditation_management/config/indicator_options.json'
-        },
+        method: 'accreditation_management.www.self_assessment.get_indicator_options',
         callback: function(r) {
             if (r.message) {
-                const indicators = JSON.parse(r.message.content);
+                const indicators = r.message;
                 const indicatorsContainer = document.getElementById('indicators');
                 for (const [area, criteria] of Object.entries(indicators)) {
                     const areaDiv = document.createElement('div');
