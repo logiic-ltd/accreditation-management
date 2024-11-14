@@ -27,6 +27,21 @@
         align-items: center;
     }
 
+    .progress {
+        height: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        background-color: var(--primary-color);
+        color: white;
+        text-align: center;
+        line-height: 20px;
+        transition: width 0.5s ease-in-out;
+    }
+
     table td:last-child label {
         margin-left: 5px;
     }
@@ -137,6 +152,9 @@
 <div class="content-wrapper">
     <div class="container">
         <h1 class="mb-4">Self Assessment Form</h1>
+        <div class="progress mb-4">
+            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
         <form id="selfAssessmentForm">
             <div class="form-section" id="section1">
                 <div class="form-group">
@@ -207,6 +225,13 @@
         document.getElementById('prevBtn').style.display = n === 0 ? 'none' : 'inline';
         document.getElementById('nextBtn').style.display = n === (sections.length - 1) ? 'none' : 'inline';
         document.getElementById('submitBtn').style.display = n === (sections.length - 1) ? 'inline' : 'none';
+        
+        // Update progress bar
+        const progress = ((n + 1) / sections.length) * 100;
+        const progressBar = document.querySelector('.progress-bar');
+        progressBar.style.width = `${progress}%`;
+        progressBar.setAttribute('aria-valuenow', progress);
+        progressBar.textContent = `${Math.round(progress)}%`;
     }
 
     function nextPrev(n) {
