@@ -192,8 +192,10 @@
                                     label.textContent = text;
                                     label.style.marginRight = '10px';
 
-                                    optionsCell.appendChild(radio);
-                                    optionsCell.appendChild(label);
+                                    const optionContainer = document.createElement('div');
+                                    optionContainer.appendChild(radio);
+                                    optionContainer.appendChild(label);
+                                    optionsCell.appendChild(optionContainer);
                                 });
 
                                 row.appendChild(indicatorCell);
