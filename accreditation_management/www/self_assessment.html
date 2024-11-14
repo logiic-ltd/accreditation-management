@@ -221,7 +221,20 @@
                         for (const [criterion, indicatorData] of Object.entries(criteria)) {
                             const table = document.createElement('table');
                             table.className = 'table table-bordered';
-                            table.innerHTML = `<thead><tr><th>${criterion}</th><th>Options</th></tr></thead>`;
+                            const thead = document.createElement('thead');
+                            const headerRow = document.createElement('tr');
+                            const criterionHeader = document.createElement('th');
+                            criterionHeader.textContent = criterion;
+                            const optionsHeader = document.createElement('th');
+                            optionsHeader.textContent = 'Options';
+                            const scoreHeader = document.createElement('th');
+                            scoreHeader.id = `${criterion.replace(/\s+/g, '-')}-score`;
+                            scoreHeader.textContent = 'Score: 0%';
+                            headerRow.appendChild(criterionHeader);
+                            headerRow.appendChild(optionsHeader);
+                            headerRow.appendChild(scoreHeader);
+                            thead.appendChild(headerRow);
+                            table.appendChild(thead);
                             const tbody = document.createElement('tbody');
                             table.appendChild(tbody);
                             areaDiv.appendChild(table);
