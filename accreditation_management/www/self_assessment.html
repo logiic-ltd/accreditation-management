@@ -87,9 +87,18 @@
                 </div>
             </div>
             <div class="form-section" id="section2" style="display:none;">
-                <div id="indicators"></div>
+                <h3>A. Land ownership, legal, School leadership and management documents</h3>
+                <div id="indicators-area-a"></div>
             </div>
             <div class="form-section" id="section3" style="display:none;">
+                <h3>School Infrastructures</h3>
+                <div id="indicators-area-b"></div>
+            </div>
+            <div class="form-section" id="section4" style="display:none;">
+                <h3>Teaching and Learning Resources</h3>
+                <div id="indicators-area-c"></div>
+            </div>
+            <div class="form-section" id="section5" style="display:none;">
                 <div id="provisionalResults" class="mt-4">
                     <h3>Provisional Results</h3>
                     <p id="overallScore">Overall Score: 0%</p>
@@ -136,11 +145,21 @@
             callback: function(r) {
                 if (r.message) {
                     const indicators = r.message;
-                    const indicatorsContainer = document.getElementById('indicators');
+                    const indicatorsAreaA = document.getElementById('indicators-area-a');
+                    const indicatorsAreaB = document.getElementById('indicators-area-b');
+                    const indicatorsAreaC = document.getElementById('indicators-area-c');
+
                     for (const [area, criteria] of Object.entries(indicators)) {
-                        const areaDiv = document.createElement('div');
-                        areaDiv.innerHTML = `<h3>${area}</h3>`;
-                        indicatorsContainer.appendChild(areaDiv);
+                        let areaDiv;
+                        if (area.includes("A. Land ownership")) {
+                            areaDiv = indicatorsAreaA;
+                        } else if (area.includes("School infrastructure")) {
+                            areaDiv = indicatorsAreaB;
+                        } else if (area.includes("Teaching and learning Resources")) {
+                            areaDiv = indicatorsAreaC;
+                        } else {
+                            continue;
+                        }
                         for (const [criterion, indicatorData] of Object.entries(criteria)) {
                             const criterionDiv = document.createElement('div');
                             criterionDiv.innerHTML = `<h4>${criterion}</h4>`;
