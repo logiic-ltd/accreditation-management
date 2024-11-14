@@ -136,8 +136,13 @@
         <form id="selfAssessmentForm">
             <div class="form-section" id="section1">
                 <div class="form-group">
+                    <label for="schoolSearch">Search School</label>
+                    <input type="text" class="form-control" id="schoolSearch" placeholder="Start typing to search...">
+                    <div id="schoolSearchResults" class="mt-2"></div>
+                </div>
+                <div class="form-group">
                     <label for="schoolName">School Name</label>
-                    <input type="text" class="form-control" id="schoolName" name="school_name" required>
+                    <input type="text" class="form-control" id="schoolName" name="school_name" required readonly>
                 </div>
                 <div class="form-group">
                     <label for="submissionDate">Submission Date</label>
@@ -198,6 +203,9 @@
 
     frappe.ready(function() {
         showSection(currentSection);
+
+        // Initialize school search
+        initSchoolSearch();
 
         // Load the indicator options from the JSON configuration file
         frappe.call({
@@ -418,5 +426,57 @@
             });
         });
     });
+
+    function initSchoolSearch() {
+        let $searchInput = $('#schoolSearch');
+        let $results = $('#schoolSearchResults');
+        let searchTimeout;
+
+        $searchInput.on('input', function() {
+            clearTimeout(searchTimeout);
+            let searchTerm = $searchInput.val();
+            if (searchTerm.length < 3) {
+                $results.empty();
+                return;
+            }
+
+            $results.html('<p>Searching...</p>');
+
+            searchTimeout = setTimeout(() => {
+                frappe.call({
+                    method: 'accreditation_management.www.self_assessment.search_schools',
+                    args: { search_term: searchTerm },
+                    callback: function(r) {
+                        if (r.message && r.message.content && r.message.content.length > 0) {
+                            let results = r.message.content;
+                            let html = results.map(item => `
+                                <div class="school-item" style="cursor: pointer; padding: 5px; border-bottom: 1px solid #ccc;">
+                                    <strong>${frappe.utils.escape_html(item.schoolName)}</strong><br>
+                                    <small>${frappe.utils.escape_html(item.province || '')}${item.province && item.district ? ', ' : ''}${frappe.utils.escape_html(item.district || '')}</small>
+                                </div>
+                            `).join('');
+                            $results.html(html);
+
+                            $results.find('.school-item').on('click', function() {
+                                let index = $(this).index();
+                                let item = results[index];
+                                $('#schoolName').val(item.schoolName);
+                                $searchInput.val(item.schoolName);
+                                $results.empty();
+                            });
+                        } else {
+                            $results.html('<p>No results found or unable to connect to the API. Please try again later.</p>');
+                        }
+                    }
+                });
+            }, 300);
+        });
+
+        $searchInput.on('blur', function() {
+            setTimeout(() => {
+                $results.empty();
+            }, 200);
+        });
+    }
     </script> 
 {% endblock %}
