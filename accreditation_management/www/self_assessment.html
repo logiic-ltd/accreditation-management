@@ -143,13 +143,20 @@
                 <div class="form-group">
                     <label>School Information</label>
                     <table id="schoolInfoTable" class="table table-bordered" style="display: none;">
-                        <tr><th>School Name</th><td id="schoolNameDisplay"></td></tr>
-                        <tr><th>School Code</th><td id="schoolCodeDisplay"></td></tr>
-                        <tr><th>Province</th><td id="provinceDisplay"></td></tr>
-                        <tr><th>District</th><td id="districtDisplay"></td></tr>
-                        <tr><th>Sector</th><td id="sectorDisplay"></td></tr>
-                        <tr><th>Cell</th><td id="cellDisplay"></td></tr>
-                        <tr><th>Village</th><td id="villageDisplay"></td></tr>
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="background-color: var(--primary-color); color: #ffffff;">School Information</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><th>School Name</th><td id="schoolNameDisplay"></td></tr>
+                            <tr><th>School Code</th><td id="schoolCodeDisplay"></td></tr>
+                            <tr><th>Province</th><td id="provinceDisplay"></td></tr>
+                            <tr><th>District</th><td id="districtDisplay"></td></tr>
+                            <tr><th>Sector</th><td id="sectorDisplay"></td></tr>
+                            <tr><th>Cell</th><td id="cellDisplay"></td></tr>
+                            <tr><th>Village</th><td id="villageDisplay"></td></tr>
+                        </tbody>
                     </table>
                     <input type="hidden" id="schoolName" name="school_name" required>
                     <input type="hidden" id="schoolCode" name="school_code">
