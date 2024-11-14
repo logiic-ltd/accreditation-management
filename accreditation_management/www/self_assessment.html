@@ -248,16 +248,21 @@
                                 indicator.options.forEach(option => {
                                     const [value, text] = option.split(': ');
                                     const optionContainer = document.createElement('div');
-                                    optionContainer.addEventListener('click', function() {
-                                        radio.checked = true;
-                                        calculateProvisionalResults();
-                                        updateSelection(radio);
-                                    });
-
                                     const radio = document.createElement('input');
                                     radio.type = 'radio';
                                     radio.name = indicatorKey;
                                     radio.value = value;
+                                    radio.addEventListener('change', function() {
+                                        calculateProvisionalResults();
+                                        updateSelection(this);
+                                    });
+
+                                    optionContainer.addEventListener('click', function() {
+                                        if (!radio.checked) {
+                                            radio.checked = true;
+                                            radio.dispatchEvent(new Event('change'));
+                                        }
+                                    });
 
                                     const label = document.createElement('label');
                                     label.textContent = text;
