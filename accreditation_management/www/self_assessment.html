@@ -12,6 +12,15 @@
         --light-bg: #eee;
     }
 
+    table td:last-child div.selected {
+        background-color: #cce7f0; /* Light shade of primary color */
+        transition: background-color 0.3s ease;
+    }
+
+    table td:last-child div {
+        transition: background-color 0.3s ease;
+    }
+
     table td:last-child div {
         display: flex;
         align-items: center;
@@ -228,7 +237,10 @@
                                     radio.type = 'radio';
                                     radio.name = indicatorKey;
                                     radio.value = value;
-                                    radio.addEventListener('change', calculateProvisionalResults);
+                                    radio.addEventListener('change', function() {
+                                        calculateProvisionalResults();
+                                        updateSelection(this);
+                                    });
 
                                     const label = document.createElement('label');
                                     label.textContent = text;
@@ -340,5 +352,13 @@
             });
         });
     });
+
+    function updateSelection(selectedRadio) {
+        const optionsCell = selectedRadio.closest('td');
+        optionsCell.querySelectorAll('div').forEach(div => {
+            div.classList.remove('selected');
+        });
+        selectedRadio.parentElement.classList.add('selected');
+    }
     </script> 
 {% endblock %}
