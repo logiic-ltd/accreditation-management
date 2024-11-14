@@ -21,7 +21,8 @@
   {
    "fieldname": "indicator_label",
    "fieldtype": "Data",
-   "label": "Indicator Label"
+   "label": "Indicator Label",
+   "length": 500
   },
   {
    "fieldname": "selected_value",
