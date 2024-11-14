@@ -219,6 +219,9 @@
             document.getElementById('provisionalYears').textContent = `Provisional Accreditation Years: ${getProvisionalYears(overallScore)}`;
         }
 
+        // Ensure provisional results are calculated on page load
+        calculateProvisionalResults();
+
         function getProvisionalRanking(score) {
             if (score >= 80) return "Outstanding";
             if (score >= 70) return "Good";
