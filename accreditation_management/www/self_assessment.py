@@ -106,8 +106,8 @@ def submit_self_assessment(form_data):
             area_total = 0
             criteria_count = 0
             for criterion, indicators in criteria.items():
-                criterion_total = sum(int(data.get(indicator, 0)) for indicator in indicators)
-                criterion_score = (criterion_total / (len(indicators) * 4)) * 100
+                criterion_total = sum([0, 25, 50, 75, 100][int(data.get(indicator, 0))] for indicator in indicators)
+                criterion_score = criterion_total / len(indicators)
                 area_total += criterion_score
                 criteria_count += 1
             area_weight = float(area.split('%')[0]) / 100

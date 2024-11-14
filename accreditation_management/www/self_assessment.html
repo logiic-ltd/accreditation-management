@@ -279,10 +279,11 @@
                     let indicatorCount = 0;
                     for (const indicatorKey of Object.keys(criteria[criterion])) {
                         const value = parseInt(formData.get(indicatorKey)) || 0;
-                        criterionTotal += value;
+                        const percentage = [0, 25, 50, 75, 100][value]; // Map 0-4 to percentages
+                        criterionTotal += percentage;
                         indicatorCount++;
                     }
-                    const criterionScore = (criterionTotal / (indicatorCount * 4)) * 100;
+                    const criterionScore = criterionTotal / indicatorCount;
                     areaTotal += criterionScore;
                     criteriaCount++;
                 }
