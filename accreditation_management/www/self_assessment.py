@@ -113,7 +113,8 @@ def submit_self_assessment(form_data):
                 criterion_score = (criterion_total / (len(indicators) * 4)) * 100
                 area_total += criterion_score
                 criteria_count += 1
-            area_score = (area_total / criteria_count) * (float(area.split('%')[0]) / 100)
+            area_weight = float(area.split('%')[0]) / 100
+            area_score = (area_total / criteria_count) * area_weight
             provisional_area_scores[area] = area_score
             overall_score += area_score
 

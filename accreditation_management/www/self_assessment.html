@@ -206,7 +206,8 @@
                     areaTotal += criterionScore;
                     criteriaCount++;
                 }
-                const areaScore = (areaTotal / criteriaCount) * (parseFloat(area.split('%')[0]) / 100);
+                const areaWeight = parseFloat(area.match(/(\d+)%/)[1]) / 100;
+                const areaScore = (areaTotal / criteriaCount) * areaWeight;
                 areaScores[area] = areaScore;
                 overallScore += areaScore;
             }
