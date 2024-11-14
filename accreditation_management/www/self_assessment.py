@@ -106,6 +106,7 @@ def submit_self_assessment(form_data):
         # Calculate provisional results
         provisional_area_scores = {}
         overall_score = 0
+        assessment_indicators = []
 
         for area, criteria in indicators.items():
             area_total = 0
@@ -113,11 +114,21 @@ def submit_self_assessment(form_data):
             for criterion, indicator_data in criteria.items():
                 criterion_total = 0
                 indicator_count = 0
-                for indicator_key in indicator_data.keys():
+                for indicator_key, indicator_info in indicator_data.items():
                     value = int(data.get(indicator_key, 0))
                     percentage = [0, 25, 50, 75, 100][value]  # Map 0-4 to percentages
                     criterion_total += percentage
                     indicator_count += 1
+                    
+                    # Add to assessment_indicators
+                    assessment_indicators.append({
+                        "indicator_number": int(indicator_key.split('_')[1]),
+                        "indicator_label": indicator_info['label'],
+                        "selected_value": value,
+                        "score": percentage,
+                        "category": area
+                    })
+                
                 criterion_score = criterion_total / indicator_count
                 area_total += criterion_score
                 criteria_count += 1
@@ -141,8 +152,9 @@ def submit_self_assessment(form_data):
         doc = frappe.get_doc({
             "doctype": "Self Assessment",
             "school_name": data.get("school_name"),
+            "school_code": data.get("school_code"),
             "submission_date": data.get("submission_date"),
-            **{f"indicator_{i}": data.get(f"indicator_{i}") for i in range(1, 54)},
+            "assessment_indicators": assessment_indicators,
             "provisional_area_scores": provisional_area_scores,
             "overall_score": overall_score,
             "provisional_ranking": provisional_ranking,
