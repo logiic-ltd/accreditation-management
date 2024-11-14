@@ -13,14 +13,15 @@ def search_schools(search_term, page=0, size=20, sort="schoolName,asc"):
     try:
         frappe.logger().info(f"Constructed API URL: {url}")
         frappe.logger().info(f"Attempting to call API with URL: {url}")
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)  # Add a timeout
         frappe.logger().info(f"API response status code: {response.status_code}")
         response.raise_for_status()
         result = response.json()
         frappe.logger().info(f"API response content: {result}")
         
-        # Check if the result is a list of schools or a single school
-        if isinstance(result, list):
+        if isinstance(result, dict) and "content" in result:
+            return result
+        elif isinstance(result, list):
             return {"content": result, "totalElements": len(result), "totalPages": 1}
         elif isinstance(result, dict) and "schoolName" in result:
             return {"content": [result], "totalElements": 1, "totalPages": 1}
