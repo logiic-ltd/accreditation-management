@@ -153,7 +153,6 @@ def submit_self_assessment(form_data):
             "doctype": "Self Assessment",
             "school_name": data.get("school_name"),
             "school_code": data.get("school_code"),
-            "submission_date": data.get("submission_date"),
             "assessment_indicators": assessment_indicators,
             "provisional_area_scores": provisional_area_scores,
             "overall_score": overall_score,

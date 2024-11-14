@@ -6,7 +6,6 @@
  "field_order": [
   "school_name",
   "school_code",
-  "submission_date",
   "assessment_indicators",
   "provisional_area_scores",
   "overall_score",
@@ -24,11 +23,6 @@
    "fieldname": "school_code",
    "fieldtype": "Data",
    "label": "School Code"
-  },
-  {
-   "fieldname": "submission_date",
-   "fieldtype": "Date",
-   "label": "Submission Date"
   },
   {
    "fieldname": "assessment_indicators",
