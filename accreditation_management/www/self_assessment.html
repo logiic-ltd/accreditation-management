@@ -299,10 +299,10 @@
             for (const [area, criteria] of Object.entries(indicators)) {
                 let areaTotal = 0;
                 let criteriaCount = 0;
-                for (const criterion of Object.keys(criteria)) {
+                for (const [criterion, indicatorData] of Object.entries(criteria)) {
                     let criterionTotal = 0;
                     let indicatorCount = 0;
-                    for (const indicatorKey of Object.keys(criteria[criterion])) {
+                    for (const indicatorKey of Object.keys(indicatorData)) {
                         const value = parseInt(formData.get(indicatorKey)) || 0;
                         const percentage = [0, 25, 50, 75, 100][value]; // Map 0-4 to percentages
                         criterionTotal += percentage;
@@ -312,12 +312,18 @@
                     areaTotal += criterionScore;
                     criteriaCount++;
                 }
-                const areaWeightMatch = area.match(/(\d+)%/);
-                const areaWeight = areaWeightMatch ? parseFloat(areaWeightMatch[1]) / 100 : 1;
-                const areaScore = (areaTotal / criteriaCount) * areaWeight;
+                const areaScore = areaTotal / criteriaCount;
                 areaScores[area] = areaScore;
-                overallScore += areaScore;
             }
+
+            // Apply area weights
+            const weightedScores = {
+                "A. Land ownership, legal, School leadership and management documents": areaScores["A. Land ownership, legal, School leadership and management documents"] * 0.10,
+                "School Infrastructures": areaScores["School Infrastructures"] * 0.60,
+                "Teaching and learning Resources": areaScores["Teaching and learning Resources"] * 0.30
+            };
+
+            overallScore = Object.values(weightedScores).reduce((sum, score) => sum + score, 0);
 
             // Update provisional results
             document.getElementById('overallScore').textContent = `Overall Score: ${overallScore.toFixed(2)}%`;

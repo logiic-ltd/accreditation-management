@@ -98,22 +98,39 @@ def submit_self_assessment(form_data):
         # Parse the form data
         data = json.loads(form_data)
         
+        # Load indicator options
+        with open(frappe.get_app_path('accreditation_management', 'config', 'indicator_options.json'), 'r') as file:
+            indicators = json.load(file)
+        
         # Calculate provisional results
         provisional_area_scores = {}
         overall_score = 0
 
-        for area, criteria in data.items():
+        for area, criteria in indicators.items():
             area_total = 0
             criteria_count = 0
-            for criterion, indicators in criteria.items():
-                criterion_total = sum([0, 25, 50, 75, 100][int(data.get(indicator, 0))] for indicator in indicators)
-                criterion_score = criterion_total / len(indicators)
+            for criterion, indicator_data in criteria.items():
+                criterion_total = 0
+                indicator_count = 0
+                for indicator_key in indicator_data.keys():
+                    value = int(data.get(indicator_key, 0))
+                    percentage = [0, 25, 50, 75, 100][value]  # Map 0-4 to percentages
+                    criterion_total += percentage
+                    indicator_count += 1
+                criterion_score = criterion_total / indicator_count
                 area_total += criterion_score
                 criteria_count += 1
-            area_weight = float(area.split('%')[0]) / 100
-            area_score = (area_total / criteria_count) * area_weight
+            area_score = area_total / criteria_count
             provisional_area_scores[area] = area_score
-            overall_score += area_score
+
+        # Apply area weights
+        weighted_scores = {
+            "A. Land ownership, legal, School leadership and management documents": provisional_area_scores["A. Land ownership, legal, School leadership and management documents"] * 0.10,
+            "School Infrastructures": provisional_area_scores["School Infrastructures"] * 0.60,
+            "Teaching and learning Resources": provisional_area_scores["Teaching and learning Resources"] * 0.30
+        }
+
+        overall_score = sum(weighted_scores.values())
 
         provisional_ranking = get_provisional_ranking(overall_score)
         provisional_decision = get_provisional_decision(overall_score)
