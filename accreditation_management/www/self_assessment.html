@@ -161,23 +161,38 @@
                             continue;
                         }
                         for (const [criterion, indicatorData] of Object.entries(criteria)) {
-                            const criterionDiv = document.createElement('div');
-                            criterionDiv.innerHTML = `<h4>${criterion}</h4>`;
-                            areaDiv.appendChild(criterionDiv);
+                            const table = document.createElement('table');
+                            table.className = 'table table-bordered';
+                            table.innerHTML = `<thead><tr><th>${criterion}</th><th>Options</th></tr></thead>`;
+                            const tbody = document.createElement('tbody');
+                            table.appendChild(tbody);
+                            areaDiv.appendChild(table);
+
                             for (const [indicatorKey, indicator] of Object.entries(indicatorData)) {
-                                const formGroup = document.createElement('div');
-                                formGroup.className = 'form-group';
-                                formGroup.innerHTML = `
-                                    <label for="${indicatorKey}">${indicator.label}</label>
-                                    <select class="form-control" id="${indicatorKey}" name="${indicatorKey}">
-                                        ${indicator.options.map(option => {
-                                            const [value, text] = option.split(': ');
-                                            return `<option value="${value}">${text}</option>`;
-                                        }).join('')}
-                                    </select>
-                                `;
-                                formGroup.querySelector('select').addEventListener('change', calculateProvisionalResults);
-                                criterionDiv.appendChild(formGroup);
+                                const row = document.createElement('tr');
+                                const indicatorCell = document.createElement('td');
+                                indicatorCell.textContent = indicator.label;
+                                const optionsCell = document.createElement('td');
+
+                                indicator.options.forEach(option => {
+                                    const [value, text] = option.split(': ');
+                                    const radio = document.createElement('input');
+                                    radio.type = 'radio';
+                                    radio.name = indicatorKey;
+                                    radio.value = value;
+                                    radio.addEventListener('change', calculateProvisionalResults);
+
+                                    const label = document.createElement('label');
+                                    label.textContent = text;
+                                    label.style.marginRight = '10px';
+
+                                    optionsCell.appendChild(radio);
+                                    optionsCell.appendChild(label);
+                                });
+
+                                row.appendChild(indicatorCell);
+                                row.appendChild(optionsCell);
+                                tbody.appendChild(row);
                             }
                         }
                     }
