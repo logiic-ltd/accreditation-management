@@ -91,9 +91,6 @@ def get_provisional_years(score):
         return 1
     else:
         return 0
-        frappe.log_error(f"Error calculating provisional results: {str(e)}")
-        frappe.log_error(f"Error loading indicator options: {str(e)}")
-        frappe.throw(_("An error occurred while loading indicator options."))
 
 @frappe.whitelist(allow_guest=True)
 def submit_self_assessment(form_data):
