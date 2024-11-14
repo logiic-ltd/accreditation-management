@@ -376,6 +376,19 @@
             div.classList.remove('selected');
         });
         selectedRadio.parentElement.classList.add('selected');
+        updateCriterionScore(selectedRadio);
+    }
+
+    function updateCriterionScore(selectedRadio) {
+        const criterionTable = selectedRadio.closest('table');
+        const criterionScoreHeader = criterionTable.querySelector('th:last-child');
+        const allRadios = criterionTable.querySelectorAll('input[type="radio"]:checked');
+        let totalScore = 0;
+        allRadios.forEach(radio => {
+            totalScore += parseInt(radio.value) * 25; // Convert 0-4 to 0-100%
+        });
+        const averageScore = allRadios.length > 0 ? totalScore / allRadios.length : 0;
+        criterionScoreHeader.textContent = `Score: ${averageScore.toFixed(2)}%`;
     }
     </script> 
 {% endblock %}
