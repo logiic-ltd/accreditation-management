@@ -141,8 +141,18 @@
                     <div id="schoolSearchResults" class="mt-2"></div>
                 </div>
                 <div class="form-group">
-                    <label for="schoolName">School Name</label>
-                    <input type="text" class="form-control" id="schoolName" name="school_name" required readonly>
+                    <label>School Information</label>
+                    <table id="schoolInfoTable" class="table table-bordered" style="display: none;">
+                        <tr><th>School Name</th><td id="schoolNameDisplay"></td></tr>
+                        <tr><th>School Code</th><td id="schoolCodeDisplay"></td></tr>
+                        <tr><th>Province</th><td id="provinceDisplay"></td></tr>
+                        <tr><th>District</th><td id="districtDisplay"></td></tr>
+                        <tr><th>Sector</th><td id="sectorDisplay"></td></tr>
+                        <tr><th>Cell</th><td id="cellDisplay"></td></tr>
+                        <tr><th>Village</th><td id="villageDisplay"></td></tr>
+                    </table>
+                    <input type="hidden" id="schoolName" name="school_name" required>
+                    <input type="hidden" id="schoolCode" name="school_code">
                 </div>
                 <div class="form-group">
                     <label for="submissionDate">Submission Date</label>
@@ -461,6 +471,15 @@
                                 let index = $(this).index();
                                 let item = results[index];
                                 $('#schoolName').val(item.schoolName);
+                                $('#schoolCode').val(item.schoolCode);
+                                $('#schoolNameDisplay').text(item.schoolName);
+                                $('#schoolCodeDisplay').text(item.schoolCode);
+                                $('#provinceDisplay').text(item.province || 'N/A');
+                                $('#districtDisplay').text(item.district || 'N/A');
+                                $('#sectorDisplay').text(item.sector || 'N/A');
+                                $('#cellDisplay').text(item.cell || 'N/A');
+                                $('#villageDisplay').text(item.village || 'N/A');
+                                $('#schoolInfoTable').show();
                                 $searchInput.val(item.schoolName);
                                 $results.empty();
                             });
