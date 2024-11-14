@@ -194,6 +194,8 @@
         showSection(currentSection);
     }
 
+    let indicators;
+
     frappe.ready(function() {
         showSection(currentSection);
 
@@ -202,7 +204,7 @@
             method: 'accreditation_management.www.self_assessment.get_indicator_options',
             callback: function(r) {
                 if (r.message) {
-                    const indicators = r.message;
+                    indicators = r.message;
                     const indicatorsAreaA = document.getElementById('indicators-area-a');
                     const indicatorsAreaB = document.getElementById('indicators-area-b');
                     const indicatorsAreaC = document.getElementById('indicators-area-c');
@@ -284,6 +286,11 @@
         });
 
         function calculateProvisionalResults() {
+            if (!indicators) {
+                console.error('Indicators not loaded yet');
+                return;
+            }
+
             const formData = new FormData(document.getElementById('selfAssessmentForm'));
             const areaScores = {};
             let overallScore = 0;
@@ -305,7 +312,8 @@
                     areaTotal += criterionScore;
                     criteriaCount++;
                 }
-                const areaWeight = parseFloat(area.match(/(\d+)%/)[1]) / 100;
+                const areaWeightMatch = area.match(/(\d+)%/);
+                const areaWeight = areaWeightMatch ? parseFloat(areaWeightMatch[1]) / 100 : 1;
                 const areaScore = (areaTotal / criteriaCount) * areaWeight;
                 areaScores[area] = areaScore;
                 overallScore += areaScore;
@@ -318,8 +326,16 @@
             document.getElementById('provisionalYears').textContent = `Provisional Accreditation Years: ${getProvisionalYears(overallScore)}`;
         }
 
-        // Ensure provisional results are calculated on page load
-        calculateProvisionalResults();
+        // Ensure provisional results are calculated after indicators are loaded
+        frappe.call({
+            method: 'accreditation_management.www.self_assessment.get_indicator_options',
+            callback: function(r) {
+                if (r.message) {
+                    indicators = r.message;
+                    calculateProvisionalResults();
+                }
+            }
+        });
 
         function getProvisionalRanking(score) {
             if (score >= 80) return "Outstanding";
@@ -343,17 +359,16 @@
         }
 
         function updateSelection(selectedRadio) {
-            alert('Yoooo1');
             const optionsCell = selectedRadio.closest('td');
             optionsCell.querySelectorAll('div').forEach(div => {
                 div.classList.remove('selected');
             });
             selectedRadio.parentElement.classList.add('selected');
             updateCriterionScore(selectedRadio);
+            calculateProvisionalResults();
         }
 
         function updateCriterionScore(selectedRadio) {
-            alert('Yooo2');
             const criterionTable = selectedRadio.closest('table');
             const criterionScoreHeader = criterionTable.querySelector('th:last-child');
             const allRadios = criterionTable.querySelectorAll('input[type="radio"]:checked');
