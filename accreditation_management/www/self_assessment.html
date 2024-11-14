@@ -343,6 +343,7 @@
         }
 
         function updateSelection(selectedRadio) {
+            alert('Yoooo1');
             const optionsCell = selectedRadio.closest('td');
             optionsCell.querySelectorAll('div').forEach(div => {
                 div.classList.remove('selected');
@@ -352,6 +353,7 @@
         }
 
         function updateCriterionScore(selectedRadio) {
+            alert('Yooo2');
             const criterionTable = selectedRadio.closest('table');
             const criterionScoreHeader = criterionTable.querySelector('th:last-child');
             const allRadios = criterionTable.querySelectorAll('input[type="radio"]:checked');
