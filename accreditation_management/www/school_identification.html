@@ -74,6 +74,19 @@
         border-color: var(--secondary-color);
         color: #ffffff;
     }
+
+    fieldset {
+        border: 1px solid #ddd;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        border-radius: 4px;
+    }
+
+    legend {
+        font-weight: 600;
+        color: var(--secondary-color);
+        padding: 0 0.5rem;
+    }
 </style>
 {% endblock %}
 
@@ -82,182 +95,214 @@
     <div class="container">
         <h1 class="form-title">School Identification Form</h1>
         <form id="schoolIdentificationForm">
-            <div class="form-group">
-                <label for="schoolName">School Name</label>
-                <input type="text" class="form-control" id="schoolName" name="school_name" required>
-            </div>
-            <div class="form-group">
-                <label for="schoolCode">School Code</label>
-                <input type="text" class="form-control" id="schoolCode" name="school_code">
-            </div>
-            <div class="form-group">
-                <label for="status">Status</label>
-                <input type="text" class="form-control" id="status" name="status" required>
-            </div>
-            <div class="form-group">
-                <label for="schoolOwner">School Owner</label>
-                <input type="text" class="form-control" id="schoolOwner" name="school_owner">
-            </div>
-            <div class="form-group">
-                <label for="contact">Contact</label>
-                <input type="text" class="form-control" id="contact" name="contact">
-            </div>
-            <div class="form-group">
-                <label for="accommodationStatus">Accommodation Status</label>
-                <input type="text" class="form-control" id="accommodationStatus" name="accommodation_status">
-            </div>
-            <div class="form-group">
-                <label for="yearOfEstablishment">Year of Establishment</label>
-                <input type="number" class="form-control" id="yearOfEstablishment" name="year_of_establishment">
-            </div>
-            <div class="form-group">
-                <label for="village">Village</label>
-                <input type="text" class="form-control" id="village" name="village">
-            </div>
-            <div class="form-group">
-                <label for="cell">Cell</label>
-                <input type="text" class="form-control" id="cell" name="cell">
-            </div>
-            <div class="form-group">
-                <label for="sector">Sector</label>
-                <input type="text" class="form-control" id="sector" name="sector">
-            </div>
-            <div class="form-group">
-                <label for="district">District</label>
-                <input type="text" class="form-control" id="district" name="district">
-            </div>
-            <div class="form-group">
-                <label for="province">Province</label>
-                <input type="text" class="form-control" id="province" name="province">
-            </div>
-            <div class="form-group">
-                <label for="htName">HT/Name</label>
-                <input type="text" class="form-control" id="htName" name="ht_name">
-            </div>
-            <div class="form-group">
-                <label for="qualificationOfHeadteacher">Qualification of Head Teacher</label>
-                <input type="text" class="form-control" id="qualificationOfHeadteacher" name="qualification_of_headteacher">
-            </div>
-            <div class="form-group">
-                <label for="telephone">Telephone</label>
-                <input type="tel" class="form-control" id="telephone" name="telephone">
-            </div>
-            <div class="form-group">
-                <label for="totalNrStudents">Total Nr. Students in the School</label>
-                <input type="text" class="form-control" id="totalNrStudents" name="total_nr_students">
-            </div>
-            <div class="form-group">
-                <label for="studentsWithSEN">Students with SEN</label>
-                <input type="text" class="form-control" id="studentsWithSEN" name="students_with_sen">
-            </div>
-            <div class="form-group">
-                <label for="numberOfTeachers">Number of All Teachers at the School</label>
-                <input type="text" class="form-control" id="numberOfTeachers" name="number_of_teachers">
-            </div>
-            <div class="form-group">
-                <label for="numberOfAssistantTeachers">Number of Assistant Teachers or Caregivers</label>
-                <input type="text" class="form-control" id="numberOfAssistantTeachers" name="number_of_assistant_teachers">
-            </div>
-            <div class="form-group">
-                <label for="totalNumberOfAdministrativeStaff">Total Number of Administrative Staff</label>
-                <input type="text" class="form-control" id="totalNumberOfAdministrativeStaff" name="total_number_of_administrative_staff">
-            </div>
-            <div class="form-group">
-                <label for="headteacher">Headteacher</label>
-                <input type="text" class="form-control" id="headteacher" name="headteacher">
-            </div>
-            <div class="form-group">
-                <label for="deputyHeadteacher">Deputy Headteacher</label>
-                <input type="text" class="form-control" id="deputyHeadteacher" name="deputy_headteacher">
-            </div>
-            <div class="form-group">
-                <label for="secretary">Secretary</label>
-                <input type="text" class="form-control" id="secretary" name="secretary">
-            </div>
-            <div class="form-group">
-                <label for="librarian">Librarian</label>
-                <input type="text" class="form-control" id="librarian" name="librarian">
-            </div>
-            <div class="form-group">
-                <label for="accountant">Accountant</label>
-                <input type="text" class="form-control" id="accountant" name="accountant">
-            </div>
-            <div class="form-group">
-                <label for="otherStaff">Other Staff (Specify)</label>
-                <input type="text" class="form-control" id="otherStaff" name="other_staff">
-            </div>
-            <div class="form-group">
-                <label for="totalNumberOfSupportingStaff">Total Number of Supporting Staff</label>
-                <input type="text" class="form-control" id="totalNumberOfSupportingStaff" name="total_number_of_supporting_staff">
-            </div>
-            <div class="form-group">
-                <label for="cleaners">Cleaners</label>
-                <input type="text" class="form-control" id="cleaners" name="cleaners">
-            </div>
-            <div class="form-group">
-                <label for="watchmen">Watchmen</label>
-                <input type="text" class="form-control" id="watchmen" name="watchmen">
-            </div>
-            <div class="form-group">
-                <label for="schoolCooks">School Cooks</label>
-                <input type="text" class="form-control" id="schoolCooks" name="school_cooks">
-            </div>
-            <div class="form-group">
-                <label for="storekeeper">Storekeeper</label>
-                <input type="text" class="form-control" id="storekeeper" name="storekeeper">
-            </div>
-            <div class="form-group">
-                <label for="drivers">Drivers</label>
-                <input type="text" class="form-control" id="drivers" name="drivers">
-            </div>
-            <div class="form-group">
-                <label for="otherSupportingStaff">Other Supporting Staff (Specify)</label>
-                <input type="text" class="form-control" id="otherSupportingStaff" name="other_supporting_staff">
-            </div>
-            <div class="form-group">
-                <label for="schoolInfrastructure">School Infrastructure</label>
-                <input type="text" class="form-control" id="schoolInfrastructure" name="school_infrastructure">
-            </div>
-            <div class="form-group">
-                <label for="nbrOfClassrooms">Nbr. of All Classrooms at the School</label>
-                <input type="text" class="form-control" id="nbrOfClassrooms" name="nbr_of_classrooms">
-            </div>
-            <div class="form-group">
-                <label for="nbrOfLatrines">Nr. of All Latrines/Toilets</label>
-                <input type="text" class="form-control" id="nbrOfLatrines" name="nbr_of_latrines">
-            </div>
-            <div class="form-group">
-                <label for="numberOfKitchen">Number of Kitchen</label>
-                <input type="text" class="form-control" id="numberOfKitchen" name="number_of_kitchen">
-            </div>
-            <div class="form-group">
-                <label for="numberOfDiningHall">Number of Dining Hall</label>
-                <input type="text" class="form-control" id="numberOfDiningHall" name="number_of_dining_hall">
-            </div>
-            <div class="form-group">
-                <label for="numberOfLibrary">Number of Library</label>
-                <input type="text" class="form-control" id="numberOfLibrary" name="number_of_library">
-            </div>
-            <div class="form-group">
-                <label for="numberOfSmartClassrooms">Number of Smart Classrooms</label>
-                <input type="text" class="form-control" id="numberOfSmartClassrooms" name="number_of_smart_classrooms">
-            </div>
-            <div class="form-group">
-                <label for="numberOfComputerLab">Number of Computer Laboratory</label>
-                <input type="text" class="form-control" id="numberOfComputerLab" name="number_of_computer_lab">
-            </div>
-            <div class="form-group">
-                <label for="numberOfAdminOffices">Number of Administrative Staff Offices</label>
-                <input type="text" class="form-control" id="numberOfAdminOffices" name="number_of_admin_offices">
-            </div>
-            <div class="form-group">
-                <label for="numberOfMultipurposeHalls">Number of Multipurpose Halls</label>
-                <input type="text" class="form-control" id="numberOfMultipurposeHalls" name="number_of_multipurpose_halls">
-            </div>
-            <div class="form-group">
-                <label for="numberOfAcademicStaffRooms">Number of Academic Staff Rooms</label>
-                <input type="text" class="form-control" id="numberOfAcademicStaffRooms" name="number_of_academic_staff_rooms">
-            </div>
+            <fieldset>
+                <legend>Basic School Information</legend>
+                <div class="form-group">
+                    <label for="schoolName">School Name</label>
+                    <input type="text" class="form-control" id="schoolName" name="school_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="schoolCode">School Code</label>
+                    <input type="text" class="form-control" id="schoolCode" name="school_code">
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <input type="text" class="form-control" id="status" name="status" required>
+                </div>
+                <div class="form-group">
+                    <label for="schoolOwner">School Owner</label>
+                    <input type="text" class="form-control" id="schoolOwner" name="school_owner">
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact</label>
+                    <input type="text" class="form-control" id="contact" name="contact">
+                </div>
+                <div class="form-group">
+                    <label for="accommodationStatus">Accommodation Status</label>
+                    <input type="text" class="form-control" id="accommodationStatus" name="accommodation_status">
+                </div>
+                <div class="form-group">
+                    <label for="yearOfEstablishment">Year of Establishment</label>
+                    <input type="number" class="form-control" id="yearOfEstablishment" name="year_of_establishment">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Location Details</legend>
+                <div class="form-group">
+                    <label for="village">Village</label>
+                    <input type="text" class="form-control" id="village" name="village">
+                </div>
+                <div class="form-group">
+                    <label for="cell">Cell</label>
+                    <input type="text" class="form-control" id="cell" name="cell">
+                </div>
+                <div class="form-group">
+                    <label for="sector">Sector</label>
+                    <input type="text" class="form-control" id="sector" name="sector">
+                </div>
+                <div class="form-group">
+                    <label for="district">District</label>
+                    <input type="text" class="form-control" id="district" name="district">
+                </div>
+                <div class="form-group">
+                    <label for="province">Province</label>
+                    <input type="text" class="form-control" id="province" name="province">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Head Teacher Information</legend>
+                <div class="form-group">
+                    <label for="htName">HT/Name</label>
+                    <input type="text" class="form-control" id="htName" name="ht_name">
+                </div>
+                <div class="form-group">
+                    <label for="qualificationOfHeadteacher">Qualification of Head Teacher</label>
+                    <input type="text" class="form-control" id="qualificationOfHeadteacher" name="qualification_of_headteacher">
+                </div>
+                <div class="form-group">
+                    <label for="telephone">Telephone</label>
+                    <input type="tel" class="form-control" id="telephone" name="telephone">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Student Information</legend>
+                <div class="form-group">
+                    <label for="totalNrStudents">Total Nr. Students in the School</label>
+                    <input type="text" class="form-control" id="totalNrStudents" name="total_nr_students">
+                </div>
+                <div class="form-group">
+                    <label for="studentsWithSEN">Students with SEN</label>
+                    <input type="text" class="form-control" id="studentsWithSEN" name="students_with_sen">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Staff Information</legend>
+                <div class="form-group">
+                    <label for="numberOfTeachers">Number of All Teachers at the School</label>
+                    <input type="text" class="form-control" id="numberOfTeachers" name="number_of_teachers">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfAssistantTeachers">Number of Assistant Teachers or Caregivers</label>
+                    <input type="text" class="form-control" id="numberOfAssistantTeachers" name="number_of_assistant_teachers">
+                </div>
+                
+                <fieldset>
+                    <legend>Administrative Staff</legend>
+                    <div class="form-group">
+                        <label for="totalNumberOfAdministrativeStaff">Total Number of Administrative Staff</label>
+                        <input type="text" class="form-control" id="totalNumberOfAdministrativeStaff" name="total_number_of_administrative_staff">
+                    </div>
+                    <div class="form-group">
+                        <label for="headteacher">Headteacher</label>
+                        <input type="text" class="form-control" id="headteacher" name="headteacher">
+                    </div>
+                    <div class="form-group">
+                        <label for="deputyHeadteacher">Deputy Headteacher</label>
+                        <input type="text" class="form-control" id="deputyHeadteacher" name="deputy_headteacher">
+                    </div>
+                    <div class="form-group">
+                        <label for="secretary">Secretary</label>
+                        <input type="text" class="form-control" id="secretary" name="secretary">
+                    </div>
+                    <div class="form-group">
+                        <label for="librarian">Librarian</label>
+                        <input type="text" class="form-control" id="librarian" name="librarian">
+                    </div>
+                    <div class="form-group">
+                        <label for="accountant">Accountant</label>
+                        <input type="text" class="form-control" id="accountant" name="accountant">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherStaff">Other Staff (Specify)</label>
+                        <input type="text" class="form-control" id="otherStaff" name="other_staff">
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Supporting Staff</legend>
+                    <div class="form-group">
+                        <label for="totalNumberOfSupportingStaff">Total Number of Supporting Staff</label>
+                        <input type="text" class="form-control" id="totalNumberOfSupportingStaff" name="total_number_of_supporting_staff">
+                    </div>
+                    <div class="form-group">
+                        <label for="cleaners">Cleaners</label>
+                        <input type="text" class="form-control" id="cleaners" name="cleaners">
+                    </div>
+                    <div class="form-group">
+                        <label for="watchmen">Watchmen</label>
+                        <input type="text" class="form-control" id="watchmen" name="watchmen">
+                    </div>
+                    <div class="form-group">
+                        <label for="schoolCooks">School Cooks</label>
+                        <input type="text" class="form-control" id="schoolCooks" name="school_cooks">
+                    </div>
+                    <div class="form-group">
+                        <label for="storekeeper">Storekeeper</label>
+                        <input type="text" class="form-control" id="storekeeper" name="storekeeper">
+                    </div>
+                    <div class="form-group">
+                        <label for="drivers">Drivers</label>
+                        <input type="text" class="form-control" id="drivers" name="drivers">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherSupportingStaff">Other Supporting Staff (Specify)</label>
+                        <input type="text" class="form-control" id="otherSupportingStaff" name="other_supporting_staff">
+                    </div>
+                </fieldset>
+            </fieldset>
+
+            <fieldset>
+                <legend>Infrastructure</legend>
+                <div class="form-group">
+                    <label for="schoolInfrastructure">School Infrastructure</label>
+                    <input type="text" class="form-control" id="schoolInfrastructure" name="school_infrastructure">
+                </div>
+                <div class="form-group">
+                    <label for="nbrOfClassrooms">Nbr. of All Classrooms at the School</label>
+                    <input type="text" class="form-control" id="nbrOfClassrooms" name="nbr_of_classrooms">
+                </div>
+                <div class="form-group">
+                    <label for="nbrOfLatrines">Nr. of All Latrines/Toilets</label>
+                    <input type="text" class="form-control" id="nbrOfLatrines" name="nbr_of_latrines">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfKitchen">Number of Kitchen</label>
+                    <input type="text" class="form-control" id="numberOfKitchen" name="number_of_kitchen">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfDiningHall">Number of Dining Hall</label>
+                    <input type="text" class="form-control" id="numberOfDiningHall" name="number_of_dining_hall">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfLibrary">Number of Library</label>
+                    <input type="text" class="form-control" id="numberOfLibrary" name="number_of_library">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfSmartClassrooms">Number of Smart Classrooms</label>
+                    <input type="text" class="form-control" id="numberOfSmartClassrooms" name="number_of_smart_classrooms">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfComputerLab">Number of Computer Laboratory</label>
+                    <input type="text" class="form-control" id="numberOfComputerLab" name="number_of_computer_lab">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfAdminOffices">Number of Administrative Staff Offices</label>
+                    <input type="text" class="form-control" id="numberOfAdminOffices" name="number_of_admin_offices">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfMultipurposeHalls">Number of Multipurpose Halls</label>
+                    <input type="text" class="form-control" id="numberOfMultipurposeHalls" name="number_of_multipurpose_halls">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfAcademicStaffRooms">Number of Academic Staff Rooms</label>
+                    <input type="text" class="form-control" id="numberOfAcademicStaffRooms" name="number_of_academic_staff_rooms">
+                </div>
+            </fieldset>
+
             <div class="form-group">
                 <label for="dateOfVisit">Date of Visit</label>
                 <input type="date" class="form-control" id="dateOfVisit" name="date_of_visit">
@@ -265,7 +310,7 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-</div>
+</section>
 
 <script>
 frappe.ready(function() {
