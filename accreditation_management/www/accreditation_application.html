@@ -264,7 +264,7 @@
             <div class="progress-bar-fill" id="progressBar"></div>
         </div>
         <form id="accreditationForm">
-            <div class="form-section active" id="section0">
+            <div class="form-section active" id="section1">
                 <h2>Search School</h2>
                 <div class="form-group">
                     <label for="searchSchool">Enter School Name or Code</label>
@@ -275,7 +275,7 @@
                 </div>
             </div>
 
-            <div class="form-section" id="section1">
+            <div class="form-section" id="section4">
                 <h2>School Information</h2>
                 <div class="form-group">
                     <label for="schoolName">School Name</label>
@@ -419,7 +419,7 @@
 <script>
 frappe.ready(function() {
     let currentSection = 1;
-    const totalSections = 3;
+    const totalSections = 4;
 
     function updateProgressBar() {
         const progress = ((currentSection - 1) / (totalSections - 1)) * 100;
