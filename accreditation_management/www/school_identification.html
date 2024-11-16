@@ -1,9 +1,86 @@
 {% extends "templates/web.html" %}
 
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
+    :root {
+        --primary-color: #078ece;
+        --secondary-color: #054d6f;
+        --accent-color: #24a148;
+        --text-color: #161616;
+        --light-bg: #eee;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100%;
+        font-family: 'IBM Plex Sans', sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-bg);
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .form-section {
+        padding: 4rem 0;
+        background-color: #ffffff;
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        position: relative;
+    }
+
+    .form-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--secondary-color);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        width: 100%;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #ffffff;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: #ffffff;
+    }
+</style>
+{% endblock %}
+
 {% block page_content %}
-<div class="content-wrapper">
+<section class="form-section">
     <div class="container">
-        <h1 class="mb-4">School Identification Form</h1>
+        <h1 class="form-title">School Identification Form</h1>
         <form id="schoolIdentificationForm">
             <div class="form-group">
                 <label for="schoolName">School Name</label>
