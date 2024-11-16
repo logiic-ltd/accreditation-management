@@ -24,31 +24,14 @@
     }
 
     .form-section {
-        display: none;
-        background-color: var(--white);
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-        margin-bottom: 30px;
-    }
-
-    .form-section.active {
-        display: block;
-    }
-
-    .progress-bar {
-        height: 8px;
-        background-color: var(--light-bg);
-        margin-bottom: 30px;
-        border-radius: 4px;
-        overflow: hidden;
-    }
-
-    .progress-bar-fill {
-        height: 100%;
-        background-color: var(--primary-color);
-        width: 0;
-        transition: width 0.3s ease-in-out;
+        padding: 4rem 0;
+        background-color: #ffffff;
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        position: relative;
     }
 
     h1, h2 {
@@ -260,22 +243,17 @@
 <div class="content-wrapper">
     <div class="container">
         <h1 class="mb-4">NESA Accreditation Application</h1>
-        <div class="progress-bar">
-            <div class="progress-bar-fill" id="progressBar"></div>
-        </div>
         <form id="accreditationForm">
-            <div class="form-section active" id="section1">
-                <h2>Search School</h2>
+            <fieldset>
+                <legend>Search School</legend>
                 <div class="form-group">
                     <label for="searchSchool">Enter School Name or Code</label>
                     <input type="text" class="form-control" id="searchSchool" name="search_school" placeholder="Search by school name or code">
                 </div>
-                <div class="form-navigation">
-                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
-                </div>
-            </div>
+            </fieldset>
 
-            <div class="form-section" id="section4">
+            <fieldset>
+                <legend>School Information</legend>
                 <h2>School Information</h2>
                 <div class="form-group">
                     <label for="schoolName">School Name</label>
@@ -362,17 +340,10 @@
                     <label for="otherRequest">Other Request (Specify)</label>
                     <textarea class="form-control" id="otherRequest" name="other_request" rows="3"></textarea>
                 </div>
-                <div class="form-navigation">
-                    <div></div> <!-- Empty div for spacing -->
-                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
-                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
-                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
-                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
-                </div>
-            </div>
+            </fieldset>
 
-            <div class="form-section" id="section2">
-                <h2>Applicant Information</h2>
+            <fieldset>
+                <legend>Applicant Information</legend>
                 <div class="form-group">
                     <label for="applicantName">Applicant Name</label>
                     <input type="text" class="form-control" id="applicantName" name="applicant_name" required>
@@ -393,108 +364,76 @@
                 <div class="form-group">
                     <label for="applicantTelephone">Applicant Telephone</label>
                     <input type="tel" class="form-control" id="applicantTelephone" name="applicant_telephone" required>
-                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
                 </div>
-            </div>
+            </fieldset>
 
-            <div class="form-section" id="section4">
-                <h2>School Details</h2>
-                <div class="form-navigation">
-                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
-                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
+            <fieldset>
+                <legend>Location</legend>
+                <div class="form-group">
+                    <label for="village">Village</label>
+                    <input type="text" class="form-control" id="village" name="village" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="cell">Cell</label>
+                    <input type="text" class="form-control" id="cell" name="cell" required>
+                </div>
+                <div class="form-group">
+                    <label for="sector">Sector</label>
+                    <input type="text" class="form-control" id="sector" name="sector" required>
+                </div>
+                <div class="form-group">
+                    <label for="district">District</label>
+                    <input type="text" class="form-control" id="district" name="district" required>
+                </div>
+                <div class="form-group">
+                    <label for="province">Province</label>
+                    <input type="text" class="form-control" id="province" name="province" required>
+                </div>
+            </fieldset>
 
-            <div class="form-section" id="section3">
-                <h2>Location</h2>
-                <div class="form-navigation">
-                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
-                    <button type="submit" class="btn btn-nav btn-submit">Submit Application</button>
-                </div>
-            </div>
+            <button type="submit" class="btn btn-primary">Submit Application</button>
         </form>
     </div>
 </div>
 
 <script>
 frappe.ready(function() {
-    let currentSection = 1;
-    const totalSections = 4;
+    frappe.ready(function() {
+        $('#accreditationForm').on('submit', function(e) {
+            e.preventDefault();
 
-    function updateProgressBar() {
-        const progress = ((currentSection - 1) / (totalSections - 1)) * 100;
-        $('#progressBar').css('width', `${progress}%`);
-    }
+            var formData = {};
+            $(this).serializeArray().forEach(function(item) {
+                formData[item.name] = item.value;
+            });
 
-    function showSection(sectionNumber) {
-        $('.form-section').removeClass('active');
-        $(`#section${sectionNumber}`).addClass('active');
-        currentSection = sectionNumber;
-        updateProgressBar();
-    }
-
-    $('.next-section').click(function() {
-        if (currentSection < totalSections) {
-            showSection(currentSection + 1);
-        }
-    });
-
-    $('.prev-section').click(function() {
-        if (currentSection > 1) {
-            showSection(currentSection - 1);
-        }
-    });
-
-    $('#accreditationForm').on('submit', function(e) {
-        e.preventDefault();
-
-        // Validate form
-        if (!this.checkValidity()) {
-            e.stopPropagation();
-            $(this).addClass('was-validated');
-            return;
-        }
-
-        var formData = {};
-        $(this).serializeArray().forEach(function(item) {
-            formData[item.name] = item.value;
-        });
-
-        // Stringify form data before sending to the server
-        frappe.call({
-            method: 'accreditation_management.www.accreditation_application.submit_application',
-            args: {
-                form_data: JSON.stringify(formData) // Ensure data is passed as a JSON string
-            },
-            freeze: true,
-            callback: function(r) {
-                if (!r.exc) {
-                    frappe.msgprint({
-                        title: __('Application Submitted'),
-                        indicator: 'green',
-                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
-                    });
-                    setTimeout(function() {
-                        window.location.href = '/application-status?tracking_number=' + r.message;
-                    }, 3000);
-                } else {
-                    frappe.msgprint({
-                        title: __('Submission Failed'),
-                        indicator: 'red',
-                        message: __('There was an error submitting your application. Please try again.')
-                    });
+            frappe.call({
+                method: 'accreditation_management.www.accreditation_application.submit_application',
+                args: {
+                    form_data: JSON.stringify(formData)
+                },
+                freeze: true,
+                callback: function(r) {
+                    if (!r.exc) {
+                        frappe.msgprint({
+                            title: __('Application Submitted'),
+                            indicator: 'green',
+                            message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
+                        });
+                        setTimeout(function() {
+                            window.location.href = '/application-status?tracking_number=' + r.message;
+                        }, 3000);
+                    } else {
+                        frappe.msgprint({
+                            title: __('Submission Failed'),
+                            indicator: 'red',
+                            message: __('There was an error submitting your application. Please try again.')
+                        });
+                    }
                 }
-            }
+            });
         });
     });
-
-    // Add this at the end of the script section
-    $(document).ready(function() {
-        $('#accreditationForm').attr('novalidate', true);
-    });
-
-    // Initialize the form
-    showSection(1);
 });
 </script>
 {% endblock %}
