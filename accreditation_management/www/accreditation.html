@@ -125,6 +125,59 @@
         }
     }
 
+    .steps-section {
+        padding: 6rem 0;
+        background-color: var(--light-bg);
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        position: relative;
+    }
+
+    .step-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        padding: 2rem;
+        text-align: center;
+        height: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        position: relative;
+    }
+
+    .step-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .step-number {
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 0 auto 1rem;
+    }
+
+    .step-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+    }
+
+    .step-description {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        line-height: 1.5;
+    }
+
     .features-section {
         padding: 6rem 0;
         background-color: #ffffff;
@@ -306,6 +359,42 @@
             <p class="hero-subtitle">Elevate your institution through comprehensive accreditation</p>
             <div class="hero-buttons">
                 <a href="/accreditation_application" class="btn btn-hero btn-lg">Start Your Application</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="steps-section">
+    <div class="container">
+        <h2 class="section-title">Accreditation Process</h2>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">School Registration</h3>
+                    <p class="step-description">Complete the initial registration form with your school's basic information and documentation.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Self Assessment</h3>
+                    <p class="step-description">Conduct a comprehensive self-assessment of your institution using our evaluation criteria.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Document Review</h3>
+                    <p class="step-description">Submit required documents for review by our accreditation committee.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Site Visit</h3>
+                    <p class="step-description">On-site evaluation by our expert team to verify compliance with standards.</p>
+                </div>
             </div>
         </div>
     </div>
