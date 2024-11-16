@@ -1,0 +1,533 @@
+{
+  "A. Land ownership, legal, School leadership and management documents": {
+    "Planning": {
+      "indicator_1": {
+        "label": "Availability Of Strategic Plan With Vision, Mission, Organisational Structure and Budget Proposal In Strategic Plan",
+        "options": [
+          "0: The school has No Strategic Plan",
+          "1: The Strategic plan is available with no vision and mission",
+          "2: The strategic plan includes clear vision and mission",
+          "3: The available strategic plan includes clear vision, mission, and organizational structure",
+          "4: The school has a strategic plan that includes clear vision, mission, organizational structure, and budget proposal in strategic plan"
+        ]
+      },
+      "indicator_2": {
+        "label": "Availability of the school's annual action plan",
+        "options": [
+          "0: There is no school's annual action plan",
+          "2: The school has an action plan",
+          "4: The school has an annual action plan with reasonable teaching and learning activities"
+        ]
+      },
+      "indicator_3": {
+        "label": "Availability of the school Annual budget Plan",
+        "options": [
+          "0: There is no the school Annual budget Plan",
+          "2: The school has an budget plan",
+          "4: The school has an Annual budget Plan with focus on teaching and learning"
+        ]
+      }
+    },
+    "Registration": {
+      "indicator_4": {
+        "label": "Availability Of official registration Documents (RGB or RDB, to be uploaded)",
+        "options": [
+          "0: The school has no registration certificate in RGB or RDB",
+          "4: The school has registration certificate in RGB/ RDB"
+        ]
+      }
+    },
+    "land ownership or rent contract": {
+      "indicator_5": {
+        "label": "Availability the school owner's land title or rent contract (to be uploaded)",
+        "options": [
+          "0: The school owner has no rent contract or land title",
+          "1: The school is operating in the facilities which are rented and the contract term is valid for 1 year or has a land title having 25% or less of required area",
+          "2: The school is operating in the facilities which are rented and the contract term is valid for 2 to 3 years or has a land title having 26 to 50% of required area",
+          "3: The school is operating in the facilities which are rented and the contract term is valid for 4 years or has a land title having 51 to 75% of required area",
+          "4: The school is operating in the facilities which are rented and the contract term is valid for 5 years or has a land title having 76 to 100% of required area"
+        ]
+      }
+    }
+  },
+  "School Infrastructures": {
+    "Classrooms": {
+      "indicator_6": {
+        "label": "Availability Of At Least One Classroom By Each Level (3 for preprimary, 3 for combinations, TVET trades L3-5 and OL, 6 for primary, 1 for L1 or L2 TVET trades",
+        "options": [
+          "0: The school has no classrooms for the applied level/ trade/combinations",
+          "2: The school has 50% and above (not all) of classrooms for the applied level/ trade/combinations",
+          "4: The school has all required classrooms for the applied level/trade/combination"
+        ]
+      },
+      "indicator_7": {
+        "label": "Each Classroom Has 2 Doors and Sufficient Windows",
+        "options": [
+          "0: No classroom Available for the applied level/ trade/combinations",
+          "1: Approximately 1-25% Classrooms have 2 doors and windows with an area ranging from 1-10% of floor area",
+          "2: Approximately 26-50% Classrooms have 2 doors and windows with an area ranging from 11-15% of floor area",
+          "3: Approximately 51-75% Classroom have 2 doors and windows with an area ranging from 16-20% of floor area",
+          "4: Approximately 76-100% Classrooms have 2 doors and windows with an area ranging from 21-25% of floor area"
+        ]
+      },
+      "indicator_8": {
+        "label": "Each Classroom has Maximum Capacity of 46 students (for special considerations, less capacity may be considered and a student take 1.2 to 2.5 sqm)",
+        "options": [
+          "0: All available classrooms do not have a Maximum Capacity Of 46 students or a student can not take 1.2 to 2.5 sqm",
+          "1: Approximately 1-25% of classrooms have a Maximum Capacity Of 46 students or 1-25% of students can take 1.2 to 2.5 sqm",
+          "2: 26-50% of classrooms have a Maximum Capacity Of 46 students or 26-50% of students can take 1.2 to 2.5 sqm",
+          "3: 51-75% of classrooms have a Maximum Capacity Of 46 students or 51-75% of students can take 1.2 to 2.5 sqm",
+          "4: 76-100% of classrooms have a Maximum Capacity Of 46 students or 76-100% of students can take 1.2 to 2.5 sqm"
+        ]
+      },
+      "indicator_9": {
+        "label": "Availability Of Electricity In All Classrooms",
+        "options": [
+          "0: No classroom has electricity",
+          "1: Approximately 1-25% of all classrooms have electricity",
+          "2: 26-50% of all classrooms have electricity",
+          "3: 51-75% of all classrooms have electricity",
+          "4: 76-100% of all classrooms have electricity"
+        ]
+      }
+    },
+    "Smart classroom and Computer Laboratory": {
+      "indicator_10": {
+        "label": "Availability Of At Least 1 Smart Classroom",
+        "options": [
+          "0: The school has No smart classroom available",
+          "1: The school has a smart classroom with Approximately 1-25% of smart classroom requirements (at least 30 computers, projector, room to accommodate at least 30 students and internet)",
+          "2: The school has a smart classroom with Approximately 26-50% of smart classroom requirements (at least 30 computers, projector, room to accommodate at least 30 students and internet)",
+          "3: The school has a smart classroom with Approximately 51-75% of smart classroom requirements (at least 30 computers, projector, room to accommodate at least 30 students and internet)",
+          "4: The school has a smart classroom with Approximately 76-100% of smart classroom requirements (at least 30 computers, projector, room to accommodate at least 30 students and internet)"
+        ]
+      },
+      "indicator_11": {
+        "label": "Availability of Computer Laboratory with sufficient Computers (computer for Each student during lesson delivery)",
+        "options": [
+          "0: The school has No computer for students",
+          "1: The school has a computer laboratory and approximately 1-25% of students have computers during the lesson delivery in computer laboratory",
+          "2: The school has a computer laboratory and approximately 26-50% of students have computers during the lesson delivery in computer laboratory",
+          "3: The school has a computer laboratory and approximately 51-75% of students have computers during the lesson delivery in computer laboratory",
+          "4: The school has a computer laboratory and approximately 76-100% of students have computers during the lesson delivery in computer laboratory"
+        ]
+      },
+      "indicator_12": {
+        "label": "Availability Of Computer Laboratory Having at least 90sqm with 2 Doors and Sufficient windows",
+        "options": [
+          "0: The school has No computer Laboratory",
+          "1: The Available Computer Laboratory has at least 90sqm, at least 1 door and windows have an area ranging from 1-10% of floor area",
+          "2: The Available Computer Laboratory has at least 90sqm, at least 1 or 2 openings having an area ranging from 11-15% of floor area",
+          "3: The Available Computer Laboratory has at least 90sqm, 2 doors and windows have an area ranging from 16-20% of floor area",
+          "4: The Available Computer Laboratory has at least 90sqm, 2 doors and windows have an area ranging from 21-25% of floor area"
+        ]
+      }
+    },
+    "Workshops and Laboratories and library": {
+      "indicator_13": {
+        "label": "Availability of Technical Workshops and/or science Laboratories (For TVET schools, science combinations, and ordinary level)",
+        "options": [
+          "0: The school has no Workshop and/or science Laboratory for the requested trades/ combination",
+          "1: The school has a Workshop and/or science Laboratory for the requested trade/combination with a Capacity to host approximately 1%-25% of students on average",
+          "2: The school has a Workshop and/or science Laboratory for the requested trade/combination with a Capacity to host approximately 26%-50% of students on average",
+          "3: The school has a Workshop and/or science Laboratory for the requested trade/combination with a Capacity to host approximately 51%-75% of students on average",
+          "4: The school has a Workshop and/or science Laboratory for the requested trade/combination with a Capacity to host approximately 76%-100% of students on average"
+        ]
+      },
+      "indicator_14": {
+        "label": "Availability Of Store For Tools And Materials For Each Workshop science laboratory",
+        "options": [
+          "0: There is no workshop or The workshop or science laboratory has no Store For Tools And Materials",
+          "1: The workshop or science laboratory has Store For Tools And Materials and Approximately 1-25% storage capacity",
+          "2: The workshop or science laboratory has Store For Tools And Materials and Approximately 26-50% storage capacity",
+          "3: The workshop or science laboratory has Store For Tools And Materials and Approximately 51-75% storage capacity",
+          "4: The workshop or science laboratory has Store For Tools And Materials and Approximately 76-100% storage capacity"
+        ]
+      },
+      "indicator_15": {
+        "label": "Availability Of A Library Of 7Mx10M Having 2 Doors And 4 Windows",
+        "options": [
+          "0: The school has no No library",
+          "1: The school has a library with a floor area of approximately 18sqm and having, 1 door and 2 windows",
+          "2: The school has a library with a floor area of approximately 35sqm and having, 2 door and 4 windows",
+          "3: The school has a library with a floor area of approximately 50sqm and having, 2 door and 4 windows",
+          "4: The school has a library with a floor area of 70sqm or more and having, 2 door and 4 windows"
+        ]
+      },
+      "indicator_16": {
+        "label": "Availability Of Electricity In the workshop or laboratory",
+        "options": [
+          "0: There is no electricity in the workshop or science laboratories",
+          "4: There is electricity in the workshop or science laboratories"
+        ]
+      }
+    },
+    "Toilets": {
+      "indicator_17": {
+        "label": "Availability Of Toilet For Staff For Each Gender That Can Serve At Least 15 Staff",
+        "options": [
+          "0: The school has no Toilets For Staff For Each Gender that can serve 15 staff or students and staff share toilets",
+          "2: The school has one toilet shared by both female and male staff or has 2 toilets for (one for each gender) but shared by more than 15 staff each",
+          "4: The school has sufficient Toilets for staff For Each Gender shared by 15 staff or less each"
+        ]
+      },
+      "indicator_18": {
+        "label": "Availability Of Toilet For Learners For Each Gender That Can Serve students (30 for Girls and 40 for Boys)",
+        "options": [
+          "0: The school has no Toilet For Learners For Each Gender",
+          "1: The school has Toilets that Serve all learners regardless of gender",
+          "2: The school has Toilets For Learners For Each Gender shared by more than 30 for Girls and 40 for Boys",
+          "3: The school has Toilets For Learners For Each Gender shared by more than 30 for Girls and 40 for Boys and a Separate Toilets for people with disability is available",
+          "4: The school has Toilets For Learners For Each Gender shared by 30 for Girls and 40 for Boys or less and 2 Separate Toilets for people with disability"
+        ]
+      }
+    },
+    "Administrative and academic staff offices": {
+      "indicator_19": {
+        "label": "Availability of At Least One Convenient Academic Staff Room",
+        "options": [
+          "0: The school has no Academic Staff Room",
+          "1: The school has an Academic Staff Room that can serve up to 25% of the available teaching staff",
+          "2: The school has an Academic Staff Room that can serve up to 50% of the available teaching staff",
+          "3: The school has an Academic Staff Room that can serve up to 75% of the available teaching staff",
+          "4: The school has an Academic Staff Room that serve 76%-100% of the available teaching staff"
+        ]
+      },
+      "indicator_20": {
+        "label": "Availability of an equipped administration block for all staff on the school structure",
+        "options": [
+          "0: The school has no administration block or offices for administration",
+          "1: The school has administrative block or offices that serve up to 25% of the staff on the school organisational structure",
+          "2: The school has administrative block or offices that serve up to 50% of the staff on the school organisational structure",
+          "3: The school has administrative block or offices that serve up to 75% of the staff on the school organisational structure and offices are equipped with chairs, tables and cupboards",
+          "4: The school has administrative block or offices that all the staff on the school organisational structure and offices are equipped with chairs, tables and cupboards"
+        ]
+      },
+      "indicator_21": {
+        "label": "Availability Of Internet Connectivity In All Administrative Offices and teaching staff",
+        "options": [
+          "0: There is no internet for both administrative staff and teaching staff",
+          "2: There is internet for only the administrative staff",
+          "4: There is internet with sufficient coverage for both administrative and teaching staff"
+        ]
+      },
+      "indicator_22": {
+        "label": "Availability Of Administrative Facilities Constructed With Authorised Materials",
+        "options": [
+          "0: The school has no administration block or offices for administration",
+          "2: The school has an administration block or offices for administration made of adobe bricks or which are very old",
+          "4: The school has an administration block or offices for administration made of burnt bricks"
+        ]
+      }
+    },
+    "Welfare facilities": {
+      "indicator_23": {
+        "label": "Availability Of A Dining Hall With (6 Windows And 2 Doors, Container Of Portable Water,Shelves To Store Plates And Cups,Ceiling To Prevent Noise ) (For boarding schools)",
+        "options": [
+          "0: The school has no dining hall",
+          "1: The school has a dining hall with only 1 door and less than 6 windows, with a capacity to hold up to 25% of students",
+          "2: The school has a dining hall with 2 door and 6 windows, with a capacity to hold up to 50% of students",
+          "3: The school has a dining hall with 2 door and 6 windows and the capacity to host all students at the same time but without convenient furniture",
+          "4: The school has a dining hall with 2 door and 6 windows and the capacity to host all students at the same time, having a container of portable water, shelves to store plates and cups, ceiling to prevent noise"
+        ]
+      },
+      "indicator_24": {
+        "label": "Availability Of A Space For Hand Washing Facilities(in Toilet, at Gate, in Dinning Hall, Others Places Not Mentioned)",
+        "options": [
+          "0: The school has no Hand washing facilities",
+          "1: The school has at least one place For Hand washing facilities",
+          "2: The school has two places For Hand washing facilities but still insufficient (serve up to 50% of students)",
+          "3: The school has two or more places For Hand washing facilities but still insufficient (serve up to 75%of students)",
+          "4: The school has the hand washing facilities in every critical part (toilet,gate,dinning hall, others places not mentioned) and serve all students at the school"
+        ]
+      },
+      "indicator_25": {
+        "label": "Availability Of A Kitchen (With Modern Cooking Stove, Means Allowing To Keep Clean Water,Tiling For Kitchen)",
+        "options": [
+          "0: There is no Kitchen at the school",
+          "1: Kitchen is a self adapted and has no cooking stove",
+          "2: The school has a Kitchen with Modern Cooking Stove",
+          "3: There is a Kitchen with Modern Cooking Stove with the capacity to serve all students at the same time (not cooking in shift)",
+          "4: The school has a Kitchen with Modern Cooking Stove, Means to Keep Clean Water and Tiling inside the Kitchen"
+        ]
+      },
+      "indicator_26": {
+        "label": "Availability Of A Playground For Different Games And Sports Which Can Accommodate students And Staff",
+        "options": [
+          "0: The school has no Playground",
+          "1: The school has one Playground",
+          "2: The school has two operational Playground For Different Games And Sports Which Can Accommodate students And Staff",
+          "3: The school has three operational Playground For Different Games And Sports Which Can Accommodate students And Staff",
+          "4: The school has four or more operational Playground For Different Games And Sports Which Can Accommodate students And Staff"
+        ]
+      },
+      "indicator_27": {
+        "label": "Availability Of Water Tanks for rainwater harvesting system",
+        "options": [
+          "0: The school has no Rain Water Harvesting System facilities",
+          "1: Only Up to 25% of the school buildings have the Rain Water Harvesting System",
+          "2: only Up to 50% of the school buildings have the Rain Water Harvesting System",
+          "3: only Up to 75% of the school buildings have the Rain Water Harvesting System",
+          "4: 75 to 100 % of the school buildings have the Rain Water Harvesting System"
+        ]
+      },
+      "indicator_28": {
+        "label": "Availability Of A Dormitory Constructed (With Authorized Construction Materials, Toilets And Bathroom In The Same Building, A Mosquito Net For Each Trainee,Tiling For Toilets & Bathroom For Dormitory) (For boarding schools)",
+        "options": [
+          "2: The dormitory is available Constructed and accommodate up to 50% of students",
+          "3: The school has dormitories that are Constructed With Authorized Construction Materials (burnt bricks,tubes,ects),Toilets And Bathroom and can host up to 90% of students",
+          "4: The school has dormitories that are Constructed With Authorized Construction Materials,Toilets And Bathroom In The Same Building,A Mosquito Net For Each Trainee,Tiling For Toilets And Bathroom For Dormitory) and have a capacity to host all students"
+        ]
+      },
+      "indicator_29": {
+        "label": "Availability Of Pathway For The People With Disability",
+        "options": [
+          "0: There are no Pathway For The People With Disability",
+          "1: Pathway For The People With Disability are partly available",
+          "2: Pathway For The People With Disability are fully available within in the school premises.",
+          "3: Pathway For The People With Disability are available and half covered in school premises",
+          "4: Pathway For The People With Disability are available within in the school premises and fully covered"
+        ]
+      },
+      "indicator_30": {
+        "label": "Availability Of a Special Room For Female Learners (Girl's room) (for primary students and above)",
+        "options": [
+          "0: The school has no Special Room For Female Learners",
+          "1: The school has a self adapted Room For Female Learners and there are no required materials",
+          "2: The school has a Special Room For Female Learners with essential materials to be used",
+          "3: The school has a Special Room For Female Learners, with essential materials to be used and having bathroom inside",
+          "4: The school has a Special Room For Female Learners, with with essential materials to be used and having bathroom and toilet inside"
+        ]
+      },
+      "indicator_31": {
+        "label": "Availability Of Clean Drinking Water",
+        "options": [
+          "0: The school has no Clean Drinking Water",
+          "1: Tape water is available and drunk with out boiling",
+          "2: Tape water is available, boiled and kept in Jericans",
+          "3: The school has a filtering system (smart tank) for Clean Drinking Water",
+          "4: The school has a filtering system (smart tank) for Clean Drinking Water with enough clean cups"
+        ]
+      },
+      "indicator_32": {
+        "label": "Availability Of A Garden And Trees In The School Yard (Greening)",
+        "options": [
+          "0: The school has no garden And Trees In The School Yard",
+          "2: The school is partly gardened",
+          "4: The school is completely green and has a Well maintained Garden"
+        ]
+      },
+      "indicator_33": {
+        "label": "Availability Of Basic Cleanliness in key places (Toilet, Classroom, Kitchen, Dormitory, Dining (Absence Of Bushes And Pools Of Water)",
+        "options": [
+          "0: No cleanliness is found in all corners of the school",
+          "2: The school is partly clean",
+          "4: All key parts of the school are clean with Absence Of Bushes And Pools Of Water"
+        ]
+      },
+      "indicator_34": {
+        "label": "Availability Of Waste Management Facilities (composting, land filling)",
+        "options": [
+          "0: There are no facilities for the management (disposal) of degradable and non degradable waste",
+          "2: The school has facilities for the management (disposal) of waste but degradable and non degradable waste are mixed",
+          "3: The school has facilities for separate disposal degradable and non degradable waste which are not covered",
+          "4: The school has facilities for separate disposal degradable and non degradable waste and are covered"
+        ]
+      }
+    },
+    "Safety and Security at school": {
+      "indicator_35": {
+        "label": "Availability Of A Multi-Purpose Hall (For boarding schools)",
+        "options": [
+          "0: There is No Multi-purpose Hall",
+          "1: The school has Multi-purpose Hall with a capacity to host up to 50% of students",
+          "2: The school has Multi-purpose Hall with a capacity to host up to 75% of students",
+          "3: The school has Multi-purpose Hall with a capacity to host all students",
+          "4: The school has Multi-purpose Hall with a capacity to host all students and toilet inside and changing room"
+        ]
+      },
+      "indicator_36": {
+        "label": "Availability Of At Least A Valid Fire Extinguisher",
+        "options": [
+          "0: The school has No (Valid) Fire Extinguisher at all",
+          "1: 1-25% of Buildings have Valid Fire Extinguisher",
+          "2: 26-50% of Buildings have Valid Fire Extinguisher",
+          "3: 51-75% of Buildings have Valid Fire Extinguisher",
+          "4: All (or 76-100% of) Buildings have Valid Fire Extinguisher"
+        ]
+      },
+      "indicator_37": {
+        "label": "Availability Of At Least A Lightening Arrestor",
+        "options": [
+          "0: The school has no Lightening Arrestor",
+          "1: At least Lightening Arrestors covering 0-25% school surface is available",
+          "2: At least Lightening Arrestors covering 25-50% school surface is available",
+          "3: At least Lightening Arrestors covering 50-75% school surface is available",
+          "4: At least Lightening Arrestors covering 100% school surface is available"
+        ]
+      },
+      "indicator_38": {
+        "label": "Availability Of A Fence Built In Accordance With The Norms Of Construction Which Guarantee The Security Of Learners And The School Property",
+        "options": [
+          "0: The school is not fenced",
+          "1: Half Fenced",
+          "3: 51%-75% of school is fenced with durable materials",
+          "4: All parts of the school (or 76-100% of) are fenced with required materials"
+        ]
+      },
+      "indicator_39": {
+        "label": "Availability Of At Least An External Lighting In All Buildings",
+        "options": [
+          "0: No External Lighting In All Buildings",
+          "1: up to 25% building have External Lighting",
+          "2: 26-50% building have External Lighting",
+          "3: 51-75% building have External Lighting",
+          "4: 76-100% building have External Lighting"
+        ]
+      }
+    }
+  },
+  "Teaching and learning Resources": {
+    "Equipment, Tools and Materials": {
+      "indicator_40": {
+        "label": "Availability of materials, Tools and Equipment (teaching aids,charts, teacher's guides, laboratory materials, TVET tools and equipment for TVET schools,….), (to Upload a list of STEL for TVET or laboratory materials for science combinations)",
+        "options": [
+          "0: No Tools and Equipment or science laboratory materials are available",
+          "1: The Available Tools and Equipment or materials correspond to up to 25% of the required.",
+          "2: The school has up to 50% of the required Tools and Equipment or science laboratory materials",
+          "3: The school has up to 75% of the required Tools and Equipment or science laboratory materials",
+          "4: The school has up to 76 to 100% of the required Tools and Equipment or science laboratory materials"
+        ]
+      },
+      "indicator_41": {
+        "label": "Availibility of approved curriculum for the implemented program",
+        "options": [
+          "0: The school has no approved national curriculum or has no licence for international curriculum",
+          "4: The school has an approved national curriculum or has licence for international curriculum"
+        ]
+      },
+      "indicator_42": {
+        "label": "Availability of students Textbooks and other reading materials",
+        "options": [
+          "0: No Reading Material, such as book and/or e-resource",
+          "1: Available Reading Materials, such as books and/or e-resources, to be used by approximately 1%-25% of students on average for every trade",
+          "2: Available Reading Materials, such as books and/or e-resources, to be used by approximately 26%-50% of students on average for every trade",
+          "3: Available Reading Materials, such as books and/or e-resources, to be used by approximately 51%-75% of students on average for every trade",
+          "4: Available Reading Materials, such as books and/or e-resources, to be used by approximately 76%-100% of students on average for every trade"
+        ]
+      },
+      "indicator_43": {
+        "label": "Availability Of A Projector In Each level",
+        "options": [
+          "0: The school has no projector",
+          "1: Approximately 1-25% of projectors are available in each level",
+          "2: Approximately 26-50% of projectors are available in each level",
+          "3: Approximately 51-75% of projectors are available in each level",
+          "4: Approximately 76-100% of projectors are available in each level"
+        ]
+      }
+    },
+    "Furniture": {
+      "indicator_44": {
+        "label": "Availability Of One Desk Per Two students (Seat And Table )",
+        "options": [
+          "0: Each desk is shared by more than two students",
+          "1: Only up to 25% of desks are occupied by 2 students maximum",
+          "2: Only 26%-50% of desks are occupied by 2 students maximum",
+          "3: Only 51%-75% of desks are occupied by 2 students maximum",
+          "4: Approximately 76%-100% of desks are occupied by 2 students maximum"
+        ]
+      },
+      "indicator_45": {
+        "label": "Availability Of One Chair For teacher In Each Classroom",
+        "options": [
+          "0: No classroom has teacher's chair",
+          "1: Approximately up 25% classrooms have teacher's chair",
+          "2: Approximately 25%-50% classrooms have teacher's chair",
+          "3: Approximately 51%-75% classrooms have teacher's chair",
+          "4: Approximately 76%-100% classrooms have teacher's chair"
+        ]
+      },
+      "indicator_46": {
+        "label": "Availability Of One Table For teacher In Each Classroom",
+        "options": [
+          "0: No classroom has teacher's table",
+          "1: Approximately up to 25% classrooms have teacher's table",
+          "2: Approximately 25%-50% classrooms have teacher's table",
+          "3: Approximately 51%-75% classrooms have teacher's table",
+          "4: Approximately 76%-100% classrooms have teacher's table"
+        ]
+      },
+      "indicator_47": {
+        "label": "Availability Of Shelves To Store Materials In Each Classroom",
+        "options": [
+          "0: when all classrooms do not have shelves",
+          "1: Approximately up to 25% classrooms have shelves",
+          "2: Approximately 25%-50% classrooms have shelves",
+          "3: Approximately 51%-75% classrooms have shelves",
+          "4: Approximately 76%-100% classrooms have shelves"
+        ]
+      },
+      "indicator_48": {
+        "label": "Availability Of Dustbin In Each Classroom And Workshop/laboratory/library",
+        "options": [
+          "0: When no dustbin is available in all classroom and workshop",
+          "1: Approximately up 25% classrooms and workshops have dustbin",
+          "2: Approximately 25%-50% classrooms and workshops have dustbin",
+          "3: Approximately 51%-75% classrooms and workshops have dustbin",
+          "4: Approximately 76%-100% classrooms and workshops have dustbin"
+        ]
+      }
+    },
+    "Teaching staff, administrative staff and Competences": {
+      "indicator_49": {
+        "label": "availability of Sufficient of teachers (application to an already operating school)",
+        "options": [
+          "0: the school lacks 50% of the required teachers",
+          "2: The school has up 80% of the required teachers",
+          "4: The school has all required teachers"
+        ]
+      },
+      "indicator_50": {
+        "label": "Availability Of Qualified teachers (application to an already operating school)",
+        "options": [
+          "0: All teachers have no teaching qualification or no certified training",
+          "1: Up to 25% of the teachers have teaching qualification or certified training",
+          "2: Only Up to 50% of the teachers have teaching qualification or certified training",
+          "3: Only Up to 75% of the teachers have teaching qualification or certified training",
+          "4: Approximately 76%-100% of teachers meeting qualifications required by teacher Profile"
+        ]
+      },
+      "indicator_51": {
+        "label": "Availability Of administrative staff With Relevant Qualification",
+        "options": [
+          "0: All administrative staff have irrelevant qualification",
+          "1: Up to 25% of the administrative staff have relevant qualification",
+          "2: Up to 50% of the administrative staff have relevant qualification",
+          "3: Up to 75% of the administrative staff have relevant qualification",
+          "4: All the administrative staff have relevant qualification"
+        ]
+      },
+      "indicator_52": {
+        "label": "Availability Of All Administrative Staff According To Organisational Structure (School Head Teacher, Deputy Head Teacher In Charge Of Training And Deputy Head Teacher In Charge Of Discipline, Bursar/Accountant and Secretary )",
+        "options": [
+          "0: No administrative staff is available",
+          "1: Approximately up to 25% of administrative staff are available",
+          "2: Approximately 26-50% of administrative staff are available",
+          "3: Approximately 51-75% of administrative staff are available",
+          "4: Approximately 76-100% of administrative staff are available"
+        ]
+      },
+      "indicator_53": {
+        "label": "Availability of complete staff files at school (application to an already operating school)",
+        "options": [
+          "0: No staff has a complete file",
+          "1: Approximately up to 25% of staff have a complete file",
+          "2: Approximately up to 50% of staff have a complete file",
+          "3: Approximately 51 to 75% of staff have a complete file",
+          "4: Approximately 76-100% of staff have a complete file"
+        ]
+      }
+    }
+  }
+}

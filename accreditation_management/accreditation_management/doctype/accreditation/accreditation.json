@@ -67,18 +67,6 @@
    "unique": 1
   },
   {
-   "fieldname": "workflow_state",
-   "fieldtype": "Link",
-   "label": "Workflow State",
-   "options": "Workflow State",
-   "default": "Draft",
-   "allow_on_submit": 1,
-   "in_standard_filter": 1,
-   "in_list_view": 1,
-   "in_preview": 1,
-   "read_only": 1
-  },
-  {
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",

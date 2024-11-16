@@ -1,9 +1,5 @@
 {% extends "templates/web.html" %}
 
-{% block head %}
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-{% endblock %}
-
 {% block script %}
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
@@ -11,7 +7,6 @@
 {% endblock %}
 
 {% block style %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
 
@@ -23,43 +18,43 @@
         --light-bg: #eee;
     }
 
-    body {
+    /* Hide the default navigation bar on the landing page */
+    .navbar {
+        display: none;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100%;
         font-family: 'IBM Plex Sans', sans-serif;
         color: var(--text-color);
         background-color: var(--light-bg);
     }
 
-    .site-header {
-        background-color: #ffffff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-    }
-
-    .navbar-brand {
-        font-weight: 700;
-        color: var(--primary-color);
-        font-size: 1.5rem;
-    }
-
-    .navbar-nav .nav-link {
-        color: var(--secondary-color);
-        font-weight: 600;
-        transition: color 0.3s ease;
-    }
-
-    .navbar-nav .nav-link:hover {
-        color: var(--primary-color);
-    }
-
     .hero-section {
         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        padding: 8rem 0 6rem;
+        padding: 2rem 0 6rem;
         position: relative;
         overflow: hidden;
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+    .hero-top {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 3;
+    }
+
+    .login-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
     }
 
     .hero-content {
@@ -67,7 +62,8 @@
         z-index: 2;
         text-align: center;
         max-width: 800px;
-        margin: 0 auto;
+        margin: 4rem auto 0;
+        padding: 0 20px;
     }
 
     .hero-title {
@@ -100,9 +96,44 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-outline-light {
+        color: #ffffff;
+        border-color: #ffffff;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-light:hover {
+        background-color: #ffffff;
+        color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .hero-buttons {
+            flex-direction: column;
+        }
+
+        .hero-buttons .btn {
+            margin-bottom: 1rem;
+        }
+    }
+
     .features-section {
         padding: 6rem 0;
         background-color: #ffffff;
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        position: relative;
     }
 
     .section-title {
@@ -211,6 +242,35 @@
         color: #ffffff;
     }
 
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+    }
+
+    [class*="col-"] {
+        padding: 0 15px;
+        width: 100%;
+    }
+
+    @media (min-width: 768px) {
+        .col-md-4 {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+        }
+        .col-lg-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+
     @media (max-width: 768px) {
         .hero-title {
             font-size: 2.5rem;
@@ -227,37 +287,26 @@
         .about-title {
             font-size: 2rem;
         }
+
+        .feature-card {
+            margin-bottom: 2rem;
+        }
     }
 </style>
 {% endblock %}
 
-{% block content %}
-<header class="site-header">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="/">NESA</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/accreditation-application">Apply</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/application-status">Check Status</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/verify-certificate">Verify Certificate</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</header>
-
+{% block page_content %}
 <section class="hero-section">
     <div class="container">
+        <div class="hero-top">
+            <a href="/login" class="btn btn-outline-light btn-sm login-btn">Login</a>
+        </div>
         <div class="hero-content">
             <h1 class="hero-title">NESA Accreditation Portal</h1>
             <p class="hero-subtitle">Elevate your institution through comprehensive accreditation</p>
-            <a href="/accreditation-application/new" class="btn btn-hero btn-lg">Start Your Application</a>
+            <div class="hero-buttons">
+                <a href="/accreditation_application" class="btn btn-hero btn-lg">Start Your Application</a>
+            </div>
         </div>
     </div>
 </section>
@@ -270,13 +319,39 @@
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                            <path d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"/>
+                            <path d="M16 10a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">School Identification</h3>
+                    <p class="feature-description">Provide essential information about your institution. This step is crucial for accurate assessment and personalized accreditation guidance.</p>
+                    <a href="/school-identification" class="btn btn-primary mt-3">Fill School Information</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                            <path d="M28 4H4a2 2 0 00-2 2v20a2 2 0 002 2h24a2 2 0 002-2V6a2 2 0 00-2-2zm0 22H4V8h24v18z"/>
+                            <path d="M9 14h14v2H9zm0 4h14v2H9zm0 4h10v2H9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Self-Assessment</h3>
+                    <p class="feature-description">Empower your institution's growth! Our comprehensive self-assessment is your first step towards excellence. Discover your strengths, uncover opportunities, and pave the way for successful accreditation.</p>
+                    <a href="/self-assessment" class="btn btn-primary mt-3">Start Self-Assessment</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                             <path d="M25.7 9.3l-7-7C18.5 2.1 18.3 2 18 2H8c-1.1 0-2 .9-2 2v24c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V10c0-.3-.1-.5-.3-.7zM18 4.4l5.6 5.6H18V4.4zM24 28H8V4h8v6c0 1.1.9 2 2 2h6v16z"/>
                             <path d="M10 22h12v2H10zm0-4h12v2H10zm0-4h12v2H10z"/>
                         </svg>
                     </div>
                     <h3 class="feature-title">Accreditation Application</h3>
                     <p class="feature-description">Begin your journey towards educational excellence by applying for NESA accreditation. Our streamlined process ensures a smooth experience.</p>
-                    <a href="/accreditation-application/new" class="btn btn-primary mt-3">Apply Now</a>
+                    <a href="/accreditation_application" class="btn btn-primary mt-3">Apply Now</a>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
@@ -304,6 +379,19 @@
                     <h3 class="feature-title">Verify Certificate</h3>
                     <p class="feature-description">Ensure the authenticity of accreditation certificates. Our verification system provides quick and reliable results.</p>
                     <a href="/verify-certificate" class="btn btn-primary mt-3">Verify Now</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                            <path d="M26 4H6a2 2 0 00-2 2v20a2 2 0 002 2h20a2 2 0 002-2V6a2 2 0 00-2-2zm0 22H6V6h20v20z"/>
+                            <path d="M10 18h12v2H10zm0-6h12v2H10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Assessment History</h3>
+                    <p class="feature-description">View your school's past assessments and accreditation requests. Track your progress over time.</p>
+                    <a href="/assessment-history" class="btn btn-primary mt-3">View History</a>
                 </div>
             </div>
         </div>

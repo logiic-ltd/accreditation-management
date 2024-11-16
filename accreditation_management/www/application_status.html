@@ -1,55 +1,8 @@
 {% extends "templates/web.html" %}
 
-{% block style %}
-<style>
-    .site-header {
-        background-color: #ffffff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-    }
-    .navbar-brand {
-        font-weight: 700;
-        color: #078ece;
-        font-size: 1.5rem;
-    }
-    .navbar-nav .nav-link {
-        color: #054d6f;
-        font-weight: 600;
-        transition: color 0.3s ease;
-    }
-    .navbar-nav .nav-link:hover {
-        color: #078ece;
-    }
-    .content-wrapper {
-        padding-top: 80px;
-    }
-</style>
 {% endblock %}
 
 {% block page_content %}
-<header class="site-header">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="/">NESA</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/accreditation-application">Apply</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/application-status">Check Status</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/verify-certificate">Verify Certificate</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</header>
 
 <div class="content-wrapper">
     <div class="container">

@@ -2,7 +2,7 @@
 
 {% block style %}
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
 
     :root {
         --primary-color: #078ece;
@@ -19,217 +19,133 @@
         color: var(--text-color);
     }
 
-    .site-header {
-        background-color: var(--white);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-    }
-
-    .navbar-brand {
-        font-weight: 700;
-        color: var(--primary-color);
-        font-size: 1.5rem;
-    }
-
-    .navbar-nav .nav-link {
-        color: var(--secondary-color);
-        font-weight: 600;
-        transition: color 0.3s ease;
-    }
-
-    .navbar-nav .nav-link:hover {
-        color: var(--primary-color);
-    }
-
     .content-wrapper {
-        padding-top: 10px;
         padding-bottom: 50px;
     }
 
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
     .form-section {
-        display: none;
-        background-color: var(--white);
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-        margin-bottom: 30px;
+        padding: 4rem 0;
+        background-color: #ffffff;
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        position: relative;
     }
 
-    .form-section.active {
-        display: block;
-    }
-
-    .progress-bar {
-        height: 8px;
-        background-color: var(--light-bg);
-        margin-bottom: 30px;
-        border-radius: 4px;
-        overflow: hidden;
-    }
-
-    .progress-bar-fill {
-        height: 100%;
-        background-color: var(--primary-color);
-        width: 0;
-        transition: width 0.3s ease-in-out;
-    }
-
-    h1, h2 {
+    .form-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
         color: var(--secondary-color);
-        margin-bottom: 20px;
     }
 
     .form-group {
-        margin-bottom: 20px;
-    }
-
-    label {
-        font-weight: 600;
-        color: var(--secondary-color);
-        margin-bottom: 8px;
-        display: block;
+        margin-bottom: 1.5rem;
     }
 
     .form-control {
-        border: 1px solid #ccc;
         border-radius: 4px;
-        padding: 10px;
+        border: 1px solid #ccc;
+        padding: 0.5rem;
         width: 100%;
-        font-size: 16px;
     }
 
-    .form-control:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 2px rgba(7, 142, 206, 0.2);
-        outline: none;
-    }
-
-    .form-navigation {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;
-    }
-
-    .btn-nav {
-        padding: 12px 24px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .btn-prev {
-        background-color: var(--light-bg);
-        color: var(--secondary-color);
-        border: 1px solid var(--secondary-color);
-    }
-
-    .btn-next, .btn-submit {
+    .btn-primary {
         background-color: var(--primary-color);
-        color: var(--white);
-        border: none;
+        border-color: var(--primary-color);
+        color: #ffffff;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
     }
 
-    .btn-nav:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn-prev:hover {
+    .btn-primary:hover {
         background-color: var(--secondary-color);
-        color: var(--white);
+        border-color: var(--secondary-color);
+        color: #ffffff;
     }
 
-    .btn-next:hover, .btn-submit:hover {
-        background-color: var(--secondary-color);
+    fieldset {
+        border: 1px solid #ddd;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        border-radius: 4px;
+    }
+
+    legend {
+        font-weight: 600;
+        color: var(--secondary-color);
+        padding: 0 0.5rem;
     }
 </style>
 {% endblock %}
 
 {% block page_content %}
-<header class="site-header">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="/">NESA</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/accreditation-application">Apply</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/application-status">Check Status</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/verify-certificate">Verify Certificate</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</header>
 
 <div class="content-wrapper">
     <div class="container">
-        <h1 class="mb-4">NESA Accreditation Application</h1>
-        <div class="progress-bar">
-            <div class="progress-bar-fill" id="progressBar"></div>
-        </div>
+        <h1 class="form-title">Accreditation Application</h1>
         <form id="accreditationForm">
-            <div class="form-section active" id="section1">
-                <h2>Basic Information</h2>
+            <fieldset>
+                <legend>School Search</legend>
+                <div class="form-group">
+                    <label for="searchSchool">Enter School Name or Code</label>
+                    <input type="text" class="form-control" id="searchSchool" name="search_school" placeholder="Search by school name or code">
+                    <div id="schoolSearchResults" class="mt-2"></div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>School Information</legend>
                 <div class="form-group">
                     <label for="schoolName">School Name</label>
                     <input type="text" class="form-control" id="schoolName" name="school_name" required>
                 </div>
                 <div class="form-group">
-                    <label for="mission">Mission</label>
-                    <textarea class="form-control" id="mission" name="mission" rows="3" required></textarea>
+                    <label for="schoolCode">School Code</label>
+                    <input type="text" class="form-control" id="schoolCode" name="school_code">
                 </div>
                 <div class="form-group">
-                    <label for="objective">Objective</label>
-                    <textarea class="form-control" id="objective" name="objective" rows="3" required></textarea>
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status" name="status" required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="Public">Public</option>
+                        <option value="Private">Private</option>
+                        <option value="Government Aided">Government Aided</option>
+                    </select>
                 </div>
-                <div class="form-navigation">
-                    <div></div> <!-- Empty div for spacing -->
-                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
-                </div>
-            </div>
-
-            <div class="form-section" id="section2">
-                <h2>School Details</h2>
                 <div class="form-group">
-                    <label for="curriculum">Curriculum</label>
-                    <select class="form-control" id="curriculum" name="curriculum" required>
-                        <option value="" disabled selected>Select Curriculum</option>
-                        <option value="National">National</option>
-                        <option value="International">International</option>
+                    <label for="ownerName">School Owner</label>
+                    <input type="text" class="form-control" id="ownerName" name="owner_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="applicantTelephone">Contact</label>
+                    <input type="tel" class="form-control" id="applicantTelephone" name="applicant_telephone" required>
+                </div>
+                <div class="form-group">
+                    <label for="accommodationStatus">Accommodation Status</label>
+                    <select class="form-control" id="accommodationStatus" name="accommodation_status" required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="Day">Day</option>
+                        <option value="Boarding">Boarding</option>
+                        <option value="Mixed">Mixed</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="establishmentYear">Year of Establishment</label>
                     <input type="number" class="form-control" id="establishmentYear" name="establishment_year" required>
                 </div>
-                <div class="form-group">
-                    <label for="schoolEmail">School Email</label>
-                    <input type="email" class="form-control" id="schoolEmail" name="school_email" required>
-                </div>
-                <div class="form-group">
-                    <label for="schoolTelephone">School Telephone</label>
-                    <input type="tel" class="form-control" id="schoolTelephone" name="school_telephone" required>
-                </div>
-                <div class="form-navigation">
-                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
-                    <button type="button" class="btn btn-nav btn-next next-section">Next</button>
-                </div>
-            </div>
-
-            <div class="form-section" id="section3">
-                <h2>Location</h2>
                 <div class="form-group">
                     <label for="village">Village</label>
                     <input type="text" class="form-control" id="village" name="village" required>
@@ -251,75 +167,81 @@
                     <input type="text" class="form-control" id="province" name="province" required>
                 </div>
                 <div class="form-group">
-                    <label for="ownerName">Owner Name</label>
-                    <input type="text" class="form-control" id="ownerName" name="owner_name" required>
+                    <label for="typeOfSchool">Type of School</label>
+                    <select class="form-control" id="typeOfSchool" name="type_of_school" required>
+                        <option value="" disabled selected>Select Type</option>
+                        <option value="TVET">TVET (TSS OR VTC)</option>
+                        <option value="General Education">General Education</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="ownerEmail">Owner Email</label>
-                    <input type="email" class="form-control" id="ownerEmail" name="owner_email" required>
+                    <label>Type of Request</label>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><label><input type="checkbox" name="type_of_request[]" value="TVET Trade"> TVET Trade</label></td>
+                            <td><label><input type="checkbox" name="type_of_request[]" value="Combinations"> Combinations</label></td>
+                            <td><label><input type="checkbox" name="type_of_request[]" value="Ordinary Level"> Ordinary Level</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input type="checkbox" name="type_of_request[]" value="Boarding Status"> Boarding Status</label></td>
+                            <td><label><input type="checkbox" name="type_of_request[]" value="Primary Level"> Primary Level</label></td>
+                            <td><label><input type="checkbox" name="type_of_request[]" value="Preprimary Level"> Preprimary Level</label></td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="form-group">
-                    <label for="ownerTelephone">Owner Telephone</label>
-                    <input type="tel" class="form-control" id="ownerTelephone" name="owner_telephone" required>
+                    <label for="otherRequest">Other Request (Specify)</label>
+                    <textarea class="form-control" id="otherRequest" name="other_request" rows="3"></textarea>
                 </div>
-                <div class="form-navigation">
-                    <button type="button" class="btn btn-nav btn-prev prev-section">Previous</button>
-                    <button type="submit" class="btn btn-nav btn-submit">Submit Application</button>
+            </fieldset>
+
+            <fieldset>
+                <legend>Applicant Information</legend>
+                <div class="form-group">
+                    <label for="applicantName">Applicant Name</label>
+                    <input type="text" class="form-control" id="applicantName" name="applicant_name" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="applicantRole">Applicant Role</label>
+                    <select class="form-control" id="applicantRole" name="applicant_role" required>
+                        <option value="" disabled selected>Select Role</option>
+                        <option value="Owner">Owner</option>
+                        <option value="Legal Representative">Legal Representative</option>
+                        <option value="District">District</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="applicantEmail">Applicant Email</label>
+                    <input type="email" class="form-control" id="applicantEmail" name="applicant_email" required>
+                </div>
+                <div class="form-group">
+                    <label for="applicantTelephone">Applicant Telephone</label>
+                    <input type="tel" class="form-control" id="applicantTelephone" name="applicant_telephone" required>
+                </div>
+            </fieldset>
+
+
+            <button type="submit" class="btn btn-primary">Submit Application</button>
         </form>
     </div>
 </div>
 
 <script>
 frappe.ready(function() {
-    let currentSection = 1;
-    const totalSections = 3;
-
-    function updateProgressBar() {
-        const progress = ((currentSection - 1) / (totalSections - 1)) * 100;
-        $('#progressBar').css('width', `${progress}%`);
-    }
-
-    function showSection(sectionNumber) {
-        $('.form-section').removeClass('active');
-        $(`#section${sectionNumber}`).addClass('active');
-        currentSection = sectionNumber;
-        updateProgressBar();
-    }
-
-    $('.next-section').click(function() {
-        if (currentSection < totalSections) {
-            showSection(currentSection + 1);
-        }
-    });
-
-    $('.prev-section').click(function() {
-        if (currentSection > 1) {
-            showSection(currentSection - 1);
-        }
-    });
+    initSchoolSearch();
 
     $('#accreditationForm').on('submit', function(e) {
         e.preventDefault();
-
-        // Validate form
-        if (!this.checkValidity()) {
-            e.stopPropagation();
-            $(this).addClass('was-validated');
-            return;
-        }
 
         var formData = {};
         $(this).serializeArray().forEach(function(item) {
             formData[item.name] = item.value;
         });
 
-        // Stringify form data before sending to the server
         frappe.call({
             method: 'accreditation_management.www.accreditation_application.submit_application',
             args: {
-                form_data: JSON.stringify(formData) // Ensure data is passed as a JSON string
+                form_data: JSON.stringify(formData)
             },
             freeze: true,
             callback: function(r) {
@@ -343,13 +265,78 @@ frappe.ready(function() {
         });
     });
 
-    // Add this at the end of the script section
-    $(document).ready(function() {
-        $('#accreditationForm').attr('novalidate', true);
+function initSchoolSearch() {
+    let $searchInput = $('#searchSchool');
+    let $results = $('#schoolSearchResults');
+    let searchTimeout;
+
+    $searchInput.on('input', function() {
+        clearTimeout(searchTimeout);
+        let searchTerm = $searchInput.val();
+        if (searchTerm.length < 3) {
+            $results.empty();
+            return;
+        }
+
+        $results.html('<p>Searching...</p>');
+
+        searchTimeout = setTimeout(() => {
+            frappe.call({
+                method: 'accreditation_management.www.self_assessment.search_schools',
+                args: { search_term: searchTerm },
+                callback: function(r) {
+                    if (r.message && r.message.content && r.message.content.length > 0) {
+                        let results = r.message.content;
+                        let html = results.map(item => `
+                            <div class="school-item" style="cursor: pointer; padding: 5px; border-bottom: 1px solid #ccc;">
+                                <strong>${frappe.utils.escape_html(item.schoolName)}</strong><br>
+                                <small>${frappe.utils.escape_html(item.province || '')}${item.province && item.district ? ', ' : ''}${frappe.utils.escape_html(item.district || '')}</small>
+                            </div>
+                        `).join('');
+                        $results.html(html);
+
+                        $results.find('.school-item').on('click', function() {
+                            let index = $(this).index();
+                            let item = results[index];
+                            $('#schoolName').val(item.schoolName);
+                            $('#schoolCode').val(item.schoolCode);
+                            $('#schoolNameDisplay').text(item.schoolName);
+                            $('#schoolCodeDisplay').text(item.schoolCode);
+                            $('#provinceDisplay').text(item.province || 'N/A');
+                            $('#districtDisplay').text(item.district || 'N/A');
+                            $('#sectorDisplay').text(item.sector || 'N/A');
+                            $('#cellDisplay').text(item.cell || 'N/A');
+                            $('#villageDisplay').text(item.village || 'N/A');
+                            $('#schoolInfoTable').show();
+                            $searchInput.val(item.schoolName);
+                            $results.empty();
+
+                            // Populate other form fields
+                            $('#status').val(item.status || '');
+                            $('#schoolOwner').val(item.schoolOwner || '');
+                            $('#contact').val(item.contact || '');
+                            $('#accommodationStatus').val(item.accommodationStatus || '');
+                            $('#yearOfEstablishment').val(item.yearOfEstablishment || '');
+                            $('#village').val(item.village || '');
+                            $('#cell').val(item.cell || '');
+                            $('#sector').val(item.sector || '');
+                            $('#district').val(item.district || '');
+                            $('#province').val(item.province || '');
+                        });
+                    } else {
+                        $results.html('<p>No results found or unable to connect to the API. Please try again later.</p>');
+                    }
+                }
+            });
+        }, 300);
     });
 
-    // Initialize the form
-    showSection(1);
+    $searchInput.on('blur', function() {
+        setTimeout(() => {
+            $results.empty();
+        }, 200);
+    });
+}
 });
 </script>
 {% endblock %}

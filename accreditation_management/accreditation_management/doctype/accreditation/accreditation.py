@@ -4,7 +4,7 @@
 import frappe
 from frappe.model.document import Document
 from frappe.utils import validate_email_address, validate_phone_number
-from frappe import _
+from frappe import _, OutgoingEmailError
 import random
 import string
 import json
@@ -13,24 +13,7 @@ class Accreditation(Document):
     def before_insert(self):
         frappe.logger().info(f"Before insert for {self.name}")
         self.generate_tracking_number()
-        self.set_workflow_state()
-
-    def set_workflow_state(self):
-        frappe.logger().info(f"Setting workflow state for {self.name}")
-        try:
-            workflow = frappe.get_doc('Workflow', {'document_type': self.doctype, 'is_active': 1})
-            if workflow and workflow.states:
-                self.workflow_state = workflow.states[0].state if workflow.states else "Draft"
-            else:
-                self.workflow_state = "Draft"
-        except Exception as e:
-            frappe.logger().error(f"Error setting workflow state: {str(e)}")
-            self.workflow_state = "Draft"
-        finally:
-            if not self.workflow_state:
-                self.workflow_state = "Draft"
-        self.status = self.workflow_state
-        frappe.logger().info(f"Set workflow state to {self.workflow_state}")
+        self.status = "Draft"
 
     def generate_tracking_number(self):
         frappe.logger().info(f"Generating tracking number for {self.name}")
@@ -54,8 +37,7 @@ class Accreditation(Document):
 
     def update_status_history(self):
         # Record status changes in the status history
-        if self.is_new() or self.has_value_changed('workflow_state'):
-            self.status = self.workflow_state
+        if self.is_new() or self.has_value_changed('status'):
             self.append('status_history', {
                 'status': self.status,
                 'date': frappe.utils.now(),
@@ -65,8 +47,7 @@ class Accreditation(Document):
     def on_update(self):
         # Update status history on any update
         self.update_status_history()
-        if self.has_value_changed('workflow_state'):
-            self.status = self.workflow_state
+        if self.has_value_changed('status'):
             if self.status == "Approved" and not self.certificate_generated:
                 self.generate_certificate()
             elif self.status != "Approved" and self.certificate_generated:
@@ -95,32 +76,19 @@ class Accreditation(Document):
         self.update_status_history()
 
     @frappe.whitelist()
-    def start_review(self):
-        if self.workflow_state == "Submitted":
-            self.workflow_state = "Under Review"
+    def change_status(self, new_status):
+        valid_transitions = {
+            "Draft": ["Submitted"],
+            "Submitted": ["Under Review"],
+            "Under Review": ["Approved", "Rejected"],
+            "Rejected": ["Submitted"]
+        }
+        if new_status in valid_transitions.get(self.status, []):
+            self.status = new_status
             self.save()
-            frappe.msgprint(_("Application review started."))
-
-    @frappe.whitelist()
-    def approve(self):
-        if self.workflow_state == "Under Review":
-            self.workflow_state = "Approved"
-            self.save()
-            frappe.msgprint(_("Application approved."))
-
-    @frappe.whitelist()
-    def reject(self):
-        if self.workflow_state == "Under Review":
-            self.workflow_state = "Rejected"
-            self.save()
-            frappe.msgprint(_("Application rejected."))
-
-    @frappe.whitelist()
-    def resubmit(self):
-        if self.workflow_state == "Rejected":
-            self.workflow_state = "Submitted"
-            self.save()
-            frappe.msgprint(_("Application resubmitted."))
+            frappe.msgprint(_(f"Application status changed to {new_status}."))
+        else:
+            frappe.throw(_("Invalid status transition."))
 
     def generate_certificate(self):
         from accreditation_management.www.application_status import generate_certificate_html
@@ -151,10 +119,11 @@ class Accreditation(Document):
         self.send_tracking_number_email()
 
     def send_tracking_number_email(self):
-        # Send an email with the tracking number to the school
-        if self.school_email:
-            subject = _("NESA Accreditation Application Tracking Number")
-            message = _("""Dear {0},
+        try:
+            # Send an email with the tracking number to the school
+            if self.school_email:
+                subject = _("NESA Accreditation Application Tracking Number")
+                message = _("""Dear {0},
 
 Thank you for submitting your NESA Accreditation Application.
 
@@ -165,12 +134,14 @@ Please keep this number for future reference. You can use this tracking number t
 Best regards,
 NESA Accreditation Team""").format(self.school_name, self.tracking_number)
 
-            frappe.sendmail(
-                recipients=[self.school_email],
-                subject=subject,
-                message=message,
-                header=[_("Accreditation Application"), "green"]
-            )
+                frappe.sendmail(
+                    recipients=[self.school_email],
+                    subject=subject,
+                    message=message,
+                    header=[_("Accreditation Application"), "green"]
+                )
+        except OutgoingEmailError:
+            frappe.logger().warning("Email account not configured. Unable to send tracking number email.")
 
 @frappe.whitelist(allow_guest=True)
 def create_accreditation(data):

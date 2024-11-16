@@ -1,0 +1,305 @@
+{
+ "autoname": "autoincrement",
+ "creation": "2024-11-12 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "school_name",
+  "school_code",
+  "status",
+  "school_owner",
+  "contact",
+  "accommodation_status",
+  "year_of_establishment",
+  "village",
+  "cell",
+  "sector",
+  "district",
+  "province",
+  "ht_name",
+  "qualification_of_headteacher",
+  "telephone",
+  "total_nr_students",
+  "students_with_sen",
+  "number_of_teachers",
+  "number_of_assistant_teachers",
+  "total_number_of_administrative_staff",
+  "headteacher",
+  "deputy_headteacher",
+  "secretary",
+  "librarian",
+  "accountant",
+  "other_staff",
+  "total_number_of_supporting_staff",
+  "cleaners",
+  "watchmen",
+  "school_cooks",
+  "storekeeper",
+  "drivers",
+  "other_supporting_staff",
+  "school_infrastructure",
+  "nbr_of_classrooms",
+  "nbr_of_latrines",
+  "number_of_kitchen",
+  "number_of_dining_hall",
+  "number_of_library",
+  "number_of_smart_classrooms",
+  "number_of_computer_lab",
+  "number_of_admin_offices",
+  "number_of_multipurpose_halls",
+  "number_of_academic_staff_rooms",
+  "date_of_visit"
+ ],
+ "fields": [
+  {
+   "fieldname": "school_name",
+   "fieldtype": "Data",
+   "label": "School Name"
+  },
+  {
+   "fieldname": "school_code",
+   "fieldtype": "Data",
+   "label": "School Code"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "school_owner",
+   "fieldtype": "Data",
+   "label": "School Owner"
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Data",
+   "label": "Contact"
+  },
+  {
+   "fieldname": "accommodation_status",
+   "fieldtype": "Data",
+   "label": "Accommodation Status"
+  },
+  {
+   "fieldname": "year_of_establishment",
+   "fieldtype": "Int",
+   "label": "Year of Establishment"
+  },
+  {
+   "fieldname": "village",
+   "fieldtype": "Data",
+   "label": "Village"
+  },
+  {
+   "fieldname": "cell",
+   "fieldtype": "Data",
+   "label": "Cell"
+  },
+  {
+   "fieldname": "sector",
+   "fieldtype": "Data",
+   "label": "Sector"
+  },
+  {
+   "fieldname": "district",
+   "fieldtype": "Data",
+   "label": "District"
+  },
+  {
+   "fieldname": "province",
+   "fieldtype": "Data",
+   "label": "Province"
+  },
+  {
+   "fieldname": "ht_name",
+   "fieldtype": "Data",
+   "label": "HT/Name"
+  },
+  {
+   "fieldname": "qualification_of_headteacher",
+   "fieldtype": "Data",
+   "label": "Qualification of Head Teacher"
+  },
+  {
+   "fieldname": "telephone",
+   "fieldtype": "Data",
+   "label": "Telephone"
+  },
+  {
+   "fieldname": "total_nr_students",
+   "fieldtype": "Data",
+   "label": "Total Nr. Students"
+  },
+  {
+   "fieldname": "students_with_sen",
+   "fieldtype": "Data",
+   "label": "Students with SEN"
+  },
+  {
+   "fieldname": "number_of_teachers",
+   "fieldtype": "Data",
+   "label": "Number of Teachers"
+  },
+  {
+   "fieldname": "number_of_assistant_teachers",
+   "fieldtype": "Data",
+   "label": "Number of Assistant Teachers"
+  },
+  {
+   "fieldname": "total_number_of_administrative_staff",
+   "fieldtype": "Data",
+   "label": "Total Number of Administrative Staff"
+  },
+  {
+   "fieldname": "headteacher",
+   "fieldtype": "Data",
+   "label": "Headteacher"
+  },
+  {
+   "fieldname": "deputy_headteacher",
+   "fieldtype": "Data",
+   "label": "Deputy Headteacher"
+  },
+  {
+   "fieldname": "secretary",
+   "fieldtype": "Data",
+   "label": "Secretary"
+  },
+  {
+   "fieldname": "librarian",
+   "fieldtype": "Data",
+   "label": "Librarian"
+  },
+  {
+   "fieldname": "accountant",
+   "fieldtype": "Data",
+   "label": "Accountant"
+  },
+  {
+   "fieldname": "other_staff",
+   "fieldtype": "Data",
+   "label": "Other Staff"
+  },
+  {
+   "fieldname": "total_number_of_supporting_staff",
+   "fieldtype": "Data",
+   "label": "Total Number of Supporting Staff"
+  },
+  {
+   "fieldname": "cleaners",
+   "fieldtype": "Data",
+   "label": "Cleaners"
+  },
+  {
+   "fieldname": "watchmen",
+   "fieldtype": "Data",
+   "label": "Watchmen"
+  },
+  {
+   "fieldname": "school_cooks",
+   "fieldtype": "Data",
+   "label": "School Cooks"
+  },
+  {
+   "fieldname": "storekeeper",
+   "fieldtype": "Data",
+   "label": "Storekeeper"
+  },
+  {
+   "fieldname": "drivers",
+   "fieldtype": "Data",
+   "label": "Drivers"
+  },
+  {
+   "fieldname": "other_supporting_staff",
+   "fieldtype": "Data",
+   "label": "Other Supporting Staff"
+  },
+  {
+   "fieldname": "school_infrastructure",
+   "fieldtype": "Data",
+   "label": "School Infrastructure"
+  },
+  {
+   "fieldname": "nbr_of_classrooms",
+   "fieldtype": "Data",
+   "label": "Number of Classrooms"
+  },
+  {
+   "fieldname": "nbr_of_latrines",
+   "fieldtype": "Data",
+   "label": "Number of Latrines"
+  },
+  {
+   "fieldname": "number_of_kitchen",
+   "fieldtype": "Data",
+   "label": "Number of Kitchen"
+  },
+  {
+   "fieldname": "number_of_dining_hall",
+   "fieldtype": "Data",
+   "label": "Number of Dining Hall"
+  },
+  {
+   "fieldname": "number_of_library",
+   "fieldtype": "Data",
+   "label": "Number of Library"
+  },
+  {
+   "fieldname": "number_of_smart_classrooms",
+   "fieldtype": "Data",
+   "label": "Number of Smart Classrooms"
+  },
+  {
+   "fieldname": "number_of_computer_lab",
+   "fieldtype": "Data",
+   "label": "Number of Computer Lab"
+  },
+  {
+   "fieldname": "number_of_admin_offices",
+   "fieldtype": "Data",
+   "label": "Number of Admin Offices"
+  },
+  {
+   "fieldname": "number_of_multipurpose_halls",
+   "fieldtype": "Data",
+   "label": "Number of Multipurpose Halls"
+  },
+  {
+   "fieldname": "number_of_academic_staff_rooms",
+   "fieldtype": "Data",
+   "label": "Number of Academic Staff Rooms"
+  },
+  {
+   "fieldname": "date_of_visit",
+   "fieldtype": "Date",
+   "label": "Date of Visit"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-12 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Accreditation Management",
+ "name": "School Identification",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

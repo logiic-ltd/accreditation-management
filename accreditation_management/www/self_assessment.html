@@ -1,0 +1,532 @@
+{% extends "templates/web.html" %}
+
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
+    :root {
+        --primary-color: #078ece;
+        --secondary-color: #054d6f;
+        --accent-color: #24a148;
+        --text-color: #161616;
+        --light-bg: #eee;
+    }
+
+    table td:last-child div.selected {
+        background-color: #cce7f0; /* Light shade of primary color */
+        transition: background-color 0.3s ease;
+    }
+
+    table td:last-child div {
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+
+    table td:last-child div {
+        display: flex;
+        align-items: center;
+    }
+
+    .progress {
+        height: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        background-color: var(--primary-color);
+        color: white;
+        text-align: center;
+        line-height: 20px;
+        transition: width 0.5s ease-in-out;
+    }
+
+    table td:last-child label {
+        margin-left: 5px;
+    }
+
+    table td:last-child {
+        background-color: #ffffff;
+    }
+
+    table td:first-child,
+    #schoolInfoTable th:first-child {
+        background-color: #eee;
+    }
+
+    table {
+        width: 90%;
+    }
+
+    table th:first-child,
+    table td:first-child,
+    #schoolInfoTable th:first-child {
+        width: 40%;
+        vertical-align: middle;
+    }
+
+    table th:last-child,
+    table td:last-child,
+    #schoolInfoTable td:last-child {
+        width: 60%;
+    }
+
+    table thead th,
+    #schoolInfoTable thead th {
+        background-color: #078ece;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100%;
+        font-family: 'IBM Plex Sans', sans-serif;
+        color: var(--text-color);
+        background-color: #ffffff;
+    }
+
+    .content-wrapper {
+        padding: 2rem 0;
+        width: 90vw;
+        margin-left: -45vw;
+        left: 50%;
+        position: relative;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 90%;
+        padding: 0;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+        border-radius: 0.25rem;
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        width: 100%;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #ffffff;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: #ffffff;
+    }
+
+    #provisionalResults {
+        background-color: #ffffff;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    #indicators h3, #indicators h4 {
+        color: var(--secondary-color);
+    }
+
+    .indicator-score {
+        font-size: 0.9rem;
+        color: var(--accent-color);
+    }
+</style>
+{% endblock %}
+
+{% block page_content %}
+<div class="content-wrapper">
+    <div class="container">
+        <h1 class="mb-4">Self Assessment Form</h1>
+        <div class="progress mb-4">
+            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
+        <form id="selfAssessmentForm">
+            <div class="form-section" id="section1">
+                <div class="form-group">
+                    <label for="schoolSearch">Search School</label>
+                    <input type="text" class="form-control" id="schoolSearch" placeholder="Start typing to search...">
+                    <div id="schoolSearchResults" class="mt-2"></div>
+                </div>
+                <div class="form-group">
+                    <table id="schoolInfoTable" class="table table-bordered" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="background-color: var(--primary-color); color: #ffffff;">School Information</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><th>School Name</th><td id="schoolNameDisplay"></td></tr>
+                            <tr><th>School Code</th><td id="schoolCodeDisplay"></td></tr>
+                            <tr><th>Province</th><td id="provinceDisplay"></td></tr>
+                            <tr><th>District</th><td id="districtDisplay"></td></tr>
+                            <tr><th>Sector</th><td id="sectorDisplay"></td></tr>
+                            <tr><th>Cell</th><td id="cellDisplay"></td></tr>
+                            <tr><th>Village</th><td id="villageDisplay"></td></tr>
+                        </tbody>
+                    </table>
+                    <input type="hidden" id="schoolName" name="school_name" required>
+                    <input type="hidden" id="schoolCode" name="school_code">
+                </div>
+            </div>
+            <div class="form-section" id="section2" style="display:none;">
+                <h3>A. Land ownership, legal, School leadership and management documents</h3>
+                <div id="indicators-area-a"></div>
+            </div>
+            <div class="form-section" id="section3" style="display:none;">
+                <h3>School Infrastructures</h3>
+                <div id="indicators-area-b"></div>
+            </div>
+            <div class="form-section" id="section4" style="display:none;">
+                <h3>Teaching and Learning Resources</h3>
+                <div id="indicators-area-c"></div>
+            </div>
+            <div class="form-section" id="section5" style="display:none;">
+                <div id="provisionalResults" class="mt-4">
+                    <h3>Provisional Results</h3>
+                    <p id="overallScore">Overall Score: 0%</p>
+                    <p id="provisionalRanking">Provisional Ranking: N/A</p>
+                    <p id="provisionalDecision">Provisional Decision: N/A</p>
+                    <p id="provisionalYears">Provisional Accreditation Years: N/A</p>
+                </div>
+            </div>
+            <div class="navigation-buttons mt-3">
+                <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>                                                                                                                                      
+    let currentSection = 0;
+    const sections = document.querySelectorAll('.form-section');
+
+    function showSection(n) {
+        sections[n].style.display = 'block';
+        document.getElementById('prevBtn').style.display = n === 0 ? 'none' : 'inline';
+        document.getElementById('nextBtn').style.display = n === (sections.length - 1) ? 'none' : 'inline';
+        document.getElementById('submitBtn').style.display = n === (sections.length - 1) ? 'inline' : 'none';
+        
+        // Update progress bar
+        const progress = ((n + 1) / sections.length) * 100;
+        const progressBar = document.querySelector('.progress-bar');
+        progressBar.style.width = `${progress}%`;
+        progressBar.setAttribute('aria-valuenow', progress);
+        progressBar.textContent = `${Math.round(progress)}%`;
+    }
+
+    function nextPrev(n) {
+        sections[currentSection].style.display = 'none';
+        currentSection += n;
+        if (currentSection >= sections.length) {
+            document.getElementById('selfAssessmentForm').submit();
+            return false;
+        }
+        showSection(currentSection);
+    }
+
+    let indicators;
+
+    frappe.ready(function() {
+        showSection(currentSection);
+
+        // Initialize school search
+        initSchoolSearch();
+
+        // Load the indicator options from the JSON configuration file
+        frappe.call({
+            method: 'accreditation_management.www.self_assessment.get_indicator_options',
+            callback: function(r) {
+                if (r.message) {
+                    indicators = r.message;
+                    const indicatorsAreaA = document.getElementById('indicators-area-a');
+                    const indicatorsAreaB = document.getElementById('indicators-area-b');
+                    const indicatorsAreaC = document.getElementById('indicators-area-c');
+
+                    for (const [area, criteria] of Object.entries(indicators)) {
+                        let areaDiv;
+                        if (area.includes("A. Land ownership")) {
+                            areaDiv = indicatorsAreaA;
+                        } else if (area.includes("School Infrastructures")) {
+                            areaDiv = indicatorsAreaB;
+                        } else if (area.includes("Teaching and learning Resources")) {
+                            areaDiv = indicatorsAreaC;
+                        } else {
+                            continue;
+                        }
+                        for (const [criterion, indicatorData] of Object.entries(criteria)) {
+                            const table = document.createElement('table');
+                            table.className = 'table table-bordered';
+                            const thead = document.createElement('thead');
+                            const headerRow = document.createElement('tr');
+                            const criterionHeader = document.createElement('th');
+                            criterionHeader.textContent = criterion;
+                            const optionsHeader = document.createElement('th');
+                            optionsHeader.textContent = 'Options';
+                            const scoreHeader = document.createElement('th');
+                            scoreHeader.id = `${criterion.replace(/\s+/g, '-')}-score`;
+                            scoreHeader.textContent = 'Score: 0%';
+                            headerRow.appendChild(criterionHeader);
+                            headerRow.appendChild(optionsHeader);
+                            headerRow.appendChild(scoreHeader);
+                            thead.appendChild(headerRow);
+                            table.appendChild(thead);
+                            const tbody = document.createElement('tbody');
+                            table.appendChild(tbody);
+                            areaDiv.appendChild(table);
+
+                            for (const [indicatorKey, indicator] of Object.entries(indicatorData)) {
+                                const row = document.createElement('tr');
+                                const indicatorCell = document.createElement('td');
+                                indicatorCell.textContent = indicator.label;
+                                const optionsCell = document.createElement('td');
+
+                                indicator.options.forEach(option => {
+                                    const [value, text] = option.split(': ');
+                                    const optionContainer = document.createElement('div');
+                                    const radio = document.createElement('input');
+                                    radio.type = 'radio';
+                                    radio.name = indicatorKey;
+                                    radio.value = value;
+                                    radio.addEventListener('change', function() {
+                                        calculateProvisionalResults();
+                                        updateSelection(this);
+                                    });
+
+                                    optionContainer.addEventListener('click', function() {
+                                        if (!radio.checked) {
+                                            radio.checked = true;
+                                            radio.dispatchEvent(new Event('change'));
+                                        }
+                                    });
+
+                                    const label = document.createElement('label');
+                                    label.textContent = text;
+                                    label.style.marginRight = '10px';
+
+                                    optionContainer.appendChild(radio);
+                                    optionContainer.appendChild(label);
+                                    optionsCell.appendChild(optionContainer);
+                                });
+
+                                row.appendChild(indicatorCell);
+                                row.appendChild(optionsCell);
+                                tbody.appendChild(row);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        function calculateProvisionalResults() {
+            if (!indicators) {
+                console.error('Indicators not loaded yet');
+                return;
+            }
+
+            const formData = new FormData(document.getElementById('selfAssessmentForm'));
+            const areaScores = {};
+            let overallScore = 0;
+
+            // Calculate scores for each area
+            for (const [area, criteria] of Object.entries(indicators)) {
+                let areaTotal = 0;
+                let criteriaCount = 0;
+                for (const [criterion, indicatorData] of Object.entries(criteria)) {
+                    let criterionTotal = 0;
+                    let indicatorCount = 0;
+                    for (const indicatorKey of Object.keys(indicatorData)) {
+                        const value = parseInt(formData.get(indicatorKey)) || 0;
+                        const percentage = [0, 25, 50, 75, 100][value]; // Map 0-4 to percentages
+                        criterionTotal += percentage;
+                        indicatorCount++;
+                    }
+                    const criterionScore = criterionTotal / indicatorCount;
+                    areaTotal += criterionScore;
+                    criteriaCount++;
+                }
+                const areaScore = areaTotal / criteriaCount;
+                areaScores[area] = areaScore;
+            }
+
+            // Apply area weights
+            const weightedScores = {
+                "A. Land ownership, legal, School leadership and management documents": areaScores["A. Land ownership, legal, School leadership and management documents"] * 0.10,
+                "School Infrastructures": areaScores["School Infrastructures"] * 0.60,
+                "Teaching and learning Resources": areaScores["Teaching and learning Resources"] * 0.30
+            };
+
+            overallScore = Object.values(weightedScores).reduce((sum, score) => sum + score, 0);
+
+            // Update provisional results
+            document.getElementById('overallScore').textContent = `Overall Score: ${overallScore.toFixed(2)}%`;
+            document.getElementById('provisionalRanking').textContent = `Provisional Ranking: ${getProvisionalRanking(overallScore)}`;
+            document.getElementById('provisionalDecision').textContent = `Provisional Decision: ${getProvisionalDecision(overallScore)}`;
+            document.getElementById('provisionalYears').textContent = `Provisional Accreditation Years: ${getProvisionalYears(overallScore)}`;
+        }
+
+        // Ensure provisional results are calculated after indicators are loaded
+        frappe.call({
+            method: 'accreditation_management.www.self_assessment.get_indicator_options',
+            callback: function(r) {
+                if (r.message) {
+                    indicators = r.message;
+                    calculateProvisionalResults();
+                }
+            }
+        });
+
+        function getProvisionalRanking(score) {
+            if (score >= 80) return "Outstanding";
+            if (score >= 70) return "Good";
+            if (score >= 50) return "Satisfactory";
+            return "Unsatisfactory";
+        }
+
+        function getProvisionalDecision(score) {
+            if (score >= 80) return "Accreditation Granted";
+            if (score >= 70) return "Accreditation Granted";
+            if (score >= 50) return "Accreditation Granted";
+            return "Accreditation Not Granted";
+        }
+
+        function getProvisionalYears(score) {
+            if (score >= 80) return 3;
+            if (score >= 70) return 2;
+            if (score >= 50) return 1;
+            return 0;
+        }
+
+        function updateSelection(selectedRadio) {
+            const optionsCell = selectedRadio.closest('td');
+            optionsCell.querySelectorAll('div').forEach(div => {
+                div.classList.remove('selected');
+            });
+            selectedRadio.parentElement.classList.add('selected');
+            updateCriterionScore(selectedRadio);
+            calculateProvisionalResults();
+        }
+
+        function updateCriterionScore(selectedRadio) {
+            const criterionTable = selectedRadio.closest('table');
+            const criterionScoreHeader = criterionTable.querySelector('th:last-child');
+            const allRadios = criterionTable.querySelectorAll('input[type="radio"]:checked');
+            let totalScore = 0;
+            allRadios.forEach(radio => {
+                totalScore += parseInt(radio.value) * 25; // Convert 0-4 to 0-100%
+            });
+            const averageScore = allRadios.length > 0 ? totalScore / allRadios.length : 0;
+            criterionScoreHeader.textContent = `Score: ${averageScore.toFixed(2)}%`;
+        }
+
+        $('#selfAssessmentForm').on('submit', function(e) {
+            e.preventDefault();
+
+            var formData = {};
+            $(this).serializeArray().forEach(function(item) {
+                formData[item.name] = item.value;
+            });
+
+            frappe.call({
+                method: 'accreditation_management.www.self_assessment.submit_self_assessment',
+                args: {
+                    form_data: JSON.stringify(formData)
+                },
+                freeze: true,
+                callback: function(r) {
+                    if (!r.exc) {
+                        frappe.msgprint({
+                            title: __('Form Submitted'),
+                            indicator: 'green',
+                            message: __('Your self-assessment form has been submitted successfully.')
+                        });
+                    } else {
+                        frappe.msgprint({
+                            title: __('Submission Failed'),
+                            indicator: 'red',
+                            message: __('There was an error submitting your form. Please try again.')
+                        });
+                    }
+                }
+            });
+        });
+    });
+
+    function initSchoolSearch() {
+        let $searchInput = $('#schoolSearch');
+        let $results = $('#schoolSearchResults');
+        let searchTimeout;
+
+        $searchInput.on('input', function() {
+            clearTimeout(searchTimeout);
+            let searchTerm = $searchInput.val();
+            if (searchTerm.length < 3) {
+                $results.empty();
+                return;
+            }
+
+            $results.html('<p>Searching...</p>');
+
+            searchTimeout = setTimeout(() => {
+                frappe.call({
+                    method: 'accreditation_management.www.self_assessment.search_schools',
+                    args: { search_term: searchTerm },
+                    callback: function(r) {
+                        if (r.message && r.message.content && r.message.content.length > 0) {
+                            let results = r.message.content;
+                            let html = results.map(item => `
+                                <div class="school-item" style="cursor: pointer; padding: 5px; border-bottom: 1px solid #ccc;">
+                                    <strong>${frappe.utils.escape_html(item.schoolName)}</strong><br>
+                                    <small>${frappe.utils.escape_html(item.province || '')}${item.province && item.district ? ', ' : ''}${frappe.utils.escape_html(item.district || '')}</small>
+                                </div>
+                            `).join('');
+                            $results.html(html);
+
+                            $results.find('.school-item').on('click', function() {
+                                let index = $(this).index();
+                                let item = results[index];
+                                $('#schoolName').val(item.schoolName);
+                                $('#schoolCode').val(item.schoolCode);
+                                $('#schoolNameDisplay').text(item.schoolName);
+                                $('#schoolCodeDisplay').text(item.schoolCode);
+                                $('#provinceDisplay').text(item.province || 'N/A');
+                                $('#districtDisplay').text(item.district || 'N/A');
+                                $('#sectorDisplay').text(item.sector || 'N/A');
+                                $('#cellDisplay').text(item.cell || 'N/A');
+                                $('#villageDisplay').text(item.village || 'N/A');
+                                $('#schoolInfoTable').show();
+                                $searchInput.val(item.schoolName);
+                                $results.empty();
+                            });
+                        } else {
+                            $results.html('<p>No results found or unable to connect to the API. Please try again later.</p>');
+                        }
+                    }
+                });
+            }, 300);
+        });
+
+        $searchInput.on('blur', function() {
+            setTimeout(() => {
+                $results.empty();
+            }, 200);
+        });
+    }
+    </script> 
+{% endblock %}

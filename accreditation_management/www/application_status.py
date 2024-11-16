@@ -16,7 +16,7 @@ def get_application_status(tracking_number):
     application = frappe.get_doc("Accreditation", {"tracking_number": tracking_number})
     if application:
         return {
-            "status": application.workflow_state,
+            "status": application.status,
             "school_name": application.school_name,
             "creation": application.creation.strftime("%Y-%m-%d %H:%M:%S")
         }
@@ -25,7 +25,7 @@ def get_application_status(tracking_number):
 @frappe.whitelist(allow_guest=True)
 def download_certificate(tracking_number):
     application = frappe.get_doc("Accreditation", {"tracking_number": tracking_number})
-    if application and application.workflow_state == "Approved":
+    if application and application.status == "Approved":
         if not application.certificate_generated:
             # Generate the certificate if it hasn't been generated yet
             application.generate_certificate()

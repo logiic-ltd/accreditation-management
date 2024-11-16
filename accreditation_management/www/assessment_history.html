@@ -1,0 +1,125 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Assessment and Accreditation History</h1>
+    <div id="schoolSearch" class="mb-4">
+        <input type="text" id="schoolSearchInput" class="form-control" placeholder="Search for your school...">
+        <div id="schoolSearchResults" class="mt-2"></div>
+    </div>
+    <div id="historyContent" style="display: none;">
+        <h2 id="schoolName" class="mb-3"></h2>
+        <div id="assessmentHistory">
+            <h3>Self-Assessments</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Overall Score</th>
+                        <th>Ranking</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="assessmentTableBody">
+                </tbody>
+            </table>
+        </div>
+        <div id="accreditationHistory" class="mt-4">
+            <h3>Accreditation Requests</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Decision</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="accreditationTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+frappe.ready(function() {
+    let $searchInput = $('#schoolSearchInput');
+    let $searchResults = $('#schoolSearchResults');
+    let $historyContent = $('#historyContent');
+    let $schoolName = $('#schoolName');
+    let $assessmentTableBody = $('#assessmentTableBody');
+    let $accreditationTableBody = $('#accreditationTableBody');
+
+    $searchInput.on('input', function() {
+        let searchTerm = $searchInput.val();
+        if (searchTerm.length < 3) {
+            $searchResults.empty();
+            return;
+        }
+
+        frappe.call({
+            method: 'accreditation_management.www.assessment_history.search_schools',
+            args: { search_term: searchTerm },
+            callback: function(r) {
+                if (r.message && r.message.length > 0) {
+                    let html = r.message.map(school => `
+                        <div class="school-item" data-school-code="${school.schoolCode}">
+                            ${school.schoolName} (${school.schoolCode})
+                        </div>
+                    `).join('');
+                    $searchResults.html(html);
+
+                    $('.school-item').on('click', function() {
+                        let schoolCode = $(this).data('school-code');
+                        loadSchoolHistory(schoolCode);
+                    });
+                } else {
+                    $searchResults.html('<p>No schools found</p>');
+                }
+            }
+        });
+    });
+
+    function loadSchoolHistory(schoolCode) {
+        frappe.call({
+            method: 'accreditation_management.www.assessment_history.get_school_history',
+            args: { school_code: schoolCode },
+            callback: function(r) {
+                if (r.message) {
+                    $schoolName.text(r.message.school_name);
+                    
+                    // Populate self-assessments
+                    let assessmentHtml = r.message.assessments.map(assessment => `
+                        <tr>
+                            <td>${assessment.date}</td>
+                            <td>${assessment.overall_score}%</td>
+                            <td>${assessment.ranking}</td>
+                            <td><a href="/self-assessment/${assessment.name}">View Details</a></td>
+                        </tr>
+                    `).join('');
+                    $assessmentTableBody.html(assessmentHtml);
+
+                    // Populate accreditation requests
+                    let accreditationHtml = r.message.accreditations.map(accreditation => `
+                        <tr>
+                            <td>${accreditation.date}</td>
+                            <td>${accreditation.status}</td>
+                            <td>${accreditation.decision}</td>
+                            <td><a href="/accreditation/${accreditation.name}">View Details</a></td>
+                        </tr>
+                    `).join('');
+                    $accreditationTableBody.html(accreditationHtml);
+
+                    $historyContent.show();
+                    $searchResults.empty();
+                    $searchInput.val('');
+                } else {
+                    frappe.msgprint('No history found for this school');
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

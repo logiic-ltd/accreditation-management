@@ -57,7 +57,7 @@ app_license = "mit"
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
+home_page = "accreditation"
 
 # website user home page (by Role)
 # role_home_page = {
@@ -72,10 +72,13 @@ app_license = "mit"
 
 # Website Route Rules
 website_route_rules = [
+    {"from_route": "/files/indicator_options.json", "to_route": "accreditation_management/config/indicator_options.json"},
     {"from_route": "/application-status", "to_route": "application_status"},
     {"from_route": "/verify-certificate", "to_route": "verify_certificate"},
-    {"from_route": "/nesa-accreditation-application", "to_route": "Web Form/NESA Accreditation Application"},
     {"from_route": "/accreditation-application", "to_route": "accreditation_application"},
+    {"from_route": "/self-assessment", "to_route": "self_assessment.html"},
+    {"from_route": "/school-identification", "to_route": "school_identification.html"},
+    {"from_route": "/assessment-history", "to_route": "assessment_history.html"},
 ]
 
 # Web Forms
@@ -183,9 +186,9 @@ override_doctype_class = {
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+    "Assessment Indicator": "accreditation_management.accreditation_management.doctype.assessment_indicator.assessment_indicator.AssessmentIndicator"
+}
 
 # Document Events
 # ---------------
