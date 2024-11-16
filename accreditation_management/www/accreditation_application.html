@@ -102,6 +102,7 @@
                 <div class="form-group">
                     <label for="searchSchool">Enter School Name or Code</label>
                     <input type="text" class="form-control" id="searchSchool" name="search_school" placeholder="Search by school name or code">
+                    <div id="schoolSearchResults" class="mt-2"></div>
                 </div>
             </fieldset>
 
@@ -251,42 +252,115 @@
 
 <script>
 frappe.ready(function() {
-    frappe.ready(function() {
-        $('#accreditationForm').on('submit', function(e) {
-            e.preventDefault();
+    initSchoolSearch();
 
-            var formData = {};
-            $(this).serializeArray().forEach(function(item) {
-                formData[item.name] = item.value;
-            });
+    $('#accreditationForm').on('submit', function(e) {
+        e.preventDefault();
 
+        var formData = {};
+        $(this).serializeArray().forEach(function(item) {
+            formData[item.name] = item.value;
+        });
+
+        frappe.call({
+            method: 'accreditation_management.www.accreditation_application.submit_application',
+            args: {
+                form_data: JSON.stringify(formData)
+            },
+            freeze: true,
+            callback: function(r) {
+                if (!r.exc) {
+                    frappe.msgprint({
+                        title: __('Application Submitted'),
+                        indicator: 'green',
+                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
+                    });
+                    setTimeout(function() {
+                        window.location.href = '/application-status?tracking_number=' + r.message;
+                    }, 3000);
+                } else {
+                    frappe.msgprint({
+                        title: __('Submission Failed'),
+                        indicator: 'red',
+                        message: __('There was an error submitting your application. Please try again.')
+                    });
+                }
+            }
+        });
+    });
+
+function initSchoolSearch() {
+    let $searchInput = $('#searchSchool');
+    let $results = $('#schoolSearchResults');
+    let searchTimeout;
+
+    $searchInput.on('input', function() {
+        clearTimeout(searchTimeout);
+        let searchTerm = $searchInput.val();
+        if (searchTerm.length < 3) {
+            $results.empty();
+            return;
+        }
+
+        $results.html('<p>Searching...</p>');
+
+        searchTimeout = setTimeout(() => {
             frappe.call({
-                method: 'accreditation_management.www.accreditation_application.submit_application',
-                args: {
-                    form_data: JSON.stringify(formData)
-                },
-                freeze: true,
+                method: 'accreditation_management.www.self_assessment.search_schools',
+                args: { search_term: searchTerm },
                 callback: function(r) {
-                    if (!r.exc) {
-                        frappe.msgprint({
-                            title: __('Application Submitted'),
-                            indicator: 'green',
-                            message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
+                    if (r.message && r.message.content && r.message.content.length > 0) {
+                        let results = r.message.content;
+                        let html = results.map(item => `
+                            <div class="school-item" style="cursor: pointer; padding: 5px; border-bottom: 1px solid #ccc;">
+                                <strong>${frappe.utils.escape_html(item.schoolName)}</strong><br>
+                                <small>${frappe.utils.escape_html(item.province || '')}${item.province && item.district ? ', ' : ''}${frappe.utils.escape_html(item.district || '')}</small>
+                            </div>
+                        `).join('');
+                        $results.html(html);
+
+                        $results.find('.school-item').on('click', function() {
+                            let index = $(this).index();
+                            let item = results[index];
+                            $('#schoolName').val(item.schoolName);
+                            $('#schoolCode').val(item.schoolCode);
+                            $('#schoolNameDisplay').text(item.schoolName);
+                            $('#schoolCodeDisplay').text(item.schoolCode);
+                            $('#provinceDisplay').text(item.province || 'N/A');
+                            $('#districtDisplay').text(item.district || 'N/A');
+                            $('#sectorDisplay').text(item.sector || 'N/A');
+                            $('#cellDisplay').text(item.cell || 'N/A');
+                            $('#villageDisplay').text(item.village || 'N/A');
+                            $('#schoolInfoTable').show();
+                            $searchInput.val(item.schoolName);
+                            $results.empty();
+
+                            // Populate other form fields
+                            $('#status').val(item.status || '');
+                            $('#schoolOwner').val(item.schoolOwner || '');
+                            $('#contact').val(item.contact || '');
+                            $('#accommodationStatus').val(item.accommodationStatus || '');
+                            $('#yearOfEstablishment').val(item.yearOfEstablishment || '');
+                            $('#village').val(item.village || '');
+                            $('#cell').val(item.cell || '');
+                            $('#sector').val(item.sector || '');
+                            $('#district').val(item.district || '');
+                            $('#province').val(item.province || '');
                         });
-                        setTimeout(function() {
-                            window.location.href = '/application-status?tracking_number=' + r.message;
-                        }, 3000);
                     } else {
-                        frappe.msgprint({
-                            title: __('Submission Failed'),
-                            indicator: 'red',
-                            message: __('There was an error submitting your application. Please try again.')
-                        });
+                        $results.html('<p>No results found or unable to connect to the API. Please try again later.</p>');
                     }
                 }
             });
-        });
+        }, 300);
     });
+
+    $searchInput.on('blur', function() {
+        setTimeout(() => {
+            $results.empty();
+        }, 200);
+    });
+}
 });
 </script>
 {% endblock %}
