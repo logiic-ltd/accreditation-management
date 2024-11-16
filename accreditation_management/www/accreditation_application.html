@@ -268,6 +268,63 @@
                     <label for="objective">Objective</label>
                     <textarea class="form-control" id="objective" name="objective" rows="3" required></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="applicantName">Applicant Name</label>
+                    <input type="text" class="form-control" id="applicantName" name="applicant_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="applicantTelephone">Applicant Telephone</label>
+                    <input type="tel" class="form-control" id="applicantTelephone" name="applicant_telephone" required>
+                </div>
+                <div class="form-group">
+                    <label for="applicantRole">Applicant Role</label>
+                    <select class="form-control" id="applicantRole" name="applicant_role" required>
+                        <option value="" disabled selected>Select Role</option>
+                        <option value="Owner">Owner</option>
+                        <option value="Legal Representative">Legal Representative</option>
+                        <option value="District">District</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="applicantEmail">Applicant Email</label>
+                    <input type="email" class="form-control" id="applicantEmail" name="applicant_email" required>
+                </div>
+                <div class="form-group">
+                    <label for="schoolCode">School Code</label>
+                    <input type="text" class="form-control" id="schoolCode" name="school_code">
+                </div>
+                <div class="form-group">
+                    <label for="accommodationStatus">Accommodation Status</label>
+                    <select class="form-control" id="accommodationStatus" name="accommodation_status" required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="Day">Day</option>
+                        <option value="Boarding">Boarding</option>
+                        <option value="Mixed">Mixed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="typeOfSchool">Type of School</label>
+                    <select class="form-control" id="typeOfSchool" name="type_of_school" required>
+                        <option value="" disabled selected>Select Type</option>
+                        <option value="TVET">TVET (TSS OR VTC)</option>
+                        <option value="General Education">General Education</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="typeOfRequest">Type of Request</label>
+                    <select multiple class="form-control" id="typeOfRequest" name="type_of_request[]" required>
+                        <option value="TVET Trade">TVET Trade</option>
+                        <option value="Combinations">Combinations</option>
+                        <option value="Ordinary Level">Ordinary Level</option>
+                        <option value="Boarding Status">Boarding Status</option>
+                        <option value="Primary Level">Primary Level</option>
+                        <option value="Preprimary Level">Preprimary Level</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="otherRequest">Other Request (Specify)</label>
+                    <textarea class="form-control" id="otherRequest" name="other_request" rows="3"></textarea>
+                </div>
                 <div class="form-navigation">
                     <div></div> <!-- Empty div for spacing -->
                     <button type="button" class="btn btn-nav btn-next next-section">Next</button>
