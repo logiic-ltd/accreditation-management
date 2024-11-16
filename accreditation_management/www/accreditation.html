@@ -166,8 +166,9 @@
         left: 50px;
         right: 50px;
         height: 2px;
-        background: var(--primary-color);
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
         z-index: 1;
+        transition: all 0.3s ease;
     }
 
     .step-card {
@@ -178,12 +179,45 @@
         box-shadow: none;
         padding: 0;
         z-index: 2;
+        transition: all 0.3s ease;
+    }
+
+    .step-card::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        background: radial-gradient(circle, rgba(7,142,206,0.1) 0%, rgba(5,77,111,0) 70%);
+        border-radius: 50%;
+        z-index: 1;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .step-card:hover::before {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.5);
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    @keyframes glow {
+        0% { box-shadow: 0 0 5px rgba(7,142,206,0.5); }
+        50% { box-shadow: 0 0 20px rgba(7,142,206,0.8); }
+        100% { box-shadow: 0 0 5px rgba(7,142,206,0.5); }
     }
 
     .step-number {
         width: 32px;
         height: 32px;
-        background-color: var(--primary-color);
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         color: var(--white);
         border-radius: 50%;
         display: flex;
@@ -195,6 +229,31 @@
         position: relative;
         z-index: 2;
         box-shadow: 0 0 0 4px var(--light-bg);
+        transition: all 0.3s ease;
+    }
+
+    .step-card:hover .step-number {
+        animation: pulse 1s infinite ease-in-out, glow 2s infinite;
+        transform: scale(1.1);
+    }
+
+    .step-title {
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .step-card:hover .step-title {
+        transform: translateY(-5px);
+        color: var(--primary-color);
+    }
+
+    .step-description {
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .step-card:hover .step-description {
+        transform: translateY(-3px);
     }
 
     .step-title {
