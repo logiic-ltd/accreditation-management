@@ -48,7 +48,6 @@
   "number_of_admin_offices",
   "number_of_multipurpose_halls",
   "number_of_academic_staff_rooms",
-  "date_of_visit"
  ],
  "fields": [
   {
@@ -271,11 +270,6 @@
    "fieldtype": "Data",
    "label": "Number of Academic Staff Rooms"
   },
-  {
-   "fieldname": "date_of_visit",
-   "fieldtype": "Date",
-   "label": "Date of Visit"
-  }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
