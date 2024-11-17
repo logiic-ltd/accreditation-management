@@ -47,7 +47,7 @@
   "number_of_computer_lab",
   "number_of_admin_offices",
   "number_of_multipurpose_halls",
-  "number_of_academic_staff_rooms",
+  "number_of_academic_staff_rooms"
  ],
  "fields": [
   {
@@ -269,7 +269,7 @@
    "fieldname": "number_of_academic_staff_rooms",
    "fieldtype": "Data",
    "label": "Number of Academic Staff Rooms"
-  },
+  }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
