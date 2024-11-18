@@ -275,7 +275,21 @@
 </div>
 
 <script>
+// Initialize console logging
+const logger = {
+    info: function(msg, data) {
+        console.info(`[Accreditation Form] ${msg}`, data || '');
+    },
+    warn: function(msg, data) {
+        console.warn(`[Accreditation Form] ${msg}`, data || '');
+    },
+    error: function(msg, data) {
+        console.error(`[Accreditation Form] ${msg}`, data || '');
+    }
+};
+
 function collectFormData() {
+    logger.info('Starting form data collection');
     // Get the school identification and self assessment IDs from the search results
     const schoolId = $('#schoolCode').data('school-id');
     const assessmentId = $('#schoolCode').data('assessment-id');
@@ -284,6 +298,8 @@ function collectFormData() {
     const selectedRequests = Array.from($('input[name="type_of_request[]"]:checked'))
         .map(cb => cb.value)
         .join('\n');
+    
+    logger.info('Selected request types:', selectedRequests);
     
     // Get all form field values
     const formData = {
@@ -311,8 +327,8 @@ function collectFormData() {
         accommodation_status: $('#accommodationStatus').val()
     };
 
-    // Log the collected data for debugging
-    console.log('Collected form data:', formData);
+    // Log the collected data
+    logger.info('Form data collection complete:', formData);
     
     return formData;
 }
@@ -350,6 +366,7 @@ frappe.ready(function() {
 
     $('#accreditationForm').on('submit', function(e) {
         e.preventDefault();
+        logger.info('Form submission started');
         
         frappe.confirm('Are you sure you want to submit this application?',
             () => {
@@ -386,6 +403,7 @@ frappe.ready(function() {
                     owner_telephone: formData.owner_telephone
                 };
 
+                logger.info('Sending application data to server');
                 frappe.call({
                     method: 'frappe.client.insert',
                     args: {
@@ -395,6 +413,7 @@ frappe.ready(function() {
                     freeze_message: __('Submitting application...'),
                     callback: function(r) {
                         if (!r.exc) {
+                            logger.info('Application submitted successfully');
                             frappe.show_alert({
                                 message: __('Application submitted successfully!'),
                                 indicator: 'green'
@@ -424,6 +443,7 @@ frappe.ready(function() {
                                 }
                             }
                             
+                            logger.error('Validation failed:', errorMessage);
                             frappe.msgprint({
                                 title: __('Validation Failed'),
                                 indicator: 'red',
