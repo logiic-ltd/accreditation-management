@@ -274,7 +274,36 @@
 
 <script>
 frappe.ready(function() {
+    let currentStep = 1;
+    
+    // Initialize school search and navigation
     initSchoolSearch();
+    
+    // Handle next step button
+    $('#nextStep').on('click', function() {
+        if (currentStep === 1) {
+            // Validate school selection before proceeding
+            let schoolCode = $('#schoolCode').val();
+            if (!schoolCode) {
+                frappe.msgprint({
+                    title: __('Required'),
+                    indicator: 'red',
+                    message: __('Please select a school before proceeding')
+                });
+                return;
+            }
+            currentStep = 2;
+            $('#step1').hide();
+            $('#step2').show();
+        }
+    });
+    
+    // Handle back button
+    $('#backToSearch').on('click', function() {
+        currentStep = 1;
+        $('#step2').hide();
+        $('#step1').show();
+    });
 
     $('#accreditationForm').on('submit', function(e) {
         e.preventDefault();
