@@ -399,13 +399,26 @@ function initSchoolSearch() {
                                         let idSummary = r.message.identification;
                                         $('#schoolIdSummary').html(`
                                             <div class="card mb-3">
-                                                <div class="card-header bg-light">
+                                                <div class="card-header" style="background-color: var(--primary-color); color: white;">
                                                     <h5 class="mb-0">School Identification Summary</h5>
                                                 </div>
-                                                <div class="card-body">
-                                                    <p><strong>Registration Date:</strong> ${idSummary.registration_date || 'N/A'}</p>
-                                                    <p><strong>License Number:</strong> ${idSummary.license_number || 'N/A'}</p>
-                                                    <p><strong>Status:</strong> ${idSummary.status || 'N/A'}</p>
+                                                <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
+                                                    <table class="table table-borderless mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><strong>Registration Date:</strong></td>
+                                                                <td>${idSummary.registration_date || 'N/A'}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>License Number:</strong></td>
+                                                                <td>${idSummary.license_number || 'N/A'}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Status:</strong></td>
+                                                                <td>${idSummary.status || 'N/A'}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         `);
@@ -414,13 +427,26 @@ function initSchoolSearch() {
                                         let assessmentSummary = r.message.assessment;
                                         $('#selfAssessmentSummary').html(`
                                             <div class="card mb-3">
-                                                <div class="card-header bg-light">
+                                                <div class="card-header" style="background-color: var(--secondary-color); color: white;">
                                                     <h5 class="mb-0">Recent Self Assessment Summary</h5>
                                                 </div>
-                                                <div class="card-body">
-                                                    <p><strong>Date:</strong> ${assessmentSummary.date || 'N/A'}</p>
-                                                    <p><strong>Overall Score:</strong> ${assessmentSummary.overall_score || 'N/A'}%</p>
-                                                    <p><strong>Provisional Ranking:</strong> ${assessmentSummary.provisional_ranking || 'N/A'}</p>
+                                                <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
+                                                    <table class="table table-borderless mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><strong>Date:</strong></td>
+                                                                <td>${assessmentSummary.date || 'N/A'}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Overall Score:</strong></td>
+                                                                <td>${assessmentSummary.overall_score || 'N/A'}%</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Provisional Ranking:</strong></td>
+                                                                <td>${assessmentSummary.provisional_ranking || 'N/A'}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         `);
