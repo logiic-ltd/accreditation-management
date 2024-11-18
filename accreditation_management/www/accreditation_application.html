@@ -49,6 +49,34 @@
         color: var(--secondary-color);
     }
 
+    .step-title {
+        font-size: 1.8rem;
+        color: var(--secondary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .application-step {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    #prerequisitesSummary {
+        margin-top: 2rem;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
     .form-group {
         margin-bottom: 1.5rem;
     }
@@ -96,21 +124,35 @@
 <div class="content-wrapper">
     <div class="container">
         <h1 class="form-title">Accreditation Application</h1>
-        <form id="accreditationForm">
-            <fieldset>
-                <legend>School Search</legend>
-                <div class="form-group">
-                    <label for="searchSchool">Enter School Name or Code</label>
-                    <input type="text" class="form-control" id="searchSchool" name="search_school" placeholder="Search by school name or code">
-                    <div id="schoolSearchResults" class="mt-2"></div>
+        
+        <!-- Step 1: School Search and Prerequisites -->
+        <div id="step1" class="application-step">
+            <h2 class="step-title">Step 1: School Selection</h2>
+            <div class="search-section">
+                <fieldset>
+                    <legend>School Search</legend>
+                    <div class="form-group">
+                        <label for="searchSchool">Enter School Name or Code</label>
+                        <input type="text" class="form-control" id="searchSchool" name="search_school" placeholder="Search by school name or code">
+                        <div id="schoolSearchResults" class="mt-2"></div>
+                    </div>
+                </fieldset>
+
+                <!-- Prerequisites Summary Section -->
+                <div id="prerequisitesSummary" style="display: none;">
+                    <div id="schoolIdSummary" class="mb-3"></div>
+                    <div id="selfAssessmentSummary" class="mb-3"></div>
+                    <button type="button" id="nextStep" class="btn btn-primary mt-3">Proceed to Application</button>
                 </div>
-            </fieldset>
+            </div>
+        </div>
 
-            <!-- Prerequisites Summary Section -->
-            <div id="schoolIdSummary" class="mb-3"></div>
-            <div id="selfAssessmentSummary" class="mb-3"></div>
-
-            <fieldset>
+        <!-- Step 2: Application Form -->
+        <div id="step2" class="application-step" style="display: none;">
+            <h2 class="step-title">Step 2: Application Details</h2>
+            <button type="button" id="backToSearch" class="btn btn-secondary mb-3">Back to School Selection</button>
+            <form id="accreditationForm">
+                <fieldset>
                 <legend>School Information</legend>
                 <div class="form-group">
                     <label for="schoolName">School Name</label>
@@ -351,6 +393,9 @@ function initSchoolSearch() {
                                                 </div>
                                             </div>
                                         `);
+                                        
+                                        // Show prerequisites summary and enable next step
+                                        $('#prerequisitesSummary').show();
                                     }
                                 }
                             });

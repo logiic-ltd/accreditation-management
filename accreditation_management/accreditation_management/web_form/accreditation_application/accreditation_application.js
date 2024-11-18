@@ -72,4 +72,15 @@ frappe.ready(function() {
             }
         });
     });
+
+    // Handle navigation between steps
+    $('#nextStep').on('click', function() {
+        $('#step1').hide();
+        $('#step2').show();
+    });
+
+    $('#backToSearch').on('click', function() {
+        $('#step2').hide();
+        $('#step1').show();
+    });
 });
