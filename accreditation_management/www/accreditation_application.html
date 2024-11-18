@@ -276,29 +276,33 @@
 
 <script>
 function collectFormData() {
+    // Get the school identification and self assessment IDs from the search results
+    const schoolId = $('#schoolCode').data('school-id');
+    const assessmentId = $('#schoolCode').data('assessment-id');
+    
+    // Get all form field values
     const formData = {
-        school_identification: $('#schoolCode').data('school-id'),
-        self_assessment: $('#schoolCode').data('assessment-id'),
+        school_identification: schoolId,
+        self_assessment: assessmentId,
         school_name: $('#schoolName').val(),
         school_code: $('#schoolCode').val(),
         type_of_school: $('#typeOfSchool').val(),
         type_of_request: Array.from($('input[name="type_of_request[]"]:checked')).map(cb => cb.value),
         other_request: $('#otherRequest').val(),
-        mission: $('#mission').val(),
-        objective: $('#objective').val(),
-        curriculum: $('#curriculum').val(),
         establishment_year: $('#establishmentYear').val(),
-        school_email: $('#schoolEmail').val(),
-        school_telephone: $('#schoolTelephone').val(),
-        owner_name: $('#ownerName').val(),
-        owner_email: $('#ownerEmail').val(),
-        owner_telephone: $('#ownerTelephone').val(),
         village: $('#village').val(),
         cell: $('#cell').val(),
         sector: $('#sector').val(),
         district: $('#district').val(),
-        province: $('#province').val()
+        province: $('#province').val(),
+        owner_name: $('#ownerName').val(),
+        owner_email: $('#ownerEmail').val(),
+        owner_telephone: $('#ownerTelephone').val()
     };
+
+    // Log the collected data for debugging
+    console.log('Collected form data:', formData);
+    
     return formData;
 }
 frappe.ready(function() {
@@ -350,13 +354,31 @@ frappe.ready(function() {
                     return;
                 }
 
+                // Create the document object
+                const docData = {
+                    doctype: 'Accreditation',
+                    school_identification: formData.school_identification,
+                    self_assessment: formData.self_assessment,
+                    school_name: formData.school_name,
+                    school_code: formData.school_code,
+                    type_of_school: formData.type_of_school,
+                    type_of_request: formData.type_of_request,
+                    other_request: formData.other_request,
+                    establishment_year: formData.establishment_year,
+                    village: formData.village,
+                    cell: formData.cell,
+                    sector: formData.sector,
+                    district: formData.district,
+                    province: formData.province,
+                    owner_name: formData.owner_name,
+                    owner_email: formData.owner_email,
+                    owner_telephone: formData.owner_telephone
+                };
+
                 frappe.call({
                     method: 'frappe.client.insert',
                     args: {
-                        doc: {
-                            doctype: 'Accreditation',
-                            ...formData
-                        }
+                        doc: docData
                     },
                     freeze: true,
                     freeze_message: __('Submitting application...'),
