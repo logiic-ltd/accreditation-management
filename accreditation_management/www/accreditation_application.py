@@ -79,7 +79,7 @@ def get_prerequisites_summary(school_code):
             doc = frappe.get_doc("School Identification", school_id)
             id_summary = {
                 "registration_date": frappe.utils.format_date(doc.creation),
-                "license_number": doc.name,
+                "registration_number": doc.name,
                 "status": doc.status
             }
 
@@ -91,7 +91,8 @@ def get_prerequisites_summary(school_code):
             assessment_summary = {
                 "date": frappe.utils.format_date(doc.creation),
                 "overall_score": doc.overall_score,
-                "provisional_ranking": doc.provisional_ranking
+                "provisional_ranking": doc.provisional_ranking,
+                "provisional_years": doc.provisional_accreditation_years
             }
 
         return {
