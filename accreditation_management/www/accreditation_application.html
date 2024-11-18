@@ -335,48 +335,62 @@ frappe.ready(function() {
 
     $('#accreditationForm').on('submit', function(e) {
         e.preventDefault();
-
-        const formData = collectFormData();
         
-        // Validate required fields
-        if (!formData.school_identification || !formData.self_assessment) {
-            frappe.msgprint({
-                title: __('Required Fields Missing'),
-                indicator: 'red',
-                message: __('Please complete school identification and self assessment first.')
-            });
-            return;
-        }
-
-        frappe.call({
-            method: 'frappe.client.insert',
-            args: {
-                doc: {
-                    doctype: 'Accreditation',
-                    ...formData
-                }
-            },
-            freeze: true,
-            callback: function(r) {
-                if (!r.exc) {
-                    const tracking_number = r.message.tracking_number;
+        frappe.confirm('Are you sure you want to submit this application?',
+            () => {
+                const formData = collectFormData();
+                
+                // Validate required fields
+                if (!formData.school_identification || !formData.self_assessment) {
                     frappe.msgprint({
-                        title: __('Application Submitted'),
-                        indicator: 'green',
-                        message: __('Your application has been submitted successfully. Your tracking number is: ' + tracking_number)
-                    });
-                    setTimeout(function() {
-                        window.location.href = '/application-status?tracking_number=' + tracking_number;
-                    }, 3000);
-                } else {
-                    frappe.msgprint({
-                        title: __('Submission Failed'),
+                        title: __('Required Fields Missing'),
                         indicator: 'red',
-                        message: __('There was an error submitting your application. Please try again.')
+                        message: __('Please complete school identification and self assessment first.')
                     });
+                    return;
                 }
+
+                frappe.call({
+                    method: 'frappe.client.insert',
+                    args: {
+                        doc: {
+                            doctype: 'Accreditation',
+                            ...formData
+                        }
+                    },
+                    freeze: true,
+                    freeze_message: __('Submitting application...'),
+                    callback: function(r) {
+                        if (!r.exc) {
+                            frappe.show_alert({
+                                message: __('Application submitted successfully!'),
+                                indicator: 'green'
+                            }, 5);
+                            
+                            // Get tracking number from response
+                            const tracking_number = r.message.name;
+                            
+                            frappe.msgprint({
+                                title: __('Application Submitted'),
+                                indicator: 'green',
+                                message: __('Your application has been submitted successfully.<br>Your tracking number is: ' + tracking_number)
+                            });
+
+                            // Redirect after showing message
+                            setTimeout(function() {
+                                window.location.href = '/application-status?tracking_number=' + tracking_number;
+                            }, 3000);
+                        } else {
+                            frappe.msgprint({
+                                title: __('Submission Failed'),
+                                indicator: 'red',
+                                message: __('There was an error submitting your application. Please try again.')
+                            });
+                        }
+                    }
+                });
             }
-        });
+        );
     });
 
 function initSchoolSearch() {
