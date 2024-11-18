@@ -180,10 +180,11 @@
   },
   {
    "fieldname": "type_of_request",
-   "fieldtype": "Text",
+   "fieldtype": "Select",
    "label": "Type of Request",
    "reqd": 1,
-   "description": "Selected request types (TVET Trade, Combinations, Ordinary Level, Boarding Status, Primary Level, Preprimary Level)"
+   "options": "TVET Trade\nCombinations\nOrdinary Level\nBoarding Status\nPrimary Level\nPreprimary Level",
+   "description": "Select the type of accreditation request"
   },
   {
    "fieldname": "school_status",

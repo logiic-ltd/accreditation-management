@@ -220,19 +220,16 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Type of Request</label>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="TVET Trade"> TVET Trade</label></td>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="Combinations"> Combinations</label></td>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="Ordinary Level"> Ordinary Level</label></td>
-                        </tr>
-                        <tr>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="Boarding Status"> Boarding Status</label></td>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="Primary Level"> Primary Level</label></td>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="Preprimary Level"> Preprimary Level</label></td>
-                        </tr>
-                    </table>
+                    <label for="typeOfRequest">Type of Request</label>
+                    <select class="form-control" id="typeOfRequest" name="type_of_request" required>
+                        <option value="" disabled selected>Select Request Type</option>
+                        <option value="TVET Trade">TVET Trade</option>
+                        <option value="Combinations">Combinations</option>
+                        <option value="Ordinary Level">Ordinary Level</option>
+                        <option value="Boarding Status">Boarding Status</option>
+                        <option value="Primary Level">Primary Level</option>
+                        <option value="Preprimary Level">Preprimary Level</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="otherRequest">Other Request (Specify)</label>
@@ -294,12 +291,10 @@ function collectFormData() {
     const schoolId = $('#schoolCode').data('school-id');
     const assessmentId = $('#schoolCode').data('assessment-id');
     
-    // Get selected request types
-    const selectedRequests = Array.from($('input[name="type_of_request[]"]:checked'))
-        .map(cb => cb.value)
-        .join('\n');
+    // Get selected request type
+    const selectedRequest = $('#typeOfRequest').val();
     
-    logger.info('Selected request types:', selectedRequests);
+    logger.info('Selected request type:', selectedRequest);
     
     // Get all form field values
     const formData = {
