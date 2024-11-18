@@ -99,7 +99,10 @@ def submit_application(form_data):
             "province": data.get("province"),
             "owner_name": data.get("owner_name"),
             "owner_email": data.get("owner_email"),
-            "owner_telephone": data.get("owner_telephone")
+            "owner_telephone": data.get("owner_telephone"),
+            # Add the link fields
+            "self_assessment": prereq_check["self_assessment"],
+            "school_identification": prereq_check["school_identification"]
         })
         
         frappe.logger().info(f"Created doc: {doc.as_dict()}")
