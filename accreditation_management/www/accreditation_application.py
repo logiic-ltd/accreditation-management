@@ -108,48 +108,5 @@ def get_prerequisites_summary(school_code):
         frappe.logger().error(f"Error getting prerequisites summary: {str(e)}")
         return None
 
-@frappe.whitelist(allow_guest=True)
-def submit_application(form_data):
-    frappe.logger().info(f"Received form data: {form_data}")
-    try:
-        # Parse the form data
-        data = json.loads(form_data)
-        frappe.logger().info(f"Parsed data: {data}")
-        
-        # Validate prerequisites again as a security measure
-        prereq_check = validate_prerequisites(data.get("school_code"))
-        if not prereq_check["success"]:
-            frappe.throw(prereq_check["error"])
-        
-        # Create a new Accreditation document
-        doc = frappe.get_doc({
-            "doctype": "Accreditation",
-            "school_name": data.get("school_name"),
-            "mission": data.get("mission"),
-            "objective": data.get("objective"),
-            "curriculum": data.get("curriculum"),
-            "establishment_year": data.get("establishment_year"),
-            "school_email": data.get("school_email"),
-            "school_telephone": data.get("school_telephone"),
-            "village": data.get("village"),
-            "cell": data.get("cell"),
-            "sector": data.get("sector"),
-            "district": data.get("district"),
-            "province": data.get("province"),
-            "owner_name": data.get("owner_name"),
-            "owner_email": data.get("owner_email"),
-            "owner_telephone": data.get("owner_telephone"),
-            # Add the link fields
-            "self_assessment": prereq_check["self_assessment"],
-            "school_identification": prereq_check["school_identification"]
-        })
-        
-        frappe.logger().info(f"Created doc: {doc.as_dict()}")
-        doc.insert(ignore_permissions=True)
-        frappe.logger().info(f"Inserted doc with tracking number: {doc.tracking_number}")
-        
-        # Return the tracking number
-        return doc.tracking_number
-    except Exception as e:
-        frappe.logger().error(f"Error submitting accreditation application: {str(e)}")
-        frappe.throw(_("An error occurred while submitting the application. Please try again."))
+# This function is no longer needed as we're using frappe.client.insert directly
+# Keeping the file for other utility functions

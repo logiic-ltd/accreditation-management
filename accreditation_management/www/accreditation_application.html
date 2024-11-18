@@ -275,6 +275,32 @@
 </div>
 
 <script>
+function collectFormData() {
+    const formData = {
+        school_identification: $('#schoolCode').data('school-id'),
+        self_assessment: $('#schoolCode').data('assessment-id'),
+        school_name: $('#schoolName').val(),
+        school_code: $('#schoolCode').val(),
+        type_of_school: $('#typeOfSchool').val(),
+        type_of_request: Array.from($('input[name="type_of_request[]"]:checked')).map(cb => cb.value),
+        other_request: $('#otherRequest').val(),
+        mission: $('#mission').val(),
+        objective: $('#objective').val(),
+        curriculum: $('#curriculum').val(),
+        establishment_year: $('#establishmentYear').val(),
+        school_email: $('#schoolEmail').val(),
+        school_telephone: $('#schoolTelephone').val(),
+        owner_name: $('#ownerName').val(),
+        owner_email: $('#ownerEmail').val(),
+        owner_telephone: $('#ownerTelephone').val(),
+        village: $('#village').val(),
+        cell: $('#cell').val(),
+        sector: $('#sector').val(),
+        district: $('#district').val(),
+        province: $('#province').val()
+    };
+    return formData;
+}
 frappe.ready(function() {
     let currentStep = 1;
     
@@ -310,26 +336,37 @@ frappe.ready(function() {
     $('#accreditationForm').on('submit', function(e) {
         e.preventDefault();
 
-        var formData = {};
-        $(this).serializeArray().forEach(function(item) {
-            formData[item.name] = item.value;
-        });
+        const formData = collectFormData();
+        
+        // Validate required fields
+        if (!formData.school_identification || !formData.self_assessment) {
+            frappe.msgprint({
+                title: __('Required Fields Missing'),
+                indicator: 'red',
+                message: __('Please complete school identification and self assessment first.')
+            });
+            return;
+        }
 
         frappe.call({
-            method: 'accreditation_management.www.accreditation_application.submit_application',
+            method: 'frappe.client.insert',
             args: {
-                form_data: JSON.stringify(formData)
+                doc: {
+                    doctype: 'Accreditation',
+                    ...formData
+                }
             },
             freeze: true,
             callback: function(r) {
                 if (!r.exc) {
+                    const tracking_number = r.message.tracking_number;
                     frappe.msgprint({
                         title: __('Application Submitted'),
                         indicator: 'green',
-                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
+                        message: __('Your application has been submitted successfully. Your tracking number is: ' + tracking_number)
                     });
                     setTimeout(function() {
-                        window.location.href = '/application-status?tracking_number=' + r.message;
+                        window.location.href = '/application-status?tracking_number=' + tracking_number;
                     }, 3000);
                 } else {
                     frappe.msgprint({
