@@ -54,6 +54,7 @@ class Accreditation(Document):
         # Validate required fields
         required_fields = [
             ("school_name", "School Name"),
+            ("school_code", "School Code"),
             ("school_status", "School Status"),
             ("type_of_school", "Type of School"),
             ("type_of_request", "Type of Request"),
@@ -63,6 +64,7 @@ class Accreditation(Document):
             ("sector", "Sector"),
             ("district", "District"),
             ("province", "Province"),
+            ("owner_name", "Owner Name"),
             ("applicant_name", "Applicant Name"),
             ("applicant_role", "Applicant Role"),
             ("applicant_email", "Applicant Email"),

@@ -190,7 +190,7 @@
    "fieldtype": "Text",
    "label": "Type of Request",
    "reqd": 1,
-   "description": "Selected request types"
+   "description": "Selected request types (TVET Trade, Combinations, Ordinary Level, Boarding Status, Primary Level, Preprimary Level)"
   },
   {
    "fieldname": "school_status",

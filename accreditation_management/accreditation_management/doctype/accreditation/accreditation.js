@@ -2,7 +2,11 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Accreditation", {
-	refresh(frm) {
+    refresh(frm) {
+        // Add validation for type of request
+        frm.set_df_property('type_of_request', 'description', 
+            'Select at least one: TVET Trade, Combinations, Ordinary Level, Boarding Status, Primary Level, Preprimary Level');
+            
 		if (frm.doc.status === "Submitted") {
 			frm.add_custom_button(__("Start Review"), function() {
 				frm.call('change_status', { new_status: "Under Review" }).then(() => frm.refresh());
