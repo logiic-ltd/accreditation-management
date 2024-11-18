@@ -54,13 +54,20 @@ class Accreditation(Document):
         # Validate required fields
         required_fields = [
             ("school_name", "School Name"),
+            ("school_status", "School Status"),
             ("type_of_school", "Type of School"),
+            ("type_of_request", "Type of Request"),
             ("establishment_year", "Year of Establishment"),
             ("village", "Village"),
             ("cell", "Cell"),
             ("sector", "Sector"),
             ("district", "District"),
-            ("province", "Province")
+            ("province", "Province"),
+            ("applicant_name", "Applicant Name"),
+            ("applicant_role", "Applicant Role"),
+            ("applicant_email", "Applicant Email"),
+            ("applicant_telephone", "Applicant Telephone"),
+            ("accommodation_status", "Accommodation Status")
         ]
         
         for field, label in required_fields:

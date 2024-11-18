@@ -280,14 +280,20 @@ function collectFormData() {
     const schoolId = $('#schoolCode').data('school-id');
     const assessmentId = $('#schoolCode').data('assessment-id');
     
+    // Get selected request types
+    const selectedRequests = Array.from($('input[name="type_of_request[]"]:checked'))
+        .map(cb => cb.value)
+        .join('\n');
+    
     // Get all form field values
     const formData = {
         school_identification: schoolId,
         self_assessment: assessmentId,
         school_name: $('#schoolName').val(),
         school_code: $('#schoolCode').val(),
+        school_status: $('#status').val(),
         type_of_school: $('#typeOfSchool').val(),
-        type_of_request: Array.from($('input[name="type_of_request[]"]:checked')).map(cb => cb.value),
+        type_of_request: selectedRequests,
         other_request: $('#otherRequest').val(),
         establishment_year: $('#establishmentYear').val(),
         village: $('#village').val(),
@@ -297,7 +303,12 @@ function collectFormData() {
         province: $('#province').val(),
         owner_name: $('#ownerName').val(),
         owner_email: $('#ownerEmail').val(),
-        owner_telephone: $('#ownerTelephone').val()
+        owner_telephone: $('#ownerTelephone').val(),
+        applicant_name: $('#applicantName').val(),
+        applicant_role: $('#applicantRole').val(),
+        applicant_email: $('#applicantEmail').val(),
+        applicant_telephone: $('#applicantTelephone').val(),
+        accommodation_status: $('#accommodationStatus').val()
     };
 
     // Log the collected data for debugging

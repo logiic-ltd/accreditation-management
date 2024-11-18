@@ -187,10 +187,10 @@
   },
   {
    "fieldname": "type_of_request",
-   "fieldtype": "Table MultiSelect",
+   "fieldtype": "Text",
    "label": "Type of Request",
-   "options": "TVET Trade\nCombinations\nOrdinary Level\nBoarding Status\nPrimary Level\nPreprimary Level",
-   "reqd": 1
+   "reqd": 1,
+   "description": "Selected request types"
   },
   {
    "fieldname": "school_status",
