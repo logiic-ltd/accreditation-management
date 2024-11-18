@@ -70,6 +70,39 @@ def validate_prerequisites(school_code):
         }
 
 @frappe.whitelist(allow_guest=True)
+def get_prerequisites_summary(school_code):
+    try:
+        # Get school identification summary
+        school_id = get_school_identification(school_code)
+        id_summary = {}
+        if school_id:
+            doc = frappe.get_doc("School Identification", school_id)
+            id_summary = {
+                "registration_date": frappe.utils.format_date(doc.creation),
+                "license_number": doc.name,
+                "status": doc.status
+            }
+
+        # Get recent self assessment summary
+        assessment_id = get_recent_self_assessment(school_code)
+        assessment_summary = {}
+        if assessment_id:
+            doc = frappe.get_doc("Self Assessment", assessment_id)
+            assessment_summary = {
+                "date": frappe.utils.format_date(doc.creation),
+                "overall_score": doc.overall_score,
+                "provisional_ranking": doc.provisional_ranking
+            }
+
+        return {
+            "identification": id_summary,
+            "assessment": assessment_summary
+        }
+    except Exception as e:
+        frappe.logger().error(f"Error getting prerequisites summary: {str(e)}")
+        return None
+
+@frappe.whitelist(allow_guest=True)
 def submit_application(form_data):
     frappe.logger().info(f"Received form data: {form_data}")
     try:

@@ -106,6 +106,10 @@
                 </div>
             </fieldset>
 
+            <!-- Prerequisites Summary Section -->
+            <div id="schoolIdSummary" class="mb-3"></div>
+            <div id="selfAssessmentSummary" class="mb-3"></div>
+
             <fieldset>
                 <legend>School Information</legend>
                 <div class="form-group">
@@ -307,9 +311,49 @@ function initSchoolSearch() {
                             $('#sectorDisplay').text(item.sector || 'N/A');
                             $('#cellDisplay').text(item.cell || 'N/A');
                             $('#villageDisplay').text(item.village || 'N/A');
+                            // Show school info
                             $('#schoolInfoTable').show();
                             $searchInput.val(item.schoolName);
                             $results.empty();
+
+                            // Fetch and display prerequisites summary
+                            frappe.call({
+                                method: 'accreditation_management.www.accreditation_application.get_prerequisites_summary',
+                                args: { school_code: item.schoolCode },
+                                callback: function(r) {
+                                    if (r.message) {
+                                        // Update School Identification summary
+                                        let idSummary = r.message.identification;
+                                        $('#schoolIdSummary').html(`
+                                            <div class="card mb-3">
+                                                <div class="card-header bg-light">
+                                                    <h5 class="mb-0">School Identification Summary</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p><strong>Registration Date:</strong> ${idSummary.registration_date || 'N/A'}</p>
+                                                    <p><strong>License Number:</strong> ${idSummary.license_number || 'N/A'}</p>
+                                                    <p><strong>Status:</strong> ${idSummary.status || 'N/A'}</p>
+                                                </div>
+                                            </div>
+                                        `);
+
+                                        // Update Self Assessment summary
+                                        let assessmentSummary = r.message.assessment;
+                                        $('#selfAssessmentSummary').html(`
+                                            <div class="card mb-3">
+                                                <div class="card-header bg-light">
+                                                    <h5 class="mb-0">Recent Self Assessment Summary</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p><strong>Date:</strong> ${assessmentSummary.date || 'N/A'}</p>
+                                                    <p><strong>Overall Score:</strong> ${assessmentSummary.overall_score || 'N/A'}%</p>
+                                                    <p><strong>Provisional Ranking:</strong> ${assessmentSummary.provisional_ranking || 'N/A'}</p>
+                                                </div>
+                                            </div>
+                                        `);
+                                    }
+                                }
+                            });
 
                             // Populate other form fields
                             $('#status').val(item.status || '');
