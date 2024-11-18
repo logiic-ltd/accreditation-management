@@ -209,7 +209,13 @@ def create_accreditation(data):
         doc = frappe.get_doc({
             "doctype": "Accreditation",
             "school_name": next((item['value'] for item in data if item['name'] == 'school_name'), None),
+            "school_code": next((item['value'] for item in data if item['name'] == 'school_code'), None),
+            "school_status": next((item['value'] for item in data if item['name'] == 'school_status'), None),
+            "type_of_school": next((item['value'] for item in data if item['name'] == 'type_of_school'), None),
+            "type_of_request": next((item['value'] for item in data if item['name'] == 'type_of_request'), None),
+            "other_request": next((item['value'] for item in data if item['name'] == 'other_request'), None),
             "establishment_year": next((item['value'] for item in data if item['name'] == 'establishment_year'), None),
+            "accommodation_status": next((item['value'] for item in data if item['name'] == 'accommodation_status'), None),
             "school_email": next((item['value'] for item in data if item['name'] == 'school_email'), None),
             "school_telephone": next((item['value'] for item in data if item['name'] == 'school_telephone'), None),
             "village": next((item['value'] for item in data if item['name'] == 'village'), None),
@@ -219,7 +225,11 @@ def create_accreditation(data):
             "province": next((item['value'] for item in data if item['name'] == 'province'), None),
             "owner_name": next((item['value'] for item in data if item['name'] == 'owner_name'), None),
             "owner_email": next((item['value'] for item in data if item['name'] == 'owner_email'), None),
-            "owner_telephone": next((item['value'] for item in data if item['name'] == 'owner_telephone'), None)
+            "owner_telephone": next((item['value'] for item in data if item['name'] == 'owner_telephone'), None),
+            "applicant_name": next((item['value'] for item in data if item['name'] == 'applicant_name'), None),
+            "applicant_role": next((item['value'] for item in data if item['name'] == 'applicant_role'), None),
+            "applicant_email": next((item['value'] for item in data if item['name'] == 'applicant_email'), None),
+            "applicant_telephone": next((item['value'] for item in data if item['name'] == 'applicant_telephone'), None)
         })
         
         doc.insert(ignore_permissions=True)
