@@ -3,9 +3,13 @@
 
 frappe.ui.form.on("Accreditation", {
     refresh(frm) {
-        // Add validation for type of request
+        // Add custom validation messages
         frm.set_df_property('type_of_request', 'description', 
             'Select at least one: TVET Trade, Combinations, Ordinary Level, Boarding Status, Primary Level, Preprimary Level');
+        
+        // Add validation for school status
+        frm.set_df_property('school_status', 'description',
+            'Select the current status of your school');
             
 		if (frm.doc.status === "Submitted") {
 			frm.add_custom_button(__("Start Review"), function() {

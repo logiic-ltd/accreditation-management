@@ -209,9 +209,6 @@ def create_accreditation(data):
         doc = frappe.get_doc({
             "doctype": "Accreditation",
             "school_name": next((item['value'] for item in data if item['name'] == 'school_name'), None),
-            "mission": next((item['value'] for item in data if item['name'] == 'mission'), None),
-            "objective": next((item['value'] for item in data if item['name'] == 'objective'), None),
-            "curriculum": next((item['value'] for item in data if item['name'] == 'curriculum'), None),
             "establishment_year": next((item['value'] for item in data if item['name'] == 'establishment_year'), None),
             "school_email": next((item['value'] for item in data if item['name'] == 'school_email'), None),
             "school_telephone": next((item['value'] for item in data if item['name'] == 'school_telephone'), None),

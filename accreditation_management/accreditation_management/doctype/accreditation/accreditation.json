@@ -118,22 +118,6 @@
    "label": "School Name"
   },
   {
-   "fieldname": "mission",
-   "fieldtype": "Small Text",
-   "label": "Mission"
-  },
-  {
-   "fieldname": "objective",
-   "fieldtype": "Small Text",
-   "label": "Objective"
-  },
-  {
-   "fieldname": "curriculum",
-   "fieldtype": "Select",
-   "label": "Curriculum",
-   "options": "National\nInternational"
-  },
-  {
    "fieldname": "establishment_year",
    "fieldtype": "Data",
    "label": "Year of Establishment"
