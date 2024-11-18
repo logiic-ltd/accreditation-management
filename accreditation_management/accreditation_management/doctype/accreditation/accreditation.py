@@ -25,13 +25,33 @@ class Accreditation(Document):
         frappe.logger().info(f"Generated tracking number: {self.tracking_number}")
 
     def validate(self):
+        # Validate prerequisites
+        if not self.school_identification:
+            frappe.throw(_("School Identification is required"))
+        if not self.self_assessment:
+            frappe.throw(_("Self Assessment is required"))
+            
+        # Validate school identification exists and is valid
+        school_id = frappe.get_doc("School Identification", self.school_identification)
+        if not school_id:
+            frappe.throw(_("Invalid School Identification"))
+            
+        # Validate self assessment exists and is valid
+        self_assessment = frappe.get_doc("Self Assessment", self.self_assessment)
+        if not self_assessment:
+            frappe.throw(_("Invalid Self Assessment"))
+            
         # Validate email addresses and phone numbers
         if self.school_email and not validate_email_address(self.school_email):
-            frappe.throw("School Email is invalid")
+            frappe.throw(_("School Email is invalid"))
         if self.owner_email and not validate_email_address(self.owner_email):
-            frappe.throw("Owner Email is invalid")
+            frappe.throw(_("Owner Email is invalid"))
         if self.school_telephone and not validate_phone_number(self.school_telephone):
-            frappe.throw("School Telephone is invalid")
+            frappe.throw(_("School Telephone is invalid"))
+        
+        # Auto-populate fields from School Identification
+        self.school_name = school_id.school_name
+        self.school_code = school_id.school_code
         
         self.update_status_history()
 

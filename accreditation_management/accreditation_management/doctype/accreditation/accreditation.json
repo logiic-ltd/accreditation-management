@@ -31,12 +31,18 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "prerequisites_section",
+  "school_identification",
+  "self_assessment",
   "section_break_uhll",
   "tracking_number",
   "status",
   "workflow_state",
   "school_code",
   "school_name",
+  "type_of_school",
+  "type_of_request",
+  "other_request",
   "mission",
   "objective",
   "curriculum",
@@ -55,6 +61,25 @@
   "status_history"
  ],
  "fields": [
+  {
+   "fieldname": "prerequisites_section",
+   "fieldtype": "Section Break",
+   "label": "Prerequisites"
+  },
+  {
+   "fieldname": "school_identification",
+   "fieldtype": "Link",
+   "label": "School Identification",
+   "options": "School Identification",
+   "reqd": 1
+  },
+  {
+   "fieldname": "self_assessment",
+   "fieldtype": "Link",
+   "label": "Self Assessment",
+   "options": "Self Assessment",
+   "reqd": 1
+  },
   {
    "fieldname": "section_break_uhll",
    "fieldtype": "Section Break"
