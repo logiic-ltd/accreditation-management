@@ -455,8 +455,38 @@ function initSchoolSearch() {
                                             </div>
                                         `);
                                         
-                                        // Show prerequisites summary and enable next step
+                                        // Check if school identification exists
+                                        if (Object.keys(r.message.identification).length === 0) {
+                                            $('#schoolIdSummary').html(`
+                                                <div class="alert alert-warning">
+                                                    <h5>School Identification Missing</h5>
+                                                    <p>Please complete your school identification before proceeding with the accreditation application.</p>
+                                                    <a href="/school-identification" class="btn btn-primary mt-2">Complete School Identification</a>
+                                                </div>
+                                            `);
+                                        }
+
+                                        // Check if self assessment exists and is recent
+                                        if (Object.keys(r.message.assessment).length === 0) {
+                                            $('#selfAssessmentSummary').html(`
+                                                <div class="alert alert-warning">
+                                                    <h5>Self Assessment Required</h5>
+                                                    <p>You need to complete a self assessment within the last 6 months before applying for accreditation.</p>
+                                                    <a href="/self-assessment" class="btn btn-primary mt-2">Start Self Assessment</a>
+                                                </div>
+                                            `);
+                                        }
+
+                                        // Show prerequisites summary
                                         $('#prerequisitesSummary').show();
+                                        
+                                        // Only enable next step if both prerequisites are met
+                                        if (Object.keys(r.message.identification).length > 0 && 
+                                            Object.keys(r.message.assessment).length > 0) {
+                                            $('#nextStep').prop('disabled', false);
+                                        } else {
+                                            $('#nextStep').prop('disabled', true);
+                                        }
                                     }
                                 }
                             });

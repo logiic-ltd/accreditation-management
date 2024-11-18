@@ -95,9 +95,14 @@ def get_prerequisites_summary(school_code):
                 "provisional_years": doc.provisional_accreditation_years
             }
 
+        # Check prerequisites status
+        has_identification = bool(school_id)
+        has_assessment = bool(assessment_id)
+        
         return {
-            "identification": id_summary,
-            "assessment": assessment_summary
+            "identification": id_summary if has_identification else {},
+            "assessment": assessment_summary if has_assessment else {},
+            "prerequisites_met": has_identification and has_assessment
         }
     except Exception as e:
         frappe.logger().error(f"Error getting prerequisites summary: {str(e)}")
