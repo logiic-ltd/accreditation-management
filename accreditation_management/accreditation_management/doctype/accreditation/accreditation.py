@@ -25,6 +25,7 @@ class Accreditation(Document):
         frappe.logger().info(f"Generated tracking number: {self.tracking_number}")
 
     def validate(self):
+        frappe.logger().info(f"Validating accreditation application: {self.name}")
         validation_errors = []
         
         # Validate prerequisites
@@ -86,7 +87,11 @@ class Accreditation(Document):
             
         # If any validation errors occurred, throw them all at once
         if validation_errors:
-            frappe.throw("<br>".join(validation_errors))
+            error_msg = "<br>".join(validation_errors)
+            frappe.logger().warning(f"Validation failed for application {self.name}: {error_msg}")
+            frappe.throw(error_msg)
+        
+        frappe.logger().info(f"Validation successful for application {self.name}")
         
         # Auto-populate fields from School Identification
         self.school_name = school_id.school_name
@@ -205,7 +210,9 @@ NESA Accreditation Team""").format(self.school_name, self.tracking_number)
 @frappe.whitelist(allow_guest=True)
 def create_accreditation(data):
     try:
+        frappe.logger().info(f"Starting accreditation application submission")
         data = json.loads(data)
+        frappe.logger().debug(f"Parsed application data: {json.dumps(data, indent=2)}")
         doc = frappe.get_doc({
             "doctype": "Accreditation",
             "school_name": next((item['value'] for item in data if item['name'] == 'school_name'), None),
@@ -234,7 +241,12 @@ def create_accreditation(data):
         
         doc.insert(ignore_permissions=True)
         
+        frappe.logger().info(f"Successfully created accreditation application with tracking number: {doc.tracking_number}")
+        frappe.logger().debug(f"Application details: {json.dumps(doc.as_dict(), indent=2)}")
+        
         return {"tracking_number": doc.tracking_number}
     except Exception as e:
-        frappe.log_error(f"Error creating accreditation: {str(e)}")
+        error_msg = f"Error creating accreditation: {str(e)}"
+        frappe.logger().error(error_msg)
+        frappe.log_error(message=error_msg, title="Accreditation Application Error")
         frappe.throw(_("An error occurred while submitting the application. Please try again."))
