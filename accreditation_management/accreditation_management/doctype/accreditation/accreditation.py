@@ -25,29 +25,59 @@ class Accreditation(Document):
         frappe.logger().info(f"Generated tracking number: {self.tracking_number}")
 
     def validate(self):
+        validation_errors = []
+        
         # Validate prerequisites
         if not self.school_identification:
-            frappe.throw(_("School Identification is required"))
+            validation_errors.append(_("School Identification is required"))
         if not self.self_assessment:
-            frappe.throw(_("Self Assessment is required"))
+            validation_errors.append(_("Self Assessment is required"))
             
         # Validate school identification exists and is valid
-        school_id = frappe.get_doc("School Identification", self.school_identification)
-        if not school_id:
-            frappe.throw(_("Invalid School Identification"))
+        if self.school_identification:
+            try:
+                school_id = frappe.get_doc("School Identification", self.school_identification)
+                if not school_id:
+                    validation_errors.append(_("Invalid School Identification"))
+            except frappe.DoesNotExistError:
+                validation_errors.append(_("School Identification document not found"))
             
         # Validate self assessment exists and is valid
-        self_assessment = frappe.get_doc("Self Assessment", self.self_assessment)
-        if not self_assessment:
-            frappe.throw(_("Invalid Self Assessment"))
+        if self.self_assessment:
+            try:
+                self_assessment = frappe.get_doc("Self Assessment", self.self_assessment)
+                if not self_assessment:
+                    validation_errors.append(_("Invalid Self Assessment"))
+            except frappe.DoesNotExistError:
+                validation_errors.append(_("Self Assessment document not found"))
+            
+        # Validate required fields
+        required_fields = [
+            ("school_name", "School Name"),
+            ("type_of_school", "Type of School"),
+            ("establishment_year", "Year of Establishment"),
+            ("village", "Village"),
+            ("cell", "Cell"),
+            ("sector", "Sector"),
+            ("district", "District"),
+            ("province", "Province")
+        ]
+        
+        for field, label in required_fields:
+            if not getattr(self, field):
+                validation_errors.append(_(f"{label} is required"))
             
         # Validate email addresses and phone numbers
         if self.school_email and not validate_email_address(self.school_email):
-            frappe.throw(_("School Email is invalid"))
+            validation_errors.append(_("School Email is invalid"))
         if self.owner_email and not validate_email_address(self.owner_email):
-            frappe.throw(_("Owner Email is invalid"))
+            validation_errors.append(_("Owner Email is invalid"))
         if self.school_telephone and not validate_phone_number(self.school_telephone):
-            frappe.throw(_("School Telephone is invalid"))
+            validation_errors.append(_("School Telephone is invalid"))
+            
+        # If any validation errors occurred, throw them all at once
+        if validation_errors:
+            frappe.throw("<br>".join(validation_errors))
         
         # Auto-populate fields from School Identification
         self.school_name = school_id.school_name

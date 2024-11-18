@@ -381,10 +381,20 @@ frappe.ready(function() {
                                 window.location.href = '/application-status?tracking_number=' + tracking_number;
                             }, 3000);
                         } else {
+                            // Parse the error message
+                            let errorMessage = r._server_messages ? JSON.parse(r._server_messages)[0] : r.exc;
+                            if (typeof errorMessage === 'string') {
+                                try {
+                                    errorMessage = JSON.parse(errorMessage);
+                                } catch (e) {
+                                    // If not JSON, use as is
+                                }
+                            }
+                            
                             frappe.msgprint({
-                                title: __('Submission Failed'),
+                                title: __('Validation Failed'),
                                 indicator: 'red',
-                                message: __('There was an error submitting your application. Please try again.')
+                                message: errorMessage
                             });
                         }
                     }
