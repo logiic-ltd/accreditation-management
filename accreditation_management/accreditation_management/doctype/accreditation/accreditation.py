@@ -238,27 +238,7 @@ def create_accreditation(data):
             "applicant_name": data.get('applicant_name'),
             "applicant_role": data.get('applicant_role'),
             "applicant_email": data.get('applicant_email'),
-            "applicant_telephone": data.get('applicant_telephone')
-            "school_status": next((item['value'] for item in data if item['name'] == 'school_status'), None),
-            "type_of_school": next((item['value'] for item in data if item['name'] == 'type_of_school'), None),
-            "type_of_request": next((item['value'] for item in data if item['name'] == 'type_of_request'), None),
-            "other_request": next((item['value'] for item in data if item['name'] == 'other_request'), None),
-            "establishment_year": next((item['value'] for item in data if item['name'] == 'establishment_year'), None),
-            "accommodation_status": next((item['value'] for item in data if item['name'] == 'accommodation_status'), None),
-            "school_email": next((item['value'] for item in data if item['name'] == 'school_email'), None),
-            "school_telephone": next((item['value'] for item in data if item['name'] == 'school_telephone'), None),
-            "village": next((item['value'] for item in data if item['name'] == 'village'), None),
-            "cell": next((item['value'] for item in data if item['name'] == 'cell'), None),
-            "sector": next((item['value'] for item in data if item['name'] == 'sector'), None),
-            "district": next((item['value'] for item in data if item['name'] == 'district'), None),
-            "province": next((item['value'] for item in data if item['name'] == 'province'), None),
-            "owner_name": next((item['value'] for item in data if item['name'] == 'owner_name'), None),
-            "owner_email": next((item['value'] for item in data if item['name'] == 'owner_email'), None),
-            "owner_telephone": next((item['value'] for item in data if item['name'] == 'owner_telephone'), None),
-            "applicant_name": next((item['value'] for item in data if item['name'] == 'applicant_name'), None),
-            "applicant_role": next((item['value'] for item in data if item['name'] == 'applicant_role'), None),
-            "applicant_email": next((item['value'] for item in data if item['name'] == 'applicant_email'), None),
-            "applicant_telephone": next((item['value'] for item in data if item['name'] == 'applicant_telephone'), None)
+            "applicant_telephone": data.get('applicant_telephone'),
         })
         
         doc.insert(ignore_permissions=True)
