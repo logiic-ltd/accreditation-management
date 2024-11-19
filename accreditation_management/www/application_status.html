@@ -1,28 +1,134 @@
 {% extends "templates/web.html" %}
 
+{% block style %}
+<style>
+    .status-tracker {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .tracker-title {
+        color: var(--primary-color);
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .status-form {
+        margin-bottom: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .input-group {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .status-result {
+        padding: 1.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-top: 2rem;
+        background: #f8f9fa;
+    }
+
+    .status-label {
+        font-weight: bold;
+        color: var(--secondary-color);
+        min-width: 150px;
+        display: inline-block;
+    }
+
+    .certificate-note {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #f0f7ff;
+        border-radius: 4px;
+        font-style: italic;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .download-section {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+
+    .btn-success {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+        padding: 0.5rem 1.5rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-success:hover {
+        background-color: #1e8a3c;
+        border-color: #1e8a3c;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+    }
+
+    .status-draft { background: #f8f9fa; color: #495057; }
+    .status-submitted { background: #cce5ff; color: #004085; }
+    .status-under-review { background: #fff3cd; color: #856404; }
+    .status-approved { background: #d4edda; color: #155724; }
+    .status-rejected { background: #f8d7da; color: #721c24; }
+</style>
 {% endblock %}
 
 {% block page_content %}
-
-<div class="content-wrapper">
-    <div class="container">
-        <h1>Application Status Tracker</h1>
-        <form id="statusForm">
-            <div class="form-group">
-                <label for="trackingNumber">Tracking Number:</label>
-                <input type="text" class="form-control" id="trackingNumber" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Check Status</button>
-        </form>
-        <div id="statusResult" class="mt-4" style="display: none;">
-            <h3>Application Status: <span id="applicationStatus"></span></h3>
-            <p>School Name: <span id="schoolName"></span></p>
-            <p>Submission Date: <span id="submissionDate"></span></p>
-            <p>Note: The accreditation certificate will be generated automatically when your application is approved.</p>
-            <div id="certificateDownload" style="display: none;">
-                <a href="#" id="downloadCertificate" class="btn btn-success">Download Certificate</a>
+<div class="status-tracker">
+    <h1 class="tracker-title">Application Status Tracker</h1>
+    
+    <form id="statusForm" class="status-form">
+        <div class="form-group">
+            <label for="trackingNumber">Tracking Number:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="trackingNumber" name="tracking_number" 
+                       placeholder="Enter your tracking number" required>
+                <button type="submit" class="btn btn-primary">Check Status</button>
             </div>
         </div>
+    </form>
+
+    <div id="statusResult" class="status-result" style="display: none;">
+        <div class="form-group">
+            <span class="status-label">Application Status:</span>
+            <span id="applicationStatus" class="status-badge"></span>
+        </div>
+        <div class="form-group">
+            <span class="status-label">School Name:</span>
+            <span id="schoolName"></span>
+        </div>
+        <div class="form-group">
+            <span class="status-label">Submission Date:</span>
+            <span id="submissionDate"></span>
+        </div>
+    </div>
+
+    <div class="certificate-note">
+        <p>Note: The accreditation certificate will be generated automatically when your application is approved.</p>
+    </div>
+
+    <div id="certificateDownload" class="download-section" style="display: none;">
+        <a id="downloadCertificate" href="#" class="btn btn-success">
+            <i class="fa fa-download"></i> Download Certificate
+        </a>
     </div>
 </div>
 
@@ -39,19 +145,31 @@ frappe.ready(function() {
             },
             callback: function(r) {
                 if (r.message) {
-                    $('#applicationStatus').text(r.message.status);
+                    // Add status-specific class for styling
+                    const status = r.message.status.toLowerCase().replace(' ', '-');
+                    $('#applicationStatus')
+                        .text(r.message.status)
+                        .removeClass()
+                        .addClass(`status-badge status-${status}`);
+                    
                     $('#schoolName').text(r.message.school_name);
-                    $('#submissionDate').text(r.message.creation);
+                    $('#submissionDate').text(frappe.datetime.prettyDate(r.message.creation));
                     $('#statusResult').show();
                     
                     if (r.message.status === 'Approved') {
                         $('#certificateDownload').show();
-                        $('#downloadCertificate').attr('href', '/api/method/accreditation_management.www.application_status.download_certificate?tracking_number=' + trackingNumber);
+                        $('#downloadCertificate').attr('href', 
+                            '/api/method/accreditation_management.www.application_status.download_certificate?tracking_number=' 
+                            + trackingNumber);
                     } else {
                         $('#certificateDownload').hide();
                     }
                 } else {
-                    frappe.msgprint('No application found with this tracking number.');
+                    frappe.msgprint({
+                        title: __('Not Found'),
+                        indicator: 'red',
+                        message: __('No application found with this tracking number.')
+                    });
                 }
             }
         });
