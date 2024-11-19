@@ -116,6 +116,76 @@
         color: var(--secondary-color);
         padding: 0 0.5rem;
     }
+
+    .prerequisite-warning {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: flex-start;
+        padding: 1.5rem;
+        border-left: 4px solid #ffc107;
+        transition: all 0.3s ease;
+    }
+
+    .prerequisite-warning:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+    }
+
+    .warning-icon {
+        font-size: 2rem;
+        color: #ffc107;
+        margin-right: 1.5rem;
+        padding-top: 0.5rem;
+    }
+
+    .warning-content {
+        flex: 1;
+    }
+
+    .warning-content h5 {
+        color: var(--secondary-color);
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
+
+    .warning-content p {
+        color: #666;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+
+    .warning-actions {
+        margin-top: 1rem;
+    }
+
+    .warning-actions .btn {
+        padding: 0.5rem 1.25rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .warning-actions .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .warning-actions .btn i {
+        font-size: 1rem;
+    }
+
+    #prerequisitesSummary {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
 </style>
 {% endblock %}
 
@@ -570,10 +640,19 @@ function initSchoolSearch() {
                                         // Check if school identification exists
                                         if (Object.keys(r.message.identification).length === 0) {
                                             $('#schoolIdSummary').html(`
-                                                <div class="alert alert-warning">
-                                                    <h5>School Identification Missing</h5>
-                                                    <p>Please complete your school identification before proceeding with the accreditation application.</p>
-                                                    <a href="/school-identification" class="btn btn-primary mt-2">Complete School Identification</a>
+                                                <div class="prerequisite-warning">
+                                                    <div class="warning-icon">
+                                                        <i class="fa fa-exclamation-triangle"></i>
+                                                    </div>
+                                                    <div class="warning-content">
+                                                        <h5>School Identification Required</h5>
+                                                        <p>Before proceeding with your accreditation application, you need to complete the school identification process. This helps us maintain accurate records and ensures a smooth accreditation process.</p>
+                                                        <div class="warning-actions">
+                                                            <a href="/school-identification" class="btn btn-primary">
+                                                                <i class="fa fa-plus-circle"></i> Complete School Identification
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             `);
                                         }
@@ -581,10 +660,19 @@ function initSchoolSearch() {
                                         // Check if self assessment exists and is recent
                                         if (Object.keys(r.message.assessment).length === 0) {
                                             $('#selfAssessmentSummary').html(`
-                                                <div class="alert alert-warning">
-                                                    <h5>Self Assessment Required</h5>
-                                                    <p>You need to complete a self assessment within the last 6 months before applying for accreditation.</p>
-                                                    <a href="/self-assessment" class="btn btn-primary mt-2">Start Self Assessment</a>
+                                                <div class="prerequisite-warning">
+                                                    <div class="warning-icon">
+                                                        <i class="fa fa-clipboard-list"></i>
+                                                    </div>
+                                                    <div class="warning-content">
+                                                        <h5>Self Assessment Required</h5>
+                                                        <p>A recent self assessment (within the last 6 months) is required to proceed with your accreditation application. This helps evaluate your institution's readiness for accreditation.</p>
+                                                        <div class="warning-actions">
+                                                            <a href="/self-assessment" class="btn btn-primary">
+                                                                <i class="fa fa-tasks"></i> Start Self Assessment
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             `);
                                         }
