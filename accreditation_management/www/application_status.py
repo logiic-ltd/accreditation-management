@@ -51,16 +51,29 @@ def download_certificate(tracking_number):
         frappe.throw(_("Certificate not available for this application."))
 
 def generate_certificate_html(application):
+    # Get self assessment details
+    self_assessment = frappe.get_doc("Self Assessment", application.self_assessment)
+    
+    # Calculate validity end date
+    issue_date = frappe.utils.now_datetime()
+    valid_until = frappe.utils.add_years(issue_date, self_assessment.provisional_accreditation_years)
+    
     context = {
         "school_name": application.school_name,
         "tracking_number": application.tracking_number,
-        "issue_date": frappe.utils.now_datetime().strftime("%B %d, %Y"),
+        "type_of_school": application.type_of_school,
+        "issue_date": issue_date.strftime("%B %d, %Y"),
+        "valid_until": valid_until.strftime("%B %d, %Y"),
+        "provisional_ranking": self_assessment.provisional_ranking,
+        "provisional_years": self_assessment.provisional_accreditation_years,
+        "overall_score": self_assessment.overall_score,
         "qr_code": None
     }
     
     if QR_CODE_AVAILABLE:
         qr = qrcode.QRCode(version=1, box_size=10, border=5)
-        qr.add_data(get_url(f"/verify-certificate?tracking_number={application.tracking_number}"))
+        verification_url = get_url(f"/verify-certificate?tracking_number={application.tracking_number}")
+        qr.add_data(verification_url)
         qr.make(fit=True)
         qr_img = qr.make_image(fill_color="black", back_color="white")
         
@@ -69,4 +82,14 @@ def generate_certificate_html(application):
         qr_base64 = frappe.safe_decode(frappe.utils.base64.b64encode(buffered.getvalue()))
         context["qr_code"] = qr_base64
     
-    return frappe.render_template("templates/certificate_template.html", context)
+    # First try the app's template directory
+    template_path = "accreditation_management/templates/certificate_template.html"
+    if not frappe.get_template(template_path):
+        # Fallback to the default templates directory
+        template_path = "templates/certificate_template.html"
+    
+    try:
+        return frappe.render_template(template_path, context)
+    except Exception as e:
+        frappe.log_error(f"Certificate generation error: {str(e)}")
+        raise
