@@ -287,9 +287,12 @@ const logger = {
 
 function collectFormData() {
     logger.info('Starting form data collection');
-    // Get the school identification and self assessment IDs from the search results
-    const schoolId = $('#schoolCode').data('school-id');
-    const assessmentId = $('#schoolCode').data('assessment-id');
+    // Get the school identification and self assessment IDs from the prerequisites summary
+    const schoolId = $('#prerequisitesSummary').data('school-id');
+    const assessmentId = $('#prerequisitesSummary').data('assessment-id');
+    
+    logger.info('School ID:', schoolId);
+    logger.info('Assessment ID:', assessmentId);
     
     // Get selected request type
     const selectedRequest = $('#typeOfRequest').val();
@@ -298,8 +301,8 @@ function collectFormData() {
     
     // Get all form field values
     const formData = {
-        school_identification: schoolId,
-        self_assessment: assessmentId,
+        school_identification: schoolId || '',
+        self_assessment: assessmentId || '',
         school_name: $('#schoolName').val(),
         school_code: $('#schoolCode').val(),
         school_status: $('#status').val(),
@@ -586,12 +589,14 @@ function initSchoolSearch() {
                                             `);
                                         }
 
-                                        // Show prerequisites summary
-                                        $('#prerequisitesSummary').show();
+                                        // Store the IDs as data attributes
+                                        $('#prerequisitesSummary')
+                                            .data('school-id', r.message.school_id)
+                                            .data('assessment-id', r.message.assessment_id)
+                                            .show();
                                         
                                         // Only enable next step if both prerequisites are met
-                                        if (Object.keys(r.message.identification).length > 0 && 
-                                            Object.keys(r.message.assessment).length > 0) {
+                                        if (r.message.prerequisites_met) {
                                             $('#nextStep').prop('disabled', false);
                                         } else {
                                             $('#nextStep').prop('disabled', true);
