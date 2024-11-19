@@ -403,9 +403,9 @@ frappe.ready(function() {
 
                 logger.info('Sending application data to server');
                 frappe.call({
-                    method: 'frappe.client.insert',
+                    method: 'accreditation_management.accreditation_management.doctype.accreditation.accreditation.create_accreditation',
                     args: {
-                        doc: docData
+                        data: JSON.stringify(formData)
                     },
                     freeze: true,
                     freeze_message: __('Submitting application...'),
