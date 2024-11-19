@@ -58,12 +58,18 @@ def generate_certificate_html(application):
     issue_date = frappe.utils.now_datetime()
     valid_until = frappe.utils.add_years(issue_date, self_assessment.provisional_accreditation_years)
     
+    # Calculate validity period
+    validity_start = issue_date.strftime("%B %d, %Y")
+    validity_end = valid_until.strftime("%B %d, %Y")
+    validity_period = f"{self_assessment.provisional_accreditation_years} {'year' if self_assessment.provisional_accreditation_years == 1 else 'years'}"
+
     context = {
         "school_name": application.school_name,
         "tracking_number": application.tracking_number,
         "type_of_school": application.type_of_school,
-        "issue_date": issue_date.strftime("%B %d, %Y"),
-        "valid_until": valid_until.strftime("%B %d, %Y"),
+        "issue_date": validity_start,
+        "valid_until": validity_end,
+        "validity_period": validity_period,
         "provisional_ranking": self_assessment.provisional_ranking,
         "provisional_years": self_assessment.provisional_accreditation_years,
         "overall_score": self_assessment.overall_score,
