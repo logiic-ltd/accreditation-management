@@ -70,6 +70,13 @@
   "status_history"
  ],
  "fields": [
+ {
+  "fieldname": "type_of_school",
+  "fieldtype": "Select",
+  "label": "Type of School",
+  "options": "TVET\nGeneral Education",
+  "reqd": 1
+ },
   {
    "fieldname": "prerequisites_section",
    "fieldtype": "Section Break",
