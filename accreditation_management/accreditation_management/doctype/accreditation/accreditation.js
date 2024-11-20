@@ -2,7 +2,27 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Accreditation", {
-	refresh(frm) {
+    refresh(frm) {
+        // Add custom validation messages
+        frm.set_df_property('type_of_request', 'description', 
+            'Select at least one: TVET Trade, Combinations, Ordinary Level, Boarding Status, Primary Level, Preprimary Level');
+        
+        // Add validation for school status
+        frm.set_df_property('school_status', 'description',
+            'Select the current status of your school');
+            
+        // Add validation for accommodation status
+        frm.set_df_property('accommodation_status', 'description',
+            'Select the accommodation status of your school');
+            
+        // Add validation for type of school
+        frm.set_df_property('type_of_school', 'description',
+            'Select whether this is a TVET or General Education school');
+            
+        // Add validation for applicant role
+        frm.set_df_property('applicant_role', 'description',
+            'Select your role in relation to the school');
+            
 		if (frm.doc.status === "Submitted") {
 			frm.add_custom_button(__("Start Review"), function() {
 				frm.call('change_status', { new_status: "Under Review" }).then(() => frm.refresh());

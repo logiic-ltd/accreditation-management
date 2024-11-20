@@ -31,30 +31,71 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "prerequisites_section",
+  "school_identification",
+  "self_assessment",
   "section_break_uhll",
   "tracking_number",
   "status",
   "workflow_state",
+  "school_details_section",
   "school_code",
   "school_name",
-  "mission",
-  "objective",
-  "curriculum",
+  "school_status", 
+  "type_of_school",
+  "type_of_request",
+  "other_request",
   "establishment_year",
+  "accommodation_status",
+  "contact_section",
   "school_email",
   "school_telephone",
-  "owner_name",
-  "owner_email",
-  "owner_telephone",
+  "location_section",
   "village",
   "cell",
   "sector",
   "district",
   "province",
+  "owner_section",
+  "owner_name",
+  "owner_email",
+  "owner_telephone",
+  "applicant_section",
+  "applicant_name",
+  "applicant_role",
+  "applicant_email",
+  "applicant_telephone",
+  "system_section",
   "certificate_generated",
   "status_history"
  ],
  "fields": [
+ {
+  "fieldname": "type_of_school",
+  "fieldtype": "Select",
+  "label": "Type of School",
+  "options": "TVET\nGeneral Education",
+  "reqd": 1
+ },
+  {
+   "fieldname": "prerequisites_section",
+   "fieldtype": "Section Break",
+   "label": "Prerequisites"
+  },
+  {
+   "fieldname": "school_identification",
+   "fieldtype": "Link",
+   "label": "School Identification",
+   "options": "School Identification",
+   "reqd": 1
+  },
+  {
+   "fieldname": "self_assessment",
+   "fieldtype": "Link",
+   "label": "Self Assessment",
+   "options": "Self Assessment",
+   "reqd": 1
+  },
   {
    "fieldname": "section_break_uhll",
    "fieldtype": "Section Break"
@@ -93,22 +134,6 @@
    "label": "School Name"
   },
   {
-   "fieldname": "mission",
-   "fieldtype": "Small Text",
-   "label": "Mission"
-  },
-  {
-   "fieldname": "objective",
-   "fieldtype": "Small Text",
-   "label": "Objective"
-  },
-  {
-   "fieldname": "curriculum",
-   "fieldtype": "Select",
-   "label": "Curriculum",
-   "options": "National\nInternational"
-  },
-  {
    "fieldname": "establishment_year",
    "fieldtype": "Data",
    "label": "Year of Establishment"
@@ -127,6 +152,53 @@
    "fieldname": "owner_name",
    "fieldtype": "Data",
    "label": "Owner Name"
+  },
+  {
+   "fieldname": "applicant_name",
+   "fieldtype": "Data", 
+   "label": "Applicant Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "applicant_role",
+   "fieldtype": "Select",
+   "label": "Applicant Role",
+   "options": "Owner\nLegal Representative\nDistrict",
+   "reqd": 1
+  },
+  {
+   "fieldname": "applicant_email",
+   "fieldtype": "Data",
+   "label": "Applicant Email",
+   "reqd": 1
+  },
+  {
+   "fieldname": "applicant_telephone",
+   "fieldtype": "Data",
+   "label": "Applicant Telephone",
+   "reqd": 1
+  },
+  {
+   "fieldname": "accommodation_status",
+   "fieldtype": "Select",
+   "label": "Accommodation Status",
+   "options": "Day\nBoarding\nMixed",
+   "reqd": 1
+  },
+  {
+   "fieldname": "type_of_request",
+   "fieldtype": "Select",
+   "label": "Type of Request",
+   "reqd": 1,
+   "options": "TVET Trade\nCombinations\nOrdinary Level\nBoarding Status\nPrimary Level\nPreprimary Level",
+   "description": "Select the type of accreditation request"
+  },
+  {
+   "fieldname": "school_status",
+   "fieldtype": "Select", 
+   "label": "School Status",
+   "options": "Public\nPrivate\nGovernment Aided",
+   "reqd": 1
   },
   {
    "fieldname": "owner_telephone",
@@ -189,6 +261,33 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Guest",
+   "share": 0,
+   "write": 0
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "School Admin",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 0,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Accreditation Officer",
+   "share": 0,
    "write": 1
   }
  ],

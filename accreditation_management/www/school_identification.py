@@ -54,8 +54,7 @@ def submit_school_identification(form_data):
             "number_of_computer_lab": data.get("number_of_computer_lab"),
             "number_of_admin_offices": data.get("number_of_admin_offices"),
             "number_of_multipurpose_halls": data.get("number_of_multipurpose_halls"),
-            "number_of_academic_staff_rooms": data.get("number_of_academic_staff_rooms"),
-            "date_of_visit": data.get("date_of_visit")
+            "number_of_academic_staff_rooms": data.get("number_of_academic_staff_rooms")
         })
         
         doc.insert(ignore_permissions=True)

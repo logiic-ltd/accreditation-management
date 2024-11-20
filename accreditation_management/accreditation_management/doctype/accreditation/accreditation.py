@@ -25,13 +25,77 @@ class Accreditation(Document):
         frappe.logger().info(f"Generated tracking number: {self.tracking_number}")
 
     def validate(self):
+        frappe.logger().info(f"Validating accreditation application: {self.name}")
+        validation_errors = []
+        
+        # Validate prerequisites
+        if not self.school_identification:
+            validation_errors.append(_("School Identification is required"))
+        if not self.self_assessment:
+            validation_errors.append(_("Self Assessment is required"))
+            
+        # Validate school identification exists and is valid
+        if self.school_identification:
+            try:
+                school_id = frappe.get_doc("School Identification", self.school_identification)
+                if not school_id:
+                    validation_errors.append(_("Invalid School Identification"))
+            except frappe.DoesNotExistError:
+                validation_errors.append(_("School Identification document not found"))
+            
+        # Validate self assessment exists and is valid
+        if self.self_assessment:
+            try:
+                self_assessment = frappe.get_doc("Self Assessment", self.self_assessment)
+                if not self_assessment:
+                    validation_errors.append(_("Invalid Self Assessment"))
+            except frappe.DoesNotExistError:
+                validation_errors.append(_("Self Assessment document not found"))
+            
+        # Validate required fields
+        required_fields = [
+            ("school_name", "School Name"),
+            ("school_code", "School Code"),
+            ("school_status", "School Status"),
+            ("type_of_school", "Type of School"),
+            ("type_of_request", "Type of Request"),
+            ("establishment_year", "Year of Establishment"),
+            ("village", "Village"),
+            ("cell", "Cell"),
+            ("sector", "Sector"),
+            ("district", "District"),
+            ("province", "Province"),
+            ("owner_name", "Owner Name"),
+            ("applicant_name", "Applicant Name"),
+            ("applicant_role", "Applicant Role"),
+            ("applicant_email", "Applicant Email"),
+            ("applicant_telephone", "Applicant Telephone"),
+            ("accommodation_status", "Accommodation Status")
+        ]
+        
+        for field, label in required_fields:
+            if not getattr(self, field):
+                validation_errors.append(_(f"{label} is required"))
+            
         # Validate email addresses and phone numbers
         if self.school_email and not validate_email_address(self.school_email):
-            frappe.throw("School Email is invalid")
+            validation_errors.append(_("School Email is invalid"))
         if self.owner_email and not validate_email_address(self.owner_email):
-            frappe.throw("Owner Email is invalid")
+            validation_errors.append(_("Owner Email is invalid"))
         if self.school_telephone and not validate_phone_number(self.school_telephone):
-            frappe.throw("School Telephone is invalid")
+            validation_errors.append(_("School Telephone is invalid"))
+            
+        # If any validation errors occurred, throw them all at once
+        if validation_errors:
+            error_msg = "<br>".join(validation_errors)
+            frappe.logger().warning(f"Validation failed for application {self.name}: {error_msg}")
+            frappe.throw(error_msg)
+        
+        frappe.logger().info(f"Validation successful for application {self.name}")
+        
+        # Auto-populate fields from School Identification
+        self.school_name = school_id.school_name
+        self.school_code = school_id.school_code
         
         self.update_status_history()
 
@@ -146,29 +210,45 @@ NESA Accreditation Team""").format(self.school_name, self.tracking_number)
 @frappe.whitelist(allow_guest=True)
 def create_accreditation(data):
     try:
+        frappe.logger().info(f"Starting accreditation application submission")
         data = json.loads(data)
+        frappe.logger().debug(f"Parsed application data: {json.dumps(data, indent=2)}")
         doc = frappe.get_doc({
             "doctype": "Accreditation",
-            "school_name": next((item['value'] for item in data if item['name'] == 'school_name'), None),
-            "mission": next((item['value'] for item in data if item['name'] == 'mission'), None),
-            "objective": next((item['value'] for item in data if item['name'] == 'objective'), None),
-            "curriculum": next((item['value'] for item in data if item['name'] == 'curriculum'), None),
-            "establishment_year": next((item['value'] for item in data if item['name'] == 'establishment_year'), None),
-            "school_email": next((item['value'] for item in data if item['name'] == 'school_email'), None),
-            "school_telephone": next((item['value'] for item in data if item['name'] == 'school_telephone'), None),
-            "village": next((item['value'] for item in data if item['name'] == 'village'), None),
-            "cell": next((item['value'] for item in data if item['name'] == 'cell'), None),
-            "sector": next((item['value'] for item in data if item['name'] == 'sector'), None),
-            "district": next((item['value'] for item in data if item['name'] == 'district'), None),
-            "province": next((item['value'] for item in data if item['name'] == 'province'), None),
-            "owner_name": next((item['value'] for item in data if item['name'] == 'owner_name'), None),
-            "owner_email": next((item['value'] for item in data if item['name'] == 'owner_email'), None),
-            "owner_telephone": next((item['value'] for item in data if item['name'] == 'owner_telephone'), None)
+            "school_identification": data.get('school_identification'),
+            "self_assessment": data.get('self_assessment'),
+            "school_name": data.get('school_name'),
+            "school_code": data.get('school_code'),
+            "school_status": data.get('school_status'),
+            "type_of_school": data.get('type_of_school'),
+            "type_of_request": data.get('type_of_request'),
+            "other_request": data.get('other_request'),
+            "establishment_year": data.get('establishment_year'),
+            "accommodation_status": data.get('accommodation_status'),
+            "school_email": data.get('school_email'),
+            "school_telephone": data.get('school_telephone'),
+            "village": data.get('village'),
+            "cell": data.get('cell'),
+            "sector": data.get('sector'),
+            "district": data.get('district'),
+            "province": data.get('province'),
+            "owner_name": data.get('owner_name'),
+            "owner_email": data.get('owner_email'),
+            "owner_telephone": data.get('owner_telephone'),
+            "applicant_name": data.get('applicant_name'),
+            "applicant_role": data.get('applicant_role'),
+            "applicant_email": data.get('applicant_email'),
+            "applicant_telephone": data.get('applicant_telephone'),
         })
         
         doc.insert(ignore_permissions=True)
         
+        frappe.logger().info(f"Successfully created accreditation application with tracking number: {doc.tracking_number}")
+        frappe.logger().debug(f"Application details: {json.dumps(doc.as_dict(), indent=2)}")
+        
         return {"tracking_number": doc.tracking_number}
     except Exception as e:
-        frappe.log_error(f"Error creating accreditation: {str(e)}")
+        error_msg = f"Error creating accreditation: {str(e)}"
+        frappe.logger().error(error_msg)
+        frappe.log_error(message=error_msg, title="Accreditation Application Error")
         frappe.throw(_("An error occurred while submitting the application. Please try again."))
