@@ -99,10 +99,13 @@ def get_prerequisites_summary(school_code):
         has_identification = bool(school_id)
         has_assessment = bool(assessment_id)
         
+        # Store the actual document IDs
         return {
             "identification": id_summary if has_identification else {},
             "assessment": assessment_summary if has_assessment else {},
-            "prerequisites_met": has_identification and has_assessment
+            "prerequisites_met": has_identification and has_assessment,
+            "school_id": school_id,
+            "assessment_id": assessment_id
         }
     except Exception as e:
         frappe.logger().error(f"Error getting prerequisites summary: {str(e)}")
