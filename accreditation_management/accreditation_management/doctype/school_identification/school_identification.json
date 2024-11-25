@@ -37,7 +37,6 @@
   "storekeeper",
   "drivers",
   "other_supporting_staff",
-  "school_infrastructure",
   "nbr_of_classrooms",
   "nbr_of_latrines",
   "number_of_kitchen",
@@ -214,11 +213,6 @@
    "fieldname": "other_supporting_staff",
    "fieldtype": "Data",
    "label": "Other Supporting Staff"
-  },
-  {
-   "fieldname": "school_infrastructure",
-   "fieldtype": "Data",
-   "label": "School Infrastructure"
   },
   {
    "fieldname": "nbr_of_classrooms",

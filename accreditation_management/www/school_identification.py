@@ -44,7 +44,6 @@ def submit_school_identification(form_data):
             "storekeeper": data.get("storekeeper"),
             "drivers": data.get("drivers"),
             "other_supporting_staff": data.get("other_supporting_staff"),
-            "school_infrastructure": data.get("school_infrastructure"),
             "nbr_of_classrooms": data.get("nbr_of_classrooms"),
             "nbr_of_latrines": data.get("nbr_of_latrines"),
             "number_of_kitchen": data.get("number_of_kitchen"),
