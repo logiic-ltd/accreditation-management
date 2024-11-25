@@ -19,6 +19,8 @@
   "ht_name",
   "qualification_of_headteacher",
   "telephone",
+  "number_of_boys",
+  "number_of_girls",
   "total_nr_students",
   "students_with_sen",
   "number_of_teachers",
@@ -49,6 +51,16 @@
   "number_of_academic_staff_rooms"
  ],
  "fields": [
+  {
+   "fieldname": "number_of_boys",
+   "fieldtype": "Data",
+   "label": "Number of Boys"
+  },
+  {
+   "fieldname": "number_of_girls",
+   "fieldtype": "Data",
+   "label": "Number of Girls"
+  },
   {
    "fieldname": "school_name",
    "fieldtype": "Data",

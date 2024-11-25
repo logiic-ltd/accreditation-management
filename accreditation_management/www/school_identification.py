@@ -26,7 +26,9 @@ def submit_school_identification(form_data):
             "ht_name": data.get("ht_name"),
             "qualification_of_headteacher": data.get("qualification_of_headteacher"),
             "telephone": data.get("telephone"),
-            "total_nr_students": data.get("total_nr_students"),
+            "number_of_boys": data.get("number_of_boys"),
+            "number_of_girls": data.get("number_of_girls"),
+            "total_nr_students": data.get("total_nr_students"),  # This will be calculated on the client side
             "students_with_sen": data.get("students_with_sen"),
             "number_of_teachers": data.get("number_of_teachers"),
             "number_of_assistant_teachers": data.get("number_of_assistant_teachers"),

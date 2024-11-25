@@ -191,10 +191,17 @@
             <fieldset>
                 <legend>Student Information</legend>
                 <div class="form-group">
-                    <label for="totalNrStudents">Total Nr. Students in the School</label>
-                    <input type="text" class="form-control" id="totalNrStudents" name="total_nr_students">
+                    <label for="numberOfBoys">Number of Boys</label>
+                    <input type="text" class="form-control" id="numberOfBoys" name="number_of_boys">
                 </div>
                 <div class="form-group">
+                    <label for="numberOfGirls">Number of Girls</label>
+                    <input type="text" class="form-control" id="numberOfGirls" name="number_of_girls">
+                </div>
+                <div class="form-group">
+                    <label for="totalNrStudents">Total Nr. Students in the School</label>
+                    <input type="text" class="form-control" id="totalNrStudents" name="total_nr_students" readonly>
+                </div>
                     <label for="studentsWithSEN">Students with SEN</label>
                     <input type="text" class="form-control" id="studentsWithSEN" name="students_with_sen">
                 </div>
@@ -349,7 +356,16 @@ frappe.ready(function() {
         $('#totalNumberOfSupportingStaff').val(total);
     }
 
+    function calculateTotalStudents() {
+        const boys = parseInt($('#numberOfBoys').val()) || 0;
+        const girls = parseInt($('#numberOfGirls').val()) || 0;
+        $('#totalNrStudents').val(boys + girls);
+    }
+
     $('#schoolIdentificationForm input').on('input', function() {
+        calculateTotalAdministrativeStaff();
+        calculateTotalSupportingStaff();
+        calculateTotalStudents();
         calculateTotalAdministrativeStaff();
         calculateTotalSupportingStaff();
     });
