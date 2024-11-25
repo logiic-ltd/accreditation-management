@@ -239,7 +239,7 @@
                     </div>
                     <div class="form-group">
                         <label for="totalNumberOfAdministrativeStaff">Total Number of Administrative Staff</label>
-                        <input type="text" class="form-control" id="totalNumberOfAdministrativeStaff" name="total_number_of_administrative_staff">
+                        <input type="text" class="form-control" id="totalNumberOfAdministrativeStaff" name="total_number_of_administrative_staff" readonly>
                     </div>
                 </fieldset>
 
@@ -271,7 +271,7 @@
                     </div>
                     <div class="form-group">
                         <label for="totalNumberOfSupportingStaff">Total Number of Supporting Staff</label>
-                        <input type="text" class="form-control" id="totalNumberOfSupportingStaff" name="total_number_of_supporting_staff">
+                        <input type="text" class="form-control" id="totalNumberOfSupportingStaff" name="total_number_of_supporting_staff" readonly>
                     </div>
                 </fieldset>
             </fieldset>
@@ -328,6 +328,31 @@
 <script>
 frappe.ready(function() {
     initSchoolSearch();
+
+    function calculateTotalAdministrativeStaff() {
+        const fields = ['headteacher', 'deputyHeadteacher', 'secretary', 'librarian', 'accountant', 'otherStaff'];
+        let total = 0;
+        fields.forEach(field => {
+            const value = parseInt($(`#${field}`).val()) || 0;
+            total += value;
+        });
+        $('#totalNumberOfAdministrativeStaff').val(total);
+    }
+
+    function calculateTotalSupportingStaff() {
+        const fields = ['cleaners', 'watchmen', 'schoolCooks', 'storekeeper', 'drivers', 'otherSupportingStaff'];
+        let total = 0;
+        fields.forEach(field => {
+            const value = parseInt($(`#${field}`).val()) || 0;
+            total += value;
+        });
+        $('#totalNumberOfSupportingStaff').val(total);
+    }
+
+    $('#schoolIdentificationForm input').on('input', function() {
+        calculateTotalAdministrativeStaff();
+        calculateTotalSupportingStaff();
+    });
 
     $('#schoolIdentificationForm').on('submit', function(e) {
         e.preventDefault();
