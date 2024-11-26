@@ -709,6 +709,51 @@ function initSchoolSearch() {
         }, 200);
     });
 }
+
+    // Add NID verification functionality
+    $('#verifyNID').on('click', function() {
+        const nidNumber = $('#nationalId').val().trim();
+        if (!nidNumber) {
+            frappe.msgprint({
+                title: __('Required'),
+                indicator: 'red',
+                message: __('Please enter a National ID number')
+            });
+            return;
+        }
+
+        frappe.call({
+            method: 'accreditation_management.www.nid_verification.verify_nid',
+            args: {
+                document_number: nidNumber
+            },
+            freeze: true,
+            freeze_message: __('Verifying National ID...'),
+            callback: function(r) {
+                if (r.message && r.message.success) {
+                    const data = r.message.data;
+                    // Populate form fields with NID data
+                    $('#applicantName').val(`${data.foreName} ${data.surnames}`);
+                    $('#village').val(data.village);
+                    $('#cell').val(data.cell);
+                    $('#sector').val(data.sector);
+                    $('#district').val(data.district);
+                    $('#province').val(data.province);
+                    
+                    frappe.show_alert({
+                        message: __('National ID verified successfully'),
+                        indicator: 'green'
+                    }, 5);
+                } else {
+                    frappe.msgprint({
+                        title: __('Verification Failed'),
+                        indicator: 'red',
+                        message: r.message.error || __('Failed to verify National ID')
+                    });
+                }
+            }
+        });
+    });
 });
 </script>
 {% endblock %}
