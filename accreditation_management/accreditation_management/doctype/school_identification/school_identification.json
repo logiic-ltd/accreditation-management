@@ -19,6 +19,8 @@
   "ht_name",
   "qualification_of_headteacher",
   "telephone",
+  "number_of_boys",
+  "number_of_girls",
   "total_nr_students",
   "students_with_sen",
   "number_of_teachers",
@@ -37,7 +39,6 @@
   "storekeeper",
   "drivers",
   "other_supporting_staff",
-  "school_infrastructure",
   "nbr_of_classrooms",
   "nbr_of_latrines",
   "number_of_kitchen",
@@ -47,10 +48,19 @@
   "number_of_computer_lab",
   "number_of_admin_offices",
   "number_of_multipurpose_halls",
-  "number_of_academic_staff_rooms",
-  "date_of_visit"
+  "number_of_academic_staff_rooms"
  ],
  "fields": [
+  {
+   "fieldname": "number_of_boys",
+   "fieldtype": "Data",
+   "label": "Number of Boys"
+  },
+  {
+   "fieldname": "number_of_girls",
+   "fieldtype": "Data",
+   "label": "Number of Girls"
+  },
   {
    "fieldname": "school_name",
    "fieldtype": "Data",
@@ -137,14 +147,42 @@
    "label": "Students with SEN"
   },
   {
+   "fieldname": "number_of_male_teachers",
+   "fieldtype": "Integer",
+   "label": "Number of Male Teachers",
+   "default": "0"
+  },
+  {
+   "fieldname": "number_of_female_teachers",
+   "fieldtype": "Integer",
+   "label": "Number of Female Teachers",
+   "default": "0"
+  },
+  {
    "fieldname": "number_of_teachers",
-   "fieldtype": "Data",
-   "label": "Number of Teachers"
+   "fieldtype": "Integer",
+   "label": "Total Number of Teachers",
+   "read_only": 1,
+   "default": "0"
+  },
+  {
+   "fieldname": "number_of_male_assistant_teachers",
+   "fieldtype": "Integer",
+   "label": "Number of Male Assistant Teachers",
+   "default": "0"
+  },
+  {
+   "fieldname": "number_of_female_assistant_teachers",
+   "fieldtype": "Integer",
+   "label": "Number of Female Assistant Teachers",
+   "default": "0"
   },
   {
    "fieldname": "number_of_assistant_teachers",
-   "fieldtype": "Data",
-   "label": "Number of Assistant Teachers"
+   "fieldtype": "Integer",
+   "label": "Total Number of Assistant Teachers",
+   "read_only": 1,
+   "default": "0"
   },
   {
    "fieldname": "total_number_of_administrative_staff",
@@ -217,11 +255,6 @@
    "label": "Other Supporting Staff"
   },
   {
-   "fieldname": "school_infrastructure",
-   "fieldtype": "Data",
-   "label": "School Infrastructure"
-  },
-  {
    "fieldname": "nbr_of_classrooms",
    "fieldtype": "Data",
    "label": "Number of Classrooms"
@@ -270,11 +303,6 @@
    "fieldname": "number_of_academic_staff_rooms",
    "fieldtype": "Data",
    "label": "Number of Academic Staff Rooms"
-  },
-  {
-   "fieldname": "date_of_visit",
-   "fieldtype": "Date",
-   "label": "Date of Visit"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -297,6 +325,10 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Guest"
   }
  ],
  "sort_field": "creation",

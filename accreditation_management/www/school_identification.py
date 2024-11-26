@@ -26,7 +26,9 @@ def submit_school_identification(form_data):
             "ht_name": data.get("ht_name"),
             "qualification_of_headteacher": data.get("qualification_of_headteacher"),
             "telephone": data.get("telephone"),
-            "total_nr_students": data.get("total_nr_students"),
+            "number_of_boys": data.get("number_of_boys"),
+            "number_of_girls": data.get("number_of_girls"),
+            "total_nr_students": data.get("total_nr_students"),  # This will be calculated on the client side
             "students_with_sen": data.get("students_with_sen"),
             "number_of_teachers": data.get("number_of_teachers"),
             "number_of_assistant_teachers": data.get("number_of_assistant_teachers"),
@@ -44,7 +46,6 @@ def submit_school_identification(form_data):
             "storekeeper": data.get("storekeeper"),
             "drivers": data.get("drivers"),
             "other_supporting_staff": data.get("other_supporting_staff"),
-            "school_infrastructure": data.get("school_infrastructure"),
             "nbr_of_classrooms": data.get("nbr_of_classrooms"),
             "nbr_of_latrines": data.get("nbr_of_latrines"),
             "number_of_kitchen": data.get("number_of_kitchen"),
@@ -54,8 +55,7 @@ def submit_school_identification(form_data):
             "number_of_computer_lab": data.get("number_of_computer_lab"),
             "number_of_admin_offices": data.get("number_of_admin_offices"),
             "number_of_multipurpose_halls": data.get("number_of_multipurpose_halls"),
-            "number_of_academic_staff_rooms": data.get("number_of_academic_staff_rooms"),
-            "date_of_visit": data.get("date_of_visit")
+            "number_of_academic_staff_rooms": data.get("number_of_academic_staff_rooms")
         })
         
         doc.insert(ignore_permissions=True)

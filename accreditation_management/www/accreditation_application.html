@@ -49,6 +49,34 @@
         color: var(--secondary-color);
     }
 
+    .step-title {
+        font-size: 1.8rem;
+        color: var(--secondary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .application-step {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    #prerequisitesSummary {
+        margin-top: 2rem;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
     .form-group {
         margin-bottom: 1.5rem;
     }
@@ -88,6 +116,76 @@
         color: var(--secondary-color);
         padding: 0 0.5rem;
     }
+
+    .prerequisite-warning {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: flex-start;
+        padding: 1.5rem;
+        border-left: 4px solid #ffc107;
+        transition: all 0.3s ease;
+    }
+
+    .prerequisite-warning:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+    }
+
+    .warning-icon {
+        font-size: 2rem;
+        color: #ffc107;
+        margin-right: 1.5rem;
+        padding-top: 0.5rem;
+    }
+
+    .warning-content {
+        flex: 1;
+    }
+
+    .warning-content h5 {
+        color: var(--secondary-color);
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
+
+    .warning-content p {
+        color: #666;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+
+    .warning-actions {
+        margin-top: 1rem;
+    }
+
+    .warning-actions .btn {
+        padding: 0.5rem 1.25rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .warning-actions .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .warning-actions .btn i {
+        font-size: 1rem;
+    }
+
+    #prerequisitesSummary {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
 </style>
 {% endblock %}
 
@@ -96,17 +194,38 @@
 <div class="content-wrapper">
     <div class="container">
         <h1 class="form-title">Accreditation Application</h1>
-        <form id="accreditationForm">
-            <fieldset>
-                <legend>School Search</legend>
-                <div class="form-group">
-                    <label for="searchSchool">Enter School Name or Code</label>
-                    <input type="text" class="form-control" id="searchSchool" name="search_school" placeholder="Search by school name or code">
-                    <div id="schoolSearchResults" class="mt-2"></div>
-                </div>
-            </fieldset>
+        
+        <!-- Step 1: School Search and Prerequisites -->
+        <div id="step1" class="application-step">
+            <h2 class="step-title">Step 1: School Selection</h2>
+            <div class="search-section">
+                <fieldset>
+                    <legend>School Search</legend>
+                    <div class="form-group">
+                        <label for="searchSchool">Enter School Name or Code</label>
+                        <input type="text" class="form-control" id="searchSchool" name="search_school" placeholder="Search by school name or code">
+                        <div id="schoolSearchResults" class="mt-2"></div>
+                    </div>
+                </fieldset>
 
-            <fieldset>
+                <!-- Prerequisites Summary Section -->
+                <div id="prerequisitesSummary" style="display: none;">
+                    <div id="schoolIdSummary" class="mb-3"></div>
+                    <div id="selfAssessmentSummary" class="mb-3"></div>
+                    <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+                        <button type="button" id="nextStep" class="btn btn-primary">
+                            <i class="fa fa-arrow-right"></i> Proceed to Application
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Application Form -->
+        <div id="step2" class="application-step" style="display: none;">
+            <h2 class="step-title">Step 2: Application Details</h2>
+            <form id="accreditationForm">
+                <fieldset>
                 <legend>School Information</legend>
                 <div class="form-group">
                     <label for="schoolName">School Name</label>
@@ -175,19 +294,16 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Type of Request</label>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="TVET Trade"> TVET Trade</label></td>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="Combinations"> Combinations</label></td>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="Ordinary Level"> Ordinary Level</label></td>
-                        </tr>
-                        <tr>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="Boarding Status"> Boarding Status</label></td>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="Primary Level"> Primary Level</label></td>
-                            <td><label><input type="checkbox" name="type_of_request[]" value="Preprimary Level"> Preprimary Level</label></td>
-                        </tr>
-                    </table>
+                    <label for="typeOfRequest">Type of Request</label>
+                    <select class="form-control" id="typeOfRequest" name="type_of_request" required>
+                        <option value="" disabled selected>Select Request Type</option>
+                        <option value="TVET Trade">TVET Trade</option>
+                        <option value="Combinations">Combinations</option>
+                        <option value="Ordinary Level">Ordinary Level</option>
+                        <option value="Boarding Status">Boarding Status</option>
+                        <option value="Primary Level">Primary Level</option>
+                        <option value="Preprimary Level">Preprimary Level</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="otherRequest">Other Request (Specify)</label>
@@ -221,48 +337,195 @@
             </fieldset>
 
 
-            <button type="submit" class="btn btn-primary">Submit Application</button>
+            <div class="form-actions" style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                <button type="button" id="backToSearch" class="btn btn-primary">Back to School Selection</button>
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+            </div>
         </form>
     </div>
 </div>
 
 <script>
+// Initialize console logging
+const logger = {
+    info: function(msg, data) {
+        console.info(`[Accreditation Form] ${msg}`, data || '');
+    },
+    warn: function(msg, data) {
+        console.warn(`[Accreditation Form] ${msg}`, data || '');
+    },
+    error: function(msg, data) {
+        console.error(`[Accreditation Form] ${msg}`, data || '');
+    }
+};
+
+function collectFormData() {
+    logger.info('Starting form data collection');
+    // Get the school identification and self assessment IDs from the prerequisites summary
+    const schoolId = $('#prerequisitesSummary').data('school-id');
+    const assessmentId = $('#prerequisitesSummary').data('assessment-id');
+    
+    logger.info('School ID:', schoolId);
+    logger.info('Assessment ID:', assessmentId);
+    
+    // Get selected request type
+    const selectedRequest = $('#typeOfRequest').val();
+    
+    logger.info('Selected request type:', selectedRequest);
+    
+    // Get all form field values
+    const formData = {
+        school_identification: schoolId || '',
+        self_assessment: assessmentId || '',
+        school_name: $('#schoolName').val(),
+        school_code: $('#schoolCode').val(),
+        school_status: $('#status').val(),
+        type_of_school: $('#typeOfSchool').val(),
+        type_of_request: selectedRequest,
+        other_request: $('#otherRequest').val(),
+        establishment_year: $('#establishmentYear').val(),
+        village: $('#village').val(),
+        cell: $('#cell').val(),
+        sector: $('#sector').val(),
+        district: $('#district').val(),
+        province: $('#province').val(),
+        owner_name: $('#ownerName').val(),
+        owner_email: $('#ownerEmail').val(),
+        owner_telephone: $('#ownerTelephone').val(),
+        applicant_name: $('#applicantName').val(),
+        applicant_role: $('#applicantRole').val(),
+        applicant_email: $('#applicantEmail').val(),
+        applicant_telephone: $('#applicantTelephone').val(),
+        accommodation_status: $('#accommodationStatus').val()
+    };
+
+    // Log the collected data
+    logger.info('Form data collection complete:', formData);
+    
+    return formData;
+}
 frappe.ready(function() {
+    let currentStep = 1;
+    
+    // Initialize school search and navigation
     initSchoolSearch();
+    
+    // Handle next step button
+    $('#nextStep').on('click', function() {
+        if (currentStep === 1) {
+            // Validate school selection before proceeding
+            let schoolCode = $('#schoolCode').val();
+            if (!schoolCode) {
+                frappe.msgprint({
+                    title: __('Required'),
+                    indicator: 'red',
+                    message: __('Please select a school before proceeding')
+                });
+                return;
+            }
+            currentStep = 2;
+            $('#step1').hide();
+            $('#step2').show();
+        }
+    });
+    
+    // Handle back button
+    $('#backToSearch').on('click', function() {
+        currentStep = 1;
+        $('#step2').hide();
+        $('#step1').show();
+    });
 
     $('#accreditationForm').on('submit', function(e) {
         e.preventDefault();
-
-        var formData = {};
-        $(this).serializeArray().forEach(function(item) {
-            formData[item.name] = item.value;
-        });
-
-        frappe.call({
-            method: 'accreditation_management.www.accreditation_application.submit_application',
-            args: {
-                form_data: JSON.stringify(formData)
-            },
-            freeze: true,
-            callback: function(r) {
-                if (!r.exc) {
+        logger.info('Form submission started');
+        
+        frappe.confirm('Are you sure you want to submit this application?',
+            () => {
+                const formData = collectFormData();
+                
+                // Validate required fields
+                if (!formData.school_identification || !formData.self_assessment) {
                     frappe.msgprint({
-                        title: __('Application Submitted'),
-                        indicator: 'green',
-                        message: __('Your application has been submitted successfully. Your tracking number is: ' + r.message)
-                    });
-                    setTimeout(function() {
-                        window.location.href = '/application-status?tracking_number=' + r.message;
-                    }, 3000);
-                } else {
-                    frappe.msgprint({
-                        title: __('Submission Failed'),
+                        title: __('Required Fields Missing'),
                         indicator: 'red',
-                        message: __('There was an error submitting your application. Please try again.')
+                        message: __('Please complete school identification and self assessment first.')
                     });
+                    return;
                 }
+
+                // Create the document object
+                const docData = {
+                    doctype: 'Accreditation',
+                    school_identification: formData.school_identification,
+                    self_assessment: formData.self_assessment,
+                    school_name: formData.school_name,
+                    school_code: formData.school_code,
+                    type_of_school: formData.type_of_school,
+                    type_of_request: formData.type_of_request,
+                    other_request: formData.other_request,
+                    establishment_year: formData.establishment_year,
+                    village: formData.village,
+                    cell: formData.cell,
+                    sector: formData.sector,
+                    district: formData.district,
+                    province: formData.province,
+                    owner_name: formData.owner_name,
+                    owner_email: formData.owner_email,
+                    owner_telephone: formData.owner_telephone
+                };
+
+                logger.info('Sending application data to server');
+                frappe.call({
+                    method: 'accreditation_management.accreditation_management.doctype.accreditation.accreditation.create_accreditation',
+                    args: {
+                        data: JSON.stringify(formData)
+                    },
+                    freeze: true,
+                    freeze_message: __('Submitting application...'),
+                    callback: function(r) {
+                        if (!r.exc) {
+                            logger.info('Application submitted successfully');
+                            frappe.show_alert({
+                                message: __('Application submitted successfully!'),
+                                indicator: 'green'
+                            }, 5);
+                            
+                            // Get tracking number from response
+                            const tracking_number = r.message.name;
+                            
+                            frappe.msgprint({
+                                title: __('Application Submitted'),
+                                indicator: 'green',
+                                message: __('Your application has been submitted successfully.<br>Your tracking number is: ' + tracking_number)
+                            });
+
+                            // Redirect after showing message
+                            setTimeout(function() {
+                                window.location.href = '/application-status?tracking_number=' + tracking_number;
+                            }, 3000);
+                        } else {
+                            // Parse the error message
+                            let errorMessage = r._server_messages ? JSON.parse(r._server_messages)[0] : r.exc;
+                            if (typeof errorMessage === 'string') {
+                                try {
+                                    errorMessage = JSON.parse(errorMessage);
+                                } catch (e) {
+                                    // If not JSON, use as is
+                                }
+                            }
+                            
+                            logger.error('Validation failed:', errorMessage);
+                            frappe.msgprint({
+                                title: __('Validation Failed'),
+                                indicator: 'red',
+                                message: errorMessage
+                            });
+                        }
+                    }
+                });
             }
-        });
+        );
     });
 
 function initSchoolSearch() {
@@ -307,9 +570,132 @@ function initSchoolSearch() {
                             $('#sectorDisplay').text(item.sector || 'N/A');
                             $('#cellDisplay').text(item.cell || 'N/A');
                             $('#villageDisplay').text(item.village || 'N/A');
+                            // Show school info
                             $('#schoolInfoTable').show();
                             $searchInput.val(item.schoolName);
                             $results.empty();
+
+                            // Fetch and display prerequisites summary
+                            frappe.call({
+                                method: 'accreditation_management.www.accreditation_application.get_prerequisites_summary',
+                                args: { school_code: item.schoolCode },
+                                callback: function(r) {
+                                    if (r.message) {
+                                        // Update School Identification summary
+                                        let idSummary = r.message.identification;
+                                        $('#schoolIdSummary').html(`
+                                            <div class="card mb-3">
+                                                <div class="card-header" style="background-color: var(--primary-color); color: white;">
+                                                    <h5 class="mb-0">School Identification Summary</h5>
+                                                </div>
+                                                <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
+                                                    <table class="table mb-0" style="border: 1px solid #e0e0e0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><strong>Registration Date:</strong></td>
+                                                                <td>${idSummary.registration_date || 'N/A'}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Registration Number:</strong></td>
+                                                                <td>${idSummary.registration_number || 'N/A'}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Status:</strong></td>
+                                                                <td>${idSummary.status || 'N/A'}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        `);
+
+                                        // Update Self Assessment summary
+                                        let assessmentSummary = r.message.assessment;
+                                        $('#selfAssessmentSummary').html(`
+                                            <div class="card mb-3">
+                                                <div class="card-header" style="background-color: var(--primary-color); color: white;">
+                                                    <h5 class="mb-0">Recent Self Assessment Summary</h5>
+                                                </div>
+                                                <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
+                                                    <table class="table mb-0" style="border: 1px solid #e0e0e0;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><strong>Date:</strong></td>
+                                                                <td>${assessmentSummary.date || 'N/A'}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Overall Score:</strong></td>
+                                                                <td>${assessmentSummary.overall_score || 'N/A'}%</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Provisional Ranking:</strong></td>
+                                                                <td>${assessmentSummary.provisional_ranking || 'N/A'}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Provisional Years:</strong></td>
+                                                                <td>${assessmentSummary.provisional_years || 'N/A'} years</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        `);
+                                        
+                                        // Check if school identification exists
+                                        if (Object.keys(r.message.identification).length === 0) {
+                                            $('#schoolIdSummary').html(`
+                                                <div class="prerequisite-warning">
+                                                    <div class="warning-icon">
+                                                        <i class="fa fa-exclamation-triangle"></i>
+                                                    </div>
+                                                    <div class="warning-content">
+                                                        <h5>School Identification Required</h5>
+                                                        <p>Before proceeding with your accreditation application, you need to complete the school identification process. This helps us maintain accurate records and ensures a smooth accreditation process.</p>
+                                                        <div class="warning-actions">
+                                                            <a href="/school-identification" class="btn btn-primary">
+                                                                <i class="fa fa-plus-circle"></i> Complete School Identification
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `);
+                                        }
+
+                                        // Check if self assessment exists and is recent
+                                        if (Object.keys(r.message.assessment).length === 0) {
+                                            $('#selfAssessmentSummary').html(`
+                                                <div class="prerequisite-warning">
+                                                    <div class="warning-icon">
+                                                        <i class="fa fa-clipboard-list"></i>
+                                                    </div>
+                                                    <div class="warning-content">
+                                                        <h5>Self Assessment Required</h5>
+                                                        <p>A recent self assessment (within the last 6 months) is required to proceed with your accreditation application. This helps evaluate your institution's readiness for accreditation.</p>
+                                                        <div class="warning-actions">
+                                                            <a href="/self-assessment" class="btn btn-primary">
+                                                                <i class="fa fa-tasks"></i> Start Self Assessment
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `);
+                                        }
+
+                                        // Store the IDs as data attributes
+                                        $('#prerequisitesSummary')
+                                            .data('school-id', r.message.school_id)
+                                            .data('assessment-id', r.message.assessment_id)
+                                            .show();
+                                        
+                                        // Only enable next step if both prerequisites are met
+                                        if (r.message.prerequisites_met) {
+                                            $('#nextStep').prop('disabled', false);
+                                        } else {
+                                            $('#nextStep').prop('disabled', true);
+                                        }
+                                    }
+                                }
+                            });
 
                             // Populate other form fields
                             $('#status').val(item.status || '');
