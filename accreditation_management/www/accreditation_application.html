@@ -734,11 +734,20 @@ function initSchoolSearch() {
                     const data = r.message.data;
                     // Populate form fields with NID data
                     $('#applicantName').val(`${data.foreName} ${data.surnames}`);
+                    
+                    // Populate address fields
                     $('#village').val(data.village);
                     $('#cell').val(data.cell);
                     $('#sector').val(data.sector);
                     $('#district').val(data.district);
                     $('#province').val(data.province);
+                    
+                    // Also update the read-only display fields if they exist
+                    $('#villageDisplay').text(data.village || 'N/A');
+                    $('#cellDisplay').text(data.cell || 'N/A');
+                    $('#sectorDisplay').text(data.sector || 'N/A');
+                    $('#districtDisplay').text(data.district || 'N/A');
+                    $('#provinceDisplay').text(data.province || 'N/A');
                     
                     frappe.show_alert({
                         message: __('National ID verified successfully'),
