@@ -288,8 +288,20 @@
             <fieldset>
                 <legend>Applicant Information</legend>
                 <div class="form-group">
+                    <label for="nationalId">National ID Number</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="nationalId" name="national_id" placeholder="Enter your National ID number">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-primary" id="verifyNID">
+                                <i class="fa fa-search"></i> Verify
+                            </button>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Enter your National ID number to auto-fill your details</small>
+                </div>
+                <div class="form-group">
                     <label for="applicantName">Applicant Name</label>
-                    <input type="text" class="form-control" id="applicantName" name="applicant_name" required>
+                    <input type="text" class="form-control" id="applicantName" name="applicant_name" required readonly>
                 </div>
                 <div class="form-group">
                     <label for="applicantRole">Applicant Role</label>
