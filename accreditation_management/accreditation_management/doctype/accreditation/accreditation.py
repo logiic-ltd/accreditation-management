@@ -68,8 +68,7 @@ class Accreditation(Document):
             ("applicant_name", "Applicant Name"),
             ("applicant_role", "Applicant Role"),
             ("applicant_email", "Applicant Email"),
-            ("applicant_telephone", "Applicant Telephone"),
-            ("accommodation_status", "Accommodation Status")
+            ("applicant_telephone", "Applicant Telephone")
         ]
         
         for field, label in required_fields:
@@ -222,7 +221,6 @@ def create_accreditation(data):
             "type_of_request": data.get('type_of_request'),
             "other_request": data.get('other_request'),
             "establishment_year": data.get('establishment_year'),
-            "accommodation_status": data.get('accommodation_status'),
             "school_email": data.get('school_email'),
             "school_telephone": data.get('school_telephone'),
             "village": data.get('village'),
