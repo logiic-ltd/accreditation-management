@@ -148,19 +148,22 @@
   },
   {
    "fieldname": "number_of_male_teachers",
-   "fieldtype": "Int",
-   "label": "Number of Male Teachers"
+   "fieldtype": "Integer",
+   "label": "Number of Male Teachers",
+   "default": "0"
   },
   {
    "fieldname": "number_of_female_teachers",
-   "fieldtype": "Int",
-   "label": "Number of Female Teachers"
+   "fieldtype": "Integer",
+   "label": "Number of Female Teachers",
+   "default": "0"
   },
   {
    "fieldname": "number_of_teachers",
-   "fieldtype": "Int",
+   "fieldtype": "Integer",
    "label": "Total Number of Teachers",
-   "read_only": 1
+   "read_only": 1,
+   "default": "0"
   },
   {
    "fieldname": "number_of_assistant_teachers",

@@ -6,5 +6,7 @@ from frappe.model.document import Document
 
 class SchoolIdentification(Document):
     def validate(self):
-        # Add any custom validation logic here
-        pass
+        # Ensure teacher counts are valid integers
+        self.number_of_male_teachers = int(self.number_of_male_teachers or 0)
+        self.number_of_female_teachers = int(self.number_of_female_teachers or 0)
+        self.number_of_teachers = self.number_of_male_teachers + self.number_of_female_teachers
