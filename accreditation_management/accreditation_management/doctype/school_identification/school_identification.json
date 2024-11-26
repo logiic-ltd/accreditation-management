@@ -166,9 +166,23 @@
    "default": "0"
   },
   {
+   "fieldname": "number_of_male_assistant_teachers",
+   "fieldtype": "Integer",
+   "label": "Number of Male Assistant Teachers",
+   "default": "0"
+  },
+  {
+   "fieldname": "number_of_female_assistant_teachers",
+   "fieldtype": "Integer",
+   "label": "Number of Female Assistant Teachers",
+   "default": "0"
+  },
+  {
    "fieldname": "number_of_assistant_teachers",
-   "fieldtype": "Data",
-   "label": "Number of Assistant Teachers"
+   "fieldtype": "Integer",
+   "label": "Total Number of Assistant Teachers",
+   "read_only": 1,
+   "default": "0"
   },
   {
    "fieldname": "total_number_of_administrative_staff",

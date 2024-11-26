@@ -223,8 +223,16 @@
                     <input type="number" class="form-control" id="numberOfTeachers" name="number_of_teachers" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="numberOfAssistantTeachers">Number of Assistant Teachers or Caregivers</label>
-                    <input type="text" class="form-control" id="numberOfAssistantTeachers" name="number_of_assistant_teachers">
+                    <label for="numberOfMaleAssistantTeachers">Number of Male Assistant Teachers</label>
+                    <input type="number" class="form-control" id="numberOfMaleAssistantTeachers" name="number_of_male_assistant_teachers">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfFemaleAssistantTeachers">Number of Female Assistant Teachers</label>
+                    <input type="number" class="form-control" id="numberOfFemaleAssistantTeachers" name="number_of_female_assistant_teachers">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfAssistantTeachers">Total Number of Assistant Teachers</label>
+                    <input type="number" class="form-control" id="numberOfAssistantTeachers" name="number_of_assistant_teachers" readonly>
                 </div>
                 
                 <fieldset>
@@ -377,11 +385,18 @@ frappe.ready(function() {
         $('#numberOfTeachers').val(maleTeachers + femaleTeachers);
     }
 
+    function calculateTotalAssistantTeachers() {
+        const maleAssistantTeachers = parseInt($('#numberOfMaleAssistantTeachers').val()) || 0;
+        const femaleAssistantTeachers = parseInt($('#numberOfFemaleAssistantTeachers').val()) || 0;
+        $('#numberOfAssistantTeachers').val(maleAssistantTeachers + femaleAssistantTeachers);
+    }
+
     $('#schoolIdentificationForm input').on('input', function() {
         calculateTotalAdministrativeStaff();
         calculateTotalSupportingStaff();
         calculateTotalStudents();
         calculateTotalTeachers();
+        calculateTotalAssistantTeachers();
     });
 
     $('#schoolIdentificationForm').on('submit', function(e) {
