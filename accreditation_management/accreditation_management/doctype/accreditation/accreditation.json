@@ -146,10 +146,19 @@
    "label": "Owner Name"
   },
   {
+   "fieldname": "national_id",
+   "fieldtype": "Data",
+   "label": "National ID",
+   "reqd": 1,
+   "description": "Enter your National ID number for verification"
+  },
+  {
    "fieldname": "applicant_name",
    "fieldtype": "Data", 
    "label": "Applicant Name",
-   "reqd": 1
+   "reqd": 1,
+   "read_only": 1,
+   "description": "This field will be auto-populated after NID verification"
   },
   {
    "fieldname": "applicant_role",
