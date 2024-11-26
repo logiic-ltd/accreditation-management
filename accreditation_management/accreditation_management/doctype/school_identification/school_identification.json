@@ -80,6 +80,14 @@
    "description": "Select the school's status"
   },
   {
+   "fieldname": "type_of_school",
+   "fieldtype": "Select",
+   "label": "Type of School",
+   "options": "TVET\nGeneral Education",
+   "reqd": 1,
+   "description": "Select whether this is a TVET or General Education school"
+  },
+  {
    "fieldname": "school_owner",
    "fieldtype": "Data",
    "label": "School Owner"
