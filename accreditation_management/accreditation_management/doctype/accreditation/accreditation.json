@@ -128,7 +128,7 @@
    "label": "School Code"
   },
   {
-   "fieldname": "school_name",
+   "fieldname": "school_name", 
    "fieldtype": "Data",
    "label": "School Name"
   },
