@@ -58,7 +58,6 @@ class Accreditation(Document):
             ("school_code", "School Code"),
             ("type_of_school", "Type of School"),
             ("type_of_request", "Type of Request"),
-            ("establishment_year", "Year of Establishment"),
             ("village", "Village"),
             ("cell", "Cell"),
             ("sector", "Sector"),
