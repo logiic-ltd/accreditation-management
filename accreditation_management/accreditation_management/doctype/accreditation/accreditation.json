@@ -41,7 +41,6 @@
   "school_details_section",
   "school_code",
   "school_name",
-  "school_status", 
   "type_of_school",
   "type_of_request",
   "other_request",
@@ -192,13 +191,6 @@
    "reqd": 1,
    "options": "TVET Trade\nCombinations\nOrdinary Level\nBoarding Status\nPrimary Level\nPreprimary Level",
    "description": "Select the type of accreditation request"
-  },
-  {
-   "fieldname": "school_status",
-   "fieldtype": "Select", 
-   "label": "School Status",
-   "options": "Public\nPrivate\nGovernment Aided",
-   "reqd": 1
   },
   {
    "fieldname": "owner_telephone",

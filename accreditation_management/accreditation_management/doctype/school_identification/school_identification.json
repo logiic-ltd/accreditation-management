@@ -73,8 +73,10 @@
   },
   {
    "fieldname": "status",
-   "fieldtype": "Data",
-   "label": "Status"
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Public\nPrivate\nGovernment Aided",
+   "reqd": 1
   },
   {
    "fieldname": "school_owner",
