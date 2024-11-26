@@ -122,6 +122,18 @@
    "label": "Province"
   },
   {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "8"
+  },
+  {
+   "fieldname": "longitude", 
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "8"
+  },
+  {
    "fieldname": "ht_name",
    "fieldtype": "Data",
    "label": "HT/Name"
