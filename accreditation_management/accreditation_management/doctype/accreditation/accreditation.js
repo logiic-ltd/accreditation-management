@@ -7,10 +7,6 @@ frappe.ui.form.on("Accreditation", {
         frm.set_df_property('type_of_request', 'description', 
             'Select at least one: TVET Trade, Combinations, Ordinary Level, Boarding Status, Primary Level, Preprimary Level');
         
-        // Add validation for type of school
-        frm.set_df_property('type_of_school', 'description',
-            'Select whether this is a TVET or General Education school');
-            
         // Add validation for applicant role
         frm.set_df_property('applicant_role', 'description',
             'Select your role in relation to the school');
