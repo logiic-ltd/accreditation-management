@@ -145,7 +145,12 @@
                 </div>
                 <div class="form-group">
                     <label for="accommodationStatus">Accommodation Status</label>
-                    <input type="text" class="form-control" id="accommodationStatus" name="accommodation_status">
+                    <select class="form-control" id="accommodationStatus" name="accommodation_status" required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="Day">Day</option>
+                        <option value="Boarding">Boarding</option>
+                        <option value="Mixed">Mixed</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="yearOfEstablishment">Year of Establishment</label>

@@ -90,8 +90,10 @@
   },
   {
    "fieldname": "accommodation_status",
-   "fieldtype": "Data",
-   "label": "Accommodation Status"
+   "fieldtype": "Select",
+   "label": "Accommodation Status",
+   "options": "Day\nBoarding\nMixed",
+   "reqd": 1
   },
   {
    "fieldname": "year_of_establishment",

@@ -178,13 +178,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "accommodation_status",
-   "fieldtype": "Select",
-   "label": "Accommodation Status",
-   "options": "Day\nBoarding\nMixed",
-   "reqd": 1
-  },
-  {
    "fieldname": "type_of_request",
    "fieldtype": "Select",
    "label": "Type of Request",
