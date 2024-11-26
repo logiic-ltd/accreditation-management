@@ -147,9 +147,20 @@
    "label": "Students with SEN"
   },
   {
+   "fieldname": "number_of_male_teachers",
+   "fieldtype": "Int",
+   "label": "Number of Male Teachers"
+  },
+  {
+   "fieldname": "number_of_female_teachers",
+   "fieldtype": "Int",
+   "label": "Number of Female Teachers"
+  },
+  {
    "fieldname": "number_of_teachers",
-   "fieldtype": "Data",
-   "label": "Number of Teachers"
+   "fieldtype": "Int",
+   "label": "Total Number of Teachers",
+   "read_only": 1
   },
   {
    "fieldname": "number_of_assistant_teachers",

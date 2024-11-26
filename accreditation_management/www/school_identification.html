@@ -211,8 +211,16 @@
             <fieldset>
                 <legend>Staff Information</legend>
                 <div class="form-group">
-                    <label for="numberOfTeachers">Number of All Teachers at the School</label>
-                    <input type="text" class="form-control" id="numberOfTeachers" name="number_of_teachers">
+                    <label for="numberOfMaleTeachers">Number of Male Teachers</label>
+                    <input type="number" class="form-control" id="numberOfMaleTeachers" name="number_of_male_teachers">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfFemaleTeachers">Number of Female Teachers</label>
+                    <input type="number" class="form-control" id="numberOfFemaleTeachers" name="number_of_female_teachers">
+                </div>
+                <div class="form-group">
+                    <label for="numberOfTeachers">Total Number of Teachers</label>
+                    <input type="number" class="form-control" id="numberOfTeachers" name="number_of_teachers" readonly>
                 </div>
                 <div class="form-group">
                     <label for="numberOfAssistantTeachers">Number of Assistant Teachers or Caregivers</label>
@@ -363,12 +371,17 @@ frappe.ready(function() {
         $('#totalNrStudents').val(boys + girls);
     }
 
+    function calculateTotalTeachers() {
+        const maleTeachers = parseInt($('#numberOfMaleTeachers').val()) || 0;
+        const femaleTeachers = parseInt($('#numberOfFemaleTeachers').val()) || 0;
+        $('#numberOfTeachers').val(maleTeachers + femaleTeachers);
+    }
+
     $('#schoolIdentificationForm input').on('input', function() {
         calculateTotalAdministrativeStaff();
         calculateTotalSupportingStaff();
         calculateTotalStudents();
-        calculateTotalAdministrativeStaff();
-        calculateTotalSupportingStaff();
+        calculateTotalTeachers();
     });
 
     $('#schoolIdentificationForm').on('submit', function(e) {
