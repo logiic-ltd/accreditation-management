@@ -56,7 +56,6 @@ class Accreditation(Document):
         required_fields = [
             ("school_name", "School Name"),
             ("school_code", "School Code"),
-            ("school_status", "School Status"),
             ("type_of_school", "Type of School"),
             ("type_of_request", "Type of Request"),
             ("establishment_year", "Year of Establishment"),
@@ -219,7 +218,6 @@ def create_accreditation(data):
             "self_assessment": data.get('self_assessment'),
             "school_name": data.get('school_name'),
             "school_code": data.get('school_code'),
-            "school_status": data.get('school_status'),
             "type_of_school": data.get('type_of_school'),
             "type_of_request": data.get('type_of_request'),
             "other_request": data.get('other_request'),
