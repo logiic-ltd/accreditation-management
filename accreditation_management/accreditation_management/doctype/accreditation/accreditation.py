@@ -234,6 +234,11 @@ def create_accreditation(data):
             "applicant_role": data.get('applicant_role'),
             "applicant_email": data.get('applicant_email'),
             "applicant_telephone": data.get('applicant_telephone'),
+            "applicant_village": data.get('applicant_village'),
+            "applicant_cell": data.get('applicant_cell'),
+            "applicant_sector": data.get('applicant_sector'),
+            "applicant_district": data.get('applicant_district'),
+            "applicant_province": data.get('applicant_province'),
         })
         
         doc.insert(ignore_permissions=True)

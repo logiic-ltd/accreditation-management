@@ -320,6 +320,26 @@
                     <label for="applicantTelephone">Applicant Telephone</label>
                     <input type="tel" class="form-control" id="applicantTelephone" name="applicant_telephone" required>
                 </div>
+                <div class="form-group">
+                    <label for="applicantVillage">Applicant Village</label>
+                    <input type="text" class="form-control" id="applicantVillage" name="applicant_village" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="applicantCell">Applicant Cell</label>
+                    <input type="text" class="form-control" id="applicantCell" name="applicant_cell" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="applicantSector">Applicant Sector</label>
+                    <input type="text" class="form-control" id="applicantSector" name="applicant_sector" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="applicantDistrict">Applicant District</label>
+                    <input type="text" class="form-control" id="applicantDistrict" name="applicant_district" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="applicantProvince">Applicant Province</label>
+                    <input type="text" class="form-control" id="applicantProvince" name="applicant_province" readonly>
+                </div>
             </fieldset>
 
 
@@ -735,14 +755,21 @@ function initSchoolSearch() {
                     // Populate form fields with NID data
                     $('#applicantName').val(`${data.foreName} ${data.surnames}`);
                     
-                    // Populate address fields
+                    // Populate school address fields
                     $('#village').val(data.village);
                     $('#cell').val(data.cell);
                     $('#sector').val(data.sector);
                     $('#district').val(data.district);
                     $('#province').val(data.province);
                     
-                    // Also update the read-only display fields if they exist
+                    // Populate applicant address fields
+                    $('#applicantVillage').val(data.village);
+                    $('#applicantCell').val(data.cell);
+                    $('#applicantSector').val(data.sector);
+                    $('#applicantDistrict').val(data.district);
+                    $('#applicantProvince').val(data.province);
+                    
+                    // Update the read-only display fields if they exist
                     $('#villageDisplay').text(data.village || 'N/A');
                     $('#cellDisplay').text(data.cell || 'N/A');
                     $('#sectorDisplay').text(data.sector || 'N/A');

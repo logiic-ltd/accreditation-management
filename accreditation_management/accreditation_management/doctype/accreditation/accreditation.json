@@ -180,6 +180,41 @@
    "reqd": 1
   },
   {
+   "fieldname": "applicant_village",
+   "fieldtype": "Data",
+   "label": "Applicant Village",
+   "read_only": 1,
+   "description": "Auto-populated from NID verification"
+  },
+  {
+   "fieldname": "applicant_cell",
+   "fieldtype": "Data",
+   "label": "Applicant Cell",
+   "read_only": 1,
+   "description": "Auto-populated from NID verification"
+  },
+  {
+   "fieldname": "applicant_sector",
+   "fieldtype": "Data",
+   "label": "Applicant Sector",
+   "read_only": 1,
+   "description": "Auto-populated from NID verification"
+  },
+  {
+   "fieldname": "applicant_district",
+   "fieldtype": "Data",
+   "label": "Applicant District",
+   "read_only": 1,
+   "description": "Auto-populated from NID verification"
+  },
+  {
+   "fieldname": "applicant_province",
+   "fieldtype": "Data",
+   "label": "Applicant Province",
+   "read_only": 1,
+   "description": "Auto-populated from NID verification"
+  },
+  {
    "fieldname": "type_of_request",
    "fieldtype": "Select",
    "label": "Type of Request",
