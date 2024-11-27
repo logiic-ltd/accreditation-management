@@ -343,6 +343,8 @@
         border-radius: 4px;
         border: 1px solid #ccc;
         transition: all 0.3s ease;
+        cursor: pointer;
+        user-select: none;
     }
 
     .trade-item:hover {
@@ -935,6 +937,17 @@
             </div>
         `;
         container.append(tradesHtml);
+        
+        // Add click handler for the entire trade-item
+        $('.trade-item').on('click', function(e) {
+            // Prevent double-triggering when clicking the checkbox directly
+            if (e.target.type !== 'checkbox') {
+                const checkbox = $(this).find('input[type="checkbox"]');
+                checkbox.prop('checked', !checkbox.prop('checked'));
+            }
+            updateSelectedCount();
+        });
+        
         updateSelectedCount();
     }
 
