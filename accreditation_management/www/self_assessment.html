@@ -150,11 +150,12 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        width: 250px;
+        width: 280px;
         overflow-y: auto;
-        max-height: 600px;
+        height: 100%;
         padding-right: 1rem;
         border-right: 1px solid #eee;
+        margin-bottom: 0;
     }
 
     .sector-card {
@@ -189,8 +190,9 @@
     .trades-interface {
         display: flex;
         gap: 2rem;
-        margin-top: 1rem;
-        height: 600px;
+        margin: 1rem 0 2rem;
+        min-height: 500px;
+        max-height: 600px;
         background: #fff;
         border-radius: 8px;
         padding: 1.5rem;
@@ -218,12 +220,13 @@
     }
 
     .trades-container {
-        max-height: 600px;
+        flex: 1;
         overflow-y: auto;
         border: 1px solid #eee;
         padding: 1rem;
         border-radius: 8px;
         background: white;
+        height: calc(100% - 120px); /* Account for search and buttons */
     }
 
     .trade-search {
@@ -340,7 +343,11 @@
                     </select>
                 </div>
 
-                <div id="tvetSelectionSection" style="display: none;">
+                <div id="tvetSelectionSection" style="display: none;" class="mb-4">
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control trade-search" placeholder="Search trades...">
+                    </div>
+                    
                     <div class="trades-interface">
                         <div class="sector-selection">
                             <h4>Select TVET Sector</h4>
@@ -349,7 +356,6 @@
                                 <!-- Sectors will be dynamically populated here -->
                             </div>
                         </div>
-                        <div id="sectorGrid"></div>
                         <div class="trades-content">
                             <div class="trades-filters">
                                 <input type="text" class="trade-search" placeholder="Search trades...">
