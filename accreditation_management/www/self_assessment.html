@@ -145,6 +145,57 @@
         font-size: 0.9rem;
         color: var(--accent-color);
     }
+
+    .trades-container {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 4px;
+        background: #f9f9f9;
+    }
+
+    .trades-group {
+        margin-bottom: 20px;
+    }
+
+    .trades-group h4 {
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid var(--primary-color);
+    }
+
+    .trades-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 10px;
+    }
+
+    .trade-item {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        background: white;
+        border-radius: 4px;
+        border: 1px solid #eee;
+    }
+
+    .trade-item:hover {
+        background: #f0f7fa;
+    }
+
+    .trade-item input[type="checkbox"] {
+        margin-right: 8px;
+    }
+
+    .badge-primary {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+    }
 </style>
 {% endblock %}
 
@@ -196,6 +247,30 @@
                         <option value="Primary Level">Primary Level</option>
                         <option value="Preprimary Level">Preprimary Level</option>
                     </select>
+                </div>
+
+                <div id="tvetSelectionSection" style="display: none;">
+                    <div class="form-group">
+                        <label for="tvetSector">TVET Sector</label>
+                        <select class="form-control" id="tvetSector" name="tvet_sector">
+                            <option value="" disabled selected>Select Sector</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label>Available Trades</label>
+                            <div>
+                                <label class="mr-2">
+                                    <input type="checkbox" id="selectAllTrades"> Select All
+                                </label>
+                                <span id="selectedTradesCount" class="badge badge-primary">0 selected</span>
+                            </div>
+                        </div>
+                        <div id="tradesContainer" class="trades-container">
+                            <!-- Trades will be dynamically populated here -->
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="otherRequest">Other Request (Specify)</label>
@@ -266,6 +341,9 @@
 
         // Initialize school search
         initSchoolSearch();
+
+        // Load TVET sectors and initialize trade selection
+        initTVETSelection();
 
         // Load the indicator options from the JSON configuration file
         frappe.call({
@@ -546,6 +624,111 @@
                 $results.empty();
             }, 200);
         });
+    }
+
+    function initTVETSelection() {
+        // Show/hide TVET selection section based on request type
+        $('#typeOfRequest').on('change', function() {
+            const showTVET = $(this).val() === 'TVET Trade';
+            $('#tvetSelectionSection').toggle(showTVET);
+            if (!showTVET) {
+                $('#tvetSector').val('');
+                $('#tradesContainer').empty();
+            }
+        });
+
+        // Load sectors into dropdown
+        fetch('/tvet_sectors_and_trades.json')
+            .then(response => response.json())
+            .then(data => {
+                const $sectorSelect = $('#tvetSector');
+                Object.keys(data.sectors).forEach(sector => {
+                    const formattedSector = sector.replace(/_/g, ' ');
+                    $sectorSelect.append(`<option value="${sector}">${formattedSector}</option>`);
+                });
+            });
+
+        // Handle sector selection
+        $('#tvetSector').on('change', function() {
+            const selectedSector = $(this).val();
+            if (!selectedSector) return;
+
+            fetch('/tvet_sectors_and_trades.json')
+                .then(response => response.json())
+                .then(data => {
+                    const trades = data.sectors[selectedSector];
+                    const groupedTrades = groupTradesByLevel(trades);
+                    renderTradeGroups(groupedTrades);
+                });
+        });
+
+        // Handle "Select All" checkbox
+        $('#selectAllTrades').on('change', function() {
+            const isChecked = $(this).prop('checked');
+            $('#tradesContainer input[type="checkbox"]').prop('checked', isChecked);
+            updateSelectedCount();
+        });
+
+        // Update selected count when individual trades are selected
+        $(document).on('change', '#tradesContainer input[type="checkbox"]', function() {
+            updateSelectedCount();
+        });
+    }
+
+    function groupTradesByLevel(trades) {
+        const groups = {
+            'Level 1': [],
+            'Level 2': [],
+            'Other': []
+        };
+
+        trades.forEach(trade => {
+            if (trade.endsWith('_L1')) {
+                groups['Level 1'].push(trade.replace('_L1', ''));
+            } else if (trade.endsWith('_L2')) {
+                groups['Level 2'].push(trade.replace('_L2', ''));
+            } else {
+                groups['Other'].push(trade);
+            }
+        });
+
+        return groups;
+    }
+
+    function renderTradeGroups(groupedTrades) {
+        const container = $('#tradesContainer');
+        container.empty();
+
+        Object.entries(groupedTrades).forEach(([groupName, trades]) => {
+            if (trades.length === 0) return;
+
+            const groupHtml = `
+                <div class="trades-group">
+                    <h4>${groupName}</h4>
+                    <div class="trades-grid">
+                        ${trades.map(trade => `
+                            <div class="trade-item">
+                                <input type="checkbox" name="selected_trades" value="${trade}">
+                                <label>${trade}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            container.append(groupHtml);
+        });
+
+        updateSelectedCount();
+    }
+
+    function updateSelectedCount() {
+        const count = $('#tradesContainer input[type="checkbox"]:checked').length;
+        $('#selectedTradesCount').text(`${count} selected`);
+        
+        // Update "Select All" checkbox state
+        const totalCheckboxes = $('#tradesContainer input[type="checkbox"]').length;
+        const allChecked = count === totalCheckboxes;
+        $('#selectAllTrades').prop('checked', allChecked);
     }
     </script> 
 {% endblock %}
