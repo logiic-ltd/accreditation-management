@@ -188,9 +188,19 @@
 
     .trades-interface {
         display: flex;
-        gap: 1rem;
+        gap: 2rem;
         margin-top: 1rem;
         height: 600px;
+        background: #fff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        border: 1px solid #eee;
+    }
+
+    .sector-selection {
+        min-width: 300px;
+        border-right: 1px solid #eee;
+        padding-right: 1.5rem;
     }
 
     .trades-content {
@@ -331,15 +341,14 @@
                 </div>
 
                 <div id="tvetSelectionSection" style="display: none;">
-                    <div class="form-group">
-                        <h4>Select TVET Sector</h4>
-                        <p class="text-muted">Click on a sector to view available trades</p>
-                        <div id="sectorGrid" class="sector-grid">
-                            <!-- Sectors will be dynamically populated here -->
-                        </div>
-                    </div>
-
                     <div class="trades-interface">
+                        <div class="sector-selection">
+                            <h4>Select TVET Sector</h4>
+                            <p class="text-muted">Click on a sector to view available trades</p>
+                            <div id="sectorGrid" class="sector-grid">
+                                <!-- Sectors will be dynamically populated here -->
+                            </div>
+                        </div>
                         <div id="sectorGrid"></div>
                         <div class="trades-content">
                             <div class="trades-filters">
