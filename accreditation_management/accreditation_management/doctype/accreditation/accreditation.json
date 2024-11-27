@@ -212,14 +212,6 @@
    "description": "Auto-populated from NID verification"
   },
   {
-   "fieldname": "type_of_request",
-   "fieldtype": "Select",
-   "label": "Type of Request",
-   "reqd": 1,
-   "options": "TVET Trade\nCombinations\nOrdinary Level\nBoarding Status\nPrimary Level\nPreprimary Level",
-   "description": "Select the type of accreditation request"
-  },
-  {
    "fieldname": "owner_telephone",
    "fieldtype": "Data",
    "label": "Owner Telephone"
