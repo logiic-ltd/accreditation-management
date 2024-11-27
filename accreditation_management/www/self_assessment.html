@@ -638,7 +638,7 @@
         });
 
         // Load sectors into dropdown
-        fetch('/tvet_sectors_and_trades.json')
+        fetch('/assets/accreditation_management/js/tvet_sectors_and_trades.json')
             .then(response => response.json())
             .then(data => {
                 const $sectorSelect = $('#tvetSector');
@@ -653,7 +653,7 @@
             const selectedSector = $(this).val();
             if (!selectedSector) return;
 
-            fetch('/tvet_sectors_and_trades.json')
+            fetch('/assets/accreditation_management/js/tvet_sectors_and_trades.json')
                 .then(response => response.json())
                 .then(data => {
                     const trades = data.sectors[selectedSector];
