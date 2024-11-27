@@ -329,21 +329,6 @@
                     <div class="trades-interface">
                         <div class="trades-filters">
                             <input type="text" class="trade-search" placeholder="Search trades...">
-                            <div class="filter-section">
-                                <h5>Filter by Level</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="level1" id="filterLevel1" checked>
-                                    <label class="form-check-label" for="filterLevel1">Level 1</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="level2" id="filterLevel2" checked>
-                                    <label class="form-check-label" for="filterLevel2">Level 2</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="other" id="filterOther" checked>
-                                    <label class="form-check-label" for="filterOther">Other</label>
-                                </div>
-                            </div>
                             <div class="mt-3">
                                 <button class="btn btn-sm btn-outline-primary" id="selectAllTrades">Select All</button>
                                 <button class="btn btn-sm btn-outline-secondary" id="clearAllTrades">Clear All</button>
@@ -762,8 +747,7 @@
                 $(this).addClass('selected');
                 currentSector = $(this).data('sector');
                 const trades = sectorData.sectors[currentSector];
-                const groupedTrades = groupTradesByLevel(trades);
-                renderTradeGroups(groupedTrades);
+                renderTrades(trades);
             });
         }
 
@@ -791,28 +775,6 @@
                 $(this).toggle(tradeName.includes(searchTerm));
             });
         });
-
-        // Filter functionality
-        $('.form-check-input').on('change', function() {
-            applyFilters();
-        });
-
-        function applyFilters() {
-            const level1 = $('#filterLevel1').is(':checked');
-            const level2 = $('#filterLevel2').is(':checked');
-            const other = $('#filterOther').is(':checked');
-
-            $('.trades-group').each(function() {
-                const groupName = $(this).find('h4').text();
-                if ((groupName === 'Level 1' && level1) ||
-                    (groupName === 'Level 2' && level2) ||
-                    (groupName === 'Other' && other)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        }
 
         // Select/Clear All functionality
         $('#selectAllTrades').on('click', function() {
@@ -844,49 +806,21 @@
         });
     }
 
-    function groupTradesByLevel(trades) {
-        const groups = {
-            'Level 1': [],
-            'Level 2': [],
-            'Other': []
-        };
-
-        trades.forEach(trade => {
-            if (trade.endsWith('_L1')) {
-                groups['Level 1'].push(trade.replace('_L1', ''));
-            } else if (trade.endsWith('_L2')) {
-                groups['Level 2'].push(trade.replace('_L2', ''));
-            } else {
-                groups['Other'].push(trade);
-            }
-        });
-
-        return groups;
-    }
-
-    function renderTradeGroups(groupedTrades) {
+    function renderTrades(trades) {
         const container = $('#tradesContainer');
         container.empty();
 
-        Object.entries(groupedTrades).forEach(([groupName, trades]) => {
-            if (trades.length === 0) return;
-
-            const groupHtml = `
-                <div class="trades-group">
-                    <h4>${groupName}</h4>
-                    <div class="trades-grid">
-                        ${trades.map(trade => `
-                            <div class="trade-item">
-                                <input type="checkbox" name="selected_trades" value="${trade}">
-                                <label>${trade}</label>
-                            </div>
-                        `).join('')}
+        const tradesHtml = `
+            <div class="trades-grid">
+                ${trades.map(trade => `
+                    <div class="trade-item">
+                        <input type="checkbox" name="selected_trades" value="${trade}">
+                        <label>${trade}</label>
                     </div>
-                </div>
-            `;
-            container.append(groupHtml);
-        });
-
+                `).join('')}
+            </div>
+        `;
+        container.append(tradesHtml);
         updateSelectedCount();
     }
 

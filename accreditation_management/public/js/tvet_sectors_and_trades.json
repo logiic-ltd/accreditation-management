@@ -6,16 +6,11 @@
       "Land Surveying",
       "Interior Design",
       "Plumbing Technology",
-      "Masonry_L1",
-      "Masonry_L2",
-      "Road construction machinery operation_L1",
-      "Road construction machinery operation_L2",
-      "Carpentry_L1",
-      "Carpentry_L2",
-      "Domestic Plumbing_L1",
-      "Domestic Plumbing_L2",
-      "Painting & Decoration_L1",
-      "Painting & Decoration_L2"
+      "Masonry",
+      "Road Construction Machinery Operation",
+      "Carpentry",
+      "Domestic Plumbing",
+      "Painting & Decoration"
     ],
     "ICT_MULTIMEDIA": [
       "Software Development",
