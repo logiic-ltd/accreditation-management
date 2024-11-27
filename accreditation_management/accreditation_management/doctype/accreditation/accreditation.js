@@ -21,6 +21,12 @@ frappe.ui.form.on("Accreditation", {
                     args: {
                         document_number: frm.doc.national_id
                     },
+                    type_of_request: function(frm) {
+                        // Custom logic for type_of_request field
+                    },
+                    other_request: function(frm) {
+                        // Custom logic for other_request field
+                    }
                     freeze: true,
                     freeze_message: __("Verifying National ID..."),
                     callback: function(r) {
