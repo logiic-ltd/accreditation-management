@@ -146,21 +146,27 @@
         color: var(--accent-color);
     }
 
-    .sector-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1rem;
-        margin-bottom: 2rem;
+    .sector-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 250px;
+        overflow-y: auto;
+        max-height: 600px;
+        padding-right: 1rem;
+        border-right: 1px solid #eee;
     }
 
     .sector-card {
-        border: 2px solid #eee;
-        border-radius: 8px;
-        padding: 1rem;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        padding: 0.75rem;
         cursor: pointer;
         transition: all 0.3s ease;
         background: white;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     .sector-card:hover {
@@ -181,16 +187,23 @@
     }
 
     .trades-interface {
-        display: grid;
-        grid-template-columns: 300px 1fr;
+        display: flex;
         gap: 1rem;
         margin-top: 1rem;
+        height: 600px;
+    }
+
+    .trades-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .trades-filters {
         background: white;
         padding: 1rem;
-        border-radius: 8px;
+        border-radius: 4px;
         border: 1px solid #eee;
     }
 
@@ -327,14 +340,15 @@
                     </div>
 
                     <div class="trades-interface">
-                        <div class="trades-filters">
-                            <input type="text" class="trade-search" placeholder="Search trades...">
-                            <div class="mt-3">
-                                <button class="btn btn-sm btn-outline-primary" id="selectAllTrades">Select All</button>
-                                <button class="btn btn-sm btn-outline-secondary" id="clearAllTrades">Clear All</button>
+                        <div id="sectorGrid"></div>
+                        <div class="trades-content">
+                            <div class="trades-filters">
+                                <input type="text" class="trade-search" placeholder="Search trades...">
+                                <div class="mt-3">
+                                    <button class="btn btn-sm btn-outline-primary" id="selectAllTrades">Select All</button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="clearAllTrades">Clear All</button>
+                                </div>
                             </div>
-                        </div>
-                        <div>
                             <div id="tradesContainer" class="trades-container">
                                 <!-- Trades will be dynamically populated here -->
                             </div>
@@ -725,8 +739,8 @@
         }
 
         function renderSectorGrid(sectors) {
-            const $grid = $('#sectorGrid');
-            $grid.empty();
+            const $list = $('#sectorGrid').addClass('sector-list');
+            $list.empty();
             
             Object.keys(sectors).forEach(sector => {
                 const formattedSector = sector.replace(/_/g, ' ');
@@ -734,11 +748,13 @@
                 const card = `
                     <div class="sector-card" data-sector="${sector}">
                         <div class="sector-icon">${icon}</div>
-                        <div class="sector-name">${formattedSector}</div>
-                        <small class="text-muted">${sectors[sector].length} trades</small>
+                        <div>
+                            <div class="sector-name">${formattedSector}</div>
+                            <small class="text-muted">${sectors[sector].length} trades</small>
+                        </div>
                     </div>
                 `;
-                $grid.append(card);
+                $list.append(card);
             });
 
             // Handle sector selection
