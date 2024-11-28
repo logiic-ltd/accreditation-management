@@ -962,9 +962,14 @@
             updateSelectedCount();
         });
 
-        // Handle individual trade selection
-        $(document).on('change', '#tradesContainer input[type="checkbox"]', function() {
-            updateSelectedCount();
+        // Handle individual trade/combination selection
+        $(document).on('change', '#tradesContainer input[type="checkbox"], #combinationsContainer input[type="checkbox"]', function() {
+            const container = $(this).closest('.trades-container').attr('id');
+            if (container === 'tradesContainer') {
+                updateSelectedCount();
+            } else {
+                updateSelectedCombinationsCount();
+            }
         });
 
         // Save selection
@@ -1086,11 +1091,17 @@
             if (e.target.type !== 'checkbox') {
                 const checkbox = $(this).find('input[type="checkbox"]');
                 checkbox.prop('checked', !checkbox.prop('checked'));
+            
+                const container = $(this).closest('.trades-container').attr('id');
+                if (container === 'tradesContainer') {
+                    updateSelectedCount();
+                } else {
+                    updateSelectedCombinationsCount();
+                }
             }
-            updateSelectedCount();
         });
-        
-        updateSelectedCount();
+    
+        updateSelectedCombinationsCount();
     }
 
     // Search functionality for combinations
