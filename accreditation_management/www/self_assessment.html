@@ -430,6 +430,37 @@
                     </select>
                 </div>
 
+                <div id="combinationsSelectionSection" style="display: none;" class="mb-4">
+                    <div class="trades-interface">
+                        <div class="sector-selection">
+                            <h4>Select Category</h4>
+                            <p class="text-muted">Click on a category to view available combinations</p>
+                            <div id="categoryGrid" class="sector-list">
+                                <!-- Categories will be dynamically populated here -->
+                            </div>
+                        </div>
+                        <div class="trades-content">
+                            <div class="trades-filters">
+                                <input type="text" class="combination-search" placeholder="Search combinations...">
+                                <div class="mt-3">
+                                    <button class="btn btn-sm btn-outline-primary" id="selectAllCombinations">Select All</button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="clearAllCombinations">Clear All</button>
+                                </div>
+                            </div>
+                            <div id="combinationsContainer" class="trades-container">
+                                <!-- Combinations will be dynamically populated here -->
+                            </div>
+                            <div class="selection-summary">
+                                <div>
+                                    <span id="selectedCombinationsCount" class="badge badge-primary">0 selected</span>
+                                    <span class="text-muted ml-2">combinations selected</span>
+                                </div>
+                                <button class="btn btn-primary btn-sm" id="saveCombinationSelection">Save Selection</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="tvetSelectionSection" style="display: none;" class="mb-4">
                     <div class="trades-interface">
                         <div class="sector-selection">
@@ -821,13 +852,22 @@
     function initTVETSelection() {
         let currentSector = null;
         let sectorData = null;
+        let combinationsData = null;
 
-        // Show/hide TVET selection section based on request type
+        // Show/hide sections based on request type
         $('#typeOfRequest').on('change', function() {
-            const showTVET = $(this).val() === 'TVET Trade';
+            const requestType = $(this).val();
+            const showTVET = requestType === 'TVET Trade';
+            const showCombinations = requestType === 'Combinations';
+            
             $('#tvetSelectionSection').toggle(showTVET);
+            $('#combinationsSelectionSection').toggle(showCombinations);
+            
             if (showTVET && !sectorData) {
                 loadSectors();
+            }
+            if (showCombinations && !combinationsData) {
+                loadCombinations();
             }
         });
 
@@ -951,6 +991,118 @@
         });
         
         updateSelectedCount();
+    }
+
+    function loadCombinations() {
+        fetch('/assets/accreditation_management/js/general_education_combinations.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
+    }
+
+    function renderCategoryGrid(categories) {
+        const $list = $('#categoryGrid');
+        $list.empty();
+        
+        Object.keys(categories).forEach(category => {
+            const icon = getCategoryIcon(category);
+            const card = `
+                <div class="sector-card" data-category="${category}">
+                    <div class="sector-icon">${icon}</div>
+                    <div>
+                        <div class="sector-name">${category}</div>
+                        <small class="text-muted">${categories[category].length} combinations</small>
+                    </div>
+                </div>
+            `;
+            $list.append(card);
+        });
+
+        // Handle category selection
+        $('.sector-card').on('click', function() {
+            $('.sector-card').removeClass('selected');
+            $(this).addClass('selected');
+            const selectedCategory = $(this).data('category');
+            const combinations = combinationsData.categories[selectedCategory];
+            renderCombinations(combinations);
+        });
+    }
+
+    function getCategoryIcon(category) {
+        const icons = {
+            'Sciences': '🔬',
+            'Humanities': '📚',
+            'Languages': '🗣️'
+        };
+        return icons[category] || '📋';
+    }
+
+    function renderCombinations(combinations) {
+        const container = $('#combinationsContainer');
+        container.empty();
+
+        const combinationsHtml = `
+            <div class="trades-grid">
+                ${combinations.map(combination => `
+                    <div class="trade-item">
+                        <input type="checkbox" name="selected_combinations" value="${combination}">
+                        <label>${combination}</label>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        container.append(combinationsHtml);
+        
+        // Add click handler for the entire combination-item
+        $('.trade-item').on('click', function(e) {
+            if (e.target.type !== 'checkbox') {
+                const checkbox = $(this).find('input[type="checkbox"]');
+                checkbox.prop('checked', !checkbox.prop('checked'));
+            }
+            updateSelectedCount();
+        });
+        
+        updateSelectedCount();
+    }
+
+    // Search functionality for combinations
+    $('.combination-search').on('input', function() {
+        const searchTerm = $(this).val().toLowerCase();
+        $('#combinationsContainer .trade-item').each(function() {
+            const combinationName = $(this).find('label').text().toLowerCase();
+            $(this).toggle(combinationName.includes(searchTerm));
+        });
+    });
+
+    // Select/Clear All functionality for combinations
+    $('#selectAllCombinations').on('click', function() {
+        $('#combinationsContainer input[type="checkbox"]').prop('checked', true);
+        updateSelectedCombinationsCount();
+    });
+
+    $('#clearAllCombinations').on('click', function() {
+        $('#combinationsContainer input[type="checkbox"]').prop('checked', false);
+        updateSelectedCombinationsCount();
+    });
+
+    // Save combination selection
+    $('#saveCombinationSelection').on('click', function() {
+        const selectedCombinations = [];
+        $('#combinationsContainer input[type="checkbox"]:checked').each(function() {
+            selectedCombinations.push($(this).val());
+        });
+        
+        frappe.show_alert({
+            message: `Saved ${selectedCombinations.length} combinations`,
+            indicator: 'green'
+        });
+    });
+
+    function updateSelectedCombinationsCount() {
+        const count = $('#combinationsContainer input[type="checkbox"]:checked').length;
+        $('#selectedCombinationsCount').text(`${count} selected`);
     }
 
     function updateSelectedCount() {
