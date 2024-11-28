@@ -1,15 +1,7 @@
 {
   "categories": {
-    "Subjects": [
-      "Literacy",
-      "Numeracy",
-      "Elementary Science",
-      "Social Studies",
-      "Mathematics",
-      "English",
-      "Kinyarwanda",
-      "Social & Religious Studies",
-      "Science & Elementary Technology"
+    "Primary Level": [
+      "Primary Level"
     ]
   }
 }
