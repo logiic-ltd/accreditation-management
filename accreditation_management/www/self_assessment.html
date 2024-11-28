@@ -862,14 +862,30 @@
             const showCombinations = requestType === 'Combinations';
             const showProfessional = requestType === 'Professional';
             
+            // Clear both sections first
+            $('#tvetSelectionSection').hide();
+            $('#combinationsSelectionSection').hide();
+            $('#tradesContainer').empty();
+            $('#combinationsContainer').empty();
+            
+            // Show appropriate section based on request type
             $('#tvetSelectionSection').toggle(showTVET);
             $('#combinationsSelectionSection').toggle(showCombinations || showProfessional);
             
-            if (showTVET && !sectorData) {
-                loadSectors();
+            // Load appropriate data
+            if (showTVET) {
+                if (!sectorData) {
+                    loadSectors();
+                } else {
+                    renderSectorGrid(sectorData.sectors);
+                }
             }
-            if (showCombinations && !combinationsData) {
-                loadCombinations();
+            if (showCombinations) {
+                if (!combinationsData) {
+                    loadCombinations();
+                } else {
+                    renderCategoryGrid(combinationsData.categories);
+                }
             }
             if (showProfessional) {
                 loadProfessionalCombinations();
@@ -886,6 +902,10 @@
             if (requestType === 'Boarding Status') {
                 loadBoardingStatus();
             }
+            
+            // Reset selection counts
+            $('#selectedTradesCount').text('0 selected');
+            $('#selectedCombinationsCount').text('0 selected');
         });
 
         function loadSectors() {
