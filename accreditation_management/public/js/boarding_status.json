@@ -1,0 +1,16 @@
+{
+  "categories": {
+    "Accommodation Types": [
+      "Boys Boarding",
+      "Girls Boarding",
+      "Mixed Boarding",
+      "Day School"
+    ],
+    "Facilities": [
+      "Dormitories",
+      "Dining Hall",
+      "Study Room",
+      "Recreation Facilities"
+    ]
+  }
+}

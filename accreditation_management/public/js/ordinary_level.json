@@ -1,0 +1,18 @@
+{
+  "categories": {
+    "Core Subjects": [
+      "Mathematics",
+      "English",
+      "Kinyarwanda",
+      "Sciences",
+      "Social Studies"
+    ],
+    "Optional Subjects": [
+      "French",
+      "Kiswahili",
+      "ICT",
+      "Entrepreneurship",
+      "Religious Education"
+    ]
+  }
+}

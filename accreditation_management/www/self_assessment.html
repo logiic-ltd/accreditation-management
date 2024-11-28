@@ -874,6 +874,18 @@
             if (showProfessional) {
                 loadProfessionalCombinations();
             }
+            if (requestType === 'Ordinary Level') {
+                loadOrdinaryLevel();
+            }
+            if (requestType === 'Primary Level') {
+                loadPrimaryLevel();
+            }
+            if (requestType === 'Pre-primary Level') {
+                loadPrePrimaryLevel();
+            }
+            if (requestType === 'Boarding Status') {
+                loadBoardingStatus();
+            }
         });
 
         function loadSectors() {
@@ -1127,6 +1139,46 @@
         const totalCheckboxes = $('#tradesContainer input[type="checkbox"]').length;
         const allChecked = count === totalCheckboxes;
         $('#selectAllTrades').prop('checked', allChecked);
+    }
+
+    function loadOrdinaryLevel() {
+        $('#combinationsSelectionSection').show();
+        fetch('/assets/accreditation_management/js/ordinary_level.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
+    }
+
+    function loadPrimaryLevel() {
+        $('#combinationsSelectionSection').show();
+        fetch('/assets/accreditation_management/js/primary_level.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
+    }
+
+    function loadPrePrimaryLevel() {
+        $('#combinationsSelectionSection').show();
+        fetch('/assets/accreditation_management/js/pre_primary_level.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
+    }
+
+    function loadBoardingStatus() {
+        $('#combinationsSelectionSection').show();
+        fetch('/assets/accreditation_management/js/boarding_status.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
     }
     </script> 
 {% endblock %}

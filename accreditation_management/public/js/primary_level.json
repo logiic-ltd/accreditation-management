@@ -1,0 +1,17 @@
+{
+  "categories": {
+    "Lower Primary": [
+      "Literacy",
+      "Numeracy",
+      "Elementary Science",
+      "Social Studies"
+    ],
+    "Upper Primary": [
+      "Mathematics",
+      "English",
+      "Kinyarwanda",
+      "Social & Religious Studies",
+      "Science & Elementary Technology"
+    ]
+  }
+}
