@@ -423,6 +423,7 @@
                         <option value="" disabled selected>Select Request Type</option>
                         <option value="TVET Trade">TVET Trade</option>
                         <option value="Combinations">General Combinations</option>
+                        <option value="Professional">Professional Combinations</option>
                         <option value="Ordinary Level">Ordinary Level</option>
                         <option value="Boarding Status">Boarding Status</option>
                         <option value="Primary Level">Primary Level</option>
@@ -859,15 +860,19 @@
             const requestType = $(this).val();
             const showTVET = requestType === 'TVET Trade';
             const showCombinations = requestType === 'Combinations';
+            const showProfessional = requestType === 'Professional';
             
             $('#tvetSelectionSection').toggle(showTVET);
-            $('#combinationsSelectionSection').toggle(showCombinations);
+            $('#combinationsSelectionSection').toggle(showCombinations || showProfessional);
             
             if (showTVET && !sectorData) {
                 loadSectors();
             }
             if (showCombinations && !combinationsData) {
                 loadCombinations();
+            }
+            if (showProfessional) {
+                loadProfessionalCombinations();
             }
         });
 
@@ -995,6 +1000,15 @@
 
     function loadCombinations() {
         fetch('/assets/accreditation_management/js/general_education_combinations.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
+    }
+
+    function loadProfessionalCombinations() {
+        fetch('/assets/accreditation_management/js/professional_combinations.json')
             .then(response => response.json())
             .then(data => {
                 combinationsData = data;
