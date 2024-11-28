@@ -12,6 +12,44 @@
         --light-bg: #eee;
     }
 
+    .form-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        padding: 1.5rem 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .form-header h1 {
+        color: white;
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .progress-container {
+        flex: 0 0 200px;
+        margin-left: 2rem;
+    }
+
+    .progress {
+        height: 8px;
+        background-color: rgba(255,255,255,0.2);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .progress-bar {
+        background-color: white;
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.5s ease-in-out;
+    }
+
     html, body {
         margin: 0;
         padding: 0;
@@ -93,7 +131,14 @@
 {% block page_content %}
 <section class="form-section">
     <div class="container">
-        <h1 class="form-title">School Identification Form</h1>
+        <div class="form-header">
+            <h1>School Identification Form</h1>
+            <div class="progress-container">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
         <form id="schoolIdentificationForm">
             <fieldset>
                 <legend>School Search</legend>
