@@ -1,14 +1,7 @@
 {
   "categories": {
-    "Boarding Options": [
-      "Boys Boarding",
-      "Girls Boarding",
-      "Mixed Boarding",
-      "Day School",
-      "Dormitories",
-      "Dining Hall",
-      "Study Room",
-      "Recreation Facilities"
+    "School Residential Status": [
+      "Boarding School"
     ]
   }
 }
