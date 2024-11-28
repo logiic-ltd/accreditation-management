@@ -921,8 +921,9 @@
         function renderSectorGrid(sectors) {
             const $list = $('#sectorGrid').addClass('sector-list');
             $list.empty();
-            
-            Object.keys(sectors).forEach(sector => {
+        
+            const sectorKeys = Object.keys(sectors);
+            sectorKeys.forEach(sector => {
                 const formattedSector = sector.replace(/_/g, ' ');
                 const icon = getSectorIcon(sector);
                 const card = `
@@ -945,6 +946,14 @@
                 const trades = sectorData.sectors[currentSector];
                 renderTrades(trades);
             });
+
+            // Auto-select first sector
+            if (sectorKeys.length > 0) {
+                const firstCard = $('.sector-card').first();
+                firstCard.addClass('selected');
+                currentSector = sectorKeys[0];
+                renderTrades(sectors[currentSector]);
+            }
         }
 
         function getSectorIcon(sector) {
@@ -1058,7 +1067,8 @@
         const $list = $('#categoryGrid');
         $list.empty();
         
-        Object.keys(categories).forEach(category => {
+        const categoryKeys = Object.keys(categories);
+        categoryKeys.forEach(category => {
             const icon = getCategoryIcon(category);
             const card = `
                 <div class="sector-card" data-category="${category}">
@@ -1080,6 +1090,14 @@
             const combinations = combinationsData.categories[selectedCategory];
             renderCombinations(combinations);
         });
+
+        // Auto-select first category
+        if (categoryKeys.length > 0) {
+            const firstCard = $('.sector-card').first();
+            firstCard.addClass('selected');
+            const firstCategory = categoryKeys[0];
+            renderCombinations(categories[firstCategory]);
+        }
     }
 
     function getCategoryIcon(category) {
