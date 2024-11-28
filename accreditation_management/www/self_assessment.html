@@ -185,14 +185,14 @@
     .sector-list {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.75rem;
         width: 100%;
         overflow-y: auto;
-        max-height: 500px;
+        max-height: 600px;
         padding: 1rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background: #f8f9fa;
         margin-bottom: 1rem;
         scrollbar-width: thin;
         scrollbar-color: var(--primary-color) #f0f0f0;
@@ -213,53 +213,60 @@
     }
 
     .sector-card {
-        border: 1px solid #eee;
-        border-radius: 8px;
-        padding: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 1.25rem;
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
         background: white;
         display: flex;
         align-items: center;
         gap: 1rem;
-        margin-bottom: 0.75rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
 
     .sector-card:hover {
         border-color: var(--primary-color);
         transform: translateX(4px);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
     .sector-card.selected {
         border-color: var(--primary-color);
-        background-color: var(--primary-color);
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         color: white;
     }
 
     .sector-card.selected small {
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.9);
     }
 
     .sector-icon {
         font-size: 1.75rem;
-        width: 40px;
-        height: 40px;
+        width: 48px;
+        height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
         background: #f8f9fa;
-        border-radius: 8px;
+        border-radius: 12px;
+        color: var(--primary-color);
+        transition: all 0.3s ease;
     }
 
     .sector-card.selected .sector-icon {
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
     }
 
-    .sector-icon {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-        color: var(--primary-color);
+    .sector-info {
+        flex: 1;
+    }
+
+    .sector-name {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        font-size: 1.1rem;
     }
 
     .trades-interface {
@@ -961,32 +968,33 @@
         }
 
         function renderSectorGrid(sectors) {
-            const $list = $('#sectorGrid').addClass('sector-list');
-            $list.empty();
-        
+            const $grid = $('#sectorGrid');
+            $grid.empty();
+            $grid.addClass('sector-list');
+            
             const sectorKeys = Object.keys(sectors);
             sectorKeys.forEach(sector => {
                 const formattedSector = sector.replace(/_/g, ' ');
                 const icon = getSectorIcon(sector);
-                const card = `
+                const card = $(`
                     <div class="sector-card" data-sector="${sector}">
                         <div class="sector-icon">${icon}</div>
-                        <div>
+                        <div class="sector-info">
                             <div class="sector-name">${formattedSector}</div>
                             <small class="text-muted">${sectors[sector].length} trades</small>
                         </div>
                     </div>
-                `;
-                $list.append(card);
-            });
+                `);
 
-            // Handle sector selection
-            $('.sector-card').on('click', function() {
-                $('.sector-card').removeClass('selected');
-                $(this).addClass('selected');
-                currentSector = $(this).data('sector');
-                const trades = sectorData.sectors[currentSector];
-                renderTrades(trades);
+                card.on('click', function() {
+                    $('.sector-card').removeClass('selected');
+                    $(this).addClass('selected');
+                    currentSector = $(this).data('sector');
+                    const trades = sectorData.sectors[currentSector];
+                    renderTrades(trades);
+                });
+
+                $grid.append(card);
             });
 
             // Auto-select first sector
