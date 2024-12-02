@@ -589,7 +589,14 @@
         </form>
     </div>
 </div>
-<script>                                                                                                                                      
+<script>
+    function startAccreditationFlow(requestType) {
+        // Store the request type in localStorage
+        localStorage.setItem('accreditationRequestType', requestType);
+        // Navigate to school identification
+        window.location.href = '/school-identification';
+    }
+
     let currentSection = 0;
     const sections = document.querySelectorAll('.form-section');
 
