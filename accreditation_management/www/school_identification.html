@@ -193,6 +193,17 @@
     .summary-value {
         color: #212529;
     }
+
+    .field-error {
+        border-color: #dc3545 !important;
+        background-color: #fff8f8;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
 </style>
 {% endblock %}
 
@@ -683,8 +694,54 @@ frappe.ready(function() {
         });
     }
 
+    function clearValidationErrors() {
+        $('.field-error').removeClass('field-error');
+        $('.error-message').remove();
+    }
+
+    function handleValidationErrors(errors) {
+        clearValidationErrors();
+        
+        Object.entries(errors).forEach(([fieldName, errorMessage]) => {
+            const field = $(`[name="${fieldName}"]`);
+            if (field.length) {
+                field.addClass('field-error');
+                field.after(`<div class="error-message">${errorMessage}</div>`);
+                
+                // If this field is in a non-active section, switch to that section
+                const fieldset = field.closest('fieldset');
+                if (!fieldset.hasClass('active')) {
+                    const sections = $('fieldset');
+                    const currentSection = sections.index(fieldset);
+                    
+                    // Update navigation
+                    sections.removeClass('active');
+                    fieldset.addClass('active');
+                    
+                    // Update buttons and progress
+                    $('#prevButton').toggle(currentSection > 0);
+                    $('#nextButton').text(currentSection === sections.length - 1 ? 'Continue to Self Assessment' : 'Next');
+                    
+                    // Update progress bar
+                    const progress = ((currentSection + 1) / sections.length) * 100;
+                    $('.progress-bar').css('width', progress + '%');
+                    
+                    window.scrollTo(0, 0);
+                }
+            }
+        });
+        
+        // Scroll to first error if not visible
+        const firstError = $('.field-error').first();
+        if (firstError.length) {
+            const errorTop = firstError.offset().top - 100;
+            window.scrollTo(0, errorTop);
+        }
+    }
+
     $('#schoolIdentificationForm').on('submit', function(e) {
         e.preventDefault();
+        clearValidationErrors();
 
         var formData = {};
         $(this).serializeArray().forEach(function(item) {
@@ -707,6 +764,22 @@ frappe.ready(function() {
                     // Redirect to self assessment after successful submission
                     window.location.href = '/self_assessment';
                 } else {
+                    if (r._server_messages) {
+                        try {
+                            const errors = JSON.parse(r._server_messages);
+                            if (typeof errors === 'object' && errors !== null) {
+                                handleValidationErrors(errors);
+                                frappe.msgprint({
+                                    title: __('Validation Failed'),
+                                    indicator: 'red',
+                                    message: __('Please correct the highlighted fields and try again.')
+                                });
+                                return;
+                            }
+                        } catch (e) {
+                            // If not validation errors, show generic error
+                        }
+                    }
                     frappe.msgprint({
                         title: __('Submission Failed'),
                         indicator: 'red',
