@@ -160,6 +160,42 @@
     #submitButton {
         display: none;
     }
+
+    .summary-container {
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .summary-section {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+    }
+
+    .summary-section h4 {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .summary-label {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .summary-value {
+        color: #212529;
+    }
 </style>
 {% endblock %}
 
@@ -454,6 +490,23 @@
                 </div>
             </fieldset>
 
+            <fieldset>
+                <legend>Summary</legend>
+                <div class="summary-container">
+                    <h4>Basic Information</h4>
+                    <div id="basicInfoSummary" class="summary-section"></div>
+                    
+                    <h4>Student Information</h4>
+                    <div id="studentInfoSummary" class="summary-section"></div>
+                    
+                    <h4>Staff Information</h4>
+                    <div id="staffInfoSummary" class="summary-section"></div>
+                    
+                    <h4>Infrastructure</h4>
+                    <div id="infrastructureSummary" class="summary-section"></div>
+                </div>
+            </fieldset>
+
             <div class="form-navigation">
                 <button type="button" class="btn btn-prev" id="prevButton" style="display: none;">Previous</button>
                 <button type="button" class="btn btn-next" id="nextButton">Next</button>
@@ -491,8 +544,12 @@ frappe.ready(function() {
                 // Show/hide navigation buttons
                 $('#prevButton').show();
                 if (currentSection === sections.length - 1) {
-                    $('#nextButton').hide();
-                    $('#submitButton').show();
+                    if (currentSection === sections.length - 1) {
+                        $('#nextButton').text('Continue to Self Assessment');
+                        populateSummary();
+                    } else {
+                        $('#nextButton').text('Next');
+                    }
                 }
                 
                 updateProgress();
@@ -569,6 +626,59 @@ frappe.ready(function() {
         calculateTotalAssistantTeachers();
     });
 
+    function populateSummary() {
+        // Basic Information Summary
+        const basicInfo = {
+            'School Name': $('#schoolName').val(),
+            'School Code': $('#schoolCode').val(),
+            'Status': $('#status').val(),
+            'Type of School': $('#typeOfSchool').val(),
+            'School Owner': $('#schoolOwner').val()
+        };
+        
+        // Student Information Summary
+        const studentInfo = {
+            'Total Students': $('#totalNrStudents').val(),
+            'Boys': $('#numberOfBoys').val(),
+            'Girls': $('#numberOfGirls').val(),
+            'Students with SEN': $('#studentsWithSEN').val()
+        };
+        
+        // Staff Information Summary
+        const staffInfo = {
+            'Total Teachers': $('#numberOfTeachers').val(),
+            'Total Assistant Teachers': $('#numberOfAssistantTeachers').val(),
+            'Administrative Staff': $('#totalNumberOfAdministrativeStaff').val(),
+            'Supporting Staff': $('#totalNumberOfSupportingStaff').val()
+        };
+        
+        // Infrastructure Summary
+        const infrastructureInfo = {
+            'Classrooms': $('#nbrOfClassrooms').val(),
+            'Smart Classrooms': $('#numberOfSmartClassrooms').val(),
+            'Computer Labs': $('#numberOfComputerLab').val(),
+            'Libraries': $('#numberOfLibrary').val()
+        };
+
+        // Populate summary sections
+        ['basicInfo', 'studentInfo', 'staffInfo', 'infrastructure'].forEach(section => {
+            const $container = $(`#${section}Summary`);
+            $container.empty();
+            
+            const data = eval(section);
+            Object.entries(data).forEach(([label, value]) => {
+                if (value) {
+                    $container.append(`
+                        <div class="summary-item">
+                            <span class="summary-label">${label}:</span>
+                            <span class="summary-value">${value}</span>
+                        </div>
+                    `);
+                }
+            });
+        });
+    }
+
     $('#schoolIdentificationForm').on('submit', function(e) {
         e.preventDefault();
 
@@ -590,6 +700,8 @@ frappe.ready(function() {
                         indicator: 'green',
                         message: __('Your school identification form has been submitted successfully.')
                     });
+                    // Redirect to self assessment after successful submission
+                    window.location.href = '/self_assessment';
                 } else {
                     frappe.msgprint({
                         title: __('Submission Failed'),
