@@ -157,9 +157,6 @@
         color: #ffffff;
     }
 
-    #submitButton {
-        display: none;
-    }
 
     .summary-container {
         padding: 1rem;
@@ -510,7 +507,6 @@
             <div class="form-navigation">
                 <button type="button" class="btn btn-prev" id="prevButton" style="display: none;">Previous</button>
                 <button type="button" class="btn btn-next" id="nextButton">Next</button>
-                <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
             </div>
         </form>
     </div>
@@ -536,7 +532,10 @@ frappe.ready(function() {
         
         // Handle next button click
         $('#nextButton').click(function() {
-            if (currentSection < sections.length - 1) {
+            if (currentSection === sections.length - 1) {
+                // On the last section, submit the form
+                $('#schoolIdentificationForm').submit();
+            } else if (currentSection < sections.length - 1) {
                 $(sections[currentSection]).removeClass('active');
                 currentSection++;
                 $(sections[currentSection]).addClass('active');
@@ -545,9 +544,11 @@ frappe.ready(function() {
                 $('#prevButton').show();
                 if (currentSection === sections.length - 1) {
                     $('#nextButton').text('Continue to Self Assessment');
+                    $('#nextButton').addClass('btn-primary');
                     populateSummary();
                 } else {
                     $('#nextButton').text('Next');
+                    $('#nextButton').removeClass('btn-primary');
                 }
                 
                 updateProgress();
@@ -563,8 +564,7 @@ frappe.ready(function() {
                 $(sections[currentSection]).addClass('active');
                 
                 // Show/hide navigation buttons
-                $('#nextButton').show().text('Next');
-                $('#submitButton').hide();
+                $('#nextButton').show().text('Next').removeClass('btn-primary');
                 if (currentSection === 0) {
                     $('#prevButton').hide();
                 }
