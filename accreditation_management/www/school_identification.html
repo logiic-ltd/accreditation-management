@@ -525,6 +525,15 @@
 
 <script>
 frappe.ready(function() {
+    // Check if coming from accreditation page
+    const requestType = localStorage.getItem('accreditationRequestType');
+    if (requestType) {
+        frappe.show_alert({
+            message: `Starting application process for ${requestType}`,
+            indicator: 'blue'
+        }, 5);
+    }
+    
     initSchoolSearch();
     initFormNavigation();
 
@@ -761,7 +770,7 @@ frappe.ready(function() {
                         indicator: 'green',
                         message: __('Your school identification form has been submitted successfully.')
                     });
-                    // Store school details in localStorage before redirecting
+                    // Store school details and request type in localStorage before redirecting
                     const schoolDetails = {
                         schoolName: $('#schoolName').val(),
                         schoolCode: $('#schoolCode').val(),
@@ -769,7 +778,8 @@ frappe.ready(function() {
                         district: $('#district').val(),
                         sector: $('#sector').val(),
                         cell: $('#cell').val(),
-                        village: $('#village').val()
+                        village: $('#village').val(),
+                        requestType: localStorage.getItem('accreditationRequestType')
                     };
                     localStorage.setItem('schoolDetails', JSON.stringify(schoolDetails));
                     window.location.href = '/self_assessment';
