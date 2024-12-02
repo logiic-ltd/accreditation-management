@@ -6,4 +6,4 @@ SCHOOL_SEARCH_ENDPOINT = f"{BASE_URL}/api/schools/search"
 
 # National ID Verification API
 NID_API_URL = "https://nid.hmis.moh.gov.rw/Citizen"
-NID_API_SECRET = "WQ9Ns43QJHT77vgKZkgbaBDeR27N4pWKnefYm8t4LhUcVGB7ERP8jyQgUw89Qj3SQNRzrMZsbdN55ha9h6FgTJQ6Dae5wsAW8tS3jWY9ry7GRYPm6TfaNHbr5hZveXZu"
+NID_API_SECRET = "YOUR_SECRET_KEY_HERE"
