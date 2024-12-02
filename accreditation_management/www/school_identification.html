@@ -118,12 +118,47 @@
         padding: 1rem;
         margin-bottom: 2rem;
         border-radius: 4px;
+        display: none;
+    }
+
+    fieldset.active {
+        display: block;
     }
 
     legend {
         font-weight: 600;
         color: var(--secondary-color);
         padding: 0 0.5rem;
+    }
+
+    .form-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+
+    .form-navigation button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-prev {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #ffffff;
+    }
+
+    .btn-next {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #ffffff;
+    }
+
+    #submitButton {
+        display: none;
     }
 </style>
 {% endblock %}
@@ -419,7 +454,11 @@
                 </div>
             </fieldset>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-navigation">
+                <button type="button" class="btn btn-prev" id="prevButton" style="display: none;">Previous</button>
+                <button type="button" class="btn btn-next" id="nextButton">Next</button>
+                <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+            </div>
         </form>
     </div>
 </section>
@@ -427,6 +466,62 @@
 <script>
 frappe.ready(function() {
     initSchoolSearch();
+    initFormNavigation();
+
+    function initFormNavigation() {
+        const sections = $('fieldset');
+        let currentSection = 0;
+        
+        // Show first section by default
+        $(sections[0]).addClass('active');
+        
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentSection + 1) / sections.length) * 100;
+            $('.progress-bar').css('width', progress + '%');
+        }
+        
+        // Handle next button click
+        $('#nextButton').click(function() {
+            if (currentSection < sections.length - 1) {
+                $(sections[currentSection]).removeClass('active');
+                currentSection++;
+                $(sections[currentSection]).addClass('active');
+                
+                // Show/hide navigation buttons
+                $('#prevButton').show();
+                if (currentSection === sections.length - 1) {
+                    $('#nextButton').hide();
+                    $('#submitButton').show();
+                }
+                
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        });
+        
+        // Handle previous button click
+        $('#prevButton').click(function() {
+            if (currentSection > 0) {
+                $(sections[currentSection]).removeClass('active');
+                currentSection--;
+                $(sections[currentSection]).addClass('active');
+                
+                // Show/hide navigation buttons
+                $('#nextButton').show();
+                $('#submitButton').hide();
+                if (currentSection === 0) {
+                    $('#prevButton').hide();
+                }
+                
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        });
+        
+        // Initialize progress bar
+        updateProgress();
+    }
 
     function calculateTotalAdministrativeStaff() {
         const fields = ['headteacher', 'deputyHeadteacher', 'secretary', 'librarian', 'accountant', 'otherStaff'];
