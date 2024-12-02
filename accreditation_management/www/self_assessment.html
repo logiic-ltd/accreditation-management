@@ -571,6 +571,12 @@
                     <p id="provisionalRanking">Provisional Ranking: N/A</p>
                     <p id="provisionalDecision">Provisional Decision: N/A</p>
                     <p id="provisionalYears">Provisional Accreditation Years: N/A</p>
+                    <div id="continueToApplication" style="display: none;" class="mt-4">
+                        <p class="text-muted">You've completed both school identification and self assessment.</p>
+                        <a href="/accreditation_application" class="btn btn-primary">
+                            Continue to Accreditation Application
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="container">
@@ -853,6 +859,8 @@
             const details = JSON.parse(storedSchoolDetails);
             // Pre-fill the search input
             $searchInput.val(details.schoolName);
+            // Show the continue button in provisional results
+            $('#continueToApplication').show();
         
             // Show the school info table with stored details
             $('#schoolNameDisplay').text(details.schoolName);
