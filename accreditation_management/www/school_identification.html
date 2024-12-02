@@ -544,12 +544,10 @@ frappe.ready(function() {
                 // Show/hide navigation buttons
                 $('#prevButton').show();
                 if (currentSection === sections.length - 1) {
-                    if (currentSection === sections.length - 1) {
-                        $('#nextButton').text('Continue to Self Assessment');
-                        populateSummary();
-                    } else {
-                        $('#nextButton').text('Next');
-                    }
+                    $('#nextButton').text('Continue to Self Assessment');
+                    populateSummary();
+                } else {
+                    $('#nextButton').text('Next');
                 }
                 
                 updateProgress();
@@ -565,7 +563,7 @@ frappe.ready(function() {
                 $(sections[currentSection]).addClass('active');
                 
                 // Show/hide navigation buttons
-                $('#nextButton').show();
+                $('#nextButton').show().text('Next');
                 $('#submitButton').hide();
                 if (currentSection === 0) {
                     $('#prevButton').hide();
