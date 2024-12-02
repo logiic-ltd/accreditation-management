@@ -761,7 +761,17 @@ frappe.ready(function() {
                         indicator: 'green',
                         message: __('Your school identification form has been submitted successfully.')
                     });
-                    // Redirect to self assessment after successful submission
+                    // Store school details in localStorage before redirecting
+                    const schoolDetails = {
+                        schoolName: $('#schoolName').val(),
+                        schoolCode: $('#schoolCode').val(),
+                        province: $('#province').val(),
+                        district: $('#district').val(),
+                        sector: $('#sector').val(),
+                        cell: $('#cell').val(),
+                        village: $('#village').val()
+                    };
+                    localStorage.setItem('schoolDetails', JSON.stringify(schoolDetails));
                     window.location.href = '/self_assessment';
                 } else {
                     if (r._server_messages) {
