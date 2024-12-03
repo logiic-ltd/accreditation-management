@@ -12,6 +12,44 @@
         --light-bg: #eee;
     }
 
+    .form-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        padding: 1.5rem 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .form-header h1 {
+        color: white;
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .progress-container {
+        flex: 0 0 200px;
+        margin-left: 2rem;
+    }
+
+    .progress {
+        height: 8px;
+        background-color: rgba(255,255,255,0.2);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .progress-bar {
+        background-color: white;
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.5s ease-in-out;
+    }
+
     table td:last-child div.selected {
         background-color: #cce7f0; /* Light shade of primary color */
         transition: background-color 0.3s ease;
@@ -91,16 +129,14 @@
 
     .content-wrapper {
         padding: 2rem 0;
-        width: 90vw;
-        margin-left: -45vw;
-        left: 50%;
+        width: 100%;
         position: relative;
     }
 
     .container {
-        width: 90%;
-        max-width: 90%;
-        padding: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 2rem;
     }
 
     .form-group {
@@ -145,15 +181,265 @@
         font-size: 0.9rem;
         color: var(--accent-color);
     }
+
+    .sector-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+        overflow-y: auto;
+        max-height: 600px;
+        padding: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background: #f8f9fa;
+        margin-bottom: 1rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) #f0f0f0;
+    }
+
+    .sector-list::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .sector-list::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 3px;
+    }
+
+    .sector-list::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 3px;
+    }
+
+    .sector-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: white;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        margin-bottom: 0.5rem;
+    }
+
+    .sector-card:hover {
+        border-color: var(--primary-color);
+        transform: translateX(2px);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .sector-card.selected {
+        border-color: var(--primary-color);
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+    }
+
+    .sector-card.selected small {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .sector-icon {
+        font-size: 1.25rem;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f9fa;
+        border-radius: 6px;
+        color: var(--primary-color);
+        transition: all 0.2s ease;
+    }
+
+    .sector-card.selected .sector-icon {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+    }
+
+    .sector-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .sector-name {
+        font-weight: 600;
+        margin-bottom: 0.125rem;
+        font-size: 0.95rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .trades-interface {
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+        margin: 2rem 0;
+        padding: 2rem;
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .sector-selection {
+        width: 300px;
+        min-width: 300px;
+        background: white;
+        padding: 1rem;
+        border-right: 1px solid #eee;
+        box-shadow: 2px 0 4px rgba(0, 0, 0, 0.03);
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        height: fit-content;
+        margin-top: -1rem;
+    }
+
+    .sector-selection h4 {
+        margin: 0;
+        color: var(--secondary-color);
+        font-size: 1rem;
+    }
+
+    .sector-selection p {
+        margin: 0;
+        font-size: 0.8rem;
+        color: #666;
+    }
+
+    .trades-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        flex: 1;
+        min-height: min-content;
+    }
+
+    .trades-filters {
+        background: white;
+        padding: 1rem;
+        border-radius: 4px;
+        border: 1px solid #eee;
+    }
+
+    .trades-container {
+        flex: 1;
+        border: 1px solid #eee;
+        padding: 1rem;
+        border-radius: 8px;
+        background: white;
+        height: auto;
+        min-height: min-content;
+    }
+
+    .trade-search {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .selection-summary {
+        position: sticky;
+        bottom: 0;
+        background: white;
+        padding: 1rem;
+        border-top: 2px solid #eee;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .trades-group {
+        margin-bottom: 20px;
+    }
+
+    .trades-group h4 {
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid var(--primary-color);
+    }
+
+    .trades-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+        overflow-y: auto;
+        max-height: 500px;
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .trade-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        background: #ffffff;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .trade-item:hover {
+        background: white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        transform: translateY(-2px);
+    }
+
+    .trade-item input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 12px;
+        accent-color: var(--primary-color);
+    }
+
+    .trade-item label {
+        font-size: 0.95rem;
+        color: #444;
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .trade-item input[type="checkbox"] {
+        margin-right: 8px;
+    }
+
+    .badge-primary {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+    }
 </style>
 {% endblock %}
 
 {% block page_content %}
 <div class="content-wrapper">
     <div class="container">
-        <h1 class="mb-4">Self Assessment Form</h1>
-        <div class="progress mb-4">
-            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+        <div class="form-header">
+            <h1>Self Assessment Form</h1>
+            <div class="progress-container">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
         </div>
         <form id="selfAssessmentForm">
             <div class="form-section" id="section1">
@@ -184,14 +470,97 @@
                 </div>
             </div>
             <div class="form-section" id="section2" style="display:none;">
+                <div class="form-group">
+                    <label for="typeOfRequest" style="font-size: 1.1rem; color: var(--secondary-color); font-weight: 600; margin-bottom: 0.75rem;">Type of Request</label>
+                    <select class="form-control form-control-lg" id="typeOfRequest" name="type_of_request" required>
+                        <option value="" disabled selected>Select Request Type</option>
+                        <option value="TVET Trade">TVET Trade</option>
+                        <option value="Combinations">General Combinations</option>
+                        <option value="Professional">Professional Combinations</option>
+                        <option value="Ordinary Level">Ordinary Level</option>
+                        <option value="Primary Level">Primary Level</option>
+                        <option value="Pre-primary Level">Pre-primary Level</option>
+                        <option value="Boarding Status">Boarding Status</option>
+                    </select>
+                </div>
+
+                <div id="combinationsSelectionSection" style="display: none;" class="mb-4">
+                    <div class="trades-interface">
+                        <div class="sector-selection">
+                            <h4>Select Category</h4>
+                            <p class="text-muted">Click on a category to view available combinations</p>
+                            <div id="categoryGrid" class="sector-list">
+                                <!-- Categories will be dynamically populated here -->
+                            </div>
+                        </div>
+                        <div class="trades-content">
+                            <div class="trades-filters">
+                                <input type="text" class="combination-search" placeholder="Search combinations...">
+                                <div class="mt-3">
+                                    <button class="btn btn-sm btn-outline-primary" id="selectAllCombinations">Select All</button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="clearAllCombinations">Clear All</button>
+                                </div>
+                            </div>
+                            <div id="combinationsContainer" class="trades-container">
+                                <!-- Combinations will be dynamically populated here -->
+                            </div>
+                            <div class="selection-summary">
+                                <div>
+                                    <span id="selectedCombinationsCount" class="badge badge-primary">0 selected</span>
+                                    <span class="text-muted ml-2">combinations selected</span>
+                                </div>
+                                <button class="btn btn-primary btn-sm" id="saveCombinationSelection">Save Selection</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tvetSelectionSection" style="display: none;" class="mb-4">
+                    <div class="trades-interface">
+                        <div class="sector-selection">
+                            <h4>Select TVET Sector</h4>
+                            <p class="text-muted">Click on a sector to view available trades</p>
+                            <div id="sectorGrid" class="sector-grid">
+                                <!-- Sectors will be dynamically populated here -->
+                            </div>
+                        </div>
+                        <div class="trades-content">
+                            <div class="trades-filters">
+                                <input type="text" class="trade-search" placeholder="Search trades...">
+                                <div class="mt-3">
+                                    <button class="btn btn-sm btn-outline-primary" id="selectAllTrades">Select All</button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="clearAllTrades">Clear All</button>
+                                </div>
+                            </div>
+                            <div id="tradesContainer" class="trades-container">
+                                <!-- Trades will be dynamically populated here -->
+                            </div>
+                            <div class="selection-summary">
+                                <div>
+                                    <span id="selectedTradesCount" class="badge badge-primary">0 selected</span>
+                                    <span class="text-muted ml-2">trades selected</span>
+                                </div>
+                                <button class="btn btn-primary btn-sm" id="saveTradeSelection">Save Selection</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group mt-4">
+                    <label for="otherRequest">Other Request (Specify)</label>
+                    <textarea class="form-control" id="otherRequest" name="other_request" rows="3"></textarea>
+                </div>
+            </div>
+            </div>
+            <div class="form-section" id="section3" style="display:none;">
                 <h3>A. Land ownership, legal, School leadership and management documents</h3>
                 <div id="indicators-area-a"></div>
             </div>
-            <div class="form-section" id="section3" style="display:none;">
+            <div class="form-section" id="section4" style="display:none;">
                 <h3>School Infrastructures</h3>
                 <div id="indicators-area-b"></div>
             </div>
-            <div class="form-section" id="section4" style="display:none;">
+            <div class="form-section" id="section6" style="display:none;">
                 <h3>Teaching and Learning Resources</h3>
                 <div id="indicators-area-c"></div>
             </div>
@@ -204,13 +573,16 @@
                     <p id="provisionalYears">Provisional Accreditation Years: N/A</p>
                 </div>
             </div>
-            <div class="navigation-buttons mt-3">
-                <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Submit</button>
+            <div class="container">
+                <div class="navigation-buttons mt-3">
+                    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Submit</button>
+                </div>
             </div>
         </form>
     </div>
+</div>
 </div>
 <script>                                                                                                                                      
     let currentSection = 0;
@@ -247,6 +619,9 @@
 
         // Initialize school search
         initSchoolSearch();
+
+        // Load TVET sectors and initialize trade selection
+        initTVETSelection();
 
         // Load the indicator options from the JSON configuration file
         frappe.call({
@@ -527,6 +902,387 @@
                 $results.empty();
             }, 200);
         });
+    }
+
+    function initTVETSelection() {
+        let currentSector = null;
+        let sectorData = null;
+        let combinationsData = null;
+
+        // Show/hide sections based on request type
+        $('#typeOfRequest').on('change', function() {
+            const requestType = $(this).val();
+            const showTVET = requestType === 'TVET Trade';
+            const showCombinations = requestType === 'Combinations';
+            const showProfessional = requestType === 'Professional';
+            
+            // Clear both sections first
+            $('#tvetSelectionSection').hide();
+            $('#combinationsSelectionSection').hide();
+            $('#tradesContainer').empty();
+            $('#combinationsContainer').empty();
+            
+            // Show appropriate section based on request type
+            $('#tvetSelectionSection').toggle(showTVET);
+            $('#combinationsSelectionSection').toggle(showCombinations || showProfessional);
+            
+            // Load appropriate data
+            if (showTVET) {
+                if (!sectorData) {
+                    loadSectors();
+                } else {
+                    renderSectorGrid(sectorData.sectors);
+                }
+            }
+            if (showCombinations) {
+                if (!combinationsData) {
+                    loadCombinations();
+                } else {
+                    renderCategoryGrid(combinationsData.categories);
+                }
+            }
+            if (showProfessional) {
+                loadProfessionalCombinations();
+            }
+            if (requestType === 'Ordinary Level') {
+                loadOrdinaryLevel();
+            }
+            if (requestType === 'Primary Level') {
+                loadPrimaryLevel();
+            }
+            if (requestType === 'Pre-primary Level') {
+                loadPrePrimaryLevel();
+            }
+            if (requestType === 'Boarding Status') {
+                loadBoardingStatus();
+            }
+            
+            // Reset selection counts
+            $('#selectedTradesCount').text('0 selected');
+            $('#selectedCombinationsCount').text('0 selected');
+        });
+
+        function loadSectors() {
+            fetch('/assets/accreditation_management/js/tvet_sectors_and_trades.json')
+                .then(response => response.json())
+                .then(data => {
+                    sectorData = data;
+                    renderSectorGrid(data.sectors);
+                });
+        }
+
+        function renderSectorGrid(sectors) {
+            const $grid = $('#sectorGrid');
+            $grid.empty();
+            $grid.addClass('sector-list');
+            
+            const sectorKeys = Object.keys(sectors);
+            sectorKeys.forEach(sector => {
+                const formattedSector = sector.replace(/_/g, ' ');
+                const icon = getSectorIcon(sector);
+                const card = $(`
+                    <div class="sector-card" data-sector="${sector}">
+                        <div class="sector-icon">${icon}</div>
+                        <div class="sector-info">
+                            <div class="sector-name">${formattedSector}</div>
+                            <small class="text-muted">${sectors[sector].length} trades</small>
+                        </div>
+                    </div>
+                `);
+
+                card.on('click', function() {
+                    $('.sector-card').removeClass('selected');
+                    $(this).addClass('selected');
+                    currentSector = $(this).data('sector');
+                    const trades = sectorData.sectors[currentSector];
+                    renderTrades(trades);
+                });
+
+                $grid.append(card);
+            });
+
+            // Auto-select first sector
+            if (sectorKeys.length > 0) {
+                const firstCard = $('.sector-card').first();
+                firstCard.addClass('selected');
+                currentSector = sectorKeys[0];
+                renderTrades(sectors[currentSector]);
+            }
+        }
+
+        function getSectorIcon(sector) {
+            const icons = {
+                'CONSTRUCTION_BUILDING_SERVICES': '🏗️',
+                'ICT_MULTIMEDIA': '💻',
+                'AGRICULTURE_FOOD_PROCESSING': '🌾',
+                'ENERGY': '⚡',
+                'HOSPITALITY_TOURISM': '🏨',
+                'ARTS_CRAFTS': '🎨',
+                'TECHNICAL_SERVICES': '🔧',
+                'TRANSPORT_LOGISTICS': '🚛',
+                'MANUFACTURING_MINING': '⚒️',
+                'BEAUTY_AESTHETICS': '💇'
+            };
+            return icons[sector] || '📋';
+        }
+
+        // Search functionality
+        $('.trade-search').on('input', function() {
+            const searchTerm = $(this).val().toLowerCase();
+            $('.trade-item').each(function() {
+                const tradeName = $(this).find('label').text().toLowerCase();
+                $(this).toggle(tradeName.includes(searchTerm));
+            });
+        });
+
+        // Select/Clear All functionality
+        $('#selectAllTrades').on('click', function() {
+            $('#tradesContainer input[type="checkbox"]').prop('checked', true);
+            updateSelectedCount();
+        });
+
+        $('#clearAllTrades').on('click', function() {
+            $('#tradesContainer input[type="checkbox"]').prop('checked', false);
+            updateSelectedCount();
+        });
+
+        // Handle individual trade/combination selection
+        $(document).on('change', '#tradesContainer input[type="checkbox"], #combinationsContainer input[type="checkbox"]', function() {
+            const container = $(this).closest('.trades-container').attr('id');
+            if (container === 'tradesContainer') {
+                updateSelectedCount();
+            } else {
+                updateSelectedCombinationsCount();
+            }
+        });
+
+        // Save selection
+        $('#saveTradeSelection').on('click', function() {
+            const selectedTrades = [];
+            $('#tradesContainer input[type="checkbox"]:checked').each(function() {
+                selectedTrades.push($(this).val());
+            });
+            
+            frappe.show_alert({
+                message: `Saved ${selectedTrades.length} trades`,
+                indicator: 'green'
+            });
+        });
+    }
+
+    function renderTrades(trades) {
+        const container = $('#tradesContainer');
+        container.empty();
+
+        const tradesHtml = `
+            <div class="trades-grid">
+                ${trades.map(trade => `
+                    <div class="trade-item">
+                        <input type="checkbox" name="selected_trades" value="${trade}">
+                        <label>${trade}</label>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        container.append(tradesHtml);
+        
+        // Add click handler for the entire trade-item
+        $('.trade-item').on('click', function(e) {
+            // Prevent double-triggering when clicking the checkbox directly
+            if (e.target.type !== 'checkbox') {
+                const checkbox = $(this).find('input[type="checkbox"]');
+                checkbox.prop('checked', !checkbox.prop('checked'));
+            }
+            updateSelectedCount();
+        });
+        
+        updateSelectedCount();
+    }
+
+    function loadCombinations() {
+        fetch('/assets/accreditation_management/js/general_education_combinations.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
+    }
+
+    function loadProfessionalCombinations() {
+        fetch('/assets/accreditation_management/js/professional_combinations.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
+    }
+
+    function renderCategoryGrid(categories) {
+        const $list = $('#categoryGrid');
+        $list.empty();
+        
+        const categoryKeys = Object.keys(categories);
+        categoryKeys.forEach(category => {
+            const icon = getCategoryIcon(category);
+            const card = `
+                <div class="sector-card" data-category="${category}">
+                    <div class="sector-icon">${icon}</div>
+                    <div>
+                        <div class="sector-name">${category}</div>
+                        <small class="text-muted">${categories[category].length} combinations</small>
+                    </div>
+                </div>
+            `;
+            $list.append(card);
+        });
+
+        // Handle category selection
+        $('.sector-card').on('click', function() {
+            $('.sector-card').removeClass('selected');
+            $(this).addClass('selected');
+            const selectedCategory = $(this).data('category');
+            const combinations = combinationsData.categories[selectedCategory];
+            renderCombinations(combinations);
+        });
+
+        // Auto-select first category
+        if (categoryKeys.length > 0) {
+            const firstCard = $('.sector-card').first();
+            firstCard.addClass('selected');
+            const firstCategory = categoryKeys[0];
+            renderCombinations(categories[firstCategory]);
+        }
+    }
+
+    function getCategoryIcon(category) {
+        const icons = {
+            'Sciences': '🔬',
+            'Humanities': '📚',
+            'Languages': '🗣️'
+        };
+        return icons[category] || '📋';
+    }
+
+    function renderCombinations(combinations) {
+        const container = $('#combinationsContainer');
+        container.empty();
+
+        const combinationsHtml = `
+            <div class="trades-grid">
+                ${combinations.map(combination => `
+                    <div class="trade-item">
+                        <input type="checkbox" name="selected_combinations" value="${combination}">
+                        <label>${combination}</label>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        container.append(combinationsHtml);
+        
+        // Add click handler for the entire combination-item
+        $('.trade-item').on('click', function(e) {
+            if (e.target.type !== 'checkbox') {
+                const checkbox = $(this).find('input[type="checkbox"]');
+                checkbox.prop('checked', !checkbox.prop('checked'));
+            
+                const container = $(this).closest('.trades-container').attr('id');
+                if (container === 'tradesContainer') {
+                    updateSelectedCount();
+                } else {
+                    updateSelectedCombinationsCount();
+                }
+            }
+        });
+    
+        updateSelectedCombinationsCount();
+    }
+
+    // Search functionality for combinations
+    $('.combination-search').on('input', function() {
+        const searchTerm = $(this).val().toLowerCase();
+        $('#combinationsContainer .trade-item').each(function() {
+            const combinationName = $(this).find('label').text().toLowerCase();
+            $(this).toggle(combinationName.includes(searchTerm));
+        });
+    });
+
+    // Select/Clear All functionality for combinations
+    $('#selectAllCombinations').on('click', function() {
+        $('#combinationsContainer input[type="checkbox"]').prop('checked', true);
+        updateSelectedCombinationsCount();
+    });
+
+    $('#clearAllCombinations').on('click', function() {
+        $('#combinationsContainer input[type="checkbox"]').prop('checked', false);
+        updateSelectedCombinationsCount();
+    });
+
+    // Save combination selection
+    $('#saveCombinationSelection').on('click', function() {
+        const selectedCombinations = [];
+        $('#combinationsContainer input[type="checkbox"]:checked').each(function() {
+            selectedCombinations.push($(this).val());
+        });
+        
+        frappe.show_alert({
+            message: `Saved ${selectedCombinations.length} combinations`,
+            indicator: 'green'
+        });
+    });
+
+    function updateSelectedCombinationsCount() {
+        const count = $('#combinationsContainer input[type="checkbox"]:checked').length;
+        $('#selectedCombinationsCount').text(`${count} selected`);
+    }
+
+    function updateSelectedCount() {
+        const count = $('#tradesContainer input[type="checkbox"]:checked').length;
+        $('#selectedTradesCount').text(`${count} selected`);
+        
+        // Update "Select All" checkbox state
+        const totalCheckboxes = $('#tradesContainer input[type="checkbox"]').length;
+        const allChecked = count === totalCheckboxes;
+        $('#selectAllTrades').prop('checked', allChecked);
+    }
+
+    function loadOrdinaryLevel() {
+        $('#combinationsSelectionSection').show();
+        fetch('/assets/accreditation_management/js/ordinary_level.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
+    }
+
+    function loadPrimaryLevel() {
+        $('#combinationsSelectionSection').show();
+        fetch('/assets/accreditation_management/js/primary_level.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
+    }
+
+    function loadPrePrimaryLevel() {
+        $('#combinationsSelectionSection').show();
+        fetch('/assets/accreditation_management/js/pre_primary_level.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
+    }
+
+    function loadBoardingStatus() {
+        $('#combinationsSelectionSection').show();
+        fetch('/assets/accreditation_management/js/boarding_status.json')
+            .then(response => response.json())
+            .then(data => {
+                combinationsData = data;
+                renderCategoryGrid(data.categories);
+            });
     }
     </script> 
 {% endblock %}

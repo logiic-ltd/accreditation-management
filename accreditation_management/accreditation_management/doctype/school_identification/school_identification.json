@@ -73,8 +73,19 @@
   },
   {
    "fieldname": "status",
-   "fieldtype": "Data",
-   "label": "Status"
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Public\nPrivate\nGovernment Aided",
+   "reqd": 1,
+   "description": "Select the school's status"
+  },
+  {
+   "fieldname": "type_of_school",
+   "fieldtype": "Select",
+   "label": "Type of School",
+   "options": "TVET\nGeneral Education",
+   "reqd": 1,
+   "description": "Select whether this is a TVET or General Education school"
   },
   {
    "fieldname": "school_owner",
@@ -88,8 +99,10 @@
   },
   {
    "fieldname": "accommodation_status",
-   "fieldtype": "Data",
-   "label": "Accommodation Status"
+   "fieldtype": "Select",
+   "label": "Accommodation Status",
+   "options": "Day\nBoarding\nMixed",
+   "reqd": 1
   },
   {
    "fieldname": "year_of_establishment",
@@ -120,6 +133,18 @@
    "fieldname": "province",
    "fieldtype": "Data",
    "label": "Province"
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "8"
+  },
+  {
+   "fieldname": "longitude", 
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "8"
   },
   {
    "fieldname": "ht_name",

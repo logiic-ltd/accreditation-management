@@ -56,10 +56,7 @@ class Accreditation(Document):
         required_fields = [
             ("school_name", "School Name"),
             ("school_code", "School Code"),
-            ("school_status", "School Status"),
             ("type_of_school", "Type of School"),
-            ("type_of_request", "Type of Request"),
-            ("establishment_year", "Year of Establishment"),
             ("village", "Village"),
             ("cell", "Cell"),
             ("sector", "Sector"),
@@ -70,7 +67,6 @@ class Accreditation(Document):
             ("applicant_role", "Applicant Role"),
             ("applicant_email", "Applicant Email"),
             ("applicant_telephone", "Applicant Telephone"),
-            ("accommodation_status", "Accommodation Status")
         ]
         
         for field, label in required_fields:
@@ -219,12 +215,7 @@ def create_accreditation(data):
             "self_assessment": data.get('self_assessment'),
             "school_name": data.get('school_name'),
             "school_code": data.get('school_code'),
-            "school_status": data.get('school_status'),
-            "type_of_school": data.get('type_of_school'),
-            "type_of_request": data.get('type_of_request'),
-            "other_request": data.get('other_request'),
             "establishment_year": data.get('establishment_year'),
-            "accommodation_status": data.get('accommodation_status'),
             "school_email": data.get('school_email'),
             "school_telephone": data.get('school_telephone'),
             "village": data.get('village'),
@@ -232,13 +223,16 @@ def create_accreditation(data):
             "sector": data.get('sector'),
             "district": data.get('district'),
             "province": data.get('province'),
-            "owner_name": data.get('owner_name'),
             "owner_email": data.get('owner_email'),
-            "owner_telephone": data.get('owner_telephone'),
             "applicant_name": data.get('applicant_name'),
             "applicant_role": data.get('applicant_role'),
             "applicant_email": data.get('applicant_email'),
             "applicant_telephone": data.get('applicant_telephone'),
+            "applicant_village": data.get('applicant_village'),
+            "applicant_cell": data.get('applicant_cell'),
+            "applicant_sector": data.get('applicant_sector'),
+            "applicant_district": data.get('applicant_district'),
+            "applicant_province": data.get('applicant_province'),
         })
         
         doc.insert(ignore_permissions=True)
