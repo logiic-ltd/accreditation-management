@@ -12,6 +12,44 @@
         --light-bg: #eee;
     }
 
+    .form-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        padding: 1.5rem 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .form-header h1 {
+        color: white;
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .progress-container {
+        flex: 0 0 200px;
+        margin-left: 2rem;
+    }
+
+    .progress {
+        height: 8px;
+        background-color: rgba(255,255,255,0.2);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .progress-bar {
+        background-color: white;
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.5s ease-in-out;
+    }
+
     html, body {
         margin: 0;
         padding: 0;
@@ -80,6 +118,11 @@
         padding: 1rem;
         margin-bottom: 2rem;
         border-radius: 4px;
+        display: none;
+    }
+
+    fieldset.active {
+        display: block;
     }
 
     legend {
@@ -87,13 +130,94 @@
         color: var(--secondary-color);
         padding: 0 0.5rem;
     }
+
+    .form-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+
+    .form-navigation button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-prev {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #ffffff;
+    }
+
+    .btn-next {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #ffffff;
+    }
+
+
+    .summary-container {
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .summary-section {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+    }
+
+    .summary-section h4 {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .summary-label {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .summary-value {
+        color: #212529;
+    }
+
+    .field-error {
+        border-color: #dc3545 !important;
+        background-color: #fff8f8;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
 </style>
 {% endblock %}
 
 {% block page_content %}
 <section class="form-section">
     <div class="container">
-        <h1 class="form-title">School Identification Form</h1>
+        <div class="form-header">
+            <h1>School Identification Form</h1>
+            <div class="progress-container">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
         <form id="schoolIdentificationForm">
             <fieldset>
                 <legend>School Search</legend>
@@ -128,7 +252,20 @@
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <input type="text" class="form-control" id="status" name="status" required>
+                    <select class="form-control" id="status" name="status" required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="Public">Public</option>
+                        <option value="Private">Private</option>
+                        <option value="Government Aided">Government Aided</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="typeOfSchool">Type of School</label>
+                    <select class="form-control" id="typeOfSchool" name="type_of_school" required>
+                        <option value="" disabled selected>Select Type</option>
+                        <option value="TVET">TVET (TSS OR VTC)</option>
+                        <option value="General Education">General Education</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="schoolOwner">School Owner</label>
@@ -140,7 +277,12 @@
                 </div>
                 <div class="form-group">
                     <label for="accommodationStatus">Accommodation Status</label>
-                    <input type="text" class="form-control" id="accommodationStatus" name="accommodation_status">
+                    <select class="form-control" id="accommodationStatus" name="accommodation_status" required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="Day">Day</option>
+                        <option value="Boarding">Boarding</option>
+                        <option value="Mixed">Mixed</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="yearOfEstablishment">Year of Establishment</label>
@@ -150,25 +292,37 @@
 
             <fieldset>
                 <legend>Location Details</legend>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>Village</td>
+                            <td><input type="text" class="form-control" id="village" name="village"></td>
+                        </tr>
+                        <tr>
+                            <td>Cell</td>
+                            <td><input type="text" class="form-control" id="cell" name="cell"></td>
+                        </tr>
+                        <tr>
+                            <td>Sector</td>
+                            <td><input type="text" class="form-control" id="sector" name="sector"></td>
+                        </tr>
+                        <tr>
+                            <td>District</td>
+                            <td><input type="text" class="form-control" id="district" name="district"></td>
+                        </tr>
+                        <tr>
+                            <td>Province</td>
+                            <td><input type="text" class="form-control" id="province" name="province"></td>
+                        </tr>
+                    </tbody>
+                </table>
                 <div class="form-group">
-                    <label for="village">Village</label>
-                    <input type="text" class="form-control" id="village" name="village">
+                    <label for="latitude">Latitude</label>
+                    <input type="number" step="0.00000001" class="form-control" id="latitude" name="latitude" placeholder="e.g. -1.9441">
                 </div>
                 <div class="form-group">
-                    <label for="cell">Cell</label>
-                    <input type="text" class="form-control" id="cell" name="cell">
-                </div>
-                <div class="form-group">
-                    <label for="sector">Sector</label>
-                    <input type="text" class="form-control" id="sector" name="sector">
-                </div>
-                <div class="form-group">
-                    <label for="district">District</label>
-                    <input type="text" class="form-control" id="district" name="district">
-                </div>
-                <div class="form-group">
-                    <label for="province">Province</label>
-                    <input type="text" class="form-control" id="province" name="province">
+                    <label for="longitude">Longitude</label>
+                    <input type="number" step="0.00000001" class="form-control" id="longitude" name="longitude" placeholder="e.g. 30.0619">
                 </div>
             </fieldset>
 
@@ -209,7 +363,7 @@
             </fieldset>
 
             <fieldset>
-                <legend>Staff Information</legend>
+                <legend>Teaching Staff</legend>
                 <div class="form-group">
                     <label for="numberOfMaleTeachers">Number of Male Teachers</label>
                     <input type="number" class="form-control" id="numberOfMaleTeachers" name="number_of_male_teachers">
@@ -234,70 +388,70 @@
                     <label for="numberOfAssistantTeachers">Total Number of Assistant Teachers</label>
                     <input type="number" class="form-control" id="numberOfAssistantTeachers" name="number_of_assistant_teachers" readonly>
                 </div>
-                
-                <fieldset>
-                    <legend>Administrative Staff</legend>
-                    <div class="form-group">
-                        <label for="headteacher">Headteacher</label>
-                        <input type="text" class="form-control" id="headteacher" name="headteacher">
-                    </div>
-                    <div class="form-group">
-                        <label for="deputyHeadteacher">Deputy Headteacher</label>
-                        <input type="text" class="form-control" id="deputyHeadteacher" name="deputy_headteacher">
-                    </div>
-                    <div class="form-group">
-                        <label for="secretary">Secretary</label>
-                        <input type="text" class="form-control" id="secretary" name="secretary">
-                    </div>
-                    <div class="form-group">
-                        <label for="librarian">Librarian</label>
-                        <input type="text" class="form-control" id="librarian" name="librarian">
-                    </div>
-                    <div class="form-group">
-                        <label for="accountant">Accountant</label>
-                        <input type="text" class="form-control" id="accountant" name="accountant">
-                    </div>
-                    <div class="form-group">
-                        <label for="otherStaff">Other Staff (Specify)</label>
-                        <input type="text" class="form-control" id="otherStaff" name="other_staff">
-                    </div>
-                    <div class="form-group">
-                        <label for="totalNumberOfAdministrativeStaff">Total Number of Administrative Staff</label>
-                        <input type="text" class="form-control" id="totalNumberOfAdministrativeStaff" name="total_number_of_administrative_staff" readonly>
-                    </div>
-                </fieldset>
+            </fieldset>
 
-                <fieldset>
-                    <legend>Supporting Staff</legend>
-                    <div class="form-group">
-                        <label for="cleaners">Cleaners</label>
-                        <input type="text" class="form-control" id="cleaners" name="cleaners">
-                    </div>
-                    <div class="form-group">
-                        <label for="watchmen">Watchmen</label>
-                        <input type="text" class="form-control" id="watchmen" name="watchmen">
-                    </div>
-                    <div class="form-group">
-                        <label for="schoolCooks">School Cooks</label>
-                        <input type="text" class="form-control" id="schoolCooks" name="school_cooks">
-                    </div>
-                    <div class="form-group">
-                        <label for="storekeeper">Storekeeper</label>
-                        <input type="text" class="form-control" id="storekeeper" name="storekeeper">
-                    </div>
-                    <div class="form-group">
-                        <label for="drivers">Drivers</label>
-                        <input type="text" class="form-control" id="drivers" name="drivers">
-                    </div>
-                    <div class="form-group">
-                        <label for="otherSupportingStaff">Other Supporting Staff (Specify)</label>
-                        <input type="text" class="form-control" id="otherSupportingStaff" name="other_supporting_staff">
-                    </div>
-                    <div class="form-group">
-                        <label for="totalNumberOfSupportingStaff">Total Number of Supporting Staff</label>
-                        <input type="text" class="form-control" id="totalNumberOfSupportingStaff" name="total_number_of_supporting_staff" readonly>
-                    </div>
-                </fieldset>
+            <fieldset>
+                <legend>Administrative Staff</legend>
+                <div class="form-group">
+                    <label for="headteacher">Headteacher</label>
+                    <input type="text" class="form-control" id="headteacher" name="headteacher">
+                </div>
+                <div class="form-group">
+                    <label for="deputyHeadteacher">Deputy Headteacher</label>
+                    <input type="text" class="form-control" id="deputyHeadteacher" name="deputy_headteacher">
+                </div>
+                <div class="form-group">
+                    <label for="secretary">Secretary</label>
+                    <input type="text" class="form-control" id="secretary" name="secretary">
+                </div>
+                <div class="form-group">
+                    <label for="librarian">Librarian</label>
+                    <input type="text" class="form-control" id="librarian" name="librarian">
+                </div>
+                <div class="form-group">
+                    <label for="accountant">Accountant</label>
+                    <input type="text" class="form-control" id="accountant" name="accountant">
+                </div>
+                <div class="form-group">
+                    <label for="otherStaff">Other Staff (Specify)</label>
+                    <input type="text" class="form-control" id="otherStaff" name="other_staff">
+                </div>
+                <div class="form-group">
+                    <label for="totalNumberOfAdministrativeStaff">Total Number of Administrative Staff</label>
+                    <input type="text" class="form-control" id="totalNumberOfAdministrativeStaff" name="total_number_of_administrative_staff" readonly>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Supporting Staff</legend>
+                <div class="form-group">
+                    <label for="cleaners">Cleaners</label>
+                    <input type="text" class="form-control" id="cleaners" name="cleaners">
+                </div>
+                <div class="form-group">
+                    <label for="watchmen">Watchmen</label>
+                    <input type="text" class="form-control" id="watchmen" name="watchmen">
+                </div>
+                <div class="form-group">
+                    <label for="schoolCooks">School Cooks</label>
+                    <input type="text" class="form-control" id="schoolCooks" name="school_cooks">
+                </div>
+                <div class="form-group">
+                    <label for="storekeeper">Storekeeper</label>
+                    <input type="text" class="form-control" id="storekeeper" name="storekeeper">
+                </div>
+                <div class="form-group">
+                    <label for="drivers">Drivers</label>
+                    <input type="text" class="form-control" id="drivers" name="drivers">
+                </div>
+                <div class="form-group">
+                    <label for="otherSupportingStaff">Other Supporting Staff (Specify)</label>
+                    <input type="text" class="form-control" id="otherSupportingStaff" name="other_supporting_staff">
+                </div>
+                <div class="form-group">
+                    <label for="totalNumberOfSupportingStaff">Total Number of Supporting Staff</label>
+                    <input type="text" class="form-control" id="totalNumberOfSupportingStaff" name="total_number_of_supporting_staff" readonly>
+                </div>
             </fieldset>
 
             <fieldset>
@@ -344,14 +498,105 @@
                 </div>
             </fieldset>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <fieldset>
+                <legend>Summary</legend>
+                <div class="summary-container">
+                    <h4>Basic Information</h4>
+                    <div id="basicInfoSummary" class="summary-section"></div>
+                    
+                    <h4>Student Information</h4>
+                    <div id="studentInfoSummary" class="summary-section"></div>
+                    
+                    <h4>Staff Information</h4>
+                    <div id="staffInfoSummary" class="summary-section"></div>
+                    
+                    <h4>Infrastructure</h4>
+                    <div id="infrastructureSummary" class="summary-section"></div>
+                </div>
+            </fieldset>
+
+            <div class="form-navigation">
+                <button type="button" class="btn btn-prev" id="prevButton" style="display: none;">Previous</button>
+                <button type="button" class="btn btn-next" id="nextButton">Next</button>
+            </div>
         </form>
     </div>
 </section>
 
 <script>
 frappe.ready(function() {
+    // Check if coming from accreditation page
+    const requestType = localStorage.getItem('accreditationRequestType');
+    if (requestType) {
+        frappe.show_alert({
+            message: `Starting application process for ${requestType}`,
+            indicator: 'blue'
+        }, 5);
+    }
+    
     initSchoolSearch();
+    initFormNavigation();
+
+    function initFormNavigation() {
+        const sections = $('fieldset');
+        let currentSection = 0;
+        
+        // Show first section by default
+        $(sections[0]).addClass('active');
+        
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentSection + 1) / sections.length) * 100;
+            $('.progress-bar').css('width', progress + '%');
+        }
+        
+        // Handle next button click
+        $('#nextButton').click(function() {
+            if (currentSection === sections.length - 1) {
+                // On the last section, submit the form
+                $('#schoolIdentificationForm').submit();
+            } else if (currentSection < sections.length - 1) {
+                $(sections[currentSection]).removeClass('active');
+                currentSection++;
+                $(sections[currentSection]).addClass('active');
+                
+                // Show/hide navigation buttons
+                $('#prevButton').show();
+                if (currentSection === sections.length - 1) {
+                    $('#nextButton').text('Continue to Self Assessment');
+                    $('#nextButton').addClass('btn-primary');
+                    populateSummary();
+                } else {
+                    $('#nextButton').text('Next');
+                    $('#nextButton').removeClass('btn-primary');
+                }
+                
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        });
+        
+        // Handle previous button click
+        $('#prevButton').click(function() {
+            if (currentSection > 0) {
+                $(sections[currentSection]).removeClass('active');
+                currentSection--;
+                $(sections[currentSection]).addClass('active');
+                
+                // Show/hide navigation buttons
+                $('#nextButton').show().text('Next').removeClass('btn-primary');
+                if (currentSection === 0) {
+                    $('#prevButton').hide();
+                }
+                
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        });
+        
+        // Initialize progress bar
+        updateProgress();
+    }
 
     function calculateTotalAdministrativeStaff() {
         const fields = ['headteacher', 'deputyHeadteacher', 'secretary', 'librarian', 'accountant', 'otherStaff'];
@@ -399,8 +644,113 @@ frappe.ready(function() {
         calculateTotalAssistantTeachers();
     });
 
+    function populateSummary() {
+        // Basic Information Summary
+        const basicInfo = {
+            'School Name': $('#schoolName').val(),
+            'School Code': $('#schoolCode').val(),
+            'Status': $('#status').val(),
+            'Type of School': $('#typeOfSchool').val(),
+            'School Owner': $('#schoolOwner').val()
+        };
+        
+        // Student Information Summary
+        const studentInfo = {
+            'Total Students': $('#totalNrStudents').val(),
+            'Boys': $('#numberOfBoys').val(),
+            'Girls': $('#numberOfGirls').val(),
+            'Students with SEN': $('#studentsWithSEN').val()
+        };
+        
+        // Staff Information Summary
+        const staffInfo = {
+            'Total Teachers': $('#numberOfTeachers').val(),
+            'Total Assistant Teachers': $('#numberOfAssistantTeachers').val(),
+            'Administrative Staff': $('#totalNumberOfAdministrativeStaff').val(),
+            'Supporting Staff': $('#totalNumberOfSupportingStaff').val()
+        };
+        
+        // Infrastructure Summary
+        const infrastructureInfo = {
+            'Classrooms': $('#nbrOfClassrooms').val(),
+            'Latrines/Toilets': $('#nbrOfLatrines').val(),
+            'Kitchen': $('#numberOfKitchen').val(),
+            'Dining Hall': $('#numberOfDiningHall').val(),
+            'Library': $('#numberOfLibrary').val(),
+            'Smart Classrooms': $('#numberOfSmartClassrooms').val(),
+            'Computer Laboratory': $('#numberOfComputerLab').val(),
+            'Administrative Offices': $('#numberOfAdminOffices').val(),
+            'Multipurpose Halls': $('#numberOfMultipurposeHalls').val(),
+            'Academic Staff Rooms': $('#numberOfAcademicStaffRooms').val()
+        };
+
+        // Populate summary sections
+        ['basicInfo', 'studentInfo', 'staffInfo', 'infrastructureInfo'].forEach(section => {
+            const $container = $(`#${section}Summary`);
+            $container.empty();
+            
+            const data = eval(section);
+            Object.entries(data).forEach(([label, value]) => {
+                if (value) {
+                    $container.append(`
+                        <div class="summary-item">
+                            <span class="summary-label">${label}:</span>
+                            <span class="summary-value">${value}</span>
+                        </div>
+                    `);
+                }
+            });
+        });
+    }
+
+    function clearValidationErrors() {
+        $('.field-error').removeClass('field-error');
+        $('.error-message').remove();
+    }
+
+    function handleValidationErrors(errors) {
+        clearValidationErrors();
+        
+        Object.entries(errors).forEach(([fieldName, errorMessage]) => {
+            const field = $(`[name="${fieldName}"]`);
+            if (field.length) {
+                field.addClass('field-error');
+                field.after(`<div class="error-message">${errorMessage}</div>`);
+                
+                // If this field is in a non-active section, switch to that section
+                const fieldset = field.closest('fieldset');
+                if (!fieldset.hasClass('active')) {
+                    const sections = $('fieldset');
+                    const currentSection = sections.index(fieldset);
+                    
+                    // Update navigation
+                    sections.removeClass('active');
+                    fieldset.addClass('active');
+                    
+                    // Update buttons and progress
+                    $('#prevButton').toggle(currentSection > 0);
+                    $('#nextButton').text(currentSection === sections.length - 1 ? 'Continue to Self Assessment' : 'Next');
+                    
+                    // Update progress bar
+                    const progress = ((currentSection + 1) / sections.length) * 100;
+                    $('.progress-bar').css('width', progress + '%');
+                    
+                    window.scrollTo(0, 0);
+                }
+            }
+        });
+        
+        // Scroll to first error if not visible
+        const firstError = $('.field-error').first();
+        if (firstError.length) {
+            const errorTop = firstError.offset().top - 100;
+            window.scrollTo(0, errorTop);
+        }
+    }
+
     $('#schoolIdentificationForm').on('submit', function(e) {
         e.preventDefault();
+        clearValidationErrors();
 
         var formData = {};
         $(this).serializeArray().forEach(function(item) {
@@ -420,7 +770,36 @@ frappe.ready(function() {
                         indicator: 'green',
                         message: __('Your school identification form has been submitted successfully.')
                     });
+                    // Store school details and request type in localStorage before redirecting
+                    const schoolDetails = {
+                        schoolName: $('#schoolName').val(),
+                        schoolCode: $('#schoolCode').val(),
+                        province: $('#province').val(),
+                        district: $('#district').val(),
+                        sector: $('#sector').val(),
+                        cell: $('#cell').val(),
+                        village: $('#village').val(),
+                        requestType: localStorage.getItem('accreditationRequestType')
+                    };
+                    localStorage.setItem('schoolDetails', JSON.stringify(schoolDetails));
+                    window.location.href = '/self_assessment';
                 } else {
+                    if (r._server_messages) {
+                        try {
+                            const errors = JSON.parse(r._server_messages);
+                            if (typeof errors === 'object' && errors !== null) {
+                                handleValidationErrors(errors);
+                                frappe.msgprint({
+                                    title: __('Validation Failed'),
+                                    indicator: 'red',
+                                    message: __('Please correct the highlighted fields and try again.')
+                                });
+                                return;
+                            }
+                        } catch (e) {
+                            // If not validation errors, show generic error
+                        }
+                    }
                     frappe.msgprint({
                         title: __('Submission Failed'),
                         indicator: 'red',

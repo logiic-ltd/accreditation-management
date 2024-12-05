@@ -236,86 +236,90 @@
                     <input type="text" class="form-control" id="schoolCode" name="school_code">
                 </div>
                 <div class="form-group">
-                    <label for="status">Status</label>
-                    <select class="form-control" id="status" name="status" required>
-                        <option value="" disabled selected>Select Status</option>
-                        <option value="Public">Public</option>
-                        <option value="Private">Private</option>
-                        <option value="Government Aided">Government Aided</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="ownerName">School Owner</label>
-                    <input type="text" class="form-control" id="ownerName" name="owner_name" required>
-                </div>
-                <div class="form-group">
-                    <label for="applicantTelephone">Contact</label>
-                    <input type="tel" class="form-control" id="applicantTelephone" name="applicant_telephone" required>
-                </div>
-                <div class="form-group">
-                    <label for="accommodationStatus">Accommodation Status</label>
-                    <select class="form-control" id="accommodationStatus" name="accommodation_status" required>
-                        <option value="" disabled selected>Select Status</option>
-                        <option value="Day">Day</option>
-                        <option value="Boarding">Boarding</option>
-                        <option value="Mixed">Mixed</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="establishmentYear">Year of Establishment</label>
-                    <input type="number" class="form-control" id="establishmentYear" name="establishment_year" required>
-                </div>
-                <div class="form-group">
-                    <label for="village">Village</label>
-                    <input type="text" class="form-control" id="village" name="village" required>
-                </div>
-                <div class="form-group">
-                    <label for="cell">Cell</label>
-                    <input type="text" class="form-control" id="cell" name="cell" required>
-                </div>
-                <div class="form-group">
-                    <label for="sector">Sector</label>
-                    <input type="text" class="form-control" id="sector" name="sector" required>
-                </div>
-                <div class="form-group">
-                    <label for="district">District</label>
-                    <input type="text" class="form-control" id="district" name="district" required>
-                </div>
-                <div class="form-group">
-                    <label for="province">Province</label>
-                    <input type="text" class="form-control" id="province" name="province" required>
-                </div>
-                <div class="form-group">
-                    <label for="typeOfSchool">Type of School</label>
-                    <select class="form-control" id="typeOfSchool" name="type_of_school" required>
-                        <option value="" disabled selected>Select Type</option>
-                        <option value="TVET">TVET (TSS OR VTC)</option>
-                        <option value="General Education">General Education</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="typeOfRequest">Type of Request</label>
-                    <select class="form-control" id="typeOfRequest" name="type_of_request" required>
-                        <option value="" disabled selected>Select Request Type</option>
-                        <option value="TVET Trade">TVET Trade</option>
-                        <option value="Combinations">Combinations</option>
-                        <option value="Ordinary Level">Ordinary Level</option>
-                        <option value="Boarding Status">Boarding Status</option>
-                        <option value="Primary Level">Primary Level</option>
-                        <option value="Preprimary Level">Preprimary Level</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="otherRequest">Other Request (Specify)</label>
-                    <textarea class="form-control" id="otherRequest" name="other_request" rows="3"></textarea>
+                    <label>School Address</label>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Level</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Village</td>
+                                <td><input type="text" class="form-control" id="village" name="village" required readonly></td>
+                            </tr>
+                            <tr>
+                                <td>Cell</td>
+                                <td><input type="text" class="form-control" id="cell" name="cell" required readonly></td>
+                            </tr>
+                            <tr>
+                                <td>Sector</td>
+                                <td><input type="text" class="form-control" id="sector" name="sector" required readonly></td>
+                            </tr>
+                            <tr>
+                                <td>District</td>
+                                <td><input type="text" class="form-control" id="district" name="district" required readonly></td>
+                            </tr>
+                            <tr>
+                                <td>Province</td>
+                                <td><input type="text" class="form-control" id="province" name="province" required readonly></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </fieldset>
 
             <fieldset>
                 <legend>Applicant Information</legend>
                 <div class="form-group">
+                    <label for="nationalId">National ID Number</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="nationalId" name="national_id" placeholder="Enter your National ID number">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-primary" id="verifyNID">
+                                <i class="fa fa-search"></i> Verify
+                            </button>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Enter your National ID number to auto-fill your details</small>
+                </div>
+                <div class="form-group">
                     <label for="applicantName">Applicant Name</label>
-                    <input type="text" class="form-control" id="applicantName" name="applicant_name" required>
+                    <input type="text" class="form-control" id="applicantName" name="applicant_name" required readonly>
+                </div>
+                <div class="form-group">
+                    <label>Applicant Address</label>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Level</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Village</td>
+                                <td><input type="text" class="form-control" id="applicantVillage" name="applicant_village"></td>
+                            </tr>
+                            <tr>
+                                <td>Cell</td>
+                                <td><input type="text" class="form-control" id="applicantCell" name="applicant_cell"></td>
+                            </tr>
+                            <tr>
+                                <td>Sector</td>
+                                <td><input type="text" class="form-control" id="applicantSector" name="applicant_sector"></td>
+                            </tr>
+                            <tr>
+                                <td>District</td>
+                                <td><input type="text" class="form-control" id="applicantDistrict" name="applicant_district"></td>
+                            </tr>
+                            <tr>
+                                <td>Province</td>
+                                <td><input type="text" class="form-control" id="applicantProvince" name="applicant_province"></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="form-group">
                     <label for="applicantRole">Applicant Role</label>
@@ -723,6 +727,67 @@ function initSchoolSearch() {
         }, 200);
     });
 }
+
+    // Add NID verification functionality
+    $('#verifyNID').on('click', function() {
+        const nidNumber = $('#nationalId').val().trim();
+        if (!nidNumber) {
+            frappe.msgprint({
+                title: __('Required'),
+                indicator: 'red',
+                message: __('Please enter a National ID number')
+            });
+            return;
+        }
+
+        frappe.call({
+            method: 'accreditation_management.www.nid_verification.verify_nid',
+            args: {
+                document_number: nidNumber
+            },
+            freeze: true,
+            freeze_message: __('Verifying National ID...'),
+            callback: function(r) {
+                if (r.message && r.message.success) {
+                    const data = r.message.data;
+                    // Populate form fields with NID data
+                    $('#applicantName').val(`${data.foreName} ${data.surnames}`);
+                    
+                    // Populate school address fields
+                    $('#village').val(data.village);
+                    $('#cell').val(data.cell);
+                    $('#sector').val(data.sector);
+                    $('#district').val(data.district);
+                    $('#province').val(data.province);
+                    
+                    // Populate applicant address fields
+                    $('#applicantVillage').val(data.village);
+                    $('#applicantCell').val(data.cell);
+                    $('#applicantSector').val(data.sector);
+                    $('#applicantDistrict').val(data.district);
+                    $('#applicantProvince').val(data.province);
+                    
+                    // Update the read-only display fields if they exist
+                    $('#villageDisplay').text(data.village || 'N/A');
+                    $('#cellDisplay').text(data.cell || 'N/A');
+                    $('#sectorDisplay').text(data.sector || 'N/A');
+                    $('#districtDisplay').text(data.district || 'N/A');
+                    $('#provinceDisplay').text(data.province || 'N/A');
+                    
+                    frappe.show_alert({
+                        message: __('National ID verified successfully'),
+                        indicator: 'green'
+                    }, 5);
+                } else {
+                    frappe.msgprint({
+                        title: __('Verification Failed'),
+                        indicator: 'red',
+                        message: r.message.error || __('Failed to verify National ID')
+                    });
+                }
+            }
+        });
+    });
 });
 </script>
 {% endblock %}

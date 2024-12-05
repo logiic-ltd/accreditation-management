@@ -11,7 +11,9 @@
   "overall_score",
   "provisional_ranking",
   "provisional_accreditation_decision",
-  "provisional_accreditation_years"
+  "provisional_accreditation_years",
+  "type_of_request",
+  "other_request"
  ],
  "fields": [
   {
@@ -54,6 +56,18 @@
    "fieldname": "provisional_accreditation_years",
    "fieldtype": "Int",
    "label": "Provisional Accreditation Years"
+  },
+  {
+   "fieldname": "type_of_request",
+   "fieldtype": "Select",
+   "label": "Type of Request",
+   "options": "TVET Trade\nCombinations\nOrdinary Level\nBoarding Status\nPrimary Level\nPreprimary Level",
+   "description": "Select the type of accreditation request"
+  },
+  {
+   "fieldname": "other_request",
+   "fieldtype": "Data",
+   "label": "Other Request (Specify)"
   }
  ],
  "index_web_pages_for_search": 1,

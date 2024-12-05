@@ -41,11 +41,7 @@
   "school_details_section",
   "school_code",
   "school_name",
-  "school_status", 
   "type_of_school",
-  "type_of_request",
-  "other_request",
-  "establishment_year",
   "accommodation_status",
   "contact_section",
   "school_email",
@@ -70,13 +66,6 @@
   "status_history"
  ],
  "fields": [
- {
-  "fieldname": "type_of_school",
-  "fieldtype": "Select",
-  "label": "Type of School",
-  "options": "TVET\nGeneral Education",
-  "reqd": 1
- },
   {
    "fieldname": "prerequisites_section",
    "fieldtype": "Section Break",
@@ -129,7 +118,7 @@
    "label": "School Code"
   },
   {
-   "fieldname": "school_name",
+   "fieldname": "school_name", 
    "fieldtype": "Data",
    "label": "School Name"
   },
@@ -154,10 +143,19 @@
    "label": "Owner Name"
   },
   {
+   "fieldname": "national_id",
+   "fieldtype": "Data",
+   "label": "National ID",
+   "reqd": 1,
+   "description": "Enter your National ID number for verification"
+  },
+  {
    "fieldname": "applicant_name",
    "fieldtype": "Data", 
    "label": "Applicant Name",
-   "reqd": 1
+   "reqd": 1,
+   "read_only": 1,
+   "description": "This field will be auto-populated after NID verification"
   },
   {
    "fieldname": "applicant_role",
@@ -179,26 +177,39 @@
    "reqd": 1
   },
   {
-   "fieldname": "accommodation_status",
-   "fieldtype": "Select",
-   "label": "Accommodation Status",
-   "options": "Day\nBoarding\nMixed",
-   "reqd": 1
+   "fieldname": "applicant_village",
+   "fieldtype": "Data",
+   "label": "Applicant Village",
+   "read_only": 1,
+   "description": "Auto-populated from NID verification"
   },
   {
-   "fieldname": "type_of_request",
-   "fieldtype": "Select",
-   "label": "Type of Request",
-   "reqd": 1,
-   "options": "TVET Trade\nCombinations\nOrdinary Level\nBoarding Status\nPrimary Level\nPreprimary Level",
-   "description": "Select the type of accreditation request"
+   "fieldname": "applicant_cell",
+   "fieldtype": "Data",
+   "label": "Applicant Cell",
+   "read_only": 1,
+   "description": "Auto-populated from NID verification"
   },
   {
-   "fieldname": "school_status",
-   "fieldtype": "Select", 
-   "label": "School Status",
-   "options": "Public\nPrivate\nGovernment Aided",
-   "reqd": 1
+   "fieldname": "applicant_sector",
+   "fieldtype": "Data",
+   "label": "Applicant Sector",
+   "read_only": 1,
+   "description": "Auto-populated from NID verification"
+  },
+  {
+   "fieldname": "applicant_district",
+   "fieldtype": "Data",
+   "label": "Applicant District",
+   "read_only": 1,
+   "description": "Auto-populated from NID verification"
+  },
+  {
+   "fieldname": "applicant_province",
+   "fieldtype": "Data",
+   "label": "Applicant Province",
+   "read_only": 1,
+   "description": "Auto-populated from NID verification"
   },
   {
    "fieldname": "owner_telephone",
