@@ -180,6 +180,53 @@
 	#submitButton {
 		display: none;
 	}
+
+	.summary-container {
+		padding: 1rem;
+		background-color: #f8f9fa;
+		border-radius: 8px;
+	}
+
+	.summary-section {
+		margin-bottom: 2rem;
+		padding: 1rem;
+		background: white;
+		border: 1px solid #dee2e6;
+		border-radius: 4px;
+	}
+
+	.summary-section h4 {
+		color: var(--secondary-color);
+		margin-bottom: 1rem;
+	}
+
+	.summary-item {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 0.5rem;
+		padding: 0.5rem;
+		border-bottom: 1px solid #eee;
+	}
+
+	.summary-label {
+		font-weight: 600;
+		color: #495057;
+	}
+
+	.summary-value {
+		color: #212529;
+	}
+
+	.field-error {
+		border-color: #dc3545 !important;
+		background-color: #fff8f8;
+	}
+
+	.error-message {
+		color: #dc3545;
+		font-size: 0.875rem;
+		margin-top: 0.25rem;
+	}
 </style>
 {% endblock %} {% block page_content %}
 <section class="form-section">
@@ -517,7 +564,7 @@
 			</fieldset>
 
 			<fieldset>
-				<legend>Staff Information</legend>
+				<legend>Teaching Staff</legend>
 				<div class="form-group">
 					<label for="numberOfMaleTeachers">Number of Male Teachers</label>
 					<input
@@ -580,121 +627,96 @@
 						readonly
 					/>
 				</div>
+			</fieldset>
 
-				<fieldset>
-					<legend>Administrative Staff</legend>
-					<div class="form-group">
-						<label for="headteacher">Headteacher</label>
-						<input
-							type="text"
-							class="form-control"
-							id="headteacher"
-							name="headteacher"
-						/>
-					</div>
-					<div class="form-group">
-						<label for="deputyHeadteacher">Deputy Headteacher</label>
-						<input
-							type="text"
-							class="form-control"
-							id="deputyHeadteacher"
-							name="deputy_headteacher"
-						/>
-					</div>
-					<div class="form-group">
-						<label for="secretary">Secretary</label>
-						<input type="text" class="form-control" id="secretary" name="secretary" />
-					</div>
-					<div class="form-group">
-						<label for="librarian">Librarian</label>
-						<input type="text" class="form-control" id="librarian" name="librarian" />
-					</div>
-					<div class="form-group">
-						<label for="accountant">Accountant</label>
-						<input
-							type="text"
-							class="form-control"
-							id="accountant"
-							name="accountant"
-						/>
-					</div>
-					<div class="form-group">
-						<label for="otherStaff">Other Staff (Specify)</label>
-						<input
-							type="text"
-							class="form-control"
-							id="otherStaff"
-							name="other_staff"
-						/>
-					</div>
-					<div class="form-group">
-						<label for="totalNumberOfAdministrativeStaff"
-							>Total Number of Administrative Staff</label
-						>
-						<input
-							type="text"
-							class="form-control"
-							id="totalNumberOfAdministrativeStaff"
-							name="total_number_of_administrative_staff"
-							readonly
-						/>
-					</div>
-				</fieldset>
+			<fieldset>
+				<legend>Administrative Staff</legend>
+				<div class="form-group">
+					<label for="headteacher">Headteacher</label>
+					<input type="text" class="form-control" id="headteacher" name="headteacher" />
+				</div>
+				<div class="form-group">
+					<label for="deputyHeadteacher">Deputy Headteacher</label>
+					<input
+						type="text"
+						class="form-control"
+						id="deputyHeadteacher"
+						name="deputy_headteacher"
+					/>
+				</div>
+				<div class="form-group">
+					<label for="secretary">Secretary</label>
+					<input type="text" class="form-control" id="secretary" name="secretary" />
+				</div>
+				<div class="form-group">
+					<label for="librarian">Librarian</label>
+					<input type="text" class="form-control" id="librarian" name="librarian" />
+				</div>
+				<div class="form-group">
+					<label for="accountant">Accountant</label>
+					<input type="text" class="form-control" id="accountant" name="accountant" />
+				</div>
+				<div class="form-group">
+					<label for="otherStaff">Other Staff (Specify)</label>
+					<input type="text" class="form-control" id="otherStaff" name="other_staff" />
+				</div>
+				<div class="form-group">
+					<label for="totalNumberOfAdministrativeStaff"
+						>Total Number of Administrative Staff</label
+					>
+					<input
+						type="text"
+						class="form-control"
+						id="totalNumberOfAdministrativeStaff"
+						name="total_number_of_administrative_staff"
+						readonly
+					/>
+				</div>
+			</fieldset>
 
-				<fieldset>
-					<legend>Supporting Staff</legend>
-					<div class="form-group">
-						<label for="cleaners">Cleaners</label>
-						<input type="text" class="form-control" id="cleaners" name="cleaners" />
-					</div>
-					<div class="form-group">
-						<label for="watchmen">Watchmen</label>
-						<input type="text" class="form-control" id="watchmen" name="watchmen" />
-					</div>
-					<div class="form-group">
-						<label for="schoolCooks">School Cooks</label>
-						<input
-							type="text"
-							class="form-control"
-							id="schoolCooks"
-							name="school_cooks"
-						/>
-					</div>
-					<div class="form-group">
-						<label for="storekeeper">Storekeeper</label>
-						<input
-							type="text"
-							class="form-control"
-							id="storekeeper"
-							name="storekeeper"
-						/>
-					</div>
-					<div class="form-group">
-						<label for="drivers">Drivers</label>
-						<input type="text" class="form-control" id="drivers" name="drivers" />
-					</div>
-					<div class="form-group">
-						<label for="otherSupportingStaff">Other Supporting Staff (Specify)</label>
-						<input
-							type="text"
-							class="form-control"
-							id="otherSupportingStaff"
-							name="other_supporting_staff"
-						/>
-					</div>
-					<div class="form-group">
-						<label for="totalNumberOfSupportingStaff"
-							>Total Number of Supporting Staff</label
-						>
-						<input
-							type="text"
-							class="form-control"
-							id="totalNumberOfSupportingStaff"
-							name="total_number_of_supporting_staff"
-							readonly
-						/>
-					</div>
-				</fieldset>
+			<fieldset>
+				<legend>Supporting Staff</legend>
+				<div class="form-group">
+					<label for="cleaners">Cleaners</label>
+					<input type="text" class="form-control" id="cleaners" name="cleaners" />
+				</div>
+				<div class="form-group">
+					<label for="watchmen">Watchmen</label>
+					<input type="text" class="form-control" id="watchmen" name="watchmen" />
+				</div>
+				<div class="form-group">
+					<label for="schoolCooks">School Cooks</label>
+					<input type="text" class="form-control" id="schoolCooks" name="school_cooks" />
+				</div>
+				<div class="form-group">
+					<label for="storekeeper">Storekeeper</label>
+					<input type="text" class="form-control" id="storekeeper" name="storekeeper" />
+				</div>
+				<div class="form-group">
+					<label for="drivers">Drivers</label>
+					<input type="text" class="form-control" id="drivers" name="drivers" />
+				</div>
+				<div class="form-group">
+					<label for="otherSupportingStaff">Other Supporting Staff (Specify)</label>
+					<input
+						type="text"
+						class="form-control"
+						id="otherSupportingStaff"
+						name="other_supporting_staff"
+					/>
+				</div>
+				<div class="form-group">
+					<label for="totalNumberOfSupportingStaff"
+						>Total Number of Supporting Staff</label
+					>
+					<input
+						type="text"
+						class="form-control"
+						id="totalNumberOfSupportingStaff"
+						name="total_number_of_supporting_staff"
+						readonly
+					/>
+				</div>
 			</fieldset>
 
 			<fieldset>
@@ -792,6 +814,22 @@
 					/>
 				</div>
 			</fieldset>
+			<fieldset>
+				<legend>Summary</legend>
+				<div class="summary-container">
+					<h4>Basic Information</h4>
+					<div id="basicInfoSummary" class="summary-section"></div>
+
+					<h4>Student Information</h4>
+					<div id="studentInfoSummary" class="summary-section"></div>
+
+					<h4>Staff Information</h4>
+					<div id="staffInfoSummary" class="summary-section"></div>
+
+					<h4>Infrastructure</h4>
+					<div id="infrastructureSummary" class="summary-section"></div>
+				</div>
+			</fieldset>
 
 			<div class="form-navigation">
 				<button type="button" class="btn btn-prev" id="prevButton" style="display: none">
@@ -808,7 +846,17 @@
 	frappe.ready(function () {
 		let isAuthentication = false;
 		let currentSection = 0;
-
+		// Check if coming from accreditation page
+		const requestType = localStorage.getItem("accreditationRequestType");
+		if (requestType) {
+			frappe.show_alert(
+				{
+					message: `Starting application process for ${requestType}`,
+					indicator: "blue",
+				},
+				5
+			);
+		}
 		initSchoolSearch();
 		initFormNavigation();
 
@@ -835,16 +883,13 @@
 				if (!isValid) {
 					return;
 				}
-
 				if (currentSection === 1 && !isAuthentication) {
 					var schoolEmail = $("#schoolEmail").val();
 					var schoolName = $("#schoolName").val();
-
 					if (!schoolEmail) {
 						frappe.msgprint("Please enter your school email.");
 						return;
 					}
-
 					frappe.call({
 						method: "accreditation_management.accreditation_management.doctype.school_identification.school_identification.generate_and_send_auth_code",
 						args: {
@@ -971,52 +1016,178 @@
 				});
 		}
 
-		function calculateTotals() {
-			const fields = {
-				administrativeStaff: [
-					"headteacher",
-					"deputyHeadteacher",
-					"secretary",
-					"librarian",
-					"accountant",
-					"otherStaff",
-				],
-				supportingStaff: [
-					"cleaners",
-					"watchmen",
-					"schoolCooks",
-					"storekeeper",
-					"drivers",
-					"otherSupportingStaff",
-				],
-				students: ["numberOfBoys", "numberOfGirls"],
-				teachers: ["numberOfMaleTeachers", "numberOfFemaleTeachers"],
-				assistantTeachers: [
-					"numberOfMaleAssistantTeachers",
-					"numberOfFemaleAssistantTeachers",
-				],
+		function calculateTotalAdministrativeStaff() {
+			const fields = [
+				"headteacher",
+				"deputyHeadteacher",
+				"secretary",
+				"librarian",
+				"accountant",
+				"otherStaff",
+			];
+			let total = 0;
+			fields.forEach((field) => {
+				const value = parseInt($(`#${field}`).val()) || 0;
+				total += value;
+			});
+			$("#totalNumberOfAdministrativeStaff").val(total);
+		}
+
+		function calculateTotalSupportingStaff() {
+			const fields = [
+				"cleaners",
+				"watchmen",
+				"schoolCooks",
+				"storekeeper",
+				"drivers",
+				"otherSupportingStaff",
+			];
+			let total = 0;
+			fields.forEach((field) => {
+				const value = parseInt($(`#${field}`).val()) || 0;
+				total += value;
+			});
+			$("#totalNumberOfSupportingStaff").val(total);
+		}
+
+		function calculateTotalStudents() {
+			const boys = parseInt($("#numberOfBoys").val()) || 0;
+			const girls = parseInt($("#numberOfGirls").val()) || 0;
+			$("#totalNrStudents").val(boys + girls);
+		}
+
+		function calculateTotalTeachers() {
+			const maleTeachers = parseInt($("#numberOfMaleTeachers").val()) || 0;
+			const femaleTeachers = parseInt($("#numberOfFemaleTeachers").val()) || 0;
+			$("#numberOfTeachers").val(maleTeachers + femaleTeachers);
+		}
+
+		function calculateTotalAssistantTeachers() {
+			const maleAssistantTeachers = parseInt($("#numberOfMaleAssistantTeachers").val()) || 0;
+			const femaleAssistantTeachers =
+				parseInt($("#numberOfFemaleAssistantTeachers").val()) || 0;
+			$("#numberOfAssistantTeachers").val(maleAssistantTeachers + femaleAssistantTeachers);
+		}
+
+		$("#schoolIdentificationForm input").on("input", function () {
+			calculateTotalAdministrativeStaff();
+			calculateTotalSupportingStaff();
+			calculateTotalStudents();
+			calculateTotalTeachers();
+			calculateTotalAssistantTeachers();
+		});
+
+		function populateSummary() {
+			// Basic Information Summary
+			const basicInfo = {
+				"School Name": $("#schoolName").val(),
+				"School Code": $("#schoolCode").val(),
+				Status: $("#status").val(),
+				"Type of School": $("#typeOfSchool").val(),
+				"School Owner": $("#schoolOwner").val(),
 			};
 
-			$("#schoolIdentificationForm input").on("input", function () {
-				$("#totalNumberOfAdministrativeStaff").val(sumFields(fields.administrativeStaff));
-				$("#totalNumberOfSupportingStaff").val(sumFields(fields.supportingStaff));
-				$("#totalNrStudents").val(sumFields(fields.students));
-				$("#numberOfTeachers").val(sumFields(fields.teachers));
-				$("#numberOfAssistantTeachers").val(sumFields(fields.assistantTeachers));
+			// Student Information Summary
+			const studentInfo = {
+				"Total Students": $("#totalNrStudents").val(),
+				Boys: $("#numberOfBoys").val(),
+				Girls: $("#numberOfGirls").val(),
+				"Students with SEN": $("#studentsWithSEN").val(),
+			};
+
+			// Staff Information Summary
+			const staffInfo = {
+				"Total Teachers": $("#numberOfTeachers").val(),
+				"Total Assistant Teachers": $("#numberOfAssistantTeachers").val(),
+				"Administrative Staff": $("#totalNumberOfAdministrativeStaff").val(),
+				"Supporting Staff": $("#totalNumberOfSupportingStaff").val(),
+			};
+
+			// Infrastructure Summary
+			const infrastructureInfo = {
+				Classrooms: $("#nbrOfClassrooms").val(),
+				"Latrines/Toilets": $("#nbrOfLatrines").val(),
+				Kitchen: $("#numberOfKitchen").val(),
+				"Dining Hall": $("#numberOfDiningHall").val(),
+				Library: $("#numberOfLibrary").val(),
+				"Smart Classrooms": $("#numberOfSmartClassrooms").val(),
+				"Computer Laboratory": $("#numberOfComputerLab").val(),
+				"Administrative Offices": $("#numberOfAdminOffices").val(),
+				"Multipurpose Halls": $("#numberOfMultipurposeHalls").val(),
+				"Academic Staff Rooms": $("#numberOfAcademicStaffRooms").val(),
+			};
+
+			// Populate summary sections
+			["basicInfo", "studentInfo", "staffInfo", "infrastructureInfo"].forEach((section) => {
+				const $container = $(`#${section}Summary`);
+				$container.empty();
+
+				const data = eval(section);
+				Object.entries(data).forEach(([label, value]) => {
+					if (value) {
+						$container.append(`
+                        <div class="summary-item">
+                            <span class="summary-label">${label}:</span>
+                            <span class="summary-value">${value}</span>
+                        </div>
+                    `);
+					}
+				});
+			});
+		}
+
+		function clearValidationErrors() {
+			$(".field-error").removeClass("field-error");
+			$(".error-message").remove();
+		}
+
+		function handleValidationErrors(errors) {
+			clearValidationErrors();
+
+			Object.entries(errors).forEach(([fieldName, errorMessage]) => {
+				const field = $(`[name="${fieldName}"]`);
+				if (field.length) {
+					field.addClass("field-error");
+					field.after(`<div class="error-message">${errorMessage}</div>`);
+
+					// If this field is in a non-active section, switch to that section
+					const fieldset = field.closest("fieldset");
+					if (!fieldset.hasClass("active")) {
+						const sections = $("fieldset");
+						const currentSection = sections.index(fieldset);
+
+						// Update navigation
+						sections.removeClass("active");
+						fieldset.addClass("active");
+
+						// Update buttons and progress
+						$("#prevButton").toggle(currentSection > 0);
+						$("#nextButton").text(
+							currentSection === sections.length - 1
+								? "Continue to Self Assessment"
+								: "Next"
+						);
+
+						// Update progress bar
+						const progress = ((currentSection + 1) / sections.length) * 100;
+						$(".progress-bar").css("width", progress + "%");
+
+						window.scrollTo(0, 0);
+					}
+				}
 			});
 
-			function sumFields(fieldIds) {
-				return fieldIds.reduce(
-					(total, id) => total + (parseInt($(`#${id}`).val()) || 0),
-					0
-				);
+			// Scroll to first error if not visible
+			const firstError = $(".field-error").first();
+			if (firstError.length) {
+				const errorTop = firstError.offset().top - 100;
+				window.scrollTo(0, errorTop);
 			}
 		}
 
-		calculateTotals();
-
 		$("#schoolIdentificationForm").on("submit", function (e) {
 			e.preventDefault();
+			clearValidationErrors();
 
 			var formData = {};
 			$(this)
@@ -1040,7 +1211,38 @@
 								"Your school identification form has been submitted successfully."
 							),
 						});
+						// Store school details and request type in localStorage before redirecting
+						const schoolDetails = {
+							schoolName: $("#schoolName").val(),
+							schoolCode: $("#schoolCode").val(),
+							province: $("#province").val(),
+							district: $("#district").val(),
+							sector: $("#sector").val(),
+							cell: $("#cell").val(),
+							village: $("#village").val(),
+							requestType: localStorage.getItem("accreditationRequestType"),
+						};
+						localStorage.setItem("schoolDetails", JSON.stringify(schoolDetails));
+						window.location.href = "/self_assessment";
 					} else {
+						if (r._server_messages) {
+							try {
+								const errors = JSON.parse(r._server_messages);
+								if (typeof errors === "object" && errors !== null) {
+									handleValidationErrors(errors);
+									frappe.msgprint({
+										title: __("Validation Failed"),
+										indicator: "red",
+										message: __(
+											"Please correct the highlighted fields and try again."
+										),
+									});
+									return;
+								}
+							} catch (e) {
+								// If not validation errors, show generic error
+							}
+						}
 						frappe.msgprint({
 							title: __("Submission Failed"),
 							indicator: "red",

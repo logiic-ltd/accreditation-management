@@ -14,10 +14,11 @@ def submit_school_identification(form_data):
             "school_name": data.get("school_name"),
             "school_code": data.get("school_code"),
             "status": data.get("status"),
+            "type_of_school": data.get("type_of_school"),
             "school_owner": data.get("school_owner"),
             "contact": data.get("contact"),
             "accommodation_status": data.get("accommodation_status"),
-            "year_of_establishment": data.get("year_of_establishment"),
+            "year_of_establishment": int(data.get("year_of_establishment") or 0),
             "school_email":data.get("school_email"),
             "village": data.get("village"),
             "cell": data.get("cell"),
@@ -31,8 +32,12 @@ def submit_school_identification(form_data):
             "number_of_girls": data.get("number_of_girls"),
             "total_nr_students": data.get("total_nr_students"),  # This will be calculated on the client side
             "students_with_sen": data.get("students_with_sen"),
-            "number_of_teachers": data.get("number_of_teachers"),
-            "number_of_assistant_teachers": data.get("number_of_assistant_teachers"),
+            "number_of_male_teachers": int(data.get("number_of_male_teachers") or 0),
+            "number_of_female_teachers": int(data.get("number_of_female_teachers") or 0),
+            "number_of_teachers": int(data.get("number_of_teachers") or 0),
+            "number_of_male_assistant_teachers": int(data.get("number_of_male_assistant_teachers") or 0),
+            "number_of_female_assistant_teachers": int(data.get("number_of_female_assistant_teachers") or 0),
+            "number_of_assistant_teachers": int(data.get("number_of_assistant_teachers") or 0),
             "total_number_of_administrative_staff": data.get("total_number_of_administrative_staff"),
             "headteacher": data.get("headteacher"),
             "deputy_headteacher": data.get("deputy_headteacher"),
@@ -56,7 +61,9 @@ def submit_school_identification(form_data):
             "number_of_computer_lab": data.get("number_of_computer_lab"),
             "number_of_admin_offices": data.get("number_of_admin_offices"),
             "number_of_multipurpose_halls": data.get("number_of_multipurpose_halls"),
-            "number_of_academic_staff_rooms": data.get("number_of_academic_staff_rooms")
+            "number_of_academic_staff_rooms": data.get("number_of_academic_staff_rooms"),
+            "latitude": float(data.get("latitude") or 0),
+            "longitude": float(data.get("longitude") or 0)
         })
         
         doc.insert(ignore_permissions=True)

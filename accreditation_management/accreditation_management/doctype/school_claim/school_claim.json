@@ -1,0 +1,154 @@
+{
+ "actions": [],
+ "autoname": "format:CLAIM-{####}",
+ "creation": "2024-03-04 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "school_section",
+  "school_code",
+  "school_name",
+  "claim_details_section",
+  "claim_type",
+  "claim_description",
+  "claimant_section",
+  "claimant_name",
+  "claimant_email",
+  "claimant_phone",
+  "claimant_role",
+  "evidence_section",
+  "attachments",
+  "status_section",
+  "status",
+  "resolution_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "school_section",
+   "fieldtype": "Section Break",
+   "label": "School Information"
+  },
+  {
+   "fieldname": "school_code",
+   "fieldtype": "Data",
+   "label": "School Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "school_name",
+   "fieldtype": "Data",
+   "label": "School Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "claim_details_section",
+   "fieldtype": "Section Break",
+   "label": "Claim Details"
+  },
+  {
+   "fieldname": "claim_type",
+   "fieldtype": "Select",
+   "label": "Claim Type",
+   "options": "Academic Standards\nFacilities\nSafety Concerns\nStaff Qualifications\nFinancial Issues\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "claim_description",
+   "fieldtype": "Long Text",
+   "label": "Claim Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "claimant_section",
+   "fieldtype": "Section Break",
+   "label": "Claimant Information"
+  },
+  {
+   "fieldname": "claimant_name",
+   "fieldtype": "Data",
+   "label": "Claimant Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "claimant_email",
+   "fieldtype": "Data",
+   "label": "Claimant Email",
+   "reqd": 1
+  },
+  {
+   "fieldname": "claimant_phone",
+   "fieldtype": "Data",
+   "label": "Claimant Phone",
+   "reqd": 1
+  },
+  {
+   "fieldname": "claimant_role",
+   "fieldtype": "Select",
+   "label": "Claimant Role",
+   "options": "Parent\nTeacher\nStudent\nCommunity Member\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "evidence_section",
+   "fieldtype": "Section Break",
+   "label": "Supporting Evidence"
+  },
+  {
+   "fieldname": "attachments",
+   "fieldtype": "Attach",
+   "label": "Attachments"
+  },
+  {
+   "fieldname": "status_section",
+   "fieldtype": "Section Break",
+   "label": "Status"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSubmitted\nUnder Investigation\nResolved\nRejected",
+   "default": "Draft"
+  },
+  {
+   "fieldname": "resolution_notes",
+   "fieldtype": "Long Text",
+   "label": "Resolution Notes",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-03-04 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Accreditation Management",
+ "name": "School Claim",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Guest",
+   "share": 0,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

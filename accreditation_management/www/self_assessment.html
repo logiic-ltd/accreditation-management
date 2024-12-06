@@ -571,6 +571,12 @@
                     <p id="provisionalRanking">Provisional Ranking: N/A</p>
                     <p id="provisionalDecision">Provisional Decision: N/A</p>
                     <p id="provisionalYears">Provisional Accreditation Years: N/A</p>
+                    <div id="continueToApplication" style="display: none;" class="mt-4">
+                        <p class="text-muted">You've completed both school identification and self assessment.</p>
+                        <a href="/accreditation_application" class="btn btn-primary">
+                            Continue to Accreditation Application
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="container">
@@ -583,8 +589,14 @@
         </form>
     </div>
 </div>
-</div>
-<script>                                                                                                                                      
+<script>
+    function startAccreditationFlow(requestType) {
+        // Store the request type in localStorage
+        localStorage.setItem('accreditationRequestType', requestType);
+        // Navigate to school identification
+        window.location.href = '/school-identification';
+    }
+
     let currentSection = 0;
     const sections = document.querySelectorAll('.form-section');
 
@@ -847,6 +859,29 @@
         let $searchInput = $('#schoolSearch');
         let $results = $('#schoolSearchResults');
         let searchTimeout;
+    
+        // Check for stored school details on page load
+        const storedSchoolDetails = localStorage.getItem('schoolDetails');
+        if (storedSchoolDetails) {
+            const details = JSON.parse(storedSchoolDetails);
+            // Pre-fill the search input
+            $searchInput.val(details.schoolName);
+            // Show the continue button in provisional results
+            $('#continueToApplication').show();
+        
+            // Show the school info table with stored details
+            $('#schoolNameDisplay').text(details.schoolName);
+            $('#schoolCodeDisplay').text(details.schoolCode);
+            $('#provinceDisplay').text(details.province || 'N/A');
+            $('#districtDisplay').text(details.district || 'N/A');
+            $('#sectorDisplay').text(details.sector || 'N/A');
+            $('#cellDisplay').text(details.cell || 'N/A');
+            $('#villageDisplay').text(details.village || 'N/A');
+            $('#schoolInfoTable').show();
+        
+            // Clear stored details after using them
+            localStorage.removeItem('schoolDetails');
+        }
 
         $searchInput.on('input', function() {
             clearTimeout(searchTimeout);
