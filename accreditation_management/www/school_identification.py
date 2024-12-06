@@ -18,6 +18,7 @@ def submit_school_identification(form_data):
             "contact": data.get("contact"),
             "accommodation_status": data.get("accommodation_status"),
             "year_of_establishment": data.get("year_of_establishment"),
+            "school_email":data.get("school_email"),
             "village": data.get("village"),
             "cell": data.get("cell"),
             "sector": data.get("sector"),

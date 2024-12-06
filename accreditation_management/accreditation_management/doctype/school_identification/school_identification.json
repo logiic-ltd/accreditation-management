@@ -1,6 +1,7 @@
 {
- "autoname": "autoincrement",
- "creation": "2024-11-12 00:00:00.000000",
+ "actions": [],
+ "autoname": "field:school_name",
+ "creation": "2024-11-12 00:00:00",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -48,23 +49,32 @@
   "number_of_computer_lab",
   "number_of_admin_offices",
   "number_of_multipurpose_halls",
-  "number_of_academic_staff_rooms"
+  "number_of_academic_staff_rooms",
+  "type_of_school",
+  "latitude",
+  "longitude",
+  "number_of_male_teachers",
+  "number_of_female_teachers",
+  "number_of_male_assistant_teachers",
+  "number_of_female_assistant_teachers",
+  "school_email"
  ],
  "fields": [
   {
    "fieldname": "number_of_boys",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Boys"
   },
   {
    "fieldname": "number_of_girls",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Girls"
   },
   {
    "fieldname": "school_name",
    "fieldtype": "Data",
-   "label": "School Name"
+   "label": "School Name",
+   "unique": 1
   },
   {
    "fieldname": "school_code",
@@ -72,20 +82,22 @@
    "label": "School Code"
   },
   {
+   "description": "Select the school's status",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
    "options": "Public\nPrivate\nGovernment Aided",
-   "reqd": 1,
-   "description": "Select the school's status"
+   "reqd": 1
   },
   {
+   "description": "Select whether this is a TVET or General Education school",
    "fieldname": "type_of_school",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Type of School",
    "options": "TVET\nGeneral Education",
-   "reqd": 1,
-   "description": "Select whether this is a TVET or General Education school"
+   "reqd": 1
   },
   {
    "fieldname": "school_owner",
@@ -100,6 +112,7 @@
   {
    "fieldname": "accommodation_status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Accommodation Status",
    "options": "Day\nBoarding\nMixed",
    "reqd": 1
@@ -141,7 +154,7 @@
    "precision": "8"
   },
   {
-   "fieldname": "longitude", 
+   "fieldname": "longitude",
    "fieldtype": "Float",
    "label": "Longitude",
    "precision": "8"
@@ -163,180 +176,185 @@
   },
   {
    "fieldname": "total_nr_students",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Total Nr. Students"
   },
   {
    "fieldname": "students_with_sen",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Students with SEN"
   },
   {
+   "default": "0",
    "fieldname": "number_of_male_teachers",
-   "fieldtype": "Integer",
-   "label": "Number of Male Teachers",
-   "default": "0"
+   "fieldtype": "Int",
+   "label": "Number of Male Teachers"
   },
   {
+   "default": "0",
    "fieldname": "number_of_female_teachers",
-   "fieldtype": "Integer",
-   "label": "Number of Female Teachers",
-   "default": "0"
+   "fieldtype": "Int",
+   "label": "Number of Female Teachers"
   },
   {
+   "default": "0",
    "fieldname": "number_of_teachers",
-   "fieldtype": "Integer",
+   "fieldtype": "Int",
    "label": "Total Number of Teachers",
-   "read_only": 1,
-   "default": "0"
+   "read_only": 1
   },
   {
+   "default": "0",
    "fieldname": "number_of_male_assistant_teachers",
-   "fieldtype": "Integer",
-   "label": "Number of Male Assistant Teachers",
-   "default": "0"
+   "fieldtype": "Int",
+   "label": "Number of Male Assistant Teachers"
   },
   {
+   "default": "0",
    "fieldname": "number_of_female_assistant_teachers",
-   "fieldtype": "Integer",
-   "label": "Number of Female Assistant Teachers",
-   "default": "0"
+   "fieldtype": "Int",
+   "label": "Number of Female Assistant Teachers"
   },
   {
+   "default": "0",
    "fieldname": "number_of_assistant_teachers",
-   "fieldtype": "Integer",
+   "fieldtype": "Int",
    "label": "Total Number of Assistant Teachers",
-   "read_only": 1,
-   "default": "0"
+   "read_only": 1
   },
   {
    "fieldname": "total_number_of_administrative_staff",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Total Number of Administrative Staff"
   },
   {
    "fieldname": "headteacher",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Headteacher"
   },
   {
    "fieldname": "deputy_headteacher",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Deputy Headteacher"
   },
   {
    "fieldname": "secretary",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Secretary"
   },
   {
    "fieldname": "librarian",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Librarian"
   },
   {
    "fieldname": "accountant",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Accountant"
   },
   {
    "fieldname": "other_staff",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Other Staff"
   },
   {
    "fieldname": "total_number_of_supporting_staff",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Total Number of Supporting Staff"
   },
   {
    "fieldname": "cleaners",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Cleaners"
   },
   {
    "fieldname": "watchmen",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Watchmen"
   },
   {
    "fieldname": "school_cooks",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "School Cooks"
   },
   {
    "fieldname": "storekeeper",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Storekeeper"
   },
   {
    "fieldname": "drivers",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Drivers"
   },
   {
    "fieldname": "other_supporting_staff",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Other Supporting Staff"
   },
   {
    "fieldname": "nbr_of_classrooms",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Classrooms"
   },
   {
    "fieldname": "nbr_of_latrines",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Latrines"
   },
   {
    "fieldname": "number_of_kitchen",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Kitchen"
   },
   {
    "fieldname": "number_of_dining_hall",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Dining Hall"
   },
   {
    "fieldname": "number_of_library",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Library"
   },
   {
    "fieldname": "number_of_smart_classrooms",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Smart Classrooms"
   },
   {
    "fieldname": "number_of_computer_lab",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Computer Lab"
   },
   {
    "fieldname": "number_of_admin_offices",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Admin Offices"
   },
   {
    "fieldname": "number_of_multipurpose_halls",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Multipurpose Halls"
   },
   {
    "fieldname": "number_of_academic_staff_rooms",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Number of Academic Staff Rooms"
+  },
+  {
+   "fieldname": "school_email",
+   "fieldtype": "Data",
+   "label": "School Email"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-12 00:00:00.000000",
+ "modified": "2024-12-03 12:46:34.687477",
  "modified_by": "Administrator",
  "module": "Accreditation Management",
  "name": "School Identification",
- "naming_rule": "Autoincrement",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
