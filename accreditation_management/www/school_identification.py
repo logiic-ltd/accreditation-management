@@ -66,7 +66,7 @@ def verify_code(school_email, verification_code):
     
     # Verify code
     if verification_data.get("code") != verification_code:
-        frappe.throw(_("Invalid verification code"))
+        frappe.throw(_("Invalid verification code"), exc=frappe.ValidationError, title=_("Verification Failed"))
     
     # Code is valid - delete it and return success
     frappe.cache().delete_value(verification_key)

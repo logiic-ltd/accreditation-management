@@ -988,13 +988,17 @@ frappe.ready(function() {
                         window.scrollTo(0, 0);
                     }, 1500);
                 } else {
-                    const errorMsg = r._server_messages ? JSON.parse(r._server_messages)[0] : 'Verification failed';
+                    let errorMsg;
+                    try {
+                        const messages = JSON.parse(r._server_messages);
+                        errorMsg = Array.isArray(messages) ? messages[0] : messages;
+                    } catch (e) {
+                        errorMsg = 'Verification failed';
+                    }
                     showVerificationFeedback('error', errorMsg);
                     resetVerificationForm();
-                }
-                
-                // Always reset button state unless verification succeeded
-                if (r.exc) {
+                    
+                    // Reset button state
                     $btn.prop('disabled', false);
                     $text.css('opacity', '1');
                     $loader.hide();
