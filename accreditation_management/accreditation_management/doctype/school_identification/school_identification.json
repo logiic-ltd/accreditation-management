@@ -72,6 +72,12 @@
    "label": "School Code"
   },
   {
+   "fieldname": "school_email",
+   "fieldtype": "Data",
+   "label": "School Email",
+   "options": "Email"
+  },
+  {
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
