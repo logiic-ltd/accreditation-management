@@ -991,11 +991,19 @@ frappe.ready(function() {
                     const errorMsg = r._server_messages ? JSON.parse(r._server_messages)[0] : 'Verification failed';
                     showVerificationFeedback('error', errorMsg);
                     resetVerificationForm();
+                    // Reset button state
+                    $btn.prop('disabled', false);
+                    $text.css('opacity', '1');
+                    $loader.hide();
                 }
             },
             error: function() {
                 showVerificationFeedback('error', 'Network error. Please try again.');
                 resetVerificationForm();
+                // Reset button state
+                $btn.prop('disabled', false);
+                $text.css('opacity', '1');
+                $loader.hide();
             }
         });
     });
