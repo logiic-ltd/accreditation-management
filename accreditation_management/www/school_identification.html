@@ -227,6 +227,9 @@
                     <div id="schoolSearchResults" class="mt-2"></div>
                 </div>
                 <div id="schoolInfoTable" style="display: none;">
+                    <div class="alert alert-info mb-3">
+                        Please verify your access to this school's email before proceeding.
+                    </div>
                     <table class="table table-bordered">
                         <tbody>
                             <tr><th>School Name</th><td id="schoolNameDisplay"></td></tr>
@@ -239,6 +242,18 @@
                             <tr><th>Village</th><td id="villageDisplay"></td></tr>
                         </tbody>
                     </table>
+                </div>
+                <div id="verificationSection" style="display: none;">
+                    <div class="alert alert-success mb-3" id="verificationSuccess" style="display: none;">
+                        Email verified successfully! You can now proceed with the form.
+                    </div>
+                    <div class="form-group">
+                        <label for="verificationCode">Enter Verification Code</label>
+                        <input type="text" class="form-control" id="verificationCode" placeholder="Enter 6-digit code">
+                        <small class="text-muted">A verification code has been sent to the school's email address.</small>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="verifyCodeBtn">Verify Code</button>
+                    <button type="button" class="btn btn-link" id="resendCodeBtn">Resend Code</button>
                 </div>
             </fieldset>
             <fieldset>
@@ -542,9 +557,27 @@ frappe.ready(function() {
     initSchoolSearch();
     initFormNavigation();
 
+    let emailVerified = false;
+    
     function initFormNavigation() {
         const sections = $('fieldset');
         let currentSection = 0;
+        
+        function updateNextButton() {
+            if (currentSection === 0) {
+                if ($('#schoolInfoTable').is(':visible')) {
+                    if (emailVerified) {
+                        $('#nextButton').text('Next').prop('disabled', false);
+                    } else {
+                        $('#nextButton').text('Verify School Email').prop('disabled', false);
+                    }
+                } else {
+                    $('#nextButton').text('Next').prop('disabled', true);
+                }
+            } else {
+                $('#nextButton').text(currentSection === sections.length - 1 ? 'Continue to Self Assessment' : 'Next');
+            }
+        }
         
         // Show first section by default
         $(sections[0]).addClass('active');
@@ -557,6 +590,37 @@ frappe.ready(function() {
         
         // Handle next button click
         $('#nextButton').click(function() {
+            if (currentSection === 0 && !emailVerified && $('#schoolInfoTable').is(':visible')) {
+                // Show verification section and send code
+                const schoolEmail = $('#schoolEmailDisplay').text();
+                if (schoolEmail === 'N/A' || !schoolEmail) {
+                    frappe.msgprint({
+                        title: __('Error'),
+                        indicator: 'red',
+                        message: __('No email address available for this school.')
+                    });
+                    return;
+                }
+                
+                frappe.call({
+                    method: 'accreditation_management.www.school_identification.send_verification_code',
+                    args: {
+                        school_email: schoolEmail
+                    },
+                    callback: function(r) {
+                        if (!r.exc) {
+                            $('#verificationSection').show();
+                            $('#nextButton').prop('disabled', true);
+                            frappe.show_alert({
+                                message: __('Verification code sent to school email'),
+                                indicator: 'blue'
+                            }, 5);
+                        }
+                    }
+                });
+                return;
+            }
+            
             if (currentSection === sections.length - 1) {
                 // On the last section, submit the form
                 $('#schoolIdentificationForm').submit();
@@ -647,6 +711,60 @@ frappe.ready(function() {
         calculateTotalStudents();
         calculateTotalTeachers();
         calculateTotalAssistantTeachers();
+    });
+    
+    // Handle verify code button click
+    $('#verifyCodeBtn').click(function() {
+        const schoolEmail = $('#schoolEmailDisplay').text();
+        const code = $('#verificationCode').val().trim();
+        
+        if (!code) {
+            frappe.msgprint({
+                title: __('Error'),
+                indicator: 'red',
+                message: __('Please enter the verification code')
+            });
+            return;
+        }
+        
+        frappe.call({
+            method: 'accreditation_management.www.school_identification.verify_code',
+            args: {
+                school_email: schoolEmail,
+                verification_code: code
+            },
+            callback: function(r) {
+                if (!r.exc) {
+                    emailVerified = true;
+                    $('#verificationSuccess').show();
+                    $('#verificationSection').hide();
+                    updateNextButton();
+                    frappe.show_alert({
+                        message: __('Email verified successfully'),
+                        indicator: 'green'
+                    }, 5);
+                }
+            }
+        });
+    });
+    
+    // Handle resend code button click
+    $('#resendCodeBtn').click(function() {
+        const schoolEmail = $('#schoolEmailDisplay').text();
+        frappe.call({
+            method: 'accreditation_management.www.school_identification.send_verification_code',
+            args: {
+                school_email: schoolEmail
+            },
+            callback: function(r) {
+                if (!r.exc) {
+                    frappe.show_alert({
+                        message: __('New verification code sent'),
+                        indicator: 'blue'
+                    }, 5);
+                }
+            }
+        });
     });
 
     function populateSummary() {

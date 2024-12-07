@@ -1,6 +1,76 @@
 import frappe
 import json
+import random
+import string
 from frappe import _
+from frappe.utils.verified_command import get_signed_params, verify_request
+from frappe.utils import now, add_to_date
+
+def generate_verification_code():
+    """Generate a 6-digit verification code"""
+    return ''.join(random.choices(string.digits, k=6))
+
+@frappe.whitelist(allow_guest=True)
+def send_verification_code(school_email):
+    if not school_email:
+        frappe.throw(_("School email is required"))
+        
+    verification_code = generate_verification_code()
+    
+    # Store the code with timestamp
+    verification_key = f"school_verification:{school_email}"
+    verification_data = {
+        "code": verification_code,
+        "timestamp": now(),
+        "attempts": 0
+    }
+    frappe.cache().set_value(verification_key, verification_data, expires_in_sec=300)  # 5 minutes expiry
+    
+    # Send email
+    subject = _("School Identification Form - Email Verification")
+    message = f"""
+    <p>Hello,</p>
+    <p>Your verification code for the School Identification Form is: <strong>{verification_code}</strong></p>
+    <p>This code will expire in 5 minutes.</p>
+    <p>If you did not request this code, please ignore this email.</p>
+    """
+    
+    try:
+        frappe.sendmail(
+            recipients=[school_email],
+            subject=subject,
+            message=message,
+            delayed=False
+        )
+        return {"message": _("Verification code sent successfully")}
+    except Exception as e:
+        frappe.log_error(f"Failed to send verification email: {str(e)}")
+        frappe.throw(_("Failed to send verification code. Please try again."))
+
+@frappe.whitelist(allow_guest=True)
+def verify_code(school_email, verification_code):
+    verification_key = f"school_verification:{school_email}"
+    verification_data = frappe.cache().get_value(verification_key)
+    
+    if not verification_data:
+        frappe.throw(_("Verification code has expired. Please request a new code."))
+    
+    # Check attempts
+    if verification_data.get("attempts", 0) >= 3:
+        frappe.cache().delete_value(verification_key)
+        frappe.throw(_("Too many incorrect attempts. Please request a new code."))
+    
+    # Update attempts
+    verification_data["attempts"] = verification_data.get("attempts", 0) + 1
+    frappe.cache().set_value(verification_key, verification_data)
+    
+    # Verify code
+    if verification_data.get("code") != verification_code:
+        frappe.throw(_("Invalid verification code"))
+    
+    # Code is valid - delete it and return success
+    frappe.cache().delete_value(verification_key)
+    return {"message": _("Email verified successfully")}
 
 @frappe.whitelist(allow_guest=True)
 def submit_school_identification(form_data):
