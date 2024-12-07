@@ -715,6 +715,7 @@ frappe.ready(function() {
     
     // Handle verify code button click
     $('#verifyCodeBtn').click(function() {
+        const $btn = $(this);
         const schoolEmail = $('#schoolEmailDisplay').text();
         const code = $('#verificationCode').val().trim();
         
@@ -727,6 +728,9 @@ frappe.ready(function() {
             return;
         }
         
+        // Disable button and show loading state
+        $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Verifying...');
+        
         frappe.call({
             method: 'accreditation_management.www.school_identification.verify_code',
             args: {
@@ -736,14 +740,34 @@ frappe.ready(function() {
             callback: function(r) {
                 if (!r.exc) {
                     emailVerified = true;
+                    $('#verificationCode').val(''); // Clear the input
                     $('#verificationSuccess').show();
                     $('#verificationSection').hide();
-                    updateNextButton();
+                    $('#nextButton').prop('disabled', false).text('Next');
+                    
                     frappe.show_alert({
-                        message: __('Email verified successfully'),
+                        message: __('Email verified successfully! You can now proceed with the form.'),
                         indicator: 'green'
                     }, 5);
+                } else {
+                    // Reset button state
+                    $btn.prop('disabled', false).text('Verify Code');
+                    
+                    // Show remaining attempts if available in the error message
+                    const errorMsg = r._server_messages ? JSON.parse(r._server_messages)[0] : 'Verification failed';
+                    frappe.show_alert({
+                        message: errorMsg,
+                        indicator: 'red'
+                    }, 5);
                 }
+            },
+            error: function() {
+                // Reset button state on error
+                $btn.prop('disabled', false).text('Verify Code');
+                frappe.show_alert({
+                    message: __('Network error. Please try again.'),
+                    indicator: 'red'
+                }, 5);
             }
         });
     });
