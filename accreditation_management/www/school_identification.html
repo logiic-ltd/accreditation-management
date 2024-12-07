@@ -231,6 +231,7 @@
                         <tbody>
                             <tr><th>School Name</th><td id="schoolNameDisplay"></td></tr>
                             <tr><th>School Code</th><td id="schoolCodeDisplay"></td></tr>
+                            <tr><th>School Email</th><td id="schoolEmailDisplay"></td></tr>
                             <tr><th>Province</th><td id="provinceDisplay"></td></tr>
                             <tr><th>District</th><td id="districtDisplay"></td></tr>
                             <tr><th>Sector</th><td id="sectorDisplay"></td></tr>
@@ -848,6 +849,7 @@ function initSchoolSearch() {
                             $('#schoolCode').val(item.schoolCode);
                             $('#schoolNameDisplay').text(item.schoolName);
                             $('#schoolCodeDisplay').text(item.schoolCode);
+                            $('#schoolEmailDisplay').text(item.schoolEmail || 'N/A');
                             $('#provinceDisplay').text(item.province || 'N/A');
                             $('#districtDisplay').text(item.district || 'N/A');
                             $('#sectorDisplay').text(item.sector || 'N/A');
