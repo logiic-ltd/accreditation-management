@@ -864,6 +864,7 @@ function initSchoolSearch() {
                             $results.empty();
 
                             // Populate other form fields
+                            $('#schoolEmail').val(item.schoolEmail || '');  // Ensure email is populated
                             $('#status').val(item.status || '');
                             $('#schoolOwner').val(item.schoolOwner || '');
                             $('#contact').val(item.contact || '');
