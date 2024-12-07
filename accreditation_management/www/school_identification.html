@@ -851,6 +851,7 @@ function initSchoolSearch() {
                             let item = results[index];
                             $('#schoolName').val(item.schoolName);
                             $('#schoolCode').val(item.schoolCode);
+                            $('#schoolEmail').val(item.schoolEmail || '');  // Set email field
                             $('#schoolNameDisplay').text(item.schoolName);
                             $('#schoolCodeDisplay').text(item.schoolCode);
                             $('#schoolEmailDisplay').text(item.schoolEmail || 'N/A');
