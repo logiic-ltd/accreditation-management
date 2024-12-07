@@ -991,7 +991,10 @@ frappe.ready(function() {
                     const errorMsg = r._server_messages ? JSON.parse(r._server_messages)[0] : 'Verification failed';
                     showVerificationFeedback('error', errorMsg);
                     resetVerificationForm();
-                    // Reset button state
+                }
+                
+                // Always reset button state unless verification succeeded
+                if (r.exc) {
                     $btn.prop('disabled', false);
                     $text.css('opacity', '1');
                     $loader.hide();
@@ -1000,7 +1003,6 @@ frappe.ready(function() {
             error: function() {
                 showVerificationFeedback('error', 'Network error. Please try again.');
                 resetVerificationForm();
-                // Reset button state
                 $btn.prop('disabled', false);
                 $text.css('opacity', '1');
                 $loader.hide();
