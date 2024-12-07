@@ -12,6 +12,124 @@
         --light-bg: #eee;
     }
 
+    /* Verification Modal Styles */
+    .verification-container {
+        position: relative;
+        padding: 2rem;
+    }
+
+    .icon-circle {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .verification-title {
+        color: var(--secondary-color);
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    .email-display {
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .code-inputs {
+        gap: 8px;
+    }
+
+    .code-input {
+        width: 45px;
+        height: 55px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 24px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .code-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(7, 142, 206, 0.2);
+        outline: none;
+    }
+
+    .code-input.error {
+        border-color: #dc3545;
+        animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    .btn-verify {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .verification-loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .spinner {
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        100% { transform: rotate(360deg); }
+    }
+
+    .btn-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .btn-link:hover {
+        text-decoration: none;
+        opacity: 0.8;
+    }
+
+    .verification-feedback .alert {
+        border-radius: 8px;
+        padding: 1rem;
+    }
+
+    .verification-feedback .alert.alert-success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    .verification-feedback .alert.alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
     .form-header {
         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         padding: 1.5rem 2rem;
@@ -246,53 +364,60 @@
                 <!-- Verification Modal -->
                 <div class="modal fade" id="verificationModal" tabindex="-1" role="dialog" aria-labelledby="verificationModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                            <div class="modal-header" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border: none; border-radius: 12px 12px 0 0; padding: 1.5rem;">
-                                <h5 class="modal-title text-white" id="verificationModalLabel" style="font-weight: 600; font-size: 1.25rem;">
-                                    <i class="fa fa-shield-alt mr-2"></i>Email Verification
-                                </h5>
-                                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 0.8;">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body" style="padding: 2rem;">
-                                <div class="text-center mb-4">
-                                    <div class="verification-icon mb-3" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); width: 80px; height: 80px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
-                                        <i class="fa fa-envelope fa-2x text-white"></i>
+                        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 15px 35px rgba(0,0,0,0.15);">
+                            <div class="modal-body p-0">
+                                <div class="verification-container p-4">
+                                    <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close" style="right: 1.5rem; top: 1.5rem;">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    
+                                    <div class="text-center mb-4">
+                                        <div class="verification-icon mb-4">
+                                            <div class="icon-circle">
+                                                <i class="fa fa-envelope-open-text fa-2x text-white"></i>
+                                            </div>
+                                        </div>
+                                        <h4 class="verification-title mb-3">Verify Your Email</h4>
+                                        <p class="text-muted mb-2">We've sent a verification code to:</p>
+                                        <p class="email-display mb-4" id="verificationEmailDisplay"></p>
                                     </div>
-                                    <p class="lead" style="color: var(--secondary-color); font-weight: 500;">Please enter the verification code sent to:</p>
-                                    <p class="font-weight-bold" id="verificationEmailDisplay" style="color: var(--primary-color); font-size: 1.1rem;"></p>
-                                </div>
-                                <div class="form-group">
-                                    <div class="verification-code-input text-center">
-                                        <input type="text" 
-                                               class="form-control form-control-lg text-center" 
-                                               id="verificationCode" 
-                                               maxlength="6" 
-                                               placeholder="Enter 6-digit code"
-                                               style="font-size: 28px; letter-spacing: 12px; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 8px; background: #f8f9fa; transition: all 0.3s ease;">
+
+                                    <div class="verification-code-container mb-4">
+                                        <div class="code-inputs d-flex justify-content-center gap-2">
+                                            <input type="text" class="code-input" maxlength="1" data-index="0">
+                                            <input type="text" class="code-input" maxlength="1" data-index="1">
+                                            <input type="text" class="code-input" maxlength="1" data-index="2">
+                                            <input type="text" class="code-input" maxlength="1" data-index="3">
+                                            <input type="text" class="code-input" maxlength="1" data-index="4">
+                                            <input type="text" class="code-input" maxlength="1" data-index="5">
+                                        </div>
+                                        <input type="hidden" id="verificationCode">
                                     </div>
-                                    <div class="text-center mt-3">
-                                        <small class="text-muted">Didn't receive the code? 
-                                            <a href="#" id="resendCodeBtn" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">
+
+                                    <div class="verification-actions">
+                                        <button type="button" class="btn btn-verify w-100 mb-3" id="verifyCodeBtn">
+                                            <span class="verify-text">Verify Code</span>
+                                            <div class="verification-loader" style="display: none;">
+                                                <div class="spinner"></div>
+                                            </div>
+                                        </button>
+                                        
+                                        <div class="text-center">
+                                            <span class="text-muted">Didn't receive the code?</span>
+                                            <button type="button" class="btn btn-link p-0 ml-1" id="resendCodeBtn">
                                                 Resend Code
-                                            </a>
-                                        </small>
+                                                <span class="resend-timer ml-1" style="display: none"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="verification-feedback mt-3" style="display: none;">
+                                        <div class="alert d-flex align-items-center" role="alert">
+                                            <i class="fa mr-2"></i>
+                                            <span class="feedback-message"></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="alert alert-success mb-3" id="verificationSuccess" style="display: none; border-radius: 8px; background-color: #d4edda; border-color: #c3e6cb; color: #155724;">
-                                    <i class="fa fa-check-circle mr-2"></i>
-                                    Email verified successfully! You can now proceed with the form.
-                                </div>
-                            </div>
-                            <div class="modal-footer" style="border-top: 1px solid #eee; padding: 1.5rem; border-radius: 0 0 12px 12px;">
-                                <button type="button" class="btn btn-light" data-dismiss="modal" style="padding: 0.75rem 1.5rem; font-weight: 500; border-radius: 6px;">
-                                    Cancel
-                                </button>
-                                <button type="button" class="btn px-4" id="verifyCodeBtn" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 0.75rem 2rem; font-weight: 600; border-radius: 6px; border: none; transition: all 0.3s ease;">
-                                    <span class="verify-text">Verify Code</span>
-                                    <span class="spinner-border spinner-border-sm ml-2" role="status" style="display: none;"></span>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -768,27 +893,79 @@ frappe.ready(function() {
         calculateTotalAssistantTeachers();
     });
     
-    // Handle verify code button click
+    // Initialize verification code inputs
+    function initVerificationInputs() {
+        const inputs = document.querySelectorAll('.code-input');
+        
+        inputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                const value = e.target.value;
+                
+                // Only allow numbers
+                if (!/^\d*$/.test(value)) {
+                    input.value = '';
+                    return;
+                }
+                
+                // Auto-focus next input
+                if (value && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+                
+                // Handle backspace
+                if (e.key === 'Backspace' && !value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+                
+                // Update hidden input with complete code
+                updateVerificationCode();
+            });
+            
+            // Handle paste event
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+                
+                pastedData.split('').forEach((digit, i) => {
+                    if (inputs[i]) {
+                        inputs[i].value = digit;
+                    }
+                });
+                
+                updateVerificationCode();
+                if (inputs[pastedData.length]) {
+                    inputs[pastedData.length].focus();
+                }
+            });
+        });
+    }
+    
+    function updateVerificationCode() {
+        const code = Array.from(document.querySelectorAll('.code-input'))
+            .map(input => input.value)
+            .join('');
+        document.getElementById('verificationCode').value = code;
+    }
+    
+    // Handle verification code submission
     $('#verifyCodeBtn').click(function() {
         const $btn = $(this);
-        const $spinner = $btn.find('.spinner-border');
+        const $loader = $btn.find('.verification-loader');
         const $text = $btn.find('.verify-text');
         const schoolEmail = $('#schoolEmailDisplay').text();
-        const code = $('#verificationCode').val().trim();
+        const code = $('#verificationCode').val();
         
-        if (!code) {
-            frappe.msgprint({
-                title: __('Error'),
-                indicator: 'red',
-                message: __('Please enter the verification code')
-            });
+        if (code.length !== 6) {
+            showVerificationFeedback('error', 'Please enter the complete 6-digit code');
+            $('.code-input').addClass('error');
+            setTimeout(() => $('.code-input').removeClass('error'), 500);
             return;
         }
         
-        // Disable button and show loading state
+        // Show loading state
         $btn.prop('disabled', true);
-        $text.hide();
-        $spinner.show();
+        $text.css('opacity', '0');
+        $loader.show();
         
         frappe.call({
             method: 'accreditation_management.www.school_identification.verify_code',
@@ -799,67 +976,104 @@ frappe.ready(function() {
             callback: function(r) {
                 if (!r.exc) {
                     emailVerified = true;
+                    showVerificationFeedback('success', 'Email verified successfully!');
                     
-                    // Show success message in modal
-                    $('#verificationSuccess').show();
-                    
-                    // Close modal after delay
                     setTimeout(() => {
                         $('#verificationModal').modal('hide');
-                        
-                        // Move to next section
                         const sections = $('fieldset');
                         $(sections[0]).removeClass('active');
                         $(sections[1]).addClass('active');
                         $('#prevButton').show();
                         updateProgress();
                         window.scrollTo(0, 0);
-                        
-                        frappe.show_alert({
-                            message: __('Email verified successfully! You can now proceed with the form.'),
-                            indicator: 'green'
-                        }, 5);
                     }, 1500);
                 } else {
-                    // Reset button state
-                    $btn.prop('disabled', false).text('Verify Code');
-                    
-                    // Show remaining attempts if available in the error message
                     const errorMsg = r._server_messages ? JSON.parse(r._server_messages)[0] : 'Verification failed';
-                    frappe.show_alert({
-                        message: errorMsg,
-                        indicator: 'red'
-                    }, 5);
+                    showVerificationFeedback('error', errorMsg);
+                    resetVerificationForm();
                 }
             },
             error: function() {
-                // Reset button state on error
-                $btn.prop('disabled', false).text('Verify Code');
-                frappe.show_alert({
-                    message: __('Network error. Please try again.'),
-                    indicator: 'red'
-                }, 5);
+                showVerificationFeedback('error', 'Network error. Please try again.');
+                resetVerificationForm();
             }
         });
     });
     
-    // Handle resend code button click
+    function showVerificationFeedback(type, message) {
+        const $feedback = $('.verification-feedback');
+        const $alert = $feedback.find('.alert');
+        const $icon = $feedback.find('.fa');
+        const $message = $feedback.find('.feedback-message');
+        
+        $alert.removeClass('alert-success alert-danger')
+              .addClass(type === 'success' ? 'alert-success' : 'alert-danger');
+        $icon.removeClass('fa-check-circle fa-exclamation-circle')
+             .addClass(type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle');
+        $message.text(message);
+        $feedback.fadeIn();
+    }
+    
+    function resetVerificationForm() {
+        const $btn = $('#verifyCodeBtn');
+        const $loader = $btn.find('.verification-loader');
+        const $text = $btn.find('.verify-text');
+        
+        $btn.prop('disabled', false);
+        $text.css('opacity', '1');
+        $loader.hide();
+        $('.code-input').val('').first().focus();
+        $('#verificationCode').val('');
+    }
+    
+    // Handle resend code with cooldown
+    let resendTimer = null;
     $('#resendCodeBtn').click(function() {
+        const $btn = $(this);
+        const $timer = $btn.find('.resend-timer');
+        
+        if ($btn.prop('disabled')) return;
+        
         const schoolEmail = $('#schoolEmailDisplay').text();
+        $btn.prop('disabled', true);
+        
         frappe.call({
             method: 'accreditation_management.www.school_identification.send_verification_code',
-            args: {
-                school_email: schoolEmail
-            },
+            args: { school_email: schoolEmail },
             callback: function(r) {
                 if (!r.exc) {
-                    frappe.show_alert({
-                        message: __('New verification code sent'),
-                        indicator: 'blue'
-                    }, 5);
+                    showVerificationFeedback('success', 'New verification code sent');
+                    startResendTimer($btn, $timer);
+                } else {
+                    $btn.prop('disabled', false);
+                    showVerificationFeedback('error', 'Failed to send code. Please try again.');
                 }
             }
         });
+    });
+    
+    function startResendTimer($btn, $timer) {
+        let timeLeft = 30;
+        $timer.show();
+        
+        if (resendTimer) clearInterval(resendTimer);
+        
+        resendTimer = setInterval(() => {
+            timeLeft--;
+            $timer.text(`(${timeLeft}s)`);
+            
+            if (timeLeft <= 0) {
+                clearInterval(resendTimer);
+                $btn.prop('disabled', false);
+                $timer.hide();
+            }
+        }, 1000);
+    }
+    
+    // Initialize verification inputs when modal shows
+    $('#verificationModal').on('shown.bs.modal', function() {
+        initVerificationInputs();
+        $('.code-input').first().focus();
     });
 
     function populateSummary() {
