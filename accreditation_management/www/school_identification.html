@@ -745,6 +745,14 @@ frappe.ready(function() {
                     $('#verificationSection').hide();
                     $('#nextButton').prop('disabled', false).text('Next');
                     
+                    // Move to next section after verification
+                    const sections = $('fieldset');
+                    $(sections[0]).removeClass('active');
+                    $(sections[1]).addClass('active');
+                    $('#prevButton').show();
+                    updateProgress();
+                    window.scrollTo(0, 0);
+                    
                     frappe.show_alert({
                         message: __('Email verified successfully! You can now proceed with the form.'),
                         indicator: 'green'
