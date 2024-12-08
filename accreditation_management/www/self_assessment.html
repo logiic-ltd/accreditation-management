@@ -1101,8 +1101,18 @@
             });
             
             // Store selections in form data
-            $('#selectedSectorCategory').val(currentSector);
+            $('#selectedSectorCategory').val(currentSector || '');
             $('#selectedItems').val(JSON.stringify(selectedTrades || []));
+            
+            // Update hidden form fields
+            const formData = {
+                type_of_request: $('#typeOfRequest').val(),
+                selected_sector_category: currentSector,
+                selected_items: selectedTrades
+            };
+            
+            // Store the selections
+            localStorage.setItem('selfAssessmentSelections', JSON.stringify(formData));
             
             frappe.show_alert({
                 message: `Saved ${selectedTrades.length} trades`,
@@ -1269,8 +1279,18 @@
         const selectedCategory = $('.sector-card.selected').data('category');
             
         // Store selections in form data
-        $('#selectedSectorCategory').val(selectedCategory);
+        $('#selectedSectorCategory').val(selectedCategory || '');
         $('#selectedItems').val(JSON.stringify(selectedCombinations || []));
+            
+        // Update hidden form fields
+        const formData = {
+            type_of_request: $('#typeOfRequest').val(),
+            selected_sector_category: selectedCategory,
+            selected_items: selectedCombinations
+        };
+            
+        // Store the selections
+        localStorage.setItem('selfAssessmentSelections', JSON.stringify(formData));
             
         frappe.show_alert({
             message: `Saved ${selectedCombinations.length} combinations`,

@@ -159,14 +159,15 @@ def submit_self_assessment(form_data):
             "provisional_ranking": provisional_ranking,
             "provisional_accreditation_decision": provisional_decision,
             "provisional_accreditation_years": provisional_years,
-            "type_of_request": data.get("type_of_request"),
-            "selected_sector_category": data.get("selected_sector_category"),
+            "type_of_request": data.get("type_of_request", ""),
+            "selected_sector_category": data.get("selected_sector_category", ""),
             "selected_items": [
                 {
                     "item_name": item,
                     "is_selected": True
-                } for item in json.loads(data.get("selected_items") or "[]")
-            ] if data.get("selected_items") else []
+                } for item in json.loads(data.get("selected_items", "[]"))
+            ],
+            "other_request": data.get("other_request", "")
         })
         
         doc.insert(ignore_permissions=True)
