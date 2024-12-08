@@ -442,6 +442,8 @@
             </div>
         </div>
         <form id="selfAssessmentForm">
+            <input type="hidden" id="selectedSectorCategory" name="selected_sector_category">
+            <input type="hidden" id="selectedItems" name="selected_items">
             <div class="form-section" id="section1">
                 <div class="form-group">
                     <label for="schoolSearch">Search School</label>
@@ -1098,6 +1100,10 @@
                 selectedTrades.push($(this).val());
             });
             
+            // Store selections in form data
+            $('#selectedSectorCategory').val(currentSector);
+            $('#selectedItems').val(JSON.stringify(selectedTrades));
+            
             frappe.show_alert({
                 message: `Saved ${selectedTrades.length} trades`,
                 indicator: 'green'
@@ -1258,7 +1264,14 @@
         $('#combinationsContainer input[type="checkbox"]:checked').each(function() {
             selectedCombinations.push($(this).val());
         });
-        
+            
+        // Get currently selected category
+        const selectedCategory = $('.sector-card.selected').data('category');
+            
+        // Store selections in form data
+        $('#selectedSectorCategory').val(selectedCategory);
+        $('#selectedItems').val(JSON.stringify(selectedCombinations));
+            
         frappe.show_alert({
             message: `Saved ${selectedCombinations.length} combinations`,
             indicator: 'green'

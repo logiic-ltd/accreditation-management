@@ -158,7 +158,10 @@ def submit_self_assessment(form_data):
             "overall_score": overall_score,
             "provisional_ranking": provisional_ranking,
             "provisional_accreditation_decision": provisional_decision,
-            "provisional_accreditation_years": provisional_years
+            "provisional_accreditation_years": provisional_years,
+            "type_of_request": data.get("type_of_request"),
+            "selected_sector_category": data.get("selected_sector_category"),
+            "selected_items": data.get("selected_items")
         })
         
         doc.insert(ignore_permissions=True)

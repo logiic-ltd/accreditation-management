@@ -13,6 +13,8 @@
   "provisional_accreditation_decision",
   "provisional_accreditation_years",
   "type_of_request",
+  "selected_sector_category",
+  "selected_items",
   "other_request"
  ],
  "fields": [
@@ -65,8 +67,20 @@
    "description": "Select the type of accreditation request"
   },
   {
-   "fieldname": "other_request",
+   "fieldname": "selected_sector_category",
    "fieldtype": "Data",
+   "label": "Selected Sector/Category",
+   "description": "The sector (for TVET) or category (for combinations) that was selected"
+  },
+  {
+   "fieldname": "selected_items",
+   "fieldtype": "Text",
+   "label": "Selected Items",
+   "description": "The specific trades or combinations that were selected"
+  },
+  {
+   "fieldname": "other_request",
+   "fieldtype": "Data", 
    "label": "Other Request (Specify)"
   }
  ],
