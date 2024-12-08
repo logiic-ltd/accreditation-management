@@ -1102,13 +1102,14 @@
             
             // Store selections in form data
             $('#selectedSectorCategory').val(currentSector || '');
-            $('#selectedItems').val(JSON.stringify(selectedTrades || []));
+            const selectedTradesJson = JSON.stringify(selectedTrades || []);
+            $('#selectedItems').val(selectedTradesJson);
             
             // Update hidden form fields
             const formData = {
                 type_of_request: $('#typeOfRequest').val(),
                 selected_sector_category: currentSector,
-                selected_items: selectedTrades
+                selected_items: selectedTradesJson
             };
             
             // Store the selections
@@ -1280,13 +1281,14 @@
             
         // Store selections in form data
         $('#selectedSectorCategory').val(selectedCategory || '');
-        $('#selectedItems').val(JSON.stringify(selectedCombinations || []));
+        const selectedCombinationsJson = JSON.stringify(selectedCombinations || []);
+        $('#selectedItems').val(selectedCombinationsJson);
             
         // Update hidden form fields
         const formData = {
             type_of_request: $('#typeOfRequest').val(),
             selected_sector_category: selectedCategory,
-            selected_items: selectedCombinations
+            selected_items: selectedCombinationsJson
         };
             
         // Store the selections

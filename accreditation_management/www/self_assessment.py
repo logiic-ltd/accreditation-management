@@ -165,7 +165,7 @@ def submit_self_assessment(form_data):
                 {
                     "item_name": item,
                     "is_selected": True
-                } for item in json.loads(data.get("selected_items", "[]"))
+                } for item in json.loads(data.get("selected_items") or "[]")
             ],
             "other_request": data.get("other_request", "")
         })
