@@ -68,15 +68,17 @@
   },
   {
    "fieldname": "selected_sector_category",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "label": "Selected Sector/Category",
-   "description": "The sector (for TVET) or category (for combinations) that was selected"
+   "description": "The sector (for TVET) or category (for combinations) that was selected",
+   "options": "CONSTRUCTION_BUILDING_SERVICES\nICT_MULTIMEDIA\nAGRICULTURE_FOOD_PROCESSING\nENERGY\nHOSPITALITY_TOURISM\nARTS_CRAFTS\nTECHNICAL_SERVICES\nTRANSPORT_LOGISTICS\nMANUFACTURING_MINING\nBEAUTY_AESTHETICS\nSciences\nHumanities\nLanguages\nProfessional Programs"
   },
   {
    "fieldname": "selected_items",
-   "fieldtype": "Text",
+   "fieldtype": "Table",
    "label": "Selected Items",
-   "description": "The specific trades or combinations that were selected"
+   "description": "The specific trades or combinations that were selected",
+   "options": "Selected Item"
   },
   {
    "fieldname": "other_request",
