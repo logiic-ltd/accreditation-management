@@ -1102,7 +1102,7 @@
             
             // Store selections in form data
             $('#selectedSectorCategory').val(currentSector);
-            $('#selectedItems').val(JSON.stringify(selectedTrades));
+            $('#selectedItems').val(JSON.stringify(selectedTrades || []));
             
             frappe.show_alert({
                 message: `Saved ${selectedTrades.length} trades`,
@@ -1270,7 +1270,7 @@
             
         // Store selections in form data
         $('#selectedSectorCategory').val(selectedCategory);
-        $('#selectedItems').val(JSON.stringify(selectedCombinations));
+        $('#selectedItems').val(JSON.stringify(selectedCombinations || []));
             
         frappe.show_alert({
             message: `Saved ${selectedCombinations.length} combinations`,
