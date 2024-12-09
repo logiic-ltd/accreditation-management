@@ -504,27 +504,39 @@ frappe.ready(function() {
     }
 
     function validateSchoolIdentification() {
-        // Required fields for school identification
-        const requiredFields = [
-            'schoolName',
-            'schoolCode',
-            'status',
-            'typeOfSchool'
-        ];
-
-        let isValid = true;
-        requiredFields.forEach(field => {
-            const value = $(`#${field}`).val();
-            if (!value) {
-                isValid = false;
-                $(`#${field}`).addClass('field-error');
-                frappe.msgprint(`Please fill in ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
-            } else {
-                $(`#${field}`).removeClass('field-error');
+        // Check if we're in search mode (existing school) or new school mode
+        const isSearchMode = $('#schoolSearch').is(':visible');
+        
+        if (isSearchMode) {
+            // For existing schools, check if a school has been selected
+            if (!$('#schoolInfoTable').is(':visible')) {
+                frappe.msgprint('Please select a school from the search results');
+                return false;
             }
-        });
+            return true;
+        } else {
+            // For new schools, validate required fields
+            const requiredFields = [
+                'schoolName',
+                'schoolCode',
+                'status',
+                'typeOfSchool'
+            ];
 
-        return isValid;
+            let isValid = true;
+            requiredFields.forEach(field => {
+                const value = $(`#${field}`).val();
+                if (!value) {
+                    isValid = false;
+                    $(`#${field}`).addClass('field-error');
+                    frappe.msgprint(`Please fill in ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
+                } else {
+                    $(`#${field}`).removeClass('field-error');
+                }
+            });
+
+            return isValid;
+        }
     }
 
     function validateSelfAssessment() {
