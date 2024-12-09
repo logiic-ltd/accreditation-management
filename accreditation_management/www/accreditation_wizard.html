@@ -503,6 +503,40 @@ frappe.ready(function() {
         }
     }
 
+    function validateSchoolIdentification() {
+        // Required fields for school identification
+        const requiredFields = [
+            'schoolName',
+            'schoolCode',
+            'status',
+            'typeOfSchool'
+        ];
+
+        let isValid = true;
+        requiredFields.forEach(field => {
+            const value = $(`#${field}`).val();
+            if (!value) {
+                isValid = false;
+                $(`#${field}`).addClass('field-error');
+                frappe.msgprint(`Please fill in ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
+            } else {
+                $(`#${field}`).removeClass('field-error');
+            }
+        });
+
+        return isValid;
+    }
+
+    function validateSelfAssessment() {
+        // Add self assessment validation logic here
+        return true;
+    }
+
+    function validateApplicationDetails() {
+        // Add application details validation logic here
+        return true;
+    }
+
     // Initialize school search
     function initSchoolSearch() {
         let searchTimeout;
