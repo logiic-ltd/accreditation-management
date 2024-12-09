@@ -1,0 +1,712 @@
+{% extends "templates/web.html" %}
+
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
+    :root {
+        --primary-color: #078ece;
+        --secondary-color: #054d6f;
+        --accent-color: #24a148;
+        --text-color: #161616;
+        --light-bg: #eee;
+        --white: #ffffff;
+    }
+
+    body {
+        font-family: 'IBM Plex Sans', sans-serif;
+        background-color: var(--light-bg);
+        color: var(--text-color);
+    }
+
+    .wizard-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .wizard-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        color: white;
+    }
+
+    .wizard-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .wizard-subtitle {
+        opacity: 0.9;
+        margin-top: 0.5rem;
+    }
+
+    .progress-tracker {
+        display: flex;
+        justify-content: space-between;
+        margin: 2rem 0;
+        position: relative;
+    }
+
+    .progress-tracker::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    .progress-step {
+        position: relative;
+        z-index: 2;
+        background: var(--secondary-color);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .progress-step.active {
+        background: white;
+        color: var(--primary-color);
+    }
+
+    .progress-step.completed {
+        background: var(--accent-color);
+        color: white;
+    }
+
+    .wizard-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--primary-color);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: var(--secondary-color);
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(7, 142, 206, 0.2);
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: none;
+    }
+
+    .btn-primary {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: var(--secondary-color);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .navigation-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .verification-container {
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .verification-code {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+
+    .code-input {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        font-size: 1.25rem;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .summary-section {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .summary-label {
+        font-weight: 500;
+        color: var(--secondary-color);
+    }
+
+    .assessment-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .assessment-item {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+
+    .provisional-results {
+        background: var(--secondary-color);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 4px;
+        margin-top: 1rem;
+    }
+
+    .results-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .results-value {
+        font-weight: 600;
+        color: var(--accent-color);
+    }
+</style>
+{% endblock %}
+
+{% block page_content %}
+<div class="wizard-container">
+    <div class="wizard-header">
+        <h1 class="wizard-title">School Accreditation Wizard</h1>
+        <p class="wizard-subtitle">Complete your accreditation application in one place</p>
+        
+        <div class="progress-tracker">
+            <div class="progress-step active" data-step="1">1</div>
+            <div class="progress-step" data-step="2">2</div>
+            <div class="progress-step" data-step="3">3</div>
+            <div class="progress-step" data-step="4">4</div>
+        </div>
+    </div>
+
+    <form id="accreditationWizard">
+        <!-- Step 1: School Search and Verification -->
+        <div class="wizard-section" id="step1">
+            <h2 class="section-title">School Search & Verification</h2>
+            <div class="form-group">
+                <label class="form-label">Search School</label>
+                <input type="text" class="form-control" id="schoolSearch" placeholder="Start typing school name or code...">
+                <div id="schoolSearchResults"></div>
+            </div>
+
+            <div id="schoolDetails" style="display: none;">
+                <div class="summary-section">
+                    <h3>Selected School Details</h3>
+                    <div class="summary-item">
+                        <span class="summary-label">School Name:</span>
+                        <span id="schoolNameDisplay"></span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">School Code:</span>
+                        <span id="schoolCodeDisplay"></span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Email:</span>
+                        <span id="schoolEmailDisplay"></span>
+                    </div>
+                </div>
+
+                <div class="verification-container">
+                    <h3>Email Verification Required</h3>
+                    <p>Please verify your access to the school email before proceeding</p>
+                    <button type="button" class="btn btn-primary" id="sendVerificationBtn">
+                        Send Verification Code
+                    </button>
+
+                    <div id="verificationInputs" style="display: none;">
+                        <div class="verification-code">
+                            <input type="text" class="code-input" maxlength="1" data-index="0">
+                            <input type="text" class="code-input" maxlength="1" data-index="1">
+                            <input type="text" class="code-input" maxlength="1" data-index="2">
+                            <input type="text" class="code-input" maxlength="1" data-index="3">
+                            <input type="text" class="code-input" maxlength="1" data-index="4">
+                            <input type="text" class="code-input" maxlength="1" data-index="5">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="verifyCodeBtn">
+                            Verify Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: School Identification -->
+        <div class="wizard-section" id="step2" style="display: none;">
+            <h2 class="section-title">School Identification</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Status</label>
+                <select class="form-control" name="status" required>
+                    <option value="" disabled selected>Select Status</option>
+                    <option value="Public">Public</option>
+                    <option value="Private">Private</option>
+                    <option value="Government Aided">Government Aided</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Type of School</label>
+                <select class="form-control" name="type_of_school" required>
+                    <option value="" disabled selected>Select Type</option>
+                    <option value="TVET">TVET (TSS OR VTC)</option>
+                    <option value="General Education">General Education</option>
+                </select>
+            </div>
+
+            <!-- Additional school identification fields -->
+            <div class="form-group">
+                <label class="form-label">Year of Establishment</label>
+                <input type="number" class="form-control" name="year_of_establishment">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Total Number of Students</label>
+                <div class="row">
+                    <div class="col">
+                        <input type="number" class="form-control" name="number_of_boys" placeholder="Boys">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" name="number_of_girls" placeholder="Girls">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Teaching Staff</label>
+                <div class="row">
+                    <div class="col">
+                        <input type="number" class="form-control" name="number_of_male_teachers" placeholder="Male Teachers">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" name="number_of_female_teachers" placeholder="Female Teachers">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Self Assessment -->
+        <div class="wizard-section" id="step3" style="display: none;">
+            <h2 class="section-title">Self Assessment</h2>
+            
+            <div class="assessment-grid" id="assessmentGrid">
+                <!-- Assessment items will be dynamically populated here -->
+            </div>
+
+            <div class="provisional-results">
+                <h3>Provisional Results</h3>
+                <div class="results-item">
+                    Overall Score: <span id="overallScore" class="results-value">0%</span>
+                </div>
+                <div class="results-item">
+                    Provisional Ranking: <span id="provisionalRanking" class="results-value">N/A</span>
+                </div>
+                <div class="results-item">
+                    Provisional Years: <span id="provisionalYears" class="results-value">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Application Details -->
+        <div class="wizard-section" id="step4" style="display: none;">
+            <h2 class="section-title">Application Details</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Type of Request</label>
+                <select class="form-control" name="type_of_request" required>
+                    <option value="" disabled selected>Select Request Type</option>
+                    <option value="TVET Trade">TVET Trade</option>
+                    <option value="Combinations">General Combinations</option>
+                    <option value="Professional">Professional Combinations</option>
+                    <option value="Ordinary Level">Ordinary Level</option>
+                    <option value="Primary Level">Primary Level</option>
+                    <option value="Pre-primary Level">Pre-primary Level</option>
+                    <option value="Boarding Status">Boarding Status</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">National ID</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="national_id" placeholder="Enter your National ID">
+                    <button type="button" class="btn btn-primary" id="verifyNID">Verify</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Applicant Name</label>
+                <input type="text" class="form-control" name="applicant_name" readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Applicant Role</label>
+                <select class="form-control" name="applicant_role" required>
+                    <option value="" disabled selected>Select Role</option>
+                    <option value="Owner">Owner</option>
+                    <option value="Legal Representative">Legal Representative</option>
+                    <option value="District">District</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Contact Information</label>
+                <input type="email" class="form-control mb-2" name="applicant_email" placeholder="Email">
+                <input type="tel" class="form-control" name="applicant_telephone" placeholder="Telephone">
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">Previous</button>
+            <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Submit Application</button>
+        </div>
+    </form>
+</div>
+
+<script>
+frappe.ready(function() {
+    let currentStep = 1;
+    let emailVerified = false;
+    let totalSteps = 4;
+    
+    function updateProgress() {
+        $('.progress-step').removeClass('active completed');
+        for (let i = 1; i <= totalSteps; i++) {
+            if (i < currentStep) {
+                $(`.progress-step[data-step="${i}"]`).addClass('completed');
+            } else if (i === currentStep) {
+                $(`.progress-step[data-step="${i}"]`).addClass('active');
+            }
+        }
+    }
+
+    function showStep(step) {
+        $('.wizard-section').hide();
+        $(`#step${step}`).show();
+        
+        // Update navigation buttons
+        $('#prevBtn').toggle(step > 1);
+        if (step === totalSteps) {
+            $('#nextBtn').hide();
+            $('#submitBtn').show();
+        } else {
+            $('#nextBtn').show();
+            $('#submitBtn').hide();
+        }
+        
+        updateProgress();
+    }
+
+    $('#nextBtn').click(function() {
+        // Validate current step
+        if (validateStep(currentStep)) {
+            currentStep++;
+            showStep(currentStep);
+            window.scrollTo(0, 0);
+        }
+    });
+
+    $('#prevBtn').click(function() {
+        currentStep--;
+        showStep(currentStep);
+        window.scrollTo(0, 0);
+    });
+
+    function validateStep(step) {
+        switch(step) {
+            case 1:
+                if (!emailVerified) {
+                    frappe.msgprint('Please complete email verification before proceeding');
+                    return false;
+                }
+                return true;
+            case 2:
+                // Validate school identification fields
+                return validateSchoolIdentification();
+            case 3:
+                // Validate self assessment
+                return validateSelfAssessment();
+            case 4:
+                // Validate application details
+                return validateApplicationDetails();
+            default:
+                return true;
+        }
+    }
+
+    // Initialize school search
+    function initSchoolSearch() {
+        let searchTimeout;
+        $('#schoolSearch').on('input', function() {
+            clearTimeout(searchTimeout);
+            const searchTerm = $(this).val();
+            
+            if (searchTerm.length < 3) {
+                $('#schoolSearchResults').empty();
+                return;
+            }
+
+            searchTimeout = setTimeout(() => {
+                frappe.call({
+                    method: 'accreditation_management.www.self_assessment.search_schools',
+                    args: { search_term: searchTerm },
+                    callback: function(r) {
+                        if (r.message && r.message.content) {
+                            const results = r.message.content;
+                            displaySearchResults(results);
+                        }
+                    }
+                });
+            }, 300);
+        });
+    }
+
+    function displaySearchResults(results) {
+        const html = results.map(school => `
+            <div class="school-result" data-school='${JSON.stringify(school)}'>
+                <strong>${frappe.utils.escape_html(school.schoolName)}</strong>
+                <br>
+                <small>${frappe.utils.escape_html(school.province || '')} ${school.district ? '- ' + frappe.utils.escape_html(school.district) : ''}</small>
+            </div>
+        `).join('');
+        
+        $('#schoolSearchResults').html(html);
+        
+        $('.school-result').click(function() {
+            const school = $(this).data('school');
+            selectSchool(school);
+        });
+    }
+
+    function selectSchool(school) {
+        $('#schoolNameDisplay').text(school.schoolName);
+        $('#schoolCodeDisplay').text(school.schoolCode);
+        $('#schoolEmailDisplay').text(school.schoolEmail || 'N/A');
+        
+        $('#schoolDetails').show();
+        $('#schoolSearchResults').empty();
+        $('#schoolSearch').val(school.schoolName);
+    }
+
+    // Email verification
+    $('#sendVerificationBtn').click(function() {
+        const schoolEmail = $('#schoolEmailDisplay').text();
+        if (schoolEmail === 'N/A') {
+            frappe.msgprint('No email address available for this school');
+            return;
+        }
+
+        frappe.call({
+            method: 'accreditation_management.www.school_identification.send_verification_code',
+            args: { school_email: schoolEmail },
+            callback: function(r) {
+                if (!r.exc) {
+                    $('#verificationInputs').show();
+                    frappe.show_alert({
+                        message: 'Verification code sent',
+                        indicator: 'green'
+                    });
+                }
+            }
+        });
+    });
+
+    // Initialize verification code inputs
+    function initVerificationInputs() {
+        $('.code-input').on('input', function() {
+            const maxLength = 1;
+            const currentIndex = parseInt($(this).data('index'));
+            
+            if (this.value.length >= maxLength) {
+                const nextInput = $(`.code-input[data-index="${currentIndex + 1}"]`);
+                if (nextInput.length) {
+                    nextInput.focus();
+                }
+            }
+        }).on('keydown', function(e) {
+            if (e.key === 'Backspace' && !this.value) {
+                const currentIndex = parseInt($(this).data('index'));
+                const prevInput = $(`.code-input[data-index="${currentIndex - 1}"]`);
+                if (prevInput.length) {
+                    prevInput.focus();
+                }
+            }
+        });
+    }
+
+    $('#verifyCodeBtn').click(function() {
+        const code = Array.from($('.code-input')).map(input => input.value).join('');
+        const schoolEmail = $('#schoolEmailDisplay').text();
+
+        frappe.call({
+            method: 'accreditation_management.www.school_identification.verify_code',
+            args: {
+                school_email: schoolEmail,
+                verification_code: code
+            },
+            callback: function(r) {
+                if (!r.exc) {
+                    emailVerified = true;
+                    frappe.show_alert({
+                        message: 'Email verified successfully',
+                        indicator: 'green'
+                    });
+                    $('#verificationInputs').hide();
+                    $('#sendVerificationBtn').prop('disabled', true).text('Verified');
+                }
+            }
+        });
+    });
+
+    // Initialize assessment grid
+    function initAssessmentGrid() {
+        frappe.call({
+            method: 'accreditation_management.www.self_assessment.get_indicator_options',
+            callback: function(r) {
+                if (r.message) {
+                    renderAssessmentGrid(r.message);
+                }
+            }
+        });
+    }
+
+    function renderAssessmentGrid(indicators) {
+        const grid = $('#assessmentGrid');
+        
+        Object.entries(indicators).forEach(([area, criteria]) => {
+            const areaHtml = `
+                <div class="assessment-area">
+                    <h3>${area}</h3>
+                    ${Object.entries(criteria).map(([criterion, data]) => `
+                        <div class="assessment-item">
+                            <h4>${criterion}</h4>
+                            ${Object.entries(data).map(([key, indicator]) => `
+                                <div class="form-group">
+                                    <label>${indicator.label}</label>
+                                    <select class="form-control" name="${key}" required>
+                                        <option value="">Select...</option>
+                                        ${indicator.options.map(opt => `
+                                            <option value="${opt.split(':')[0]}">${opt.split(':')[1]}</option>
+                                        `).join('')}
+                                    </select>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            grid.append(areaHtml);
+        });
+    }
+
+    // Form submission
+    $('#accreditationWizard').on('submit', function(e) {
+        e.preventDefault();
+        
+        if (!validateAllSteps()) {
+            return;
+        }
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        frappe.call({
+            method: 'accreditation_management.www.accreditation_wizard.submit_application',
+            args: {
+                data: JSON.stringify(data)
+            },
+            freeze: true,
+            callback: function(r) {
+                if (!r.exc) {
+                    frappe.msgprint({
+                        title: __('Success'),
+                        indicator: 'green',
+                        message: __('Your application has been submitted successfully.')
+                    });
+                    
+                    // Redirect to status page
+                    setTimeout(() => {
+                        window.location.href = '/application-status?tracking_number=' + r.message.tracking_number;
+                    }, 2000);
+                }
+            }
+        });
+    });
+
+    // Initialize components
+    initSchoolSearch();
+    initVerificationInputs();
+    initAssessmentGrid();
+    showStep(1);
+});
+</script>
+{% endblock %}
