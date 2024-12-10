@@ -337,31 +337,7 @@
             </div>
         </div>
         <form id="schoolIdentificationForm">
-            <fieldset>
-                <legend>School Search</legend>
-                <div class="form-group">
-                    <label for="schoolSearch">Search School</label>
-                    <input type="text" class="form-control" id="schoolSearch" placeholder="Start typing to search...">
-                    <div id="schoolSearchResults" class="mt-2"></div>
-                </div>
-                <div id="schoolInfoTable" style="display: none;">
-                    <div class="alert alert-info mb-3">
-                        Please verify your access to this school's email before proceeding.
-                    </div>
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr><th>School Name</th><td id="schoolNameDisplay"></td></tr>
-                            <tr><th>School Code</th><td id="schoolCodeDisplay"></td></tr>
-                            <tr><th>School Email</th><td id="schoolEmailDisplay"></td></tr>
-                            <tr><th>Province</th><td id="provinceDisplay"></td></tr>
-                            <tr><th>District</th><td id="districtDisplay"></td></tr>
-                            <tr><th>Sector</th><td id="sectorDisplay"></td></tr>
-                            <tr><th>Cell</th><td id="cellDisplay"></td></tr>
-                            <tr><th>Village</th><td id="villageDisplay"></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- Verification Modal -->
+            {% include "templates/fieldsets/common/school_search.html" %}
                 <div class="modal fade" id="verificationModal" tabindex="-1" role="dialog" aria-labelledby="verificationModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 15px 35px rgba(0,0,0,0.15);">
