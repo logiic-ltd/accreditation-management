@@ -431,33 +431,7 @@
 
             {% include "templates/fieldsets/school_identification/student_info.html" %}
 
-            <fieldset>
-                <legend>Teaching Staff</legend>
-                <div class="form-group">
-                    <label for="numberOfMaleTeachers">Number of Male Teachers</label>
-                    <input type="number" class="form-control" id="numberOfMaleTeachers" name="number_of_male_teachers">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfFemaleTeachers">Number of Female Teachers</label>
-                    <input type="number" class="form-control" id="numberOfFemaleTeachers" name="number_of_female_teachers">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfTeachers">Total Number of Teachers</label>
-                    <input type="number" class="form-control" id="numberOfTeachers" name="number_of_teachers" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="numberOfMaleAssistantTeachers">Number of Male Assistant Teachers</label>
-                    <input type="number" class="form-control" id="numberOfMaleAssistantTeachers" name="number_of_male_assistant_teachers">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfFemaleAssistantTeachers">Number of Female Assistant Teachers</label>
-                    <input type="number" class="form-control" id="numberOfFemaleAssistantTeachers" name="number_of_female_assistant_teachers">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfAssistantTeachers">Total Number of Assistant Teachers</label>
-                    <input type="number" class="form-control" id="numberOfAssistantTeachers" name="number_of_assistant_teachers" readonly>
-                </div>
-            </fieldset>
+            {% include "templates/fieldsets/school_identification/teaching_staff.html" %}
 
             <fieldset>
                 <legend>Administrative Staff</legend>
