@@ -437,49 +437,7 @@
 
             {% include "templates/fieldsets/school_identification/supporting_staff.html" %}
 
-            <fieldset>
-                <legend>Infrastructure</legend>
-                <div class="form-group">
-                    <label for="nbrOfClassrooms">Nbr. of All Classrooms at the School</label>
-                    <input type="text" class="form-control" id="nbrOfClassrooms" name="nbr_of_classrooms">
-                </div>
-                <div class="form-group">
-                    <label for="nbrOfLatrines">Nr. of All Latrines/Toilets</label>
-                    <input type="text" class="form-control" id="nbrOfLatrines" name="nbr_of_latrines">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfKitchen">Number of Kitchen</label>
-                    <input type="text" class="form-control" id="numberOfKitchen" name="number_of_kitchen">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfDiningHall">Number of Dining Hall</label>
-                    <input type="text" class="form-control" id="numberOfDiningHall" name="number_of_dining_hall">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfLibrary">Number of Library</label>
-                    <input type="text" class="form-control" id="numberOfLibrary" name="number_of_library">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfSmartClassrooms">Number of Smart Classrooms</label>
-                    <input type="text" class="form-control" id="numberOfSmartClassrooms" name="number_of_smart_classrooms">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfComputerLab">Number of Computer Laboratory</label>
-                    <input type="text" class="form-control" id="numberOfComputerLab" name="number_of_computer_lab">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfAdminOffices">Number of Administrative Staff Offices</label>
-                    <input type="text" class="form-control" id="numberOfAdminOffices" name="number_of_admin_offices">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfMultipurposeHalls">Number of Multipurpose Halls</label>
-                    <input type="text" class="form-control" id="numberOfMultipurposeHalls" name="number_of_multipurpose_halls">
-                </div>
-                <div class="form-group">
-                    <label for="numberOfAcademicStaffRooms">Number of Academic Staff Rooms</label>
-                    <input type="text" class="form-control" id="numberOfAcademicStaffRooms" name="number_of_academic_staff_rooms">
-                </div>
-            </fieldset>
+            {% include "templates/fieldsets/school_identification/infrastructure.html" %}
 
             <fieldset>
                 <legend>Summary</legend>
