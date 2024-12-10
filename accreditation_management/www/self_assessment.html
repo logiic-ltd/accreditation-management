@@ -20,7 +20,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .form-header h1 {
@@ -37,7 +37,7 @@
 
     .progress {
         height: 8px;
-        background-color: rgba(255,255,255,0.2);
+        background-color: rgba(255, 255, 255, 0.2);
         border-radius: 4px;
         overflow: hidden;
         margin: 0;
@@ -51,7 +51,8 @@
     }
 
     table td:last-child div.selected {
-        background-color: #cce7f0; /* Light shade of primary color */
+        background-color: #cce7f0;
+        /* Light shade of primary color */
         transition: background-color 0.3s ease;
     }
 
@@ -106,9 +107,12 @@
 
     table th:last-child,
     table td:last-child,
+    #schoolInfoTable th:last-child,
     #schoolInfoTable td:last-child {
-        width: 60%;
+        display: none !important;
     }
+
+
 
     table thead th,
     #schoolInfoTable thead th {
@@ -117,7 +121,8 @@
         font-weight: bold;
     }
 
-    html, body {
+    html,
+    body {
         margin: 0;
         padding: 0;
         overflow-x: hidden;
@@ -173,7 +178,8 @@
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
-    #indicators h3, #indicators h4 {
+    #indicators h3,
+    #indicators h4 {
         color: var(--secondary-color);
     }
 
@@ -222,14 +228,14 @@
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
         margin-bottom: 0.5rem;
     }
 
     .sector-card:hover {
         border-color: var(--primary-color);
         transform: translateX(2px);
-        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     }
 
     .sector-card.selected {
@@ -355,7 +361,7 @@
         background: white;
         padding: 1rem;
         border-top: 2px solid #eee;
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -399,7 +405,7 @@
 
     .trade-item:hover {
         background: white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
         transform: translateY(-2px);
     }
 
@@ -437,7 +443,8 @@
             <h1>Self Assessment Form</h1>
             <div class="progress-container">
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
+                        aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -452,17 +459,39 @@
                     <table id="schoolInfoTable" class="table table-bordered" style="display: none;">
                         <thead>
                             <tr>
-                                <th colspan="2" style="background-color: var(--primary-color); color: #ffffff;">School Information</th>
+                                <th colspan="2" style="background-color: var(--primary-color); color: #ffffff;">School
+                                    Information</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><th>School Name</th><td id="schoolNameDisplay"></td></tr>
-                            <tr><th>School Code</th><td id="schoolCodeDisplay"></td></tr>
-                            <tr><th>Province</th><td id="provinceDisplay"></td></tr>
-                            <tr><th>District</th><td id="districtDisplay"></td></tr>
-                            <tr><th>Sector</th><td id="sectorDisplay"></td></tr>
-                            <tr><th>Cell</th><td id="cellDisplay"></td></tr>
-                            <tr><th>Village</th><td id="villageDisplay"></td></tr>
+                            <tr>
+                                <th>School Name</th>
+                                <td id="schoolNameDisplay"></td>
+                            </tr>
+                            <tr>
+                                <th>School Code</th>
+                                <td id="schoolCodeDisplay"></td>
+                            </tr>
+                            <tr>
+                                <th>Province</th>
+                                <td id="provinceDisplay"></td>
+                            </tr>
+                            <tr>
+                                <th>District</th>
+                                <td id="districtDisplay"></td>
+                            </tr>
+                            <tr>
+                                <th>Sector</th>
+                                <td id="sectorDisplay"></td>
+                            </tr>
+                            <tr>
+                                <th>Cell</th>
+                                <td id="cellDisplay"></td>
+                            </tr>
+                            <tr>
+                                <th>Village</th>
+                                <td id="villageDisplay"></td>
+                            </tr>
                         </tbody>
                     </table>
                     <input type="hidden" id="schoolName" name="school_name" required>
@@ -471,7 +500,9 @@
             </div>
             <div class="form-section" id="section2" style="display:none;">
                 <div class="form-group">
-                    <label for="typeOfRequest" style="font-size: 1.1rem; color: var(--secondary-color); font-weight: 600; margin-bottom: 0.75rem;">Type of Request</label>
+                    <label for="typeOfRequest"
+                        style="font-size: 1.1rem; color: var(--secondary-color); font-weight: 600; margin-bottom: 0.75rem;">Type
+                        of Request</label>
                     <select class="form-control form-control-lg" id="typeOfRequest" name="type_of_request" required>
                         <option value="" disabled selected>Select Request Type</option>
                         <option value="TVET Trade">TVET Trade</option>
@@ -497,8 +528,10 @@
                             <div class="trades-filters">
                                 <input type="text" class="combination-search" placeholder="Search combinations...">
                                 <div class="mt-3">
-                                    <button class="btn btn-sm btn-outline-primary" id="selectAllCombinations">Select All</button>
-                                    <button class="btn btn-sm btn-outline-secondary" id="clearAllCombinations">Clear All</button>
+                                    <button class="btn btn-sm btn-outline-primary" id="selectAllCombinations">Select
+                                        All</button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="clearAllCombinations">Clear
+                                        All</button>
                                 </div>
                             </div>
                             <div id="combinationsContainer" class="trades-container">
@@ -509,7 +542,8 @@
                                     <span id="selectedCombinationsCount" class="badge badge-primary">0 selected</span>
                                     <span class="text-muted ml-2">combinations selected</span>
                                 </div>
-                                <button class="btn btn-primary btn-sm" id="saveCombinationSelection">Save Selection</button>
+                                <button class="btn btn-primary btn-sm" id="saveCombinationSelection">Save
+                                    Selection</button>
                             </div>
                         </div>
                     </div>
@@ -528,8 +562,10 @@
                             <div class="trades-filters">
                                 <input type="text" class="trade-search" placeholder="Search trades...">
                                 <div class="mt-3">
-                                    <button class="btn btn-sm btn-outline-primary" id="selectAllTrades">Select All</button>
-                                    <button class="btn btn-sm btn-outline-secondary" id="clearAllTrades">Clear All</button>
+                                    <button class="btn btn-sm btn-outline-primary" id="selectAllTrades">Select
+                                        All</button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="clearAllTrades">Clear
+                                        All</button>
                                 </div>
                             </div>
                             <div id="tradesContainer" class="trades-container">
@@ -545,50 +581,50 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="form-group mt-4">
                     <label for="otherRequest">Other Request (Specify)</label>
                     <textarea class="form-control" id="otherRequest" name="other_request" rows="3"></textarea>
                 </div>
             </div>
-            </div>
-            <div class="form-section" id="section3" style="display:none;">
-                <h3>A. Land ownership, legal, School leadership and management documents</h3>
-                <div id="indicators-area-a"></div>
-            </div>
-            <div class="form-section" id="section4" style="display:none;">
-                <h3>School Infrastructures</h3>
-                <div id="indicators-area-b"></div>
-            </div>
-            <div class="form-section" id="section6" style="display:none;">
-                <h3>Teaching and Learning Resources</h3>
-                <div id="indicators-area-c"></div>
-            </div>
-            <div class="form-section" id="section5" style="display:none;">
-                <div id="provisionalResults" class="mt-4">
-                    <h3>Provisional Results</h3>
-                    <p id="overallScore">Overall Score: 0%</p>
-                    <p id="provisionalRanking">Provisional Ranking: N/A</p>
-                    <p id="provisionalDecision">Provisional Decision: N/A</p>
-                    <p id="provisionalYears">Provisional Accreditation Years: N/A</p>
-                    <div id="continueToApplication" style="display: none;" class="mt-4">
-                        <p class="text-muted">You've completed both school identification and self assessment.</p>
-                        <a href="/accreditation_application" class="btn btn-primary">
-                            Continue to Accreditation Application
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="navigation-buttons mt-3">
-                    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                    <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                    <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Submit</button>
-                </div>
-            </div>
-        </form>
     </div>
+    <div class="form-section" id="section3" style="display:none;">
+        <h3>A. Land ownership, legal, School leadership and management documents</h3>
+        <div id="indicators-area-a"></div>
+    </div>
+    <div class="form-section" id="section4" style="display:none;">
+        <h3>School Infrastructures</h3>
+        <div id="indicators-area-b"></div>
+    </div>
+    <div class="form-section" id="section6" style="display:none;">
+        <h3>Teaching and Learning Resources</h3>
+        <div id="indicators-area-c"></div>
+    </div>
+    <div class="form-section" id="section5" style="display:none;">
+        <div id="provisionalResults" class="mt-4">
+            <h3>Provisional Results</h3>
+            <p id="overallScore">Overall Score: 0%</p>
+            <p id="provisionalRanking">Provisional Ranking: N/A</p>
+            <p id="provisionalDecision">Provisional Decision: N/A</p>
+            <p id="provisionalYears">Provisional Accreditation Years: N/A</p>
+            <div id="continueToApplication" style="display: none;" class="mt-4">
+                <p class="text-muted">You've completed both school identification and self assessment.</p>
+                <a href="/accreditation_application" class="btn btn-primary">
+                    Continue to Accreditation Application
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="navigation-buttons mt-3">
+            <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+            <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Submit</button>
+        </div>
+    </div>
+    </form>
 </div>
+
 <script>
     function startAccreditationFlow(requestType) {
         // Store the request type in localStorage
@@ -605,7 +641,7 @@
         document.getElementById('prevBtn').style.display = n === 0 ? 'none' : 'inline';
         document.getElementById('nextBtn').style.display = n === (sections.length - 1) ? 'none' : 'inline';
         document.getElementById('submitBtn').style.display = n === (sections.length - 1) ? 'inline' : 'none';
-        
+
         // Update progress bar
         const progress = ((n + 1) / sections.length) * 100;
         const progressBar = document.querySelector('.progress-bar');
@@ -626,7 +662,7 @@
 
     let indicators;
 
-    frappe.ready(function() {
+    frappe.ready(function () {
         showSection(currentSection);
 
         // Initialize school search
@@ -638,7 +674,7 @@
         // Load the indicator options from the JSON configuration file
         frappe.call({
             method: 'accreditation_management.www.self_assessment.get_indicator_options',
-            callback: function(r) {
+            callback: function (r) {
                 if (r.message) {
                     indicators = r.message;
                     const indicatorsAreaA = document.getElementById('indicators-area-a');
@@ -668,6 +704,7 @@
                             const scoreHeader = document.createElement('th');
                             scoreHeader.id = `${criterion.replace(/\s+/g, '-')}-score`;
                             scoreHeader.textContent = 'Score: 0%';
+                            scoreHeader.style.display = 'none'; 
                             headerRow.appendChild(criterionHeader);
                             headerRow.appendChild(optionsHeader);
                             headerRow.appendChild(scoreHeader);
@@ -683,19 +720,26 @@
                                 indicatorCell.textContent = indicator.label;
                                 const optionsCell = document.createElement('td');
 
-                                indicator.options.forEach(option => {
+                                // Create the score cell and hide it
+                                const scoreCell = document.createElement('td');
+                                scoreCell.style.display = 'none'; 
+
+                                // Shuffle the options array
+                                const shuffledOptions = [...indicator.options].sort(() => Math.random() - 0.5);
+
+                                shuffledOptions.forEach(option => {
                                     const [value, text] = option.split(': ');
                                     const optionContainer = document.createElement('div');
                                     const radio = document.createElement('input');
                                     radio.type = 'radio';
                                     radio.name = indicatorKey;
                                     radio.value = value;
-                                    radio.addEventListener('change', function() {
+                                    radio.addEventListener('change', function () {
                                         calculateProvisionalResults();
                                         updateSelection(this);
                                     });
 
-                                    optionContainer.addEventListener('click', function() {
+                                    optionContainer.addEventListener('click', function () {
                                         if (!radio.checked) {
                                             radio.checked = true;
                                             radio.dispatchEvent(new Event('change'));
@@ -713,6 +757,7 @@
 
                                 row.appendChild(indicatorCell);
                                 row.appendChild(optionsCell);
+                                row.appendChild(scoreCell);
                                 tbody.appendChild(row);
                             }
                         }
@@ -771,7 +816,7 @@
         // Ensure provisional results are calculated after indicators are loaded
         frappe.call({
             method: 'accreditation_management.www.self_assessment.get_indicator_options',
-            callback: function(r) {
+            callback: function (r) {
                 if (r.message) {
                     indicators = r.message;
                     calculateProvisionalResults();
@@ -822,11 +867,11 @@
             criterionScoreHeader.textContent = `Score: ${averageScore.toFixed(2)}%`;
         }
 
-        $('#selfAssessmentForm').on('submit', function(e) {
+        $('#selfAssessmentForm').on('submit', function (e) {
             e.preventDefault();
 
             var formData = {};
-            $(this).serializeArray().forEach(function(item) {
+            $(this).serializeArray().forEach(function (item) {
                 formData[item.name] = item.value;
             });
 
@@ -836,7 +881,7 @@
                     form_data: JSON.stringify(formData)
                 },
                 freeze: true,
-                callback: function(r) {
+                callback: function (r) {
                     if (!r.exc) {
                         frappe.msgprint({
                             title: __('Form Submitted'),
@@ -859,7 +904,7 @@
         let $searchInput = $('#schoolSearch');
         let $results = $('#schoolSearchResults');
         let searchTimeout;
-    
+
         // Check for stored school details on page load
         const storedSchoolDetails = localStorage.getItem('schoolDetails');
         if (storedSchoolDetails) {
@@ -868,7 +913,7 @@
             $searchInput.val(details.schoolName);
             // Show the continue button in provisional results
             $('#continueToApplication').show();
-        
+
             // Show the school info table with stored details
             $('#schoolNameDisplay').text(details.schoolName);
             $('#schoolCodeDisplay').text(details.schoolCode);
@@ -878,12 +923,12 @@
             $('#cellDisplay').text(details.cell || 'N/A');
             $('#villageDisplay').text(details.village || 'N/A');
             $('#schoolInfoTable').show();
-        
+
             // Clear stored details after using them
             localStorage.removeItem('schoolDetails');
         }
 
-        $searchInput.on('input', function() {
+        $searchInput.on('input', function () {
             clearTimeout(searchTimeout);
             let searchTerm = $searchInput.val();
             if (searchTerm.length < 3) {
@@ -897,7 +942,7 @@
                 frappe.call({
                     method: 'accreditation_management.www.self_assessment.search_schools',
                     args: { search_term: searchTerm },
-                    callback: function(r) {
+                    callback: function (r) {
                         if (r.message && r.message.content && r.message.content.length > 0) {
                             let results = r.message.content;
                             let html = results.map(item => `
@@ -908,7 +953,7 @@
                             `).join('');
                             $results.html(html);
 
-                            $results.find('.school-item').on('click', function() {
+                            $results.find('.school-item').on('click', function () {
                                 let index = $(this).index();
                                 let item = results[index];
                                 $('#schoolName').val(item.schoolName);
@@ -932,7 +977,7 @@
             }, 300);
         });
 
-        $searchInput.on('blur', function() {
+        $searchInput.on('blur', function () {
             setTimeout(() => {
                 $results.empty();
             }, 200);
@@ -945,22 +990,22 @@
         let combinationsData = null;
 
         // Show/hide sections based on request type
-        $('#typeOfRequest').on('change', function() {
+        $('#typeOfRequest').on('change', function () {
             const requestType = $(this).val();
             const showTVET = requestType === 'TVET Trade';
             const showCombinations = requestType === 'Combinations';
             const showProfessional = requestType === 'Professional';
-            
+
             // Clear both sections first
             $('#tvetSelectionSection').hide();
             $('#combinationsSelectionSection').hide();
             $('#tradesContainer').empty();
             $('#combinationsContainer').empty();
-            
+
             // Show appropriate section based on request type
             $('#tvetSelectionSection').toggle(showTVET);
             $('#combinationsSelectionSection').toggle(showCombinations || showProfessional);
-            
+
             // Load appropriate data
             if (showTVET) {
                 if (!sectorData) {
@@ -991,7 +1036,7 @@
             if (requestType === 'Boarding Status') {
                 loadBoardingStatus();
             }
-            
+
             // Reset selection counts
             $('#selectedTradesCount').text('0 selected');
             $('#selectedCombinationsCount').text('0 selected');
@@ -1010,7 +1055,7 @@
             const $grid = $('#sectorGrid');
             $grid.empty();
             $grid.addClass('sector-list');
-            
+
             const sectorKeys = Object.keys(sectors);
             sectorKeys.forEach(sector => {
                 const formattedSector = sector.replace(/_/g, ' ');
@@ -1025,7 +1070,7 @@
                     </div>
                 `);
 
-                card.on('click', function() {
+                card.on('click', function () {
                     $('.sector-card').removeClass('selected');
                     $(this).addClass('selected');
                     currentSector = $(this).data('sector');
@@ -1062,27 +1107,27 @@
         }
 
         // Search functionality
-        $('.trade-search').on('input', function() {
+        $('.trade-search').on('input', function () {
             const searchTerm = $(this).val().toLowerCase();
-            $('.trade-item').each(function() {
+            $('.trade-item').each(function () {
                 const tradeName = $(this).find('label').text().toLowerCase();
                 $(this).toggle(tradeName.includes(searchTerm));
             });
         });
 
         // Select/Clear All functionality
-        $('#selectAllTrades').on('click', function() {
+        $('#selectAllTrades').on('click', function () {
             $('#tradesContainer input[type="checkbox"]').prop('checked', true);
             updateSelectedCount();
         });
 
-        $('#clearAllTrades').on('click', function() {
+        $('#clearAllTrades').on('click', function () {
             $('#tradesContainer input[type="checkbox"]').prop('checked', false);
             updateSelectedCount();
         });
 
         // Handle individual trade/combination selection
-        $(document).on('change', '#tradesContainer input[type="checkbox"], #combinationsContainer input[type="checkbox"]', function() {
+        $(document).on('change', '#tradesContainer input[type="checkbox"], #combinationsContainer input[type="checkbox"]', function () {
             const container = $(this).closest('.trades-container').attr('id');
             if (container === 'tradesContainer') {
                 updateSelectedCount();
@@ -1092,12 +1137,12 @@
         });
 
         // Save selection
-        $('#saveTradeSelection').on('click', function() {
+        $('#saveTradeSelection').on('click', function () {
             const selectedTrades = [];
-            $('#tradesContainer input[type="checkbox"]:checked').each(function() {
+            $('#tradesContainer input[type="checkbox"]:checked').each(function () {
                 selectedTrades.push($(this).val());
             });
-            
+
             frappe.show_alert({
                 message: `Saved ${selectedTrades.length} trades`,
                 indicator: 'green'
@@ -1120,9 +1165,9 @@
             </div>
         `;
         container.append(tradesHtml);
-        
+
         // Add click handler for the entire trade-item
-        $('.trade-item').on('click', function(e) {
+        $('.trade-item').on('click', function (e) {
             // Prevent double-triggering when clicking the checkbox directly
             if (e.target.type !== 'checkbox') {
                 const checkbox = $(this).find('input[type="checkbox"]');
@@ -1130,7 +1175,7 @@
             }
             updateSelectedCount();
         });
-        
+
         updateSelectedCount();
     }
 
@@ -1155,7 +1200,7 @@
     function renderCategoryGrid(categories) {
         const $list = $('#categoryGrid');
         $list.empty();
-        
+
         const categoryKeys = Object.keys(categories);
         categoryKeys.forEach(category => {
             const icon = getCategoryIcon(category);
@@ -1172,7 +1217,7 @@
         });
 
         // Handle category selection
-        $('.sector-card').on('click', function() {
+        $('.sector-card').on('click', function () {
             $('.sector-card').removeClass('selected');
             $(this).addClass('selected');
             const selectedCategory = $(this).data('category');
@@ -1213,13 +1258,13 @@
             </div>
         `;
         container.append(combinationsHtml);
-        
+
         // Add click handler for the entire combination-item
-        $('.trade-item').on('click', function(e) {
+        $('.trade-item').on('click', function (e) {
             if (e.target.type !== 'checkbox') {
                 const checkbox = $(this).find('input[type="checkbox"]');
                 checkbox.prop('checked', !checkbox.prop('checked'));
-            
+
                 const container = $(this).closest('.trades-container').attr('id');
                 if (container === 'tradesContainer') {
                     updateSelectedCount();
@@ -1228,37 +1273,37 @@
                 }
             }
         });
-    
+
         updateSelectedCombinationsCount();
     }
 
     // Search functionality for combinations
-    $('.combination-search').on('input', function() {
+    $('.combination-search').on('input', function () {
         const searchTerm = $(this).val().toLowerCase();
-        $('#combinationsContainer .trade-item').each(function() {
+        $('#combinationsContainer .trade-item').each(function () {
             const combinationName = $(this).find('label').text().toLowerCase();
             $(this).toggle(combinationName.includes(searchTerm));
         });
     });
 
     // Select/Clear All functionality for combinations
-    $('#selectAllCombinations').on('click', function() {
+    $('#selectAllCombinations').on('click', function () {
         $('#combinationsContainer input[type="checkbox"]').prop('checked', true);
         updateSelectedCombinationsCount();
     });
 
-    $('#clearAllCombinations').on('click', function() {
+    $('#clearAllCombinations').on('click', function () {
         $('#combinationsContainer input[type="checkbox"]').prop('checked', false);
         updateSelectedCombinationsCount();
     });
 
     // Save combination selection
-    $('#saveCombinationSelection').on('click', function() {
+    $('#saveCombinationSelection').on('click', function () {
         const selectedCombinations = [];
-        $('#combinationsContainer input[type="checkbox"]:checked').each(function() {
+        $('#combinationsContainer input[type="checkbox"]:checked').each(function () {
             selectedCombinations.push($(this).val());
         });
-        
+
         frappe.show_alert({
             message: `Saved ${selectedCombinations.length} combinations`,
             indicator: 'green'
@@ -1273,7 +1318,7 @@
     function updateSelectedCount() {
         const count = $('#tradesContainer input[type="checkbox"]:checked').length;
         $('#selectedTradesCount').text(`${count} selected`);
-        
+
         // Update "Select All" checkbox state
         const totalCheckboxes = $('#tradesContainer input[type="checkbox"]').length;
         const allChecked = count === totalCheckboxes;
@@ -1319,5 +1364,5 @@
                 renderCategoryGrid(data.categories);
             });
     }
-    </script> 
+</script>
 {% endblock %}
