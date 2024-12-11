@@ -8,6 +8,7 @@ frappe.ready(function() {
         }, 5);
     }
     
+    $('#schoolInfoTable').hide(); // Hide the school info table by default
     initSchoolSearch();
     initFormNavigation();
 
