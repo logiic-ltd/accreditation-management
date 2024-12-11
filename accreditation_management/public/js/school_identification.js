@@ -18,6 +18,7 @@ frappe.ready(function() {
         let searchTimeout;
 
         $searchInput.on('input', function() {
+            $('#schoolInfoTable').hide(); // Hide the school info table when typing
             clearTimeout(searchTimeout);
             let searchTerm = $searchInput.val();
             if (searchTerm.length < 3) {
