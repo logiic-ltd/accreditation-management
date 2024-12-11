@@ -12,6 +12,82 @@ frappe.ready(function() {
     initSchoolSearch();
     initFormNavigation();
 
+    function initSchoolSearch() {
+        let $searchInput = $('#schoolSearch');
+        let $results = $('#schoolSearchResults');
+        let searchTimeout;
+
+        $searchInput.on('input', function() {
+            clearTimeout(searchTimeout);
+            let searchTerm = $searchInput.val();
+            if (searchTerm.length < 3) {
+                $results.empty();
+                return;
+            }
+
+            $results.html('<p>Searching...</p>');
+
+            searchTimeout = setTimeout(() => {
+                frappe.call({
+                    method: 'accreditation_management.www.self_assessment.search_schools',
+                    args: { search_term: searchTerm },
+                    callback: function(r) {
+                        if (r.message && r.message.content && r.message.content.length > 0) {
+                            let results = r.message.content;
+                            let html = results.map(item => `
+                                <div class="school-item" style="cursor: pointer; padding: 5px; border-bottom: 1px solid #ccc;">
+                                    <strong>${frappe.utils.escape_html(item.schoolName)}</strong><br>
+                                    <small>${frappe.utils.escape_html(item.province || '')}${item.province && item.district ? ', ' : ''}${frappe.utils.escape_html(item.district || '')}</small>
+                                </div>
+                            `).join('');
+                            $results.html(html);
+
+                            $results.find('.school-item').on('click', function() {
+                                let index = $(this).index();
+                                let item = results[index];
+                                $('#schoolName').val(item.schoolName);
+                                $('#schoolCode').val(item.schoolCode);
+                                $('#schoolEmail').val(item.schoolEmail || '');  // Set email field
+                                $('#schoolNameDisplay').text(item.schoolName);
+                                $('#schoolCodeDisplay').text(item.schoolCode);
+                                $('#schoolEmailDisplay').text(item.schoolEmail || 'N/A');
+                                $('#provinceDisplay').text(item.province || 'N/A');
+                                $('#districtDisplay').text(item.district || 'N/A');
+                                $('#sectorDisplay').text(item.sector || 'N/A');
+                                $('#cellDisplay').text(item.cell || 'N/A');
+                                $('#villageDisplay').text(item.village || 'N/A');
+                                $('#schoolInfoTable').show(); // Show the school info table
+                                $searchInput.val(item.schoolName);
+                                $results.empty();
+
+                                // Populate other form fields
+                                $('#schoolEmail').val(item.schoolEmail || '');  // Ensure email is populated
+                                $('#status').val(item.status || '');
+                                $('#schoolOwner').val(item.schoolOwner || '');
+                                $('#contact').val(item.contact || '');
+                                $('#accommodationStatus').val(item.accommodationStatus || '');
+                                $('#yearOfEstablishment').val(item.yearOfEstablishment || '');
+                                $('#village').val(item.village || '');
+                                $('#cell').val(item.cell || '');
+                                $('#sector').val(item.sector || '');
+                                $('#district').val(item.district || '');
+                                $('#province').val(item.province || '');
+                            });
+                        } else {
+                            $results.html('<p>No results found or unable to connect to the API. Please try again later.</p>');
+                        }
+                    }
+                });
+            }, 300);
+        });
+
+        $searchInput.on('blur', function() {
+            setTimeout(() => {
+                $results.empty();
+            }, 200);
+        });
+    }
+
     let emailVerified = false;
     
     function initFormNavigation() {
