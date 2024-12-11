@@ -35,7 +35,6 @@ frappe.ready(function() {
         
         // Show first section by default
         $(sections[0]).addClass('active');
-        $('#schoolInfoTable').show(); // Ensure the school info table is visible
         $('#schoolSearch').closest('fieldset').addClass('active'); // Ensure school search is visible
         // Update progress bar
         function updateProgress() {
