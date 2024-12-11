@@ -35,7 +35,7 @@ frappe.ready(function() {
         
         // Show first section by default
         $(sections[0]).addClass('active');
-        
+        $('#schoolInfoTable').show(); // Ensure the school info table is visible
         // Update progress bar
         function updateProgress() {
             const progress = ((currentSection + 1) / sections.length) * 100;
