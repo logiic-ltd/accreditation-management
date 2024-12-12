@@ -9,10 +9,14 @@
     --white: #ffffff;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--light-bg);
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+    font-family: 'IBM Plex Sans', sans-serif;
     color: var(--text-color);
+    background-color: var(--light-bg);
 }
 
 .content-wrapper {
@@ -35,6 +39,24 @@ body {
     margin-left: -50vw;
     margin-right: -50vw;
     position: relative;
+}
+
+.form-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-header h1 {
+    color: white;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .form-title {
@@ -62,15 +84,20 @@ body {
     margin-top: 2rem;
 }
 
-.btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-    color: white;
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: #ffffff;
 }
 
 .form-group {
