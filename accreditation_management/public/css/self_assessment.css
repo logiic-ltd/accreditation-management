@@ -68,6 +68,7 @@ html, body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
+    overflow-x: auto;
 }
 
 .form-section h3 {
@@ -97,6 +98,7 @@ html, body {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
+    word-wrap: break-word;
 }
 
 .table thead th {
