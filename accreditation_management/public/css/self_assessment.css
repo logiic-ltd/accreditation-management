@@ -192,3 +192,54 @@ html, body {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(7, 142, 206, 0.25);
 }
+
+.sector-card {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.sector-card.selected {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.sector-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.trades-content {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.trades-filters {
+    margin-bottom: 10px;
+}
+
+.trades-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.trade-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.trade-item label {
+    margin-left: 10px;
+}
+
+.trade-item:hover {
+    background-color: #f8f9fa;
+}
