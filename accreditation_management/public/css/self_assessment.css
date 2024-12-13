@@ -280,6 +280,7 @@ html, body {
     background: #ffffff;
     border: 1px solid #ddd;
     border-radius: 4px;
+    max-width: 100%;
 }
 
 .sector-selection {
