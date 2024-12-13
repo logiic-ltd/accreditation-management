@@ -1,6 +1,6 @@
 <div class="form-section" id="section2" style="display:none;">
     <div class="form-group">
-        <label for="typeOfRequest" style="font-size: 1.1rem; color: var(--secondary-color); font-weight: 600; margin-bottom: 0.75rem;">Type of Request</label>
+        <label for="typeOfRequest" class="font-weight-bold">Type of Request</label>
         <select class="form-control form-control-lg" id="typeOfRequest" name="type_of_request" required>
             <option value="" disabled selected>Select Request Type</option>
             <option value="TVET Trade">TVET Trade</option>
@@ -13,10 +13,10 @@
         </select>
     </div>
 
-    <div id="combinationsSelectionSection" style="display: none;" class="mb-4">
+    <div id="combinationsSelectionSection" class="mb-4" style="display: none;">
         <div class="trades-interface">
             <div class="sector-selection">
-                <h4>Select Category</h4>
+                <h4 class="font-weight-bold">Select Category</h4>
                 <p class="text-muted">Click on a category to view available combinations</p>
                 <div id="categoryGrid" class="sector-list">
                     <!-- Categories will be dynamically populated here -->
@@ -24,7 +24,7 @@
             </div>
             <div class="trades-content">
                 <div class="trades-filters">
-                    <input type="text" class="combination-search" placeholder="Search combinations...">
+                    <input type="text" class="form-control combination-search" placeholder="Search combinations...">
                     <div class="mt-3">
                         <button class="btn btn-sm btn-outline-primary" id="selectAllCombinations">Select All</button>
                         <button class="btn btn-sm btn-outline-secondary" id="clearAllCombinations">Clear All</button>
@@ -33,7 +33,7 @@
                 <div id="combinationsContainer" class="trades-container">
                     <!-- Combinations will be dynamically populated here -->
                 </div>
-                <div class="selection-summary">
+                <div class="selection-summary d-flex justify-content-between align-items-center">
                     <div>
                         <span id="selectedCombinationsCount" class="badge badge-primary">0 selected</span>
                         <span class="text-muted ml-2">combinations selected</span>
@@ -44,10 +44,10 @@
         </div>
     </div>
 
-    <div id="tvetSelectionSection" style="display: none;" class="mb-4">
+    <div id="tvetSelectionSection" class="mb-4" style="display: none;">
         <div class="trades-interface">
             <div class="sector-selection">
-                <h4>Select TVET Sector</h4>
+                <h4 class="font-weight-bold">Select TVET Sector</h4>
                 <p class="text-muted">Click on a sector to view available trades</p>
                 <div id="sectorGrid" class="sector-grid">
                     <!-- Sectors will be dynamically populated here -->
@@ -55,7 +55,7 @@
             </div>
             <div class="trades-content">
                 <div class="trades-filters">
-                    <input type="text" class="trade-search" placeholder="Search trades...">
+                    <input type="text" class="form-control trade-search" placeholder="Search trades...">
                     <div class="mt-3">
                         <button class="btn btn-sm btn-outline-primary" id="selectAllTrades">Select All</button>
                         <button class="btn btn-sm btn-outline-secondary" id="clearAllTrades">Clear All</button>
@@ -64,7 +64,7 @@
                 <div id="tradesContainer" class="trades-container">
                     <!-- Trades will be dynamically populated here -->
                 </div>
-                <div class="selection-summary">
+                <div class="selection-summary d-flex justify-content-between align-items-center">
                     <div>
                         <span id="selectedTradesCount" class="badge badge-primary">0 selected</span>
                         <span class="text-muted ml-2">trades selected</span>
@@ -76,7 +76,7 @@
     </div>
     
     <div class="form-group mt-4">
-        <label for="otherRequest">Other Request (Specify)</label>
+        <label for="otherRequest" class="font-weight-bold">Other Request (Specify)</label>
         <textarea class="form-control" id="otherRequest" name="other_request" rows="3"></textarea>
     </div>
 </div>
