@@ -51,27 +51,31 @@
     <div id="tvetSelectionSection" class="mb-4" style="display: none;">
         <div class="row">
             <div class="col-md-4">
-                <div class="sector-selection">
-                    <h4 class="font-weight-bold">Select TVET Sector</h4>
-                    <p class="text-muted">Click on a sector to view available trades</p>
-                    <div id="sectorGrid" class="sector-grid">
+                <div class="sector-selection card">
+                    <div class="card-header">
+                        <h4 class="font-weight-bold">Select TVET Sector</h4>
+                        <p class="text-muted">Click on a sector to view available trades</p>
+                    </div>
+                    <div class="card-body" id="sectorGrid">
                         <!-- Sectors will be dynamically populated here -->
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="trades-content">
-                    <div class="trades-filters">
-                        <input type="text" class="form-control trade-search" placeholder="Search trades...">
-                        <div class="mt-3">
-                            <button class="btn btn-sm btn-outline-primary" id="selectAllTrades">Select All</button>
-                            <button class="btn btn-sm btn-outline-secondary" id="clearAllTrades">Clear All</button>
+                <div class="trades-content card">
+                    <div class="card-header">
+                        <div class="trades-filters">
+                            <input type="text" class="form-control trade-search" placeholder="Search trades...">
+                            <div class="mt-3">
+                                <button class="btn btn-sm btn-outline-primary" id="selectAllTrades">Select All</button>
+                                <button class="btn btn-sm btn-outline-secondary" id="clearAllTrades">Clear All</button>
+                            </div>
                         </div>
                     </div>
-                    <div id="tradesContainer" class="trades-container">
+                    <div class="card-body" id="tradesContainer">
                         <!-- Trades will be dynamically populated here -->
                     </div>
-                    <div class="selection-summary d-flex justify-content-between align-items-center">
+                    <div class="card-footer selection-summary d-flex justify-content-between align-items-center">
                         <div>
                             <span id="selectedTradesCount" class="badge badge-primary">0 selected</span>
                             <span class="text-muted ml-2">trades selected</span>
