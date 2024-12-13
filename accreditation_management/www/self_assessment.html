@@ -1,13 +1,14 @@
 {% extends "templates/web.html" %}
 
 {% block style %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/accreditation_management/css/self_assessment.css">
 {% endblock %}
 
 {% block page_content %}
 <div class="content-wrapper">
     <div class="container">
-        <div class="form-header">
+        <div class="form-header text-center mb-4">
             <h1>Self Assessment Form</h1>
             <div class="progress-container">
                 <div class="progress">
@@ -18,14 +19,28 @@
         <form id="selfAssessmentForm">
             <input type="hidden" id="selectedSectorCategory" name="selected_sector_category">
             <input type="hidden" id="selectedItems" name="selected_items">
-            {% include "templates/fieldsets/self_assessment/school_search.html" %}
-            {% include "templates/fieldsets/self_assessment/request_type.html" %}
-            {% include "templates/fieldsets/self_assessment/land_ownership.html" %}
-            {% include "templates/fieldsets/self_assessment/infrastructure.html" %}
-            {% include "templates/fieldsets/self_assessment/teaching_resources.html" %}
-            {% include "templates/fieldsets/self_assessment/provisional_results.html" %}
+            <div class="form-row">
+                <div class="col-md-12">
+                    {% include "templates/fieldsets/self_assessment/school_search.html" %}
+                </div>
+                <div class="col-md-12">
+                    {% include "templates/fieldsets/self_assessment/request_type.html" %}
+                </div>
+                <div class="col-md-12">
+                    {% include "templates/fieldsets/self_assessment/land_ownership.html" %}
+                </div>
+                <div class="col-md-12">
+                    {% include "templates/fieldsets/self_assessment/infrastructure.html" %}
+                </div>
+                <div class="col-md-12">
+                    {% include "templates/fieldsets/self_assessment/teaching_resources.html" %}
+                </div>
+                <div class="col-md-12">
+                    {% include "templates/fieldsets/self_assessment/provisional_results.html" %}
+                </div>
+            </div>
             <div class="container">
-                <div class="navigation-buttons mt-3">
+                <div class="navigation-buttons mt-3 d-flex justify-content-between">
                     <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                     <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
                     <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Submit</button>
