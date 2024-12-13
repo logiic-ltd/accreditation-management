@@ -5,7 +5,8 @@
         <div id="schoolSearchResults" class="mt-2"></div>
     </div>
     <div class="form-group">
-        <table id="schoolInfoTable" class="table table-bordered table-striped" style="display: none;">
+        <div class="table-responsive">
+            <table id="schoolInfoTable" class="table table-bordered table-striped table-hover table-sm" style="display: none;">
             <thead class="thead-dark">
                 <tr>
                     <th colspan="2">School Information</th>
@@ -20,7 +21,8 @@
                 <tr><th>Cell</th><td id="cellDisplay"></td></tr>
                 <tr><th>Village</th><td id="villageDisplay"></td></tr>
             </tbody>
-        </table>
+            </table>
+        </div>
         <input type="hidden" id="schoolName" name="school_name" required>
         <input type="hidden" id="schoolCode" name="school_code">
     </div>

@@ -8,6 +8,27 @@
     --light-bg: #eee;
 }
 
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table th, .table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Adjust as needed */
+}
+
+.table th {
+    font-weight: 600;
+    background-color: var(--light-bg);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
 html, body {
     margin: 0;
     padding: 0;
