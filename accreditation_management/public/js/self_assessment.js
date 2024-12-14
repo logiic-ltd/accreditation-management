@@ -92,9 +92,7 @@ frappe.ready(function() {
                             const indicatorCell = document.createElement('td');
                             indicatorCell.textContent = indicator.label;
                             const optionsCell = document.createElement('td');
-                            if (!isFirstRow) {
-                                optionsCell.colSpan = 2; // Span the options cell across the score column
-                            }
+                            optionsCell.colSpan = 2; // Span the options cell across the score column
 
                             indicator.options.forEach(option => {
                                 const [value, text] = option.split(': ');
