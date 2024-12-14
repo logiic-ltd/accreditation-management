@@ -1,51 +1,63 @@
 /* Bootstrap-based styles for School Identification */
 
-body {
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary-color: #078ece;
+    --secondary-color: #054d6f;
+    --accent-color: #24a148;
+    --text-color: #161616;
+    --light-bg: #f8f9fa;
+    --white: #ffffff;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
     font-family: 'IBM Plex Sans', sans-serif;
-    background-color: #f8f9fa;
+    color: var(--text-color);
+    background-color: var(--light-bg);
 }
 
 .form-section {
-    padding: 4rem 0;
-    background-color: #ffffff;
+    padding: 2rem 0;
+    background-color: var(--white);
 }
 
 .form-header {
-    background: linear-gradient(135deg, #078ece, #054d6f);
-    padding: 1.5rem 2rem;
-    border-radius: 0.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 1.5rem;
+    border-radius: 8px;
     margin-bottom: 2rem;
+    color: var(--white);
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    align-items: center;
 }
 
 .form-header h1 {
-    color: white;
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 600;
+    color: var(--white);
 }
 
 .progress-container {
-    flex: 0 0 200px;
-    margin-left: 2rem;
+    width: 200px;
 }
 
 .progress {
     height: 8px;
-    background-color: rgba(255,255,255,0.2);
-    border-radius: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
     overflow: hidden;
-    margin: 0;
 }
 
 .progress-bar {
-    background-color: white;
+    background-color: var(--white);
     height: 100%;
-    border-radius: 0.25rem;
-    transition: width 0.5s ease-in-out;
+    transition: width 0.4s ease;
 }
 
 fieldset {
@@ -62,7 +74,7 @@ fieldset.active {
 
 legend {
     font-weight: 600;
-    color: #054d6f;
+    color: var(--secondary-color);
     padding: 0 0.5rem;
 }
 
@@ -74,14 +86,14 @@ legend {
 
 .summary-container {
     padding: 1rem;
-    background-color: #f8f9fa;
+    background-color: var(--light-bg);
     border-radius: 0.5rem;
 }
 
 .summary-section {
     margin-bottom: 2rem;
     padding: 1rem;
-    background: white;
+    background: var(--white);
     border: 1px solid #dee2e6;
     border-radius: 0.25rem;
 }
