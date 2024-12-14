@@ -66,7 +66,7 @@ frappe.ready(function() {
                     }
                     for (const [criterion, indicatorData] of Object.entries(criteria)) {
                         const table = document.createElement('table');
-                        table.className = 'table table-bordered';
+                        table.className = 'table table-bordered table-striped table-hover';
                         const thead = document.createElement('thead');
                         const headerRow = document.createElement('tr');
                         const criterionHeader = document.createElement('th');
