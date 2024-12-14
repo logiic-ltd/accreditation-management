@@ -102,6 +102,10 @@ html, body {
     word-wrap: break-word;
 }
 
+.table th:last-child {
+    max-width: 100px; /* Adjust the max-width for the score column */
+}
+
 .table thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #dee2e6;
