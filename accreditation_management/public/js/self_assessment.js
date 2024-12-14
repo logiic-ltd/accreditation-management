@@ -76,6 +76,7 @@ frappe.ready(function() {
                         const scoreHeader = document.createElement('th');
                         scoreHeader.id = `${criterion.replace(/\s+/g, '-')}-score`;
                         scoreHeader.textContent = 'Score: 0%';
+                        scoreHeader.rowSpan = Object.keys(indicatorData).length + 1; // Span the score column
                         headerRow.appendChild(criterionHeader);
                         headerRow.appendChild(optionsHeader);
                         headerRow.appendChild(scoreHeader);
@@ -85,11 +86,15 @@ frappe.ready(function() {
                         table.appendChild(tbody);
                         areaDiv.appendChild(table);
 
+                        let isFirstRow = true;
                         for (const [indicatorKey, indicator] of Object.entries(indicatorData)) {
                             const row = document.createElement('tr');
                             const indicatorCell = document.createElement('td');
                             indicatorCell.textContent = indicator.label;
                             const optionsCell = document.createElement('td');
+                            if (!isFirstRow) {
+                                optionsCell.colSpan = 2; // Span the options cell across the score column
+                            }
 
                             indicator.options.forEach(option => {
                                 const [value, text] = option.split(': ');
@@ -122,6 +127,7 @@ frappe.ready(function() {
                             row.appendChild(indicatorCell);
                             row.appendChild(optionsCell);
                             tbody.appendChild(row);
+                            isFirstRow = false;
                         }
                     }
                 }
