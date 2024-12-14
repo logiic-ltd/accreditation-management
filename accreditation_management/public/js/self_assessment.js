@@ -532,10 +532,11 @@ function renderTrades(trades) {
     const container = $('#tradesContainer');
     container.empty();
 
+    const useColumns = trades.length > 20;
     const tradesHtml = `
-        <div class="trades-grid">
+        <div class="trades-grid ${useColumns ? 'row' : ''}">
             ${trades.map(trade => `
-                <div class="trade-item">
+                <div class="trade-item ${useColumns ? 'col-md-4' : ''}">
                     <input type="checkbox" name="selected_trades" value="${trade}">
                     <label>${trade}</label>
                 </div>
@@ -625,10 +626,11 @@ function renderCombinations(combinations) {
     const container = $('#combinationsContainer');
     container.empty();
 
+    const useColumns = combinations.length > 20;
     const combinationsHtml = `
-        <div class="trades-grid">
+        <div class="trades-grid ${useColumns ? 'row' : ''}">
             ${combinations.map(combination => `
-                <div class="trade-item">
+                <div class="trade-item ${useColumns ? 'col-md-4' : ''}">
                     <input type="checkbox" name="selected_combinations" value="${combination}">
                     <label>${combination}</label>
                 </div>
