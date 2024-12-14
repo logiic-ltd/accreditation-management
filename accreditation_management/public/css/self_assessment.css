@@ -103,7 +103,7 @@ html, body {
 }
 
 .table th:last-child {
-    max-width: 80px; /* Further adjust the max-width for the score column */
+    max-width: 120px; /* Adjust the max-width for the score column to better fit the text */
 }
 
 .table thead th {
