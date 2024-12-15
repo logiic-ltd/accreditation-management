@@ -2,6 +2,7 @@
 
 {% block style %}
 <link rel="stylesheet" href="/assets/accreditation_management/css/school_identification.css">
+<link rel="stylesheet" href="/assets/accreditation_management/css/self_assessment.css">
 {% endblock %}
 
 {% block page_content %}
@@ -38,6 +39,8 @@
 
             {% include "templates/fieldsets/school_identification/summary.html" %}
 
+            {% include "templates/fieldsets/self_assessment/request_type.html" %}
+
             <div class="form-navigation">
                 <button type="button" class="btn btn-prev" id="prevButton" style="display: none;">Previous</button>
                 <button type="button" class="btn btn-next" id="nextButton">Next</button>
@@ -47,4 +50,5 @@
 </section>
 
 <script src="/assets/accreditation_management/js/school_identification.js"></script>
+<script src="/assets/accreditation_management/js/self_assessment.js"></script>
 {% endblock %}
