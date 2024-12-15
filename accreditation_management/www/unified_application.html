@@ -1,0 +1,77 @@
+{% extends "templates/web.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="/assets/accreditation_management/css/unified_application.css">
+{% endblock %}
+
+{% block page_content %}
+<section class="wizard-section">
+    <div class="container">
+        <div class="wizard-header">
+            <h1>School Accreditation Application</h1>
+            <div class="progress-container">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+        <form id="unifiedApplicationForm">
+            {% include "templates/fieldsets/common/school_search.html" %}
+            
+            <!-- Verification Modal -->
+            <div class="modal fade" id="verificationModal" tabindex="-1" role="dialog" aria-labelledby="verificationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2); background-color: var(--white); color: var(--text-color);">
+                        <div class="modal-body p-4">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; right: 1rem; top: 1rem; color: var(--white);">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="text-center">
+                                <div class="mb-4">
+                                    <i class="fa fa-envelope fa-3x" style="color: var(--secondary-color);"></i>
+                                </div>
+                                <h4 class="mb-3" style="color: var(--text-color);">Email Verification</h4>
+                                <p style="color: var(--text-color);">Enter the 6-digit code sent to <strong id="verificationEmailDisplay"></strong></p>
+                            </div>
+                            <div class="d-flex justify-content-center mb-4">
+                                <input type="text" class="code-input form-control text-center mx-1" maxlength="1" style="width: 40px; font-size: 1.5rem; background-color: var(--white); color: var(--text-color);">
+                                <input type="text" class="code-input form-control text-center mx-1" maxlength="1" style="width: 40px; font-size: 1.5rem; background-color: var(--white); color: var(--text-color);">
+                                <input type="text" class="code-input form-control text-center mx-1" maxlength="1" style="width: 40px; font-size: 1.5rem; background-color: var(--white); color: var(--text-color);">
+                                <input type="text" class="code-input form-control text-center mx-1" maxlength="1" style="width: 40px; font-size: 1.5rem; background-color: var(--white); color: var(--text-color);">
+                                <input type="text" class="code-input form-control text-center mx-1" maxlength="1" style="width: 40px; font-size: 1.5rem; background-color: var(--white); color: var(--text-color);">
+                                <input type="text" class="code-input form-control text-center mx-1" maxlength="1" style="width: 40px; font-size: 1.5rem; background-color: var(--white); color: var(--text-color);">
+                            </div>
+                            <input type="hidden" id="verificationCode">
+                            <button type="button" class="btn btn-secondary btn-block mb-3" id="verifyCodeBtn">
+                                <span class="verify-text">Verify Code</span>
+                                <div class="verification-loader" style="display: none;">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                </div>
+                            </button>
+                            <div class="text-center">
+                                <small style="color: var(--text-color);">Didn't receive the code? <button type="button" class="btn btn-link p-0" id="resendCodeBtn" style="color: var(--accent-color);">Resend</button></small>
+                            </div>
+                            <div class="verification-feedback mt-3" style="display: none;">
+                                <div class="alert alert-dismissible fade show" role="alert">
+                                    <i class="fa mr-2"></i>
+                                    <span class="feedback-message"></span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-navigation">
+                <button type="button" class="btn btn-prev" id="prevButton" style="display: none;">Previous</button>
+                <button type="button" class="btn btn-next" id="nextButton">Next</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="/assets/accreditation_management/js/unified_application.js"></script>
+{% endblock %}
