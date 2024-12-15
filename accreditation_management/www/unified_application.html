@@ -1,13 +1,13 @@
 {% extends "templates/web.html" %}
 
 {% block style %}
-<link rel="stylesheet" href="/assets/accreditation_management/css/unified_application.css">
+<link rel="stylesheet" href="/assets/accreditation_management/css/school_identification.css">
 {% endblock %}
 
 {% block page_content %}
-<section class="wizard-section">
+<section class="form-section">
     <div class="container">
-        <div class="wizard-header">
+        <div class="form-header">
             <h1>School Accreditation Application</h1>
             <div class="progress-container">
                 <div class="progress">
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <form id="unifiedApplicationForm">
+        <form id="schoolIdentificationForm">
             {% include "templates/fieldsets/common/school_search.html" %}
             
             <!-- Verification Modal -->
@@ -73,5 +73,5 @@
     </div>
 </section>
 
-<script src="/assets/accreditation_management/js/unified_application.js"></script>
+<script src="/assets/accreditation_management/js/school_identification.js"></script>
 {% endblock %}
