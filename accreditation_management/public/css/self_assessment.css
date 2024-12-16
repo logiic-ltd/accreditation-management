@@ -258,3 +258,12 @@ html, body {
 .trade-item:hover {
     background-color: var(--light-bg);
 }
+/* Verification Code Input Styles */
+.code-input {
+    width: 40px !important;
+    height: 50px !important;
+}
+
+.code-input.error {
+    border-color: var(--danger);
+}
