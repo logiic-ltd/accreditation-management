@@ -109,7 +109,8 @@ html, body {
 .table thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #dee2e6;
-    background-color: var(--light-bg);
+    background-color: var(--primary-color);
+    color: var(--white);
     font-weight: 600;
 }
 
