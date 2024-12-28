@@ -1,57 +1,145 @@
 /* Bootstrap-based styles for accreditation application */
 
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary-color: #078ece;
+    --secondary-color: #054d6f;
+    --accent-color: #24a148;
+    --text-color: #161616;
+    --light-bg: #f8f9fa;
+    --white: #ffffff;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--text-color);
+    background-color: var(--light-bg);
+}
+
 .content-wrapper {
-    padding-bottom: 50px;
+    padding: 2rem 0;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .form-header {
-    background: linear-gradient(135deg, #078ece, #054d6f);
-    padding: 2rem;
-    border-radius: 0.5rem;
-    margin: 2rem 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    color: var(--white);
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    align-items: center;
 }
 
 .form-header h1 {
-    color: #ffffff;
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 600;
+    color: var(--white);
+}
+
+.progress-container {
+    width: 200px;
+}
+
+.progress {
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: var(--white);
+    height: 100%;
+    transition: width 0.4s ease;
 }
 
 .application-step {
-    background: #ffffff;
+    background: var(--white);
     padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    overflow-x: auto;
 }
 
-#prerequisitesSummary {
-    margin-top: 2rem;
+.btn {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--white);
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
 }
 
 .btn-primary {
-    background-color: #078ece;
-    border-color: #078ece;
-    color: #ffffff;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .btn-primary:hover {
-    background-color: #054d6f;
-    border-color: #054d6f;
-    color: #ffffff;
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--white);
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    color: var(--text-color);
+    background-color: var(--white);
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(7, 142, 206, 0.25);
 }
 
 .prerequisite-warning {
-    background: #ffffff;
-    border-radius: 0.5rem;
+    background: var(--white);
+    border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 1.5rem;
     display: flex;
@@ -74,7 +162,7 @@
 }
 
 .warning-content h5 {
-    color: #054d6f;
+    color: var(--secondary-color);
     font-size: 1.25rem;
     margin-bottom: 0.75rem;
     font-weight: 600;
