@@ -55,6 +55,27 @@ function collectFormData() {
 frappe.ready(function() {
     let currentStep = 1;
     
+    // Check for stored school details on page load
+    const storedSchoolDetails = localStorage.getItem('schoolDetails');
+    if (storedSchoolDetails) {
+        const details = JSON.parse(storedSchoolDetails);
+        // Pre-fill the search input
+        $('#searchSchool').val(details.schoolName);
+
+        // Show the school info table with stored details
+        $('#schoolNameDisplay').text(details.schoolName);
+        $('#schoolCodeDisplay').text(details.schoolCode);
+        $('#provinceDisplay').text(details.province || 'N/A');
+        $('#districtDisplay').text(details.district || 'N/A');
+        $('#sectorDisplay').text(details.sector || 'N/A');
+        $('#cellDisplay').text(details.cell || 'N/A');
+        $('#villageDisplay').text(details.village || 'N/A');
+        $('#schoolInfoTable').show();
+
+        // Clear stored details after using them
+        localStorage.removeItem('schoolDetails');
+    }
+
     initSchoolSearch();
     
     $('#nextStep').on('click', function() {
