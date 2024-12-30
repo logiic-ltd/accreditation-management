@@ -3,14 +3,15 @@
 {% block style %}
 <link rel="stylesheet" href="/assets/accreditation_management/css/accreditation_application.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
 {% block page_content %}
 
 <div class="content-wrapper">
     <div class="container">
-        <div class="form-header">
-            <h1>Accreditation Application</h1>
+        <div class="form-header text-center">
+            <h1><i class="fas fa-university"></i> Accreditation Application</h1>
             <div class="progress-container">
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -18,11 +19,11 @@
             </div>
         </div>
         <div id="step1" class="application-step">
-            <div class="search-section">
-                <fieldset>
-                    <legend>School Search</legend>
+            <div class="search-section mt-4">
+                <fieldset class="border p-3 rounded">
+                    <legend class="w-auto px-2">School Search</legend>
                     <div class="form-group">
-                        <label for="searchSchool">Enter School Name or Code</label>
+                        <label for="searchSchool"><i class="fas fa-search"></i> Enter School Name or Code</label>
                         <input type="text" class="form-control" id="searchSchool" name="search_school" placeholder="Search by school name or code">
                         <div id="schoolSearchResults" class="mt-2"></div>
                     </div>
@@ -32,9 +33,9 @@
                 <div id="prerequisitesSummary" style="display: none;">
                     <div id="schoolIdSummary" class="summary-card mb-3"></div>
                     <div id="selfAssessmentSummary" class="summary-card mb-3"></div>
-                    <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
-                        <button type="button" id="nextStep" class="btn btn-primary">
-                            <i class="fa fa-arrow-right"></i> Proceed to Application
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="button" id="nextStep" class="btn btn-success btn-lg">
+                            <i class="fas fa-arrow-right"></i> Proceed to Application
                         </button>
                     </div>
                 </div>
@@ -62,15 +63,15 @@
             </div>
         </div>
 
-        <div id="step2" class="application-step" style="display: none;">
+        <div id="step2" class="application-step mt-4" style="display: none;">
             <form id="accreditationForm">
                 {% include "templates/fieldsets/accreditation/school_info.html" %}
                 {% include "templates/fieldsets/accreditation/applicant_info.html" %}
 
 
-            <div class="form-actions" style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                <button type="button" id="backToSearch" class="btn btn-primary">Back to School Selection</button>
-                <button type="submit" class="btn btn-primary">Submit Application</button>
+            <div class="form-actions d-flex justify-content-between mt-4">
+                <button type="button" id="backToSearch" class="btn btn-outline-secondary btn-lg"><i class="fas fa-arrow-left"></i> Back to School Selection</button>
+                <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-paper-plane"></i> Submit Application</button>
             </div>
         </form>
     </div>
