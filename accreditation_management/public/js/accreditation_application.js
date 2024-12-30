@@ -245,18 +245,24 @@ frappe.ready(function() {
                                                         <h5 class="mb-0">School Identification Summary</h5>
                                                     </div>
                                                     <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
-                                                        <table class="table mb-0" style="border: 1px solid #e0e0e0;">
+                                                        <table class="table table-bordered table-striped mb-0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Property</th>
+                                                                    <th>Value</th>
+                                                                </tr>
+                                                            </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td><strong>Registration Date:</strong></td>
+                                                                    <td>Registration Date</td>
                                                                     <td>${idSummary.registration_date || 'N/A'}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><strong>Registration Number:</strong></td>
+                                                                    <td>Registration Number</td>
                                                                     <td>${idSummary.registration_number || 'N/A'}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><strong>Status:</strong></td>
+                                                                    <td>Status</td>
                                                                     <td>${idSummary.status || 'N/A'}</td>
                                                                 </tr>
                                                             </tbody>
@@ -272,22 +278,28 @@ frappe.ready(function() {
                                                         <h5 class="mb-0">Recent Self Assessment Summary</h5>
                                                     </div>
                                                     <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
-                                                        <table class="table mb-0" style="border: 1px solid #e0e0e0;">
+                                                        <table class="table table-bordered table-striped mb-0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Property</th>
+                                                                    <th>Value</th>
+                                                                </tr>
+                                                            </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td><strong>Date:</strong></td>
+                                                                    <td>Date</td>
                                                                     <td>${assessmentSummary.date || 'N/A'}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><strong>Overall Score:</strong></td>
+                                                                    <td>Overall Score</td>
                                                                     <td>${assessmentSummary.overall_score || 'N/A'}%</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><strong>Provisional Ranking:</strong></td>
+                                                                    <td>Provisional Ranking</td>
                                                                     <td>${assessmentSummary.provisional_ranking || 'N/A'}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><strong>Provisional Years:</strong></td>
+                                                                    <td>Provisional Years</td>
                                                                     <td>${assessmentSummary.provisional_years || 'N/A'} years</td>
                                                                 </tr>
                                                             </tbody>
