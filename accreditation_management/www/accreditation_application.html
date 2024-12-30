@@ -2,6 +2,7 @@
 
 {% block style %}
 <link rel="stylesheet" href="/assets/accreditation_management/css/accreditation_application.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 {% endblock %}
 
 {% block page_content %}
@@ -75,5 +76,17 @@
     </div>
 </div>
 
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script src="/assets/accreditation_management/js/accreditation_application.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#schoolSearchResults').DataTable({
+            paging: true,
+            searching: true,
+            info: false,
+            lengthChange: false,
+            pageLength: 5
+        });
+    });
+</script>
 {% endblock %}
