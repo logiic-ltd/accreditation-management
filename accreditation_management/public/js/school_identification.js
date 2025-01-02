@@ -572,10 +572,67 @@ frappe.ready(function() {
         e.preventDefault();
         clearValidationErrors();
 
+        // Define mandatory fields
+        const mandatoryFields = {
+            'schoolName': 'School Name',
+            'schoolCode': 'School Code',
+            'schoolEmail': 'School Email',
+            'status': 'School Status',
+            'typeOfSchool': 'Type of School',
+            'schoolOwner': 'School Owner',
+            'yearOfEstablishment': 'Year of Establishment',
+            'province': 'Province',
+            'district': 'District',
+            'sector': 'Sector',
+            'cell': 'Cell',
+            'village': 'Village',
+            'headTeacherName': 'Head Teacher Name',
+            'headTeacherPhone': 'Head Teacher Phone',
+            'headTeacherEmail': 'Head Teacher Email',
+            'numberOfBoys': 'Number of Boys',
+            'numberOfGirls': 'Number of Girls',
+            'numberOfMaleTeachers': 'Number of Male Teachers',
+            'numberOfFemaleTeachers': 'Number of Female Teachers'
+        };
+
         var formData = {};
+        var errors = {};
+
         $(this).serializeArray().forEach(function(item) {
             formData[item.name] = item.value;
+            // Check if field is mandatory and empty
+            if (mandatoryFields.hasOwnProperty(item.name) && !item.value.trim()) {
+                errors[item.name] = `${mandatoryFields[item.name]} is required`;
+            }
         });
+
+        // Validate numeric fields
+        const numericFields = ['numberOfBoys', 'numberOfGirls', 'numberOfMaleTeachers', 'numberOfFemaleTeachers'];
+        numericFields.forEach(field => {
+            if (formData[field] && isNaN(formData[field])) {
+                errors[field] = `${mandatoryFields[field]} must be a number`;
+            }
+        });
+
+        // Validate email format
+        const emailFields = ['schoolEmail', 'headTeacherEmail'];
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        emailFields.forEach(field => {
+            if (formData[field] && !emailRegex.test(formData[field])) {
+                errors[field] = `Please enter a valid email address for ${mandatoryFields[field]}`;
+            }
+        });
+
+        // Validate phone number format
+        if (formData['headTeacherPhone'] && !/^\+?[\d\s-]{10,}$/.test(formData['headTeacherPhone'])) {
+            errors['headTeacherPhone'] = 'Please enter a valid phone number';
+        }
+
+        // If there are validation errors, show them and stop submission
+        if (Object.keys(errors).length > 0) {
+            handleValidationErrors(errors);
+            return;
+        }
 
         frappe.call({
             method: 'accreditation_management.www.school_identification.submit_school_identification',
