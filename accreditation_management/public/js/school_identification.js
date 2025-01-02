@@ -107,7 +107,7 @@ frappe.ready(function() {
                     $('#nextButton').text('Next').prop('disabled', true);
                 }
             } else {
-                $('#nextButton').text(currentSection === sections.length - 1 ? 'Continue to Self Assessment' : 'Next');
+                $('#nextButton').text(currentSection === sections.length - 1 ? 'Submit School Identification' : 'Next');
             }
         }
         
@@ -186,7 +186,7 @@ frappe.ready(function() {
                 // Show/hide navigation buttons
                 $('#prevButton').show();
                 if (currentSection === sections.length - 1) {
-                    $('#nextButton').text('Continue to Self Assessment');
+                    $('#nextButton').text('Submit School Identification');
                     $('#nextButton').addClass('btn-primary');
                     populateSummary();
                 } else {
