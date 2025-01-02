@@ -167,7 +167,16 @@ frappe.ready(function() {
             }
             
             if (currentSection === sections.length - 1) {
-                // On the last section, submit the form
+                // On the last section, validate and submit before proceeding
+                const formData = new FormData($('#schoolIdentificationForm')[0]);
+                if (!formData.get('schoolName') || !formData.get('schoolCode')) {
+                    frappe.msgprint({
+                        title: __('Required Fields Missing'),
+                        indicator: 'red',
+                        message: __('Please ensure all required fields are filled before continuing.')
+                    });
+                    return;
+                }
                 $('#schoolIdentificationForm').submit();
             } else if (currentSection < sections.length - 1) {
                 $(sections[currentSection]).removeClass('active');
