@@ -585,12 +585,7 @@ frappe.ready(function() {
             freeze: true,
             callback: function(r) {
                 if (!r.exc) {
-                    frappe.msgprint({
-                        title: __('Form Submitted'),
-                        indicator: 'green',
-                        message: __('Your school identification form has been submitted successfully.')
-                    });
-                    // Store school details and request type in localStorage before redirecting
+                    // Store school details in localStorage
                     const schoolDetails = {
                         schoolName: $('#schoolName').val(),
                         schoolCode: $('#schoolCode').val(),
@@ -602,7 +597,19 @@ frappe.ready(function() {
                         requestType: localStorage.getItem('accreditationRequestType')
                     };
                     localStorage.setItem('schoolDetails', JSON.stringify(schoolDetails));
-                    window.location.href = '/self_assessment';
+
+                    // Show success dialog with options
+                    frappe.confirm(
+                        __('Thank you for submitting your school identification! Would you like to proceed with conducting a self assessment?'),
+                        function() {
+                            // User clicked "Yes"
+                            window.location.href = '/self_assessment';
+                        },
+                        function() {
+                            // User clicked "No"
+                            window.location.href = '/accreditation';
+                        }
+                    );
                 } else {
                     if (r._server_messages) {
                         try {
