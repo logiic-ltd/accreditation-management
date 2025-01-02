@@ -616,10 +616,28 @@ frappe.ready(function() {
                             const errors = JSON.parse(r._server_messages);
                             if (typeof errors === 'object' && errors !== null) {
                                 handleValidationErrors(errors);
+                                // Create a formatted list of missing fields
+                                const errorList = Object.entries(errors)
+                                    .map(([field, msg]) => {
+                                        // Convert field names to readable format
+                                        const readableField = field
+                                            .replace(/([A-Z])/g, ' $1') // Add space before capital letters
+                                            .replace(/^./, str => str.toUpperCase()) // Capitalize first letter
+                                            .trim();
+                                        return `• ${readableField}: ${msg}`;
+                                    })
+                                    .join('<br>');
+
                                 frappe.msgprint({
-                                    title: __('Validation Failed'),
+                                    title: __('Required Fields Missing'),
                                     indicator: 'red',
-                                    message: __('Please correct the highlighted fields and try again.')
+                                    message: `<div class="validation-errors">
+                                        <p>Please provide the following required information:</p>
+                                        <div class="error-list">
+                                            ${errorList}
+                                        </div>
+                                        <p class="mt-3">The missing fields have been highlighted in red.</p>
+                                    </div>`
                                 });
                                 return;
                             }
