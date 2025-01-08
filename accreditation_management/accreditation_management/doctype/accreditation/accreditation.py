@@ -61,7 +61,6 @@ class Accreditation(Document):
             ("sector", "Sector"),
             ("district", "District"),
             ("province", "Province"),
-            ("owner_name", "Owner Name"),
             ("applicant_name", "Applicant Name"),
             ("applicant_role", "Applicant Role"),
             ("applicant_email", "Applicant Email"),
