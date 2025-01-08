@@ -275,12 +275,6 @@ frappe.ready(function() {
                                                         <table class="table table-bordered table-striped mb-0">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Property</th>
-                                                                    <th>Value</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <thead>
-                                                                <tr>
                                                                     <th>Date</th>
                                                                     <th>Overall Score</th>
                                                                     <th>Provisional Ranking</th>
