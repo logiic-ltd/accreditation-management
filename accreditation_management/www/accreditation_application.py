@@ -53,7 +53,7 @@ def validate_prerequisites(school_code):
             
         return {
             "success": True,
-            "self_assessment": assessment_id,
+            "self_assessment": assessments[0].name,
             "school_identification": school_id
         }
         
