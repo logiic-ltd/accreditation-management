@@ -35,16 +35,16 @@ def validate_prerequisites(school_code):
                 "error": _("Please complete school identification first")
             }
             
-        # Check for recent self assessment
-        assessment_id = get_recent_self_assessment(school_code)
-        if not assessment_id:
+        # Check for self assessment
+        assessments = get_self_assessments(school_code)
+        if not assessments:
             return {
                 "success": False,
-                "error": _("Please complete a self assessment within the last 6 months before applying")
+                "error": _("Please complete a self assessment before applying")
             }
             
-        # Get self assessment score
-        assessment = frappe.get_doc("Self Assessment", assessment_id)
+        # Get most recent self assessment score
+        assessment = frappe.get_doc("Self Assessment", assessments[0].name)
         if assessment.overall_score < 60:  # Minimum required score
             return {
                 "success": False,
@@ -100,7 +100,7 @@ def get_prerequisites_summary(school_code):
         # Store the actual document IDs
         return {
             "identification": id_summary if has_identification else {},
-            "assessment": assessment_summary if has_assessment else {},
+            "assessment": assessment_summaries if has_assessment else [],
             "prerequisites_met": has_identification and has_assessment,
             "school_id": school_id,
             "assessment_id": assessment_id
