@@ -25,10 +25,14 @@ function showSection(n) {
 function nextPrev(n) {
     sections[currentSection].style.display = 'none';
     currentSection += n;
+    
+    // Prevent going beyond bounds
     if (currentSection >= sections.length) {
-        document.getElementById('selfAssessmentForm').submit();
-        return false;
+        currentSection = sections.length - 1;
+    } else if (currentSection < 0) {
+        currentSection = 0;
     }
+    
     showSection(currentSection);
 }
 
