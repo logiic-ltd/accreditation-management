@@ -3,21 +3,16 @@ from frappe import _
 import json
 from datetime import datetime, timedelta
 
-def get_recent_self_assessment(school_code):
-    """Get the most recent self assessment within the last 6 months"""
-    six_months_ago = datetime.now() - timedelta(days=180)
-    
-    assessment = frappe.get_list(
+def get_self_assessments(school_code):
+    """Get all self assessments for the school"""
+    assessments = frappe.get_list(
         "Self Assessment",
-        filters={
-            "school_code": school_code,
-            "creation": [">=", six_months_ago]
-        },
-        order_by="creation desc",
-        limit=1
+        filters={"school_code": school_code},
+        fields=["name", "creation", "overall_score", "provisional_ranking", "provisional_accreditation_years"],
+        order_by="creation desc"
     )
     
-    return assessment[0].name if assessment else None
+    return assessments
 
 def get_school_identification(school_code):
     """Get the school identification document"""
@@ -83,21 +78,24 @@ def get_prerequisites_summary(school_code):
                 "status": doc.status
             }
 
-        # Get recent self assessment summary
-        assessment_id = get_recent_self_assessment(school_code)
-        assessment_summary = {}
-        if assessment_id:
-            doc = frappe.get_doc("Self Assessment", assessment_id)
-            assessment_summary = {
-                "date": frappe.utils.format_date(doc.creation),
-                "overall_score": doc.overall_score,
-                "provisional_ranking": doc.provisional_ranking,
-                "provisional_years": doc.provisional_accreditation_years
-            }
+        # Get all self assessments
+        assessments = get_self_assessments(school_code)
+        assessment_summaries = []
+        for assessment in assessments:
+            assessment_summaries.append({
+                "id": assessment.name,
+                "date": frappe.utils.format_date(assessment.creation),
+                "overall_score": assessment.overall_score,
+                "provisional_ranking": assessment.provisional_ranking,
+                "provisional_years": assessment.provisional_accreditation_years
+            })
 
         # Check prerequisites status
         has_identification = bool(school_id)
-        has_assessment = bool(assessment_id)
+        has_assessment = bool(assessments)
+        
+        # Use most recent assessment ID if exists
+        assessment_id = assessments[0].name if assessments else None
         
         # Store the actual document IDs
         return {

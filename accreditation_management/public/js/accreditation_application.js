@@ -265,11 +265,11 @@ frappe.ready(function() {
                                                 </div>
                                             `);
 
-                                            let assessmentSummary = r.message.assessment;
+                                            let assessmentSummaries = r.message.assessment;
                                             $('#selfAssessmentSummary').html(`
                                                 <div class="card mb-3">
                                                     <div class="card-header" style="background-color: var(--primary-color); color: white;">
-                                                        <h5 class="mb-0">Recent Self Assessment Summary</h5>
+                                                        <h5 class="mb-0">Self Assessment History</h5>
                                                     </div>
                                                     <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
                                                         <table class="table table-bordered table-striped mb-0">
@@ -279,15 +279,23 @@ frappe.ready(function() {
                                                                     <th>Overall Score</th>
                                                                     <th>Provisional Ranking</th>
                                                                     <th>Provisional Years</th>
+                                                                    <th>Actions</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>${assessmentSummary.date || 'N/A'}</td>
-                                                                    <td>${assessmentSummary.overall_score || 'N/A'}%</td>
-                                                                    <td>${assessmentSummary.provisional_ranking || 'N/A'}</td>
-                                                                    <td>${assessmentSummary.provisional_years || 'N/A'} years</td>
-                                                                </tr>
+                                                                ${assessmentSummaries.map(summary => `
+                                                                    <tr>
+                                                                        <td>${summary.date || 'N/A'}</td>
+                                                                        <td>${summary.overall_score || 'N/A'}%</td>
+                                                                        <td>${summary.provisional_ranking || 'N/A'}</td>
+                                                                        <td>${summary.provisional_years || 'N/A'} years</td>
+                                                                        <td>
+                                                                            <button class="btn btn-sm btn-info view-assessment" data-id="${summary.id}">
+                                                                                <i class="fas fa-eye"></i> View
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                                `).join('')}
                                                             </tbody>
                                                         </table>
                                                     </div>
