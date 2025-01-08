@@ -112,6 +112,20 @@ html, body {
     color: var(--white);
     border-bottom: none;
     padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header .close {
+    color: var(--white);
+    opacity: 0.8;
+    padding: 0;
+    margin: -1rem -1rem -1rem auto;
+}
+
+.modal-header .close:hover {
+    opacity: 1;
 }
 
 .modal-body {
