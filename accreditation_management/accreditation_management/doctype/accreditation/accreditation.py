@@ -56,7 +56,6 @@ class Accreditation(Document):
         required_fields = [
             ("school_name", "School Name"),
             ("school_code", "School Code"),
-            ("type_of_school", "Type of School"),
             ("village", "Village"),
             ("cell", "Cell"),
             ("sector", "Sector"),
