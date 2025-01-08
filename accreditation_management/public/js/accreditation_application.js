@@ -275,6 +275,7 @@ frappe.ready(function() {
                                                         <table class="table table-bordered table-striped mb-0">
                                                             <thead>
                                                                 <tr>
+                                                                    <th>Select</th>
                                                                     <th>Date</th>
                                                                     <th>Overall Score</th>
                                                                     <th>Provisional Ranking</th>
@@ -285,6 +286,12 @@ frappe.ready(function() {
                                                             <tbody>
                                                                 ${assessmentSummaries.map(summary => `
                                                                     <tr>
+                                                                        <td>
+                                                                            <input type="radio" name="selected_assessment" 
+                                                                                value="${summary.id}" 
+                                                                                class="assessment-selector"
+                                                                                ${summary.overall_score >= 60 ? '' : 'disabled'}>
+                                                                        </td>
                                                                         <td>${summary.date || 'N/A'}</td>
                                                                         <td>${summary.overall_score || 'N/A'}%</td>
                                                                         <td>${summary.provisional_ranking || 'N/A'}</td>
@@ -347,14 +354,20 @@ frappe.ready(function() {
 
                                             $('#prerequisitesSummary')
                                                 .data('school-id', r.message.school_id)
-                                                .data('assessment-id', r.message.assessment_id)
                                                 .show();
                                             
-                                            if (r.message.prerequisites_met) {
-                                                $('#nextStep').prop('disabled', false);
-                                            } else {
-                                                $('#nextStep').prop('disabled', true);
-                                            }
+                                            // Handle assessment selection
+                                            $('.assessment-selector').on('change', function() {
+                                                const selectedId = $(this).val();
+                                                $('#prerequisitesSummary').data('assessment-id', selectedId);
+                                                
+                                                // Enable next step only if an assessment is selected
+                                                const hasValidSelection = $('.assessment-selector:checked').length > 0;
+                                                $('#nextStep').prop('disabled', !hasValidSelection);
+                                            });
+                                            
+                                            // Initially disable next step until selection is made
+                                            $('#nextStep').prop('disabled', true);
                                         }
                                     }
                                 });
