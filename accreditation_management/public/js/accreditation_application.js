@@ -278,6 +278,7 @@ frappe.ready(function() {
                                                                 <tr>
                                                                     <th>Select</th>
                                                                     <th>Date</th>
+                                                                    <th>Type of Request</th>
                                                                     <th>Overall Score</th>
                                                                     <th>Provisional Ranking</th>
                                                                     <th>Provisional Years</th>
@@ -293,6 +294,7 @@ frappe.ready(function() {
                                                                                 class="assessment-selector">
                                                                         </td>
                                                                         <td>${summary.date || 'N/A'}</td>
+                                                                        <td>${summary.type_of_request || 'N/A'}</td>
                                                                         <td>${summary.overall_score || 'N/A'}%</td>
                                                                         <td>${summary.provisional_ranking || 'N/A'}</td>
                                                                         <td>${summary.provisional_years || 'N/A'} years</td>

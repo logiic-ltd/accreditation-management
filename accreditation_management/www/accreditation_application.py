@@ -85,6 +85,7 @@ def get_prerequisites_summary(school_code):
             assessment_summaries.append({
                 "id": assessment.name,
                 "date": frappe.utils.format_date(assessment.creation),
+                "type_of_request": assessment.type_of_request,
                 "overall_score": assessment.overall_score,
                 "provisional_ranking": assessment.provisional_ranking,
                 "provisional_years": assessment.provisional_accreditation_years
