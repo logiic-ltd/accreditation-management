@@ -289,8 +289,7 @@ frappe.ready(function() {
                                                                         <td>
                                                                             <input type="radio" name="selected_assessment" 
                                                                                 value="${summary.id}" 
-                                                                                class="assessment-selector"
-                                                                                ${summary.overall_score >= 60 ? '' : 'disabled'}>
+                                                                                class="assessment-selector">
                                                                         </td>
                                                                         <td>${summary.date || 'N/A'}</td>
                                                                         <td>${summary.overall_score || 'N/A'}%</td>
