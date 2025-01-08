@@ -290,7 +290,12 @@ frappe.ready(function() {
                                                                         <td>${summary.provisional_ranking || 'N/A'}</td>
                                                                         <td>${summary.provisional_years || 'N/A'} years</td>
                                                                         <td>
-                                                                            <button class="btn btn-sm btn-info view-assessment" data-id="${summary.id}">
+                                                                            <button class="btn btn-sm btn-info view-assessment" 
+                                                                                data-id="${summary.id}"
+                                                                                data-score="${summary.overall_score}"
+                                                                                data-ranking="${summary.provisional_ranking}"
+                                                                                data-years="${summary.provisional_years}"
+                                                                                data-date="${summary.date}">
                                                                                 <i class="fas fa-eye"></i> View
                                                                             </button>
                                                                         </td>
@@ -434,5 +439,61 @@ frappe.ready(function() {
                 }
             }
         });
+    });
+
+    // Handle view assessment button clicks
+    $(document).on('click', '.view-assessment', function(e) {
+        e.preventDefault();
+        const btn = $(this);
+        const score = parseFloat(btn.data('score'));
+        const scoreClass = score >= 80 ? 'high' : score >= 60 ? 'medium' : 'low';
+        
+        const modalContent = `
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Self Assessment Summary</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="assessment-summary-section text-center">
+                            <h6>Overall Performance</h6>
+                            <div class="score-badge ${scoreClass}">
+                                ${score}%
+                            </div>
+                        </div>
+                        
+                        <div class="assessment-summary-section">
+                            <h6>Assessment Details</h6>
+                            <div class="assessment-detail-row">
+                                <span class="assessment-detail-label">Assessment Date</span>
+                                <span class="assessment-detail-value">${btn.data('date')}</span>
+                            </div>
+                            <div class="assessment-detail-row">
+                                <span class="assessment-detail-label">Provisional Ranking</span>
+                                <span class="assessment-detail-value">${btn.data('ranking')}</span>
+                            </div>
+                            <div class="assessment-detail-row">
+                                <span class="assessment-detail-label">Accreditation Period</span>
+                                <span class="assessment-detail-value">${btn.data('years')} years</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Remove any existing modal
+        $('.modal').remove();
+        
+        // Create and show new modal
+        const modal = $('<div class="modal fade"></div>').html(modalContent);
+        $('body').append(modal);
+        modal.modal('show');
     });
 });

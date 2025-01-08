@@ -104,16 +104,81 @@ html, body {
 
 .modal-content {
     border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .modal-header {
     background-color: var(--primary-color);
     color: var(--white);
     border-bottom: none;
+    padding: 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
 }
 
 .modal-footer {
     border-top: none;
+    padding: 1.5rem;
+}
+
+.assessment-summary-section {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--light-bg);
+    border-radius: 8px;
+}
+
+.assessment-summary-section h6 {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.score-badge {
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.score-badge.high {
+    background-color: #28a745;
+    color: white;
+}
+
+.score-badge.medium {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.score-badge.low {
+    background-color: #dc3545;
+    color: white;
+}
+
+.assessment-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.assessment-detail-row:last-child {
+    border-bottom: none;
+}
+
+.assessment-detail-label {
+    font-weight: 500;
+    color: #666;
+}
+
+.assessment-detail-value {
+    font-weight: 600;
+    color: var(--text-color);
 }
 
 .btn {
