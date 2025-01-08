@@ -285,21 +285,19 @@ frappe.ready(function() {
                                                                     <th>Value</th>
                                                                 </tr>
                                                             </thead>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>Overall Score</th>
+                                                                    <th>Provisional Ranking</th>
+                                                                    <th>Provisional Years</th>
+                                                                </tr>
+                                                            </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td>Date</td>
                                                                     <td>${assessmentSummary.date || 'N/A'}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Overall Score</td>
                                                                     <td>${assessmentSummary.overall_score || 'N/A'}%</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Provisional Ranking</td>
                                                                     <td>${assessmentSummary.provisional_ranking || 'N/A'}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Provisional Years</td>
                                                                     <td>${assessmentSummary.provisional_years || 'N/A'} years</td>
                                                                 </tr>
                                                             </tbody>
