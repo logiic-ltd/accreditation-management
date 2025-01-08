@@ -246,12 +246,6 @@ frappe.ready(function() {
                                                     </div>
                                                     <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
                                                         <table class="table table-bordered table-striped mb-0">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Property</th>
-                                                                    <th>Value</th>
-                                                                </tr>
-                                                            </thead>
                                                             <tbody>
                                                                 <tr>
                                                                     <td>Registration Date</td>
