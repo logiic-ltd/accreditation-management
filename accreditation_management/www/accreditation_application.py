@@ -8,7 +8,7 @@ def get_self_assessments(school_code):
     assessments = frappe.get_list(
         "Self Assessment",
         filters={"school_code": school_code},
-        fields=["name", "creation", "overall_score", "provisional_ranking", "provisional_accreditation_years"],
+        fields=["name", "creation", "type_of_request", "overall_score", "provisional_ranking", "provisional_accreditation_years"],
         order_by="creation desc"
     )
     
