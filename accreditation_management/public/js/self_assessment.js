@@ -487,12 +487,14 @@ function initTVETSelection() {
     });
 
     // Select/Clear All functionality
-    $('#selectAllTrades').on('click', function() {
+    $('#selectAllTrades').on('click', function(e) {
+        e.preventDefault();
         $('#tradesContainer input[type="checkbox"]').prop('checked', true);
         updateSelectedCount();
     });
 
-    $('#clearAllTrades').on('click', function() {
+    $('#clearAllTrades').on('click', function(e) {
+        e.preventDefault();
         $('#tradesContainer input[type="checkbox"]').prop('checked', false);
         updateSelectedCount();
     });
@@ -508,7 +510,8 @@ function initTVETSelection() {
     });
 
     // Save selection
-    $('#saveTradeSelection').on('click', function() {
+    $('#saveTradeSelection').on('click', function(e) {
+        e.preventDefault();
         const selectedTrades = [];
         $('#tradesContainer input[type="checkbox"]:checked').each(function() {
             selectedTrades.push($(this).val());
@@ -675,18 +678,21 @@ $('.combination-search').on('input', function() {
 });
 
 // Select/Clear All functionality for combinations
-$('#selectAllCombinations').on('click', function() {
+$('#selectAllCombinations').on('click', function(e) {
+    e.preventDefault();
     $('#combinationsContainer input[type="checkbox"]').prop('checked', true);
     updateSelectedCombinationsCount();
 });
 
-$('#clearAllCombinations').on('click', function() {
+$('#clearAllCombinations').on('click', function(e) {
+    e.preventDefault();
     $('#combinationsContainer input[type="checkbox"]').prop('checked', false);
     updateSelectedCombinationsCount();
 });
 
 // Save combination selection
-$('#saveCombinationSelection').on('click', function() {
+$('#saveCombinationSelection').on('click', function(e) {
+    e.preventDefault();
     const selectedCombinations = [];
     $('#combinationsContainer input[type="checkbox"]:checked').each(function() {
         selectedCombinations.push($(this).val());
