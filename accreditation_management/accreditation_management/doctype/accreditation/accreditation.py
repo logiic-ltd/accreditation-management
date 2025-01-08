@@ -213,6 +213,7 @@ def create_accreditation(data):
             "self_assessment": data.get('self_assessment'),
             "school_name": data.get('school_name'),
             "school_code": data.get('school_code'),
+            "national_id": data.get('national_id'),
             "establishment_year": data.get('establishment_year'),
             "school_email": data.get('school_email'),
             "school_telephone": data.get('school_telephone'),

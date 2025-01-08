@@ -31,6 +31,7 @@ function collectFormData() {
         type_of_school: $('#typeOfSchool').val(),
         type_of_request: selectedRequest,
         other_request: $('#otherRequest').val(),
+        national_id: $('#nationalId').val(),
         establishment_year: $('#establishmentYear').val(),
         village: $('#village').val(),
         cell: $('#cell').val(),
