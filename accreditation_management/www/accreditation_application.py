@@ -112,3 +112,44 @@ def get_prerequisites_summary(school_code):
 
 # This function is no longer needed as we're using frappe.client.insert directly
 # Keeping the file for other utility functions
+
+@frappe.whitelist(allow_guest=True)
+def create_school(school_data):
+    """Create a new school record"""
+    try:
+        # Parse the school data if it's a string
+        if isinstance(school_data, str):
+            school_data = json.loads(school_data)
+            
+        # Create new school doc
+        school = frappe.get_doc({
+            "doctype": "School",
+            "school_name": school_data.get("schoolName"),
+            "province": school_data.get("province"),
+            "district": school_data.get("district"),
+            "sector": school_data.get("sector"),
+            "cell": school_data.get("cell"),
+            "village": school_data.get("village"),
+            "status": school_data.get("schoolStatus"),
+            "school_owner": school_data.get("schoolOwner"),
+            "latitude": school_data.get("latitude"),
+            "longitude": school_data.get("longitude"),
+            "day": school_data.get("day"),
+            "boarding": school_data.get("boarding"),
+            "school_email": school_data.get("schoolEmail")
+        })
+        
+        school.insert()
+        
+        return {
+            "success": True,
+            "message": _("School registered successfully"),
+            "school_code": school.name
+        }
+        
+    except Exception as e:
+        frappe.logger().error(f"Error creating school: {str(e)}")
+        return {
+            "success": False,
+            "message": _("Failed to register school. Please try again.")
+        }
