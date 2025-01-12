@@ -552,8 +552,9 @@ frappe.ready(function() {
             return;
         }
 
+        const baseUrl = "http://10.5.8.137:8081"; // Ensure this matches the BASE_URL in api_config.py
         $.ajax({
-            url: '/api/schools/create',
+            url: `${baseUrl}/api/schools/create`,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(schoolData),
