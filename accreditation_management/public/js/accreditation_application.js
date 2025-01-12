@@ -552,33 +552,30 @@ frappe.ready(function() {
             return;
         }
 
-        frappe.call({
-            method: 'accreditation_management.www.accreditation_application.create_school',
-            args: {
-                school_data: schoolData
+        $.ajax({
+            url: '/api/schools/create',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(schoolData),
+            success: function(response) {
+                frappe.show_alert({
+                    message: __('School registered successfully!'),
+                    indicator: 'green'
+                }, 5);
+                
+                // Close modal and refresh search
+                $('#registerSchoolModal').modal('hide');
+                $('#searchSchool').val(schoolData.schoolName).trigger('input');
+                
+                // Clear form
+                $('#registerSchoolForm')[0].reset();
             },
-            freeze: true,
-            freeze_message: __('Registering new school...'),
-            callback: function(r) {
-                if (!r.exc) {
-                    frappe.show_alert({
-                        message: __('School registered successfully!'),
-                        indicator: 'green'
-                    }, 5);
-                    
-                    // Close modal and refresh search
-                    $('#registerSchoolModal').modal('hide');
-                    $('#searchSchool').val(schoolData.schoolName).trigger('input');
-                    
-                    // Clear form
-                    $('#registerSchoolForm')[0].reset();
-                } else {
-                    frappe.msgprint({
-                        title: __('Registration Failed'),
-                        indicator: 'red',
-                        message: r.exc
-                    });
-                }
+            error: function(xhr) {
+                frappe.msgprint({
+                    title: __('Registration Failed'),
+                    indicator: 'red',
+                    message: xhr.responseText || __('Failed to register school. Please try again.')
+                });
             }
         });
     });
