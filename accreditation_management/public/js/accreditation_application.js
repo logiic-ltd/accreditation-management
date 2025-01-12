@@ -386,7 +386,16 @@ frappe.ready(function() {
                                 $('#province').val(item.province || '');
                             });
                         } else {
-                            $results.html('<p>No results found or unable to connect to the API. Please try again later.</p>');
+                            $results.html(`
+                                <div class="alert alert-info" role="alert">
+                                    <h4 class="alert-heading"><i class="fas fa-info-circle"></i> School Not Found</h4>
+                                    <p>We couldn't find any schools matching your search criteria. If your school is not registered in our system, you can register it now.</p>
+                                    <hr>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerSchoolModal">
+                                        <i class="fas fa-plus-circle"></i> Register New School
+                                    </button>
+                                </div>
+                            `);
                         }
                     }
                 });
@@ -510,5 +519,67 @@ frappe.ready(function() {
         const modal = $('<div class="modal fade"></div>').html(modalContent);
         $('body').append(modal);
         modal.modal('show');
+    });
+
+    // Handle school registration
+    $('#saveNewSchool').on('click', function() {
+        const schoolData = {
+            schoolName: $('#newSchoolName').val(),
+            province: $('#newProvince').val(),
+            district: $('#newDistrict').val(),
+            sector: $('#newSector').val(),
+            cell: $('#newCell').val(),
+            village: $('#newVillage').val(),
+            schoolStatus: $('#newSchoolStatus').val(),
+            schoolOwner: $('#newSchoolOwner').val(),
+            latitude: $('#newLatitude').val() ? parseFloat($('#newLatitude').val()) : null,
+            longitude: $('#newLongitude').val() ? parseFloat($('#newLongitude').val()) : null,
+            day: $('#newDay').val(),
+            boarding: $('#newBoarding').val(),
+            schoolEmail: $('#newSchoolEmail').val()
+        };
+
+        // Validate required fields
+        const requiredFields = ['schoolName', 'province', 'district', 'sector', 'cell', 'village'];
+        const missingFields = requiredFields.filter(field => !schoolData[field]);
+        
+        if (missingFields.length > 0) {
+            frappe.msgprint({
+                title: __('Required Fields Missing'),
+                indicator: 'red',
+                message: __('Please fill in all required fields marked with *')
+            });
+            return;
+        }
+
+        frappe.call({
+            method: 'accreditation_management.www.accreditation_application.create_school',
+            args: {
+                school_data: schoolData
+            },
+            freeze: true,
+            freeze_message: __('Registering new school...'),
+            callback: function(r) {
+                if (!r.exc) {
+                    frappe.show_alert({
+                        message: __('School registered successfully!'),
+                        indicator: 'green'
+                    }, 5);
+                    
+                    // Close modal and refresh search
+                    $('#registerSchoolModal').modal('hide');
+                    $('#searchSchool').val(schoolData.schoolName).trigger('input');
+                    
+                    // Clear form
+                    $('#registerSchoolForm')[0].reset();
+                } else {
+                    frappe.msgprint({
+                        title: __('Registration Failed'),
+                        indicator: 'red',
+                        message: r.exc
+                    });
+                }
+            }
+        });
     });
 });

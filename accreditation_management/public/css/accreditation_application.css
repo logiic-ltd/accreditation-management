@@ -312,3 +312,60 @@ html, body {
 .warning-actions .btn i {
     font-size: 1rem;
 }
+
+/* School Registration Modal Styles */
+#registerSchoolModal .modal-content {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+#registerSchoolModal .modal-header {
+    background: var(--primary-color);
+    color: white;
+    border-bottom: none;
+}
+
+#registerSchoolModal .modal-body {
+    padding: 2rem;
+}
+
+#registerSchoolModal .form-group label {
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+#registerSchoolModal .form-control {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+}
+
+#registerSchoolModal .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(7, 142, 206, 0.25);
+}
+
+#registerSchoolModal .modal-footer {
+    border-top: 1px solid #eee;
+    padding: 1.5rem;
+}
+
+#registerSchoolModal .btn-primary {
+    padding: 0.5rem 2rem;
+    font-weight: 500;
+}
+
+.alert-info {
+    background-color: #f8f9fa;
+    border-left: 4px solid var(--primary-color);
+    padding: 1.5rem;
+}
+
+.alert-info .alert-heading {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.alert-info .fas {
+    margin-right: 0.5rem;
+}
