@@ -483,16 +483,16 @@ frappe.ready(function() {
         
         // Infrastructure Summary
         const infrastructureInfo = {
-            'Classrooms': $('#nbrOfClassrooms').val(),
-            'Latrines/Toilets': $('#nbrOfLatrines').val(),
-            'Kitchen': $('#numberOfKitchen').val(),
-            'Dining Hall': $('#numberOfDiningHall').val(),
-            'Library': $('#numberOfLibrary').val(),
-            'Smart Classrooms': $('#numberOfSmartClassrooms').val(),
-            'Computer Laboratory': $('#numberOfComputerLab').val(),
-            'Administrative Offices': $('#numberOfAdminOffices').val(),
-            'Multipurpose Halls': $('#numberOfMultipurposeHalls').val(),
-            'Academic Staff Rooms': $('#numberOfAcademicStaffRooms').val()
+            'Classrooms': $('#nbr_of_classrooms').val(),
+            'Latrines/Toilets': $('#nbr_of_latrines').val(),
+            'Kitchen': $('#number_of_kitchen').val(),
+            'Dining Hall': $('#number_of_dining_hall').val(),
+            'Library': $('#number_of_library').val(),
+            'Smart Classrooms': $('#number_of_smart_classrooms').val(),
+            'Computer Laboratory': $('#number_of_computer_lab').val(),
+            'Administrative Offices': $('#number_of_admin_offices').val(),
+            'Multipurpose Halls': $('#number_of_multipurpose_halls').val(),
+            'Academic Staff Rooms': $('#number_of_academic_staff_rooms').val()
         };
 
         // Populate summary sections
