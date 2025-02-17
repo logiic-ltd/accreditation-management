@@ -107,7 +107,7 @@ frappe.ready(function() {
                     $('#nextButton').text('Next').prop('disabled', true);
                 }
             } else {
-                $('#nextButton').text(currentSection === sections.length - 1 ? 'Submit School Identification' : 'Next');
+                $('#nextButton').text(currentSection === sections.length - 1 ? 'Save School Identification' : 'Next');
             }
         }
         
