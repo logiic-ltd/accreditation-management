@@ -177,7 +177,7 @@ frappe.ready(function() {
                 // Show/hide navigation buttons
                 $('#prevButton').show();
                 if (currentSection === sections.length - 1) {
-                    $('#nextButton').text('Submit School Identification');
+                    $('#nextButton').text('Save School Identification');
                     $('#nextButton').addClass('btn-primary');
                     populateSummary();
                 } else {
