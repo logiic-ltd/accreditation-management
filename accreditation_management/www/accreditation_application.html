@@ -2,6 +2,30 @@
 
 {% block style %}
 <link rel="stylesheet" href="/assets/accreditation_management/css/accreditation_application.css">
+<style>
+    .warning-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .warning-icon {
+        margin-right: 15px;
+    }
+    .warning-title {
+        flex-grow: 1;
+    }
+    .warning-action {
+        margin-left: 15px;
+    }
+    .prerequisite-warning {
+        padding: 15px;
+        border: 1px solid #f8d7da;
+        border-radius: 5px;
+        background-color: #fff3f4;
+        margin-bottom: 20px;
+    }
+</style>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}

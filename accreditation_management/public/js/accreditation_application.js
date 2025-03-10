@@ -242,8 +242,11 @@ frappe.ready(function() {
                                             let idSummary = r.message.identification;
                                             $('#schoolIdSummary').html(`
                                                 <div class="card mb-3">
-                                                    <div class="card-header" style="background-color: var(--primary-color); color: white;">
+                                                    <div class="card-header" style="background-color: var(--primary-color); color: white; display: flex; justify-content: space-between; align-items: center;">
                                                         <h5 class="mb-0">School Identification Summary</h5>
+                                                        <a href="/school-identification?school_code=${item.schoolCode}" class="btn btn-outline-light btn-sm">
+                                                            <i class="fas fa-edit"></i> Update School Information
+                                                        </a>
                                                     </div>
                                                     <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
                                                         <table class="table table-bordered table-striped mb-0">
@@ -262,11 +265,6 @@ frappe.ready(function() {
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <div class="mt-3 text-end">
-                                                            <a href="/school-identification?school_code=${item.schoolCode}" class="btn btn-outline-primary">
-                                                                <i class="fas fa-edit"></i> Update School Information
-                                                            </a>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             `);
@@ -274,8 +272,11 @@ frappe.ready(function() {
                                             let assessmentSummaries = r.message.assessment;
                                             $('#selfAssessmentSummary').html(`
                                                 <div class="card mb-3">
-                                                    <div class="card-header" style="background-color: var(--primary-color); color: white;">
+                                                    <div class="card-header" style="background-color: var(--primary-color); color: white; display: flex; justify-content: space-between; align-items: center;">
                                                         <h5 class="mb-0">Self Assessment History</h5>
+                                                        <a href="/self-assessment?school_code=${item.schoolCode}" class="btn btn-success btn-sm">
+                                                            <i class="fas fa-plus-circle"></i> Add New Self Assessment
+                                                        </a>
                                                     </div>
                                                     <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
                                                         <table class="table table-bordered table-striped mb-0">
@@ -317,11 +318,6 @@ frappe.ready(function() {
                                                                 `).join('')}
                                                             </tbody>
                                                         </table>
-                                                        <div class="mt-3 text-end">
-                                                            <a href="/self-assessment?school_code=${item.schoolCode}" class="btn btn-success">
-                                                                <i class="fas fa-plus-circle"></i> Add New Self Assessment
-                                                            </a>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             `);
@@ -329,17 +325,21 @@ frappe.ready(function() {
                                             if (Object.keys(r.message.identification).length === 0) {
                                                 $('#schoolIdSummary').html(`
                                                     <div class="prerequisite-warning">
-                                                        <div class="warning-icon">
-                                                            <i class="fa fa-exclamation-triangle"></i>
-                                                        </div>
-                                                        <div class="warning-content">
-                                                            <h5>School Identification Required</h5>
-                                                            <p>Before proceeding with your accreditation application, you need to complete the school identification process. This helps us maintain accurate records and ensures a smooth accreditation process.</p>
-                                                            <div class="warning-actions">
-                                                                <a href="/school-identification?school_code=${item.schoolCode}" class="btn btn-primary">
+                                                        <div class="warning-header">
+                                                            <div class="warning-icon">
+                                                                <i class="fa fa-exclamation-triangle"></i>
+                                                            </div>
+                                                            <div class="warning-title">
+                                                                <h5>School Identification Required</h5>
+                                                            </div>
+                                                            <div class="warning-action">
+                                                                <a href="/school-identification?school_code=${item.schoolCode}" class="btn btn-primary btn-sm">
                                                                     <i class="fa fa-plus-circle"></i> Complete School Identification
                                                                 </a>
                                                             </div>
+                                                        </div>
+                                                        <div class="warning-content">
+                                                            <p>Before proceeding with your accreditation application, you need to complete the school identification process. This helps us maintain accurate records and ensures a smooth accreditation process.</p>
                                                         </div>
                                                     </div>
                                                 `);
@@ -348,17 +348,21 @@ frappe.ready(function() {
                                             if (Object.keys(r.message.assessment).length === 0) {
                                                 $('#selfAssessmentSummary').html(`
                                                     <div class="prerequisite-warning">
-                                                        <div class="warning-icon">
-                                                            <i class="fa fa-clipboard-list"></i>
-                                                        </div>
-                                                        <div class="warning-content">
-                                                            <h5>Self Assessment Required</h5>
-                                                            <p>A recent self assessment (within the last 6 months) is required to proceed with your accreditation application. This helps evaluate your institution's readiness for accreditation.</p>
-                                                            <div class="warning-actions">
-                                                                <a href="/self-assessment?school_code=${item.schoolCode}" class="btn btn-primary">
+                                                        <div class="warning-header">
+                                                            <div class="warning-icon">
+                                                                <i class="fa fa-clipboard-list"></i>
+                                                            </div>
+                                                            <div class="warning-title">
+                                                                <h5>Self Assessment Required</h5>
+                                                            </div>
+                                                            <div class="warning-action">
+                                                                <a href="/self-assessment?school_code=${item.schoolCode}" class="btn btn-primary btn-sm">
                                                                     <i class="fa fa-tasks"></i> Start Self Assessment
                                                                 </a>
                                                             </div>
+                                                        </div>
+                                                        <div class="warning-content">
+                                                            <p>A recent self assessment (within the last 6 months) is required to proceed with your accreditation application. This helps evaluate your institution's readiness for accreditation.</p>
                                                         </div>
                                                     </div>
                                                 `);
