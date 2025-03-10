@@ -262,6 +262,11 @@ frappe.ready(function() {
                                                                 </tr>
                                                             </tbody>
                                                         </table>
+                                                        <div class="mt-3 text-end">
+                                                            <a href="/school-identification?school_code=${item.schoolCode}" class="btn btn-outline-primary">
+                                                                <i class="fas fa-edit"></i> Update School Information
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             `);
@@ -312,6 +317,11 @@ frappe.ready(function() {
                                                                 `).join('')}
                                                             </tbody>
                                                         </table>
+                                                        <div class="mt-3 text-end">
+                                                            <a href="/self-assessment?school_code=${item.schoolCode}" class="btn btn-success">
+                                                                <i class="fas fa-plus-circle"></i> Add New Self Assessment
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             `);
@@ -326,7 +336,7 @@ frappe.ready(function() {
                                                             <h5>School Identification Required</h5>
                                                             <p>Before proceeding with your accreditation application, you need to complete the school identification process. This helps us maintain accurate records and ensures a smooth accreditation process.</p>
                                                             <div class="warning-actions">
-                                                                <a href="/school-identification" class="btn btn-primary">
+                                                                <a href="/school-identification?school_code=${item.schoolCode}" class="btn btn-primary">
                                                                     <i class="fa fa-plus-circle"></i> Complete School Identification
                                                                 </a>
                                                             </div>
@@ -345,7 +355,7 @@ frappe.ready(function() {
                                                             <h5>Self Assessment Required</h5>
                                                             <p>A recent self assessment (within the last 6 months) is required to proceed with your accreditation application. This helps evaluate your institution's readiness for accreditation.</p>
                                                             <div class="warning-actions">
-                                                                <a href="/self-assessment" class="btn btn-primary">
+                                                                <a href="/self-assessment?school_code=${item.schoolCode}" class="btn btn-primary">
                                                                     <i class="fa fa-tasks"></i> Start Self Assessment
                                                                 </a>
                                                             </div>
