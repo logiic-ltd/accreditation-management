@@ -275,7 +275,7 @@ frappe.ready(function() {
                                                     <div class="card-header" style="background-color: var(--primary-color); color: white; display: flex; justify-content: space-between; align-items: center;">
                                                         <h5 class="mb-0" style="color: white;">Self Assessment History</h5>
                                                         <a href="/self-assessment?school_code=${item.schoolCode}" class="btn btn-success btn-sm">
-                                                            <i class="fas fa-plus-circle"></i> Add New Self Assessment
+                                                            <i class="fas fa-plus-circle"></i> Conduct New Self Assessment
                                                         </a>
                                                     </div>
                                                     <div class="card-body" style="border: 1px solid #e0e0e0; border-top: none;">
@@ -357,7 +357,7 @@ frappe.ready(function() {
                                                             </div>
                                                             <div class="warning-action">
                                                                 <a href="/self-assessment?school_code=${item.schoolCode}" class="btn btn-primary btn-sm">
-                                                                    <i class="fa fa-tasks"></i> Start Self Assessment
+                                                                    <i class="fa fa-tasks"></i> Conduct Self Assessment
                                                                 </a>
                                                             </div>
                                                         </div>
