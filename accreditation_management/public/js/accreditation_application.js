@@ -243,7 +243,7 @@ frappe.ready(function() {
                                             $('#schoolIdSummary').html(`
                                                 <div class="card mb-3">
                                                     <div class="card-header" style="background-color: var(--primary-color); color: white; display: flex; justify-content: space-between; align-items: center;">
-                                                        <h5 class="mb-0">School Identification Summary</h5>
+                                                        <h5 class="mb-0" style="color: white;">School Identification Summary</h5>
                                                         <a href="/school-identification?school_code=${item.schoolCode}" class="btn btn-outline-light btn-sm">
                                                             <i class="fas fa-edit"></i> Update School Information
                                                         </a>
@@ -273,7 +273,7 @@ frappe.ready(function() {
                                             $('#selfAssessmentSummary').html(`
                                                 <div class="card mb-3">
                                                     <div class="card-header" style="background-color: var(--primary-color); color: white; display: flex; justify-content: space-between; align-items: center;">
-                                                        <h5 class="mb-0">Self Assessment History</h5>
+                                                        <h5 class="mb-0" style="color: white;">Self Assessment History</h5>
                                                         <a href="/self-assessment?school_code=${item.schoolCode}" class="btn btn-success btn-sm">
                                                             <i class="fas fa-plus-circle"></i> Add New Self Assessment
                                                         </a>
