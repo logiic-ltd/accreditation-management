@@ -41,8 +41,17 @@ let indicators;
 frappe.ready(function() {
     showSection(currentSection);
 
-    // Initialize school search
-    initSchoolSearch();
+    // Check if school_code is in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const schoolCode = urlParams.get('school_code');
+    
+    if (schoolCode) {
+        // Automatically fetch school details if school_code is provided
+        fetchSchoolByCode(schoolCode);
+    } else {
+        // Otherwise initialize the search functionality
+        initSchoolSearch();
+    }
 
     // Load TVET sectors and initialize trade selection
     initTVETSelection();
@@ -271,6 +280,61 @@ frappe.ready(function() {
     });
 });
 
+function fetchSchoolByCode(code) {
+    frappe.call({
+        method: 'accreditation_management.www.self_assessment.get_school_by_code',
+        args: { school_code: code },
+        callback: function(r) {
+            if (r.message && r.message.success) {
+                const school = r.message.school;
+                displaySchoolInfo(school);
+                
+                // Show success message
+                frappe.show_alert({
+                    message: `School information loaded automatically`,
+                    indicator: 'green'
+                }, 5);
+                
+                // Show the continue button in provisional results
+                $('#continueToApplication').show();
+            } else {
+                // If school not found, show error and initialize search
+                frappe.show_alert({
+                    message: `School with code ${code} not found. Please search manually.`,
+                    indicator: 'red'
+                }, 5);
+                initSchoolSearch();
+            }
+        },
+        error: function() {
+            // On error, fall back to search
+            frappe.show_alert({
+                message: `Error fetching school information. Please search manually.`,
+                indicator: 'red'
+            }, 5);
+            initSchoolSearch();
+        }
+    });
+}
+
+function displaySchoolInfo(school) {
+    // Set hidden form fields
+    $('#schoolName').val(school.schoolName);
+    $('#schoolCode').val(school.schoolCode);
+    
+    // Update display fields
+    $('#schoolNameDisplay').text(school.schoolName);
+    $('#schoolCodeDisplay').text(school.schoolCode);
+    $('#provinceDisplay').text(school.province || 'N/A');
+    $('#districtDisplay').text(school.district || 'N/A');
+    $('#sectorDisplay').text(school.sector || 'N/A');
+    $('#cellDisplay').text(school.cell || 'N/A');
+    $('#villageDisplay').text(school.village || 'N/A');
+    
+    // Show the school info table
+    $('#schoolInfoTable').show();
+}
+
 function initSchoolSearch() {
     let $searchInput = $('#schoolSearch');
     let $results = $('#schoolSearchResults');
@@ -327,16 +391,7 @@ $searchInput.on('input', function() {
                     $results.find('.school-item').on('click', function() {
                         let index = $(this).index();
                         let item = results[index];
-                        $('#schoolName').val(item.schoolName);
-                        $('#schoolCode').val(item.schoolCode);
-                        $('#schoolNameDisplay').text(item.schoolName);
-                        $('#schoolCodeDisplay').text(item.schoolCode);
-                        $('#provinceDisplay').text(item.province || 'N/A');
-                        $('#districtDisplay').text(item.district || 'N/A');
-                        $('#sectorDisplay').text(item.sector || 'N/A');
-                        $('#cellDisplay').text(item.cell || 'N/A');
-                        $('#villageDisplay').text(item.village || 'N/A');
-                        $('#schoolInfoTable').show();
+                        displaySchoolInfo(item);
                         $searchInput.val(item.schoolName);
                         $results.empty();
                     });
