@@ -33,6 +33,44 @@ def search_schools(search_term, page=0, size=20, sort="schoolName,asc"):
         return {"content": [], "totalElements": 0, "totalPages": 0}
 
 @frappe.whitelist(allow_guest=True)
+def get_school_by_code(school_code):
+    """Get school details by school code"""
+    if not school_code:
+        return {"success": False, "error": "School code is required"}
+        
+    try:
+        # First try to get from the API endpoint for a specific school
+        url = f"{SCHOOL_SEARCH_ENDPOINT.replace('/search', '')}/{school_code}"
+        frappe.logger().info(f"Fetching school by code: {url}")
+        
+        response = requests.get(url, timeout=10)
+        
+        if response.status_code == 200:
+            school = response.json()
+            frappe.logger().info(f"Found school: {school}")
+            return {"success": True, "school": school}
+            
+        # If that fails, try searching by code
+        search_url = f"{SCHOOL_SEARCH_ENDPOINT}?code={school_code}"
+        frappe.logger().info(f"Searching school by code: {search_url}")
+        
+        search_response = requests.get(search_url, timeout=10)
+        if search_response.status_code == 200:
+            result = search_response.json()
+            
+            if isinstance(result, dict) and "content" in result and result["content"]:
+                return {"success": True, "school": result["content"][0]}
+            elif isinstance(result, list) and result:
+                return {"success": True, "school": result[0]}
+            elif isinstance(result, dict) and "schoolName" in result:
+                return {"success": True, "school": result}
+                
+        return {"success": False, "error": f"School with code {school_code} not found"}
+    except Exception as e:
+        frappe.logger().error(f"Error getting school by code: {str(e)}")
+        return {"success": False, "error": str(e)}
+
+@frappe.whitelist(allow_guest=True)
 def start_self_assessment(school):
     if isinstance(school, str):
         school = frappe.parse_json(school)

@@ -9,8 +9,83 @@ frappe.ready(function() {
     }
     
     $('#schoolInfoTable').hide(); // Hide the school info table by default
-    initSchoolSearch();
+    
+    // Check if school_code is in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const schoolCode = urlParams.get('school_code');
+    
+    if (schoolCode) {
+        // Automatically fetch school details if school_code is provided
+        fetchSchoolByCode(schoolCode);
+    } else {
+        // Otherwise initialize the search functionality
+        initSchoolSearch();
+    }
+    
     initFormNavigation();
+    
+    // Function to fetch school by code
+    function fetchSchoolByCode(code) {
+        frappe.call({
+            method: 'accreditation_management.www.self_assessment.get_school_by_code',
+            args: { school_code: code },
+            callback: function(r) {
+                if (r.message && r.message.success) {
+                    const school = r.message.school;
+                    displaySchoolInfo(school);
+                    
+                    // Show success message
+                    frappe.show_alert({
+                        message: `School information loaded automatically`,
+                        indicator: 'green'
+                    }, 5);
+                } else {
+                    // If school not found, show error and initialize search
+                    frappe.show_alert({
+                        message: `School with code ${code} not found. Please search manually.`,
+                        indicator: 'red'
+                    }, 5);
+                    initSchoolSearch();
+                }
+            },
+            error: function() {
+                // On error, fall back to search
+                frappe.show_alert({
+                    message: `Error fetching school information. Please search manually.`,
+                    indicator: 'red'
+                }, 5);
+                initSchoolSearch();
+            }
+        });
+    }
+    
+    // Function to display school information
+    function displaySchoolInfo(school) {
+        $('#schoolName').val(school.schoolName);
+        $('#schoolCode').val(school.schoolCode);
+        $('#schoolEmail').val(school.schoolEmail || '');
+        $('#schoolNameDisplay').text(school.schoolName);
+        $('#schoolCodeDisplay').text(school.schoolCode);
+        $('#schoolEmailDisplay').text(school.schoolEmail || 'N/A');
+        $('#provinceDisplay').text(school.province || 'N/A');
+        $('#districtDisplay').text(school.district || 'N/A');
+        $('#sectorDisplay').text(school.sector || 'N/A');
+        $('#cellDisplay').text(school.cell || 'N/A');
+        $('#villageDisplay').text(school.village || 'N/A');
+        $('#schoolInfoTable').show();
+        
+        // Populate other form fields
+        $('#status').val(school.status || '');
+        $('#schoolOwner').val(school.schoolOwner || '');
+        $('#contact').val(school.contact || '');
+        $('#accommodationStatus').val(school.accommodationStatus || '');
+        $('#yearOfEstablishment').val(school.yearOfEstablishment || '');
+        $('#village').val(school.village || '');
+        $('#cell').val(school.cell || '');
+        $('#sector').val(school.sector || '');
+        $('#district').val(school.district || '');
+        $('#province').val(school.province || '');
+    }
 
     function initSchoolSearch() {
         let $searchInput = $('#schoolSearch');
