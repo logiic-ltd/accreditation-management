@@ -45,6 +45,9 @@ frappe.ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const schoolCode = urlParams.get('school_code');
     
+    // Get the stored request type from localStorage
+    const storedRequestType = localStorage.getItem('accreditationRequestType');
+    
     if (schoolCode) {
         // Automatically fetch school details if school_code is provided
         fetchSchoolByCode(schoolCode);
@@ -55,6 +58,45 @@ frappe.ready(function() {
 
     // Load TVET sectors and initialize trade selection
     initTVETSelection();
+    
+    // Set the request type if it was stored from the landing page
+    if (storedRequestType) {
+        // Wait a bit for the DOM to be fully ready
+        setTimeout(() => {
+            const requestTypeSelect = document.getElementById('typeOfRequest');
+            if (requestTypeSelect) {
+                // Map the stored request type to the select option value
+                const requestTypeMap = {
+                    'New School': '',
+                    'TVET Trades': 'TVET Trade',
+                    'General Combinations': 'Combinations',
+                    'Professional Combinations': 'Professional',
+                    'Ordinary Level': 'Ordinary Level',
+                    'Primary Level': 'Primary Level',
+                    'Pre-primary Level': 'Pre-primary Level',
+                    'Boarding Status': 'Boarding Status'
+                };
+                
+                const mappedValue = requestTypeMap[storedRequestType] || '';
+                
+                if (mappedValue) {
+                    requestTypeSelect.value = mappedValue;
+                    // Trigger the change event to update the UI
+                    requestTypeSelect.dispatchEvent(new Event('change'));
+                    
+                    // Move to the next section automatically if request type is set
+                    if (currentSection === 1) { // If we're on the request type section
+                        nextPrev(1); // Move to the next section
+                    }
+                    
+                    frappe.show_alert({
+                        message: `Request type set to "${storedRequestType}"`,
+                        indicator: 'blue'
+                    }, 5);
+                }
+            }
+        }, 500);
+    }
 
     // Load the indicator options from the JSON configuration file
     frappe.call({
